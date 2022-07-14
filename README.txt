@@ -1,6 +1,6 @@
 === WP Events ===
 Contributors: (this should be a list of wordpress.org userid's)
-Donate link: //allmarketingsolutions.co.uk
+Donate link: //wpminds.com
 Tags: events, seminars, comments, calendar
 Requires at least: 5.1
 Tested up to: 5.5.1
@@ -14,7 +14,7 @@ A simple and light weight WordPress plugin to create events and allow users to r
 
 Easily create and manage events on your website using WP Events, whether it's a on site or virtual event you can create it easily, this plugin handles all your event hurdles for you and our team of elite engineers made sure it's simple, fast and reliable.
 
-WP Events is build by AMS team and packed with all the features to kick off events on your website and WP Events is simple, reliable, and easily customizable.
+WP Events is build by WP Minds team and packed with all the features to kick off events on your website and WP Events is simple, reliable, and easily customizable.
 
 = ✨ Features =
 

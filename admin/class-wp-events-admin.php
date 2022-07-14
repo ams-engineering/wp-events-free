@@ -3,7 +3,7 @@
 /**
  * The admin-specific functionality of the plugin.
  *
- * @link       //allmarketingsolutions.co.uk
+ * @link       //wpminds.com
  * @since      1.0.0
  *
  * @package    Wp_Events
@@ -18,7 +18,7 @@
  *
  * @package    Wp_Events
  * @subpackage Wp_Events/admin
- * @author     All Marketing Solutions <btltimes39@gmail.com>
+ * @author     WP Minds <support@wpminds.com>
  */
 class Wp_Events_Admin {
 

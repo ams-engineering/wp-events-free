@@ -8,7 +8,7 @@
  * registers the activation and deactivation functions, and defines a function
  * that starts the plugin.
  *
- * @link              //allmarketingsolutions.co.uk
+ * @link              //wpminds.com
  * @since             1.0.0
  * @package           Wp_Events
  *
@@ -19,8 +19,8 @@
  * Version:           1.5.3
  * Requires at least: 5
  * Requires PHP:      7
- * Author:            All Marketing Solutions
- * Author URI:        //allmarketingsolutions.co.uk
+ * Author:            WP Minds
+ * Author URI:        //wpminds.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wp-events

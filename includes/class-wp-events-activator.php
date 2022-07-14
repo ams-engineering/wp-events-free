@@ -3,7 +3,7 @@
 /**
  * Fired during plugin activation
  *
- * @link       //allmarketingsolutions.co.uk
+ * @link       //wpminds.com
  * @since      1.0
  *
  * @package    Wp_Events
@@ -18,7 +18,7 @@
  * @since      1.0.0
  * @package    Wp_Events
  * @subpackage Wp_Events/includes
- * @author     All Marketing Solutions <btltimes39@gmail.com>
+ * @author     WP Minds <support@wpminds.com>
  */
 class Wp_Events_Activator {
 

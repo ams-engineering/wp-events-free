@@ -5,7 +5,7 @@
  *
  * @package    Wp_Events/admin
  * @subpackage Wp_Events/admin/includes
- * @author     All Marketing Solutions
+ * @author     WP Minds
  */
 
 // If this file is called directly, abort.

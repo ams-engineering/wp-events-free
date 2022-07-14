@@ -3,7 +3,7 @@
 /**
  * File that contains all the constants used throughout the plugin
  *
- * @link       //allmarketingsolutions.co.uk
+ * @link       //wpminds.com
  * @since      1.2.0
  *
  * @package    Wp_Events

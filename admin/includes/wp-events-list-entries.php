@@ -5,7 +5,7 @@
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
- * @link       //allmarketingsolutions.co.uk
+ * @link       //wpminds.com
  * @since      1.0.449
  *
  * @package    Wp_Events

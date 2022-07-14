@@ -6,7 +6,7 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @link       //allmarketingsolutions.co.uk
+ * @link       //wpminds.com
  * @since      1.0.0
  *
  * @package    Wp_Events
@@ -22,7 +22,7 @@
  * @since      1.0.0
  * @package    Wp_Events
  * @subpackage Wp_Events/includes
- * @author     All Marketing Solutions <btltimes39@gmail.com>
+ * @author     WP Minds <support@wpminds.com>
  */
 class Wp_Events_i18n {
 
