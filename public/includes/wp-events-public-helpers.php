@@ -509,26 +509,6 @@ if ( ! function_exists( 'wpe_get_seats_dropdown' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wpe_get_events_feat_img' ) ) {
-	/**
-     * displays event featured image on archive page.
-     *
-	 * @param $post_id
-     *
-     * @since 1.5.1
-	 */
-	function wpe_get_events_feat_img( $post_id ) {
-		$feat_img = get_the_post_thumbnail_url( $post_id ) != false ? get_the_post_thumbnail_url( $post_id ) : plugins_url() . '/wp-events/assets/img/logo-placeholder.png';
-		?>
-		<div class="wpe-col-img">
-		<a href="<?php the_permalink(); ?>">
-		<img width="300" height="169" src="<?php echo $feat_img; ?>" class="wpe_event_image" alt="<?php echo get_the_title();?>">
-		</a>    
-		</div>
-		<?php
-	}
-}
-
 if ( ! function_exists( 'wpe_get_event_row' ) ) {
 	/**
      * gets data for single event for archive page.
@@ -543,7 +523,6 @@ if ( ! function_exists( 'wpe_get_event_row' ) ) {
 		<div class="wpe-row wpe-<?php echo $post_id;?> <?php echo $default_grid_layout ?>">
 		<?php 
 		wpe_get_events_day_date_column( $post_id );
-		wpe_get_events_feat_img( $post_id );
 		do_action( 'wp_events_event_body', $post_id ); ?>
 		</div>
 		<?php
