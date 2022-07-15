@@ -8,7 +8,7 @@ get_header();
 
 <div class="wpe-event">
     <div class="wpe-full-wrap">
-        <div class="wpevents-container">
+        <div class="wpevents-container <?php echo wpe_dark_bg(); ?> <?php echo wpe_dark_mode(); ?>">
             <?php
             wpe_get_taxonomy_page_title();
 

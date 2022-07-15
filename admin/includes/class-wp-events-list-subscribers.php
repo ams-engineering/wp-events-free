@@ -135,18 +135,19 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 	public function display_tablenav( $which ) {
 ?>
 		<input type='hidden' name='_wpnonce' value='<?php echo wp_create_nonce( 'wp_events_entries' ); ?>' />
-		<div class="tablenav 
-		<?php echo esc_attr( $which ); ?>">
-		<?php if ( $this->has_items() ) : ?>
-		<div class="alignleft actions bulkactions">
-		<?php $this->bulk_actions( $which ); ?>
-		</div>
-		<?php
+		<div class="tablenav <?php echo esc_attr( $which ); ?>">
+			<?php 
+			if ( $this->has_items() ) : 
+				?>
+				<div class="alignleft actions bulkactions">
+					<?php $this->bulk_actions( $which ); ?>
+				</div>
+				<?php
 			endif;
 			$this->extra_tablenav( $which );
 			$this->pagination( $which );
-		?>
-		<br class="clear" />
+			?>
+			<br class="clear" />
 		</div>
 <?php
 	}

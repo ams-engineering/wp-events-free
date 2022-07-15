@@ -63,7 +63,7 @@ if ( ! function_exists( 'wpe_custom_loop ' ) ) {
 		?>
 
         <div class="wpe-event">
-			<div class="wpevents-container">
+			<div class="wpevents-container <?php echo wpe_dark_bg(); ?> <?php echo wpe_dark_mode(); ?>">
 				<?php
 				echo wpe_get_archive_page_title();
 

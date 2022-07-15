@@ -147,7 +147,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	 */
 	public function display_tablenav( $which ) {
 
-?>
+		?>
 		<input type='hidden' name='_wpnonce' value='<?php echo wp_create_nonce('wp_events_entries'); ?>' />
 		<div class="tablenav 
 		<?php echo esc_attr( $which ); ?>">
@@ -162,7 +162,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		?>
 		<br class="clear" />
 		</div>
-<?php
+		<?php
 	}
 
 	/**
@@ -650,7 +650,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		// HTML for our select printing post titles as loop.
 		$output = '<select name="wpe_titles" id="wpe_titles" class="mdb-select md-form" searchable="Search here..">';
 
-		$output .= '<option value="-1" selected>' . esc_html_e(  'All Events', 'wp-events' ) . '</option>';
+		$output .= '<option value="-1" selected>All Events</option>';
 
 		foreach ( $results as $title => $ids ) {
 			if ( is_array( $ids ) ) {

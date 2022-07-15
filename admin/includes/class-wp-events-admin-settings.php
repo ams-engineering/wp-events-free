@@ -255,6 +255,14 @@ class Wp_Events_Admin_Settings {
 		 */
 
 		add_settings_field(
+			'wpe_settings_enable_darkmode',
+			'Enable Dark Mode',
+			[ $this, 'wpe_settings_enable_darkmode_callback' ],
+			'wp_events_settings&tab=display',
+			'wpe_settings_display_section'
+		);
+		
+		add_settings_field(
 			'wpe_settings_disable_archive',
 			'Disable Archive Page',
 			[ $this, 'wpe_settings_disable_archive_callback' ],
@@ -1476,6 +1484,24 @@ class Wp_Events_Admin_Settings {
      *  Display Tab Fields Callback Functions
      * ==============================================
 	 */
+
+	/**
+	 * Enable Dark Mode
+	 *
+	 * @access public
+	 * @since 1.4.3
+	 */
+	public function wpe_settings_enable_darkmode_callback() {
+		$option = get_option( 'wpe_display_settings' );
+		?>
+        <label class="wpe-checkbox">
+            <input name="wpe_display_settings[dark_mode]" id="wpe_dark_mode" value="l_true"
+                   type="checkbox" <?php echo isset( $option['dark_mode'] ) ? 'checked' : ''; ?> />
+            <span class="slider round"></span>
+        </label>
+        <small><?php esc_html_e( 'Check to enable dark mode.', 'wp-events' ); ?></small>
+		<?php
+	}
 
 	/**
 	 * Disable Archive Page

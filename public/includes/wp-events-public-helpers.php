@@ -198,7 +198,7 @@ if ( ! function_exists( 'wpe_get_event_title' ) ) {
 		$target 		  = $wpe_external_url !== '' ? '_blank' : '';
 	?>
         <div class="wpe-title entry-title">
-            <a class="entry-title-link" href="<?php echo $href_link ?>" target="<?php echo $target ?>" 
+            <a class="entry-title-link <?php echo wpe_dark_mode(); ?>" href="<?php echo $href_link ?>" target="<?php echo $target ?>" 
 			title="<?php echo get_the_title(); ?>"><?php echo get_the_title(); ?></a>
         </div>
 		<?php
@@ -311,12 +311,12 @@ if ( ! function_exists( 'wpe_get_archive_page_title' ) ) {
      * @since 1.0.448
 	 */
 	function wpe_get_archive_page_title() {
-		$title         = '';
-		$archive_title = get_option( 'wpe_display_settings' );
-		$title         = $archive_title['archive_title'] ?? '';
-		$title         = apply_filters( 'wpe_archive_page_title_text', $title );
+		$title           = '';
+		$display_options = get_option( 'wpe_display_settings' );
+		$title           = $display_options['archive_title'] ?? '';
+		$title           = apply_filters( 'wpe_archive_page_title_text', $title );
 		if ( $title !== '' ) {
-			$title = '<h1 class="wpe-template-title">' . esc_attr( $title ) . '</h1>';
+			$title = '<h1 class="wpe-template-title '. wpe_dark_mode() .'">' . esc_attr( $title ) . '</h1>';
 		}
 
 		return apply_filters( 'wpe_archive_page_title_html', $title );
@@ -514,16 +514,16 @@ if ( ! function_exists( 'wpe_get_event_row' ) ) {
      * gets data for single event for archive page.
      *
 	 * @param $post_id
-	 * @param string $default_grid_layout
      *
      * @since 1.5.1
 	 */
-	function wpe_get_event_row( $post_id, $default_grid_layout ) {
+	function wpe_get_event_row( $post_id ) {
 		?>
-		<div class="wpe-row wpe-<?php echo $post_id;?> <?php echo $default_grid_layout ?>">
-		<?php 
-		wpe_get_events_day_date_column( $post_id );
-		do_action( 'wp_events_event_body', $post_id ); ?>
+		<div class="wpe-row wpe-<?php echo $post_id; ?>">
+			<?php 
+			wpe_get_events_day_date_column( $post_id );
+			do_action( 'wp_events_event_body', $post_id );
+			?>
 		</div>
 		<?php
 	}
@@ -539,13 +539,6 @@ if ( ! function_exists( 'wpe_display_archive_posts' ) ) {
 	 * @return int
 	 */
 	function wpe_display_archive_posts( $args ) {
-		$wpe_display_settings = get_option( 'wpe_display_settings' );
-		$default_view         = $wpe_display_settings['default_view'];
-		switch( $default_view ) {
-			case 'list':
-				$class = 'wpe-list';
-				break;
-		}
 		$wpe_query = new WP_Query( $args );
 		$count 	   = 0;
 		
@@ -559,16 +552,13 @@ if ( ! function_exists( 'wpe_display_archive_posts' ) ) {
 					continue;
 				}
 				$count++;
-				wpe_get_event_row( $post_id, $default_grid_layout );
+				wpe_get_event_row( $post_id );
 				echo "<hr class='wpe-divider'>";
 			}
 			if( $wpe_query->max_num_pages > 1 ){
 				echo '<div class="wpe-pagination wpe_loadmore_btn"><span class="wpe-button">Load More Events<span></div>';			
 			}
-	   	}
-		?>
-		</div>
-		<?php		
+	   	}	
 		return $count;
 	}
 }

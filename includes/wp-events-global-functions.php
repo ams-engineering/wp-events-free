@@ -591,3 +591,29 @@ if( ! function_exists( 'wpe_get_past_events' ) ) {
 		return $past_events;
     }
 }
+
+if( ! function_exists( 'wpe_dark_mode' ) ) {
+	/**
+	 * Returns class for dark mode
+	 *
+	 * @since 1.5.2
+	 */
+	function wpe_dark_mode() {
+		$display_options = get_option( 'wpe_display_settings' );
+        $darkmode        = isset( $display_options['dark_mode'] ) ? 'wpe-dark-mode-text' : '';
+		return $darkmode;
+    }
+}
+
+if( ! function_exists( 'wpe_dark_bg' ) ) {
+	/**
+	 * Returns class for dark mode
+	 *
+	 * @since 1.5.2
+	 */
+	function wpe_dark_bg() {
+		$display_options = get_option( 'wpe_display_settings' );
+        $darkmode        = isset( $display_options['dark_mode'] ) ? 'wpe-dark-mode' : '';
+		return $darkmode;
+    }
+}

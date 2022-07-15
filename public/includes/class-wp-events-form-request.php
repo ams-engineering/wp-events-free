@@ -415,9 +415,6 @@ class Wp_Form_Request
 	 * @since 1.5.1
 	 */
 	public function wpe_loadmore_ajax_handler() {
-
-		$wpe_display_settings = get_option( 'wpe_display_settings' );
-		$default_grid_layout  = $wpe_display_settings['grid_layout'];
 	
 		// prepare our arguments for the query
 		$args 						 = json_decode( stripslashes( $_POST['query'] ), true );
@@ -449,7 +446,7 @@ class Wp_Form_Request
 				}
 				$count++;
 				echo "<hr class='wpe-divider'>";
-				wpe_get_event_row( $post_id, $default_grid_layout );
+				wpe_get_event_row( $post_id );
 			}
 		endif;
 		die;

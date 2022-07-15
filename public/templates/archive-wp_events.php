@@ -9,7 +9,7 @@ get_header();
 ?>
 
 <div class="wpe-event">
-    <div class="wpe-full-wrap">
+    <div class="wpe-full-wrap <?php echo wpe_dark_bg(); ?> <?php echo wpe_dark_mode(); ?>">
         <div class="wpevents-container">
             <?php
             echo wpe_get_archive_page_title();

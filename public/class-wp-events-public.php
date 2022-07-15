@@ -522,7 +522,7 @@ class Wp_Events_Public {
 		?>
 
         <div class="wpe-event">
-            <div class="wpe-full-wrap">
+            <div class="wpe-full-wrap <?php echo wpe_dark_bg(); ?> <?php echo wpe_dark_mode(); ?>">
                 <div class="wpevents-container">
 					<?php
 
@@ -617,7 +617,7 @@ class Wp_Events_Public {
 	public function wpe_event_meta( $post_id ) {
 		?>
 		 <div class="wpe-col-event">
-			<div class="wpe-col-inner">
+			<div class="wpe-col-inner <?php echo wpe_dark_mode(); ?>">
 				<?php
 				wpe_get_event_title( $post_id );
 
@@ -628,11 +628,11 @@ class Wp_Events_Public {
 				wpe_get_event_address( $post_id );
 				?>
 				<div class="wpe-archive-buttons">
-				<?php
-				wpe_get_archive_details();
-				
-				wpe_get_registration_button( $post_id ); 
-				?>
+					<?php
+					wpe_get_archive_details();
+					
+					wpe_get_registration_button( $post_id ); 
+					?>
 				</div>
 			</div>
 		</div>
