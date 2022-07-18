@@ -29,7 +29,7 @@ class Wp_Form_Request
 		wpe_request_log( $_REQUEST );
 
 		$form_data = isset( $_POST['form_data'] ) ? $_POST['form_data'] : [];
-		// $page_slug = get_option( 'wpe_settings' );
+		$page_slug = get_option( 'wpe_settings' );
 
 		/**
 		 * wpe_decode_array global function created in includes/wp-events-global-functions.php
@@ -38,7 +38,7 @@ class Wp_Form_Request
 		/**
 		 * settings current form data to shortcodes $form_data attr
 		 */
-		// Wpe_Shortcodes::set_form_data( $form_data );
+		Wpe_Shortcodes::set_form_data( $form_data );
 
 		$referer   = isset( $form_data['_wp_http_referer'] ) ? $form_data['_wp_http_referer'] : '';
 		$arr	   = explode('/' , $referer);
