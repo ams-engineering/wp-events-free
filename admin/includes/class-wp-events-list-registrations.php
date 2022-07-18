@@ -650,7 +650,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		// HTML for our select printing post titles as loop.
 		$output = '<select name="wpe_titles" id="wpe_titles" class="mdb-select md-form" searchable="Search here..">';
 
-		$output .= '<option value="-1" selected>All Events</option>';
+		$output .= '<option value="-1" selected>' . __( 'All Events', 'wp-events' ) . '</option>';
 
 		foreach ( $results as $title => $ids ) {
 			if ( is_array( $ids ) ) {

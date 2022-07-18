@@ -86,12 +86,12 @@ if ( ! function_exists( 'wpe_get_thankyou_popup' ) ) {
 	 *
 	 * @since 1.0.448
 	 */
-	function wpe_get_thankyou_popup() {
+	function wpe_get_thankyou_popup( $text ) {
 		?>
         <div class="thankyou-popup" style="display:none;">
             <div class="t-y-inner"><span class="close-btn"></span>
                 <p><?php
-					echo __( 'ThankYou For Registering.', 'wp-events' );
+					echo __( $text, 'wp-events' );
 					?>
                 </p>
             </div>

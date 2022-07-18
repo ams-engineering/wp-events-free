@@ -180,14 +180,10 @@ get_header();
 				endif;
 				?>
             </div>
-            <div class="thankyou-popup" style="display:none;">
-                <div class="t-y-inner"><span class="close-btn"></span>
-                    <p><?php
-	                    echo __( 'ThankYou For Registering.', 'wp-events' );
-						?>
-                    </p>
-                </div>
-            </div>
+			<?php
+			$text = 'ThankYou For Registering.';
+			wpe_get_thankyou_popup( $text );
+			?>
         </div>
     </div>
 <?php
