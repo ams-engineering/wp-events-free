@@ -266,7 +266,9 @@ if ( ! function_exists( 'wpe_get_entry_sidebar' ) ) {
 
             $notification_body = '<input type="checkbox" id="wpe-entry-notification" name="wpe-entry-notification" value="1">
             <label for="wpe-entry-notification">Admin Notification</label><br>
-            <button title="Resend Registrant Notification" class="wpe-btn" id="resend-btn">Resend</button>';
+            <input type="checkbox" id="wpe-entry-notification-user" name="wpe-entry-notification-user" value="1">
+            <label for="wpe-entry-notification-user">User Notification</label><br>
+            <button title="Resend Notification" class="wpe-btn" id="resend-btn">Resend</button>';
 
             wpe_sidebar_section( 'Entry', $entry_info );
             if ( $tab === 'registrations' ) {

@@ -419,27 +419,31 @@ jQuery(document).ready( function($) {
 	// on Resend notification button click
 	$( document ).on('click', '#resend-btn', function(e) {
 		e.preventDefault();
-		var form		  = document.getElementById( 'wpe-edit-entry-form' );
-		var dataString	  = $( form ).serializeJSON();
-		adminNotification = $('#wpe-entry-notification').prop("checked");
-		let searchParams  = new URLSearchParams( window.location.search );
-		let tab			  = searchParams.get('tab');
-		resendNotification( dataString, adminNotification, tab );
+		var form		 	  = document.getElementById( 'wpe-edit-entry-form' );
+		var dataString	  	  = $( form ).serializeJSON();
+		var adminNotification = $('#wpe-entry-notification').prop("checked");
+		var userNotification  = $('#wpe-entry-notification-user').prop("checked");
+		let searchParams 	  = new URLSearchParams( window.location.search );
+		let tab			 	  = searchParams.get('tab');
+		resendNotification( dataString, adminNotification, userNotification, tab );
 	});
 
 	//ajax call to update form data after entry is edited
-	function resendNotification( dataString, adminNotification, tab ){
+	function resendNotification( dataString, adminNotification, userNotification, tab ){
 		$.ajax( {
 		  	type: 'post',
 			url:  wpe_ajaxobject.ajaxurl,
 			data: { action: 'wpe_resend_notification',
 					formData: dataString,
 					adminNoti: adminNotification,
+					userNoti: userNotification,
 					displayTab: tab
 				},
 			success: function( response ) {
 				if( response == 1 ) {
 					wpe_popup('Notification Resent.');
+				} else if ( response == 2 ) {
+					wpe_popup('Please select a checkbox.');
 				} else {
 					wpe_popup('Could Not Process Request.');
 				}

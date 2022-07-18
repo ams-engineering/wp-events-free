@@ -26,6 +26,7 @@ class Wp_Admin_Request {
 		$formData          = isset( $_POST['formData'] ) ? $_POST['formData'] : [];
         $tab               = isset( $_POST['displayTab'] ) ? $_POST['displayTab'] : 'registrations';
         $admin_noification = $_POST['adminNoti'];
+        $user_noification  = $_POST['userNoti'];
         $mail_options      = get_option('wpe_mail_settings');
         $firm_info         = get_option('wpe_firm_settings');
         $from_name         = $firm_info['mail_from_name'];
@@ -37,6 +38,10 @@ class Wp_Admin_Request {
 
         if( !isset( $formData ) || $formData == '' ) {
             wpe_send_ajax_response( 0 );
+        }
+
+        if( $admin_noification !== 'true' && $user_noification !== 'true' ) {
+            wpe_send_ajax_response( 2 );
         }
 
         if( $admin_noification === 'true' ) {
@@ -52,19 +57,21 @@ class Wp_Admin_Request {
             wp_mail( $firm_info['admin_mail'], $admin_subject, $admin_message, $headers );
         }
 
-        $to       = $formData['wpe_email'];
-        $subject  = 'Your registration for '. do_shortcode("[wpe_event_name]") .' is Edited';
-        $message  = 'Dear [wpe_user_first_name] [wpe_user_last_name],<br />
-        Thank you for registering for our upcoming Event. This is an auto-generated email confirming change of details for your registration for our upcoming Event. <br />
-        <br />
-        The new details of your registration are following.<br />
-        [wpe_event_details] <br />
-        [wpe_registration_details]<br />
-        If you have any questions, please feel free to contact us at our office number or via email.<br />
-        We look forward to seeing you.<br />
-        Sincerely,';
-        $message  = do_shortcode( $message, TRUE );
-        wp_mail( $to, $subject, $message, $headers );
+        if( $user_noification === 'true' ) {
+            $to       = $formData['wpe_email'];
+            $subject  = 'Your registration for '. do_shortcode("[wpe_event_name]") .' is Edited';
+            $message  = 'Dear [wpe_user_first_name] [wpe_user_last_name],<br />
+            Thank you for registering for our upcoming Event. This is an auto-generated email confirming change of details for your registration for our upcoming Event. <br />
+            <br />
+            The new details of your registration are following.<br />
+            [wpe_event_details] <br />
+            [wpe_registration_details]<br />
+            If you have any questions, please feel free to contact us at our office number or via email.<br />
+            We look forward to seeing you.<br />
+            Sincerely,';
+            $message  = do_shortcode( $message, TRUE );
+            wp_mail( $to, $subject, $message, $headers );
+        }
 
         wpe_send_ajax_response( 1 );
 
