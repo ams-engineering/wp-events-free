@@ -1517,7 +1517,7 @@ class Wp_Events_Admin_Settings {
                    type="checkbox" <?php echo isset( $option['disable_archive'] ) ? 'checked' : ''; ?> />
             <span class="slider round"></span>
         </label>
-        <small><?php esc_html_e( 'Check to disable archive page.', 'wp-events' ); ?></small>
+        <small><?php esc_html_e( 'Check to disable archive page. (Please refresh the permalinks after saving the changes).', 'wp-events' ); ?></small>
 		<?php
 	}
 
