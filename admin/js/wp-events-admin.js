@@ -192,6 +192,52 @@ jQuery(document).ready( function($) {
 		});
 	}
 
+
+		/**
+	 * if the pattern not matches with (123) 123-1224 the publish and update button will be disabled
+	 * */
+		 if ( $( 'body' ).hasClass( 'post-type-wp_events' ) ) {
+
+			function checkPhoneNumber( input ) {
+				let regex = /\(\d\d\d+\)\s\d\d\d-\d\d\d\d+/i;
+				return regex.test( input );
+			}
+			$( document ).ready( function() {
+				if ( ! checkPhoneNumber( $( '#wpevent-phone' ).val() ) ) {
+					$( '.editor-post-publish-button__button' ).prop( "disabled", true );
+				}
+			});
+	
+			/**
+			 * if the date fields are empty disable the publish button
+			 * */
+			$( '#wpevent-start-date' ).on( "change paste keyup", function() {
+				if ( $( '#wpevent-start-date' ) == '' ) {
+					$( '.editor-post-publish-button__button' ).prop("disabled", true );
+				}
+				else if ( checkPhoneNumber( $( '#wpevent-phone' ).val() ) && $( '#wpevent-start-date' ) != '' && $( '#wpevent-end-date' ) != '' ) {
+					$( '.editor-post-publish-button__button' ).prop( "disabled", false );
+				}
+			});
+			$( '#wpevent-end-date' ).on( "change paste keyup", function() {
+				if ( $( '#wpevent-end-date' ) == '' ) {
+					$( '.editor-post-publish-button__button' ).prop( "disabled", true );
+				}
+				else if ( checkPhoneNumber($( '#wpevent-phone' ).val()) && $( '#wpevent-start-date' ) != '' && $( '#wpevent-end-date' ) != '' ) {
+					$( '.editor-post-publish-button__button' ).prop( "disabled", false );
+				}
+			});
+			$( '#wpevent-phone' ).on( "change paste keyup", function( input ) {
+				var startDate = $( '#wpevent-start-date' ).val();
+				var endDate	  = $( '#wpevent-end-date' ).val();
+				if ( ! checkPhoneNumber( $( '#wpevent-phone' ).val() ) ) {
+					$( '.editor-post-publish-button__button' ).prop( "disabled", true );
+				}else if ( checkPhoneNumber ($( '#wpevent-phone' ).val() ) && startDate != '' && endDate != '' ) {
+					$( '.editor-post-publish-button__button' ).prop( "disabled", false );
+				}
+			});
+		 }	
+
 	//on event single page
 	if ( $('body').hasClass('post-type-wp_events') ) {
 		// on publish button click
