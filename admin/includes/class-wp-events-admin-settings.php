@@ -227,6 +227,14 @@ class Wp_Events_Admin_Settings {
 			'wp_events_settings&tab=events',
 			'wpe_settings_events_section'
 		);
+
+		add_settings_field(
+			'wpe_settings_draft_past_events',
+			'Move Past Events to Draft',
+			[ $this, 'wpe_settings_draft_past_events_callback' ],
+			'wp_events_settings&tab=events',
+			'wpe_settings_events_section'
+		);
 	}
 
 	/**
@@ -1475,6 +1483,24 @@ class Wp_Events_Admin_Settings {
             <span class="slider round"></span>
         </label>
         <small><?php esc_html_e( 'Check to enable option for Registration Cancellation/Approval.', 'wp-events' ); ?></small>
+		<?php
+	}
+
+	/**
+	 * Move past events to draft
+	 *
+	 * @access public
+	 * @since 1.2.0
+	 */
+	public function wpe_settings_draft_past_events_callback() {
+		$option = get_option( 'wpe_events_settings' );
+		?>
+        <label class="wpe-checkbox">
+            <input name="wpe_events_settings[draft_past_events]" id="draft_past_events" value="l_true"
+                   type="checkbox" <?php echo isset( $option['draft_past_events'] ) ? 'checked' : ''; ?> />
+            <span class="slider round"></span>
+        </label>
+        <small><?php esc_html_e( 'Move past events to draft (to exclude from indexing).', 'wp-events' ); ?></small>
 		<?php
 	}
 
