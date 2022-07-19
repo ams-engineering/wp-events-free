@@ -1300,14 +1300,17 @@ class Wp_Events_Admin {
      * @since 1.5.2
      */
     public function wpe_past_events_draft() {
-        $past_events = wpe_get_past_events();
-        if( $past_events ) {
-            foreach ( $past_events as $eventID ) {
-                $arg = array(
-                    'ID'            => $eventID,
-                    'post_status'   => 'draft',
-                );
-                wp_update_post( $arg );
+		$option = get_option( 'wpe_events_settings' );
+        if ( isset( $option['draft_past_events'] ) ) {
+            $past_events = wpe_get_past_events();
+            if( $past_events ) {
+                foreach ( $past_events as $eventID ) {
+                    $arg = array(
+                        'ID'            => $eventID,
+                        'post_status'   => 'draft',
+                    );
+                    wp_update_post( $arg );
+                }
             }
         }
     }

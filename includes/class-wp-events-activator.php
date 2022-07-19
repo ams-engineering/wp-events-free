@@ -87,7 +87,6 @@ class Wp_Events_Activator {
 			'disclaimer_checkbox'		  		 => 'I have read & understand your website Disclaimer. *',
 			'hearaboutus_options'		  		 => 'An Email I Received, Blog / Facebook, Internet / Search Engine, Landing Pages, Radio and TV, Link from another website, Mailing / Postcard, Newsletter, Newspaper, Other, Referral',
 			'subscriber_form_texting_permission' => 'I agree to receive texts at the number provided from [wpe_firm_name]. Frequency may vary and include information on appointments, events, and other marketing messages. Message/data rates may apply. To opt-out, text STOP at any time.',
-			'reg_enable_texting_permission'		 => 'yes',
 		];
 
 		$this->wpe_save_default_options( $wpe_form_settings, $form_defaults, 'wpe_forms_settings' );
@@ -124,18 +123,19 @@ class Wp_Events_Activator {
 
 		// email default options array
 		$email_defaults = [
-			'mail_from'                => get_option( 'admin_email' ),
-			'admin_mail'               => get_option( 'admin_email' ),
-			'mail_from_name'           => get_current_user(),
-			'mail_success_subject'     => 'Thank you for registering with us at [wpe_event_name]',
-			'mail_success_message'     => self::$instance->user_email_message(),
-			'webinar_success_message'  => self::$instance->user_email_message(),
-			'registrant_admin_subject' => 'New booking for [wpe_event_name]',
-			'registrant_admin_message' => self::$instance->admin_email_message( 'registrant' ),
-			'subscriber_user_subject'  => 'Hey Subscriber!',
-			'subscriber_user_message'  => 'Thank you for your interest, You\'re now subscribed for our future events',
-			'subscriber_admin_subject' => 'New Subscription',
-			'subscriber_admin_message' => self::$instance->admin_email_message( 'subscriber' ),
+			'mail_from'               	  => get_option( 'admin_email' ),
+			'admin_mail'              	  => get_option( 'admin_email' ),
+			'mail_from_name'          	  => get_current_user(),
+			'mail_success_subject'    	  => 'Thank you for registering with us at [wpe_event_name]',
+			'mail_success_message'    	  => self::$instance->user_email_message(),
+			'webinar_success_message' 	  => self::$instance->user_email_message(),
+			'registrant_admin_subject'	  => 'New booking for [wpe_event_name]',
+			'registrant_admin_message'	  => self::$instance->admin_email_message( 'registrant' ),
+			'subscriber_user_subject' 	  => 'Hey Subscriber!',
+			'subscriber_user_message' 	  => 'Thank you for your interest, You\'re now subscribed for our future events',
+			'subscriber_admin_subject'    => 'New Subscription',
+			'subscriber_admin_message'    => self::$instance->admin_email_message( 'subscriber' ),
+			'enable_webinar_conformation' => 'l_true',
 		];
 
 		$this->wpe_save_default_options( $wpe_mail_settings, $email_defaults, 'wpe_mail_settings' );
