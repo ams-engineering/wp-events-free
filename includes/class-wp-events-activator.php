@@ -65,6 +65,7 @@ class Wp_Events_Activator {
 		self::$instance->default_email_settings();
 		self::$instance->default_form_settings();
 		self::$instance->default_display_settings();
+		self::$instance->default_firm_settings();
 	}
 
 	/**
@@ -124,7 +125,6 @@ class Wp_Events_Activator {
 		// email default options array
 		$email_defaults = [
 			'mail_from'               	  => get_option( 'admin_email' ),
-			'admin_mail'              	  => get_option( 'admin_email' ),
 			'mail_from_name'          	  => get_current_user(),
 			'mail_success_subject'    	  => 'Thank you for registering with us at [wpe_event_name]',
 			'mail_success_message'    	  => self::$instance->user_email_message(),
@@ -216,7 +216,20 @@ class Wp_Events_Activator {
 		return nl2br( preg_replace( "/\t+/", "", $message ) );    //  removing tabs from string
 	}
 
+	/**
+	 * sets default values for firm options
+	 *
+	 * @access private
+	 * @since  1.0.438
+	 */
+	private function default_firm_settings() {
+		// email options
+		$wpe_firm_settings = get_option( 'wpe_firm_settings' );
 
+		$firm_defaults = [
+			'admin_mail' => get_option( 'admin_email' ),
+		];
 
-
+		$this->wpe_save_default_options( $wpe_firm_settings, $firm_defaults, 'wpe_firm_settings' );
+	}
 }

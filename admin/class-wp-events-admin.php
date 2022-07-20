@@ -340,16 +340,16 @@ class Wp_Events_Admin {
                 $event_date_time = wpevent_date_time( $post->ID );
 	            ?>
             <div class="start-date event-control wpe-left">
-                <label for="wpevent-start-date"><?php esc_html_e( 'Start Date', 'wp-events' ); ?></label>
+                <label for="wpevent-start-date"><?php esc_html_e( 'Start Date*', 'wp-events' ); ?></label>
                 <input id="wpevent-start-date" class="wpevent-start-date wp-event-datepicker wp-event-field" type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title="YYYY-MM-DD" name="wpevent-start-date" value="<?php echo isset( $event_date_time['start_date'] ) ? $event_date_time['start_date'] : '' ;?>" autocomplete="off" required/>
-                <p>This field is required</p>
+                <p><?php esc_html_e( 'This field is required', 'wp-events' ); ?></p>
                 <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
             </div>
 
             <div class="end-date event-control wpe-right">
-                <label for="wpevent-end-date"><?php esc_html_e( 'End Date', 'wp-events' ); ?></label>
+                <label for="wpevent-end-date"><?php esc_html_e( 'End Date*', 'wp-events' ); ?></label>
                 <input id="wpevent-end-date" class="wpevent-end-date wp-event-datepicker wp-event-field" type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title="YYYY-MM-DD" name="wpevent-end-date" value="<?php echo isset( $event_date_time['end_date'] ) ? $event_date_time['end_date'] : '' ;?>" autocomplete="off" required/>
-                <p>This field is required</p>
+                <p><?php esc_html_e( 'This field is required', 'wp-events' ); ?></p>
                 <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
             </div>
 
@@ -416,9 +416,9 @@ class Wp_Events_Admin {
         <div class="wp-events-additional wp-event-subsection">
             <div class="wp-event-section-title"><p><?php esc_html_e( 'Additonal Information', 'wp-events' ); ?></p></div>
             <div class="phone event-control wpe-left" id="event-control">
-                <label for="wpevent-phone"><?php esc_html_e( 'Phone', 'wp-events' ); ?></label>
+                <label for="wpevent-phone"><?php esc_html_e( 'Phone*', 'wp-events' ); ?></label>
                 <input id="wpevent-phone" title="(123) 111-1234" class="wp-event-field" type="tel" pattern="^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$" name="wpevent-phone" value="<?php echo get_post_meta( $post->ID, 'wpevent-phone', true );?>"/>
-                <p>format: (123) 123-1234</p>
+                <p><?php esc_html_e( 'format: (123) 123-1234', 'wp-events' ); ?></p>
                 <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
             </div>
             <div class="external-url event-control wpe-right">
