@@ -95,8 +95,7 @@ class Wp_Form_Request
 	        //getting mail settings
 	        $mail_options = get_option( 'wpe_mail_settings' );
 			//Get Firm information
-	        $firm_info  = get_option( 'wpe_firm_settings' );
-			$admin_mail =isset( $firm_info['admin_mail'] ) ? $firm_info['admin_mail'] : get_option('admin_email');
+	        $firm_info = get_option( 'wpe_firm_settings' );
 			// subscriber details
 	        $subscriber_subject = do_shortcode( $mail_options['subscriber_user_subject'], TRUE );
 	        $subscriber_message = do_shortcode( $mail_options['subscriber_user_message'], TRUE );
@@ -115,7 +114,7 @@ class Wp_Form_Request
 	        wp_mail( $subscriber_email, $subscriber_subject, $subscriber_message, $headers );
 
 	        //send email top admin
-	        wp_mail($admin_mail, $admin_subject, $admin_message, $headers );
+	        wp_mail( $firm_info['admin_mail'], $admin_subject, $admin_message, $headers );
 
 		    /**
 		     * Fires after submission is completed
@@ -318,7 +317,6 @@ class Wp_Form_Request
 		$from_name    				= $firm_info['mail_from_name'];
 		$from_email   				= $mail_options['mail_from'];
 		$enable_webinar_confimation = $mail_options['enable_webinar_conformation'];	
-		$admin_mail 				=isset( $firm_info['admin_mail'] ) ? $firm_info['admin_mail'] : get_option('admin_email');
 
 		$headers[]  = 'Content-Type: text/html;';
 		$headers[]  = "from :$from_name <$from_email>";
@@ -358,10 +356,10 @@ class Wp_Form_Request
 		 * get notification user from post meta
 		*/
 		$notified_user = get_post_meta( $data['post_id'], 'wpevent-email-notification', TRUE );
-		if( $notified_user !=='' && $notified_user !== $admin_mail ) { // if not empty and not identical to the one in mail options send to notified user
+		if( $notified_user !=='' && $notified_user !== $firm_info['admin_mail'] ) { // if not empty and not identical to the one in mail options send to notified user
 			wp_mail( $notified_user, $admin_subject, $admin_message, $headers );
 		} else {
-			wp_mail( $admin_mail, $admin_subject, $admin_message, $headers );
+			wp_mail( $firm_info['admin_mail'], $admin_subject, $admin_message, $headers );
 		}
 	}
 
