@@ -1,30 +1,25 @@
 <?php
 
 /**
- * The plugin bootstrap file
+ * WP Events
  *
- * This file is read by WordPress to generate the plugin information in the plugin
- * admin area. This file also includes all of the dependencies used by the plugin,
- * registers the activation and deactivation functions, and defines a function
- * that starts the plugin.
- *
- * @link              //wpminds.com
- * @since             1.0.0
- * @package           Wp_Events
+ * @package           WP_Events
+ * @author            WP Minds
+ * @copyright         2022 WP Minds
+ * @license           GPL-2.0+
  *
  * @wordpress-plugin
  * Plugin Name:       WP Events
- * Plugin URI:        wp-events
+ * Plugin URI:        https://wpminds.com/
  * Description:       The only WordPress plugin to create, manage and update hassle free events
  * Version:           1.5.3
- * Requires at least: 5
- * Requires PHP:      7
+ * Requires at least: 5.0
+ * Requires PHP:      7.0
  * Author:            WP Minds
  * Author URI:        //wpminds.com
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wp-events
- * Domain Path:       /languages
  */
 
 // If this file is called directly, abort.

@@ -41,6 +41,7 @@ Installing the plugin is easy. Just follow one of the following methods:
 2. Search for “WP Events”
 3. Install and Activate WP Events from your Plugins page
 4. You\'re done!
+5. Don't forget to configure plugin settings to customize it your needs before starting to use it.
 
 = Install WP Events Manually =
 
@@ -49,8 +50,7 @@ Installing the plugin is easy. Just follow one of the following methods:
 3. When the popup appears select the wp-events.zip file from your desktop.
 4. Follow the on-screen instructions and wait as the upload completes.
 5. When it\'s finished, activate the plugin via the prompt. A message will show confirming activation was successful.
-
-That\'s it! Just configure your settings as you see fit, and you\'re on your way to creating events in style.
+6. Don't forget to configure plugin settings to customize it your needs before starting to use it.
 
 == Screenshots ==
 1. Subscribe Form
