@@ -1,4 +1,5 @@
 === WP Events ===
+Contributors: noorshuja
 Tags: events, seminars, webinars, calendar, registrations
 Donate link: //wpminds.com
 Requires at least: 5.0
