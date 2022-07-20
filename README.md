@@ -1,109 +1,112 @@
-# WP Events
-Contributors: (this should be a list of wordpress.org userid's)<br>
-Donate link: //wpminds.com<br>
-Tags: events, seminars, comments, calendar<br>
-Requires at least: 5.1<br>
-Tested up to: 5.5.1<br>
-Stable tag: 5.1<br>
-License: GPLv2 or later<br>
-License URI: http://www.gnu.org/licenses/gpl-2.0.html
+=== WP Events ===
+Tags: events, seminars, webinars, calendar, registrations
+Donate link: //wpminds.com
+Requires at least: 5.0
+Tested up to: 6.0
+Requires PHP: 7
+License: GPL-2.0+
+License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 
-**A simple and lightweight WordPress plugin to create events and allow users to register to them.**
+A simple and lightweight WordPress plugin to create events and allow users to register for them.
 
-## Description
+== Description ==
+Easily create and manage events on your website using WP Events, whether it\'s an on-site or virtual event you can create it easily, this plugin handles all your event hurdles for you and our team of elite engineers made sure it\'s simple, fast, and reliable.
 
-Easily create and manage events on your website using WP Events, whether it's a on site or virtual event you can create it easily, this plugin handles all your event hurdles for you and our team of elite engineers made sure it's simple, fast and reliable.
+WP Events is built by the WP Minds team and packed with all the features to kick off events on your website. WP Events is simple, reliable, and easily customizable.
 
-WP Events is build by WP Minds team and packed with all the features to kick off events on your website and WP Events is simple, reliable, and easily customizable.
+WP Events is packed with a lot of features:
 
-## ✨ Features
+✔️ Easily create events
+✔️ Block Editor support
+✔️ Custom Menu labels
+✔️ Custom Page Slug
+✔️ Template Overriding
+✔️ Events Taxonomies (Categories & Tags)
+✔️ Add event to Google Calendar
+✔️ Completely responsive from mobile to tablet to desktop
+✔️ Custom HTML Email templates
+✔️ Hooks & filters for Customization
+✔️ Shortcodes and Gutenberg block for archive page and widgets
+✔️ Easily manageable entries by viewing and filtering records from the dashboard
+✔️ Custom notifications templates
+✔️ Export events, registrations, and subscribers to CSV file
 
-WP Events is packed with a lot of features some highlighted are.
-
-✔️ Easily create events<br>
-✔️ Block Editor support<br>
-✔️ Custom Menu labels<br>
-✔️ Custom Page Slug<br>
-✔️ Template Overriding<br>
-✔️ Events Taxonomies (Categories & Tags)<br>
-✔️ Add event to Google Calendar<br>
-✔️ Completely responsive from mobile to tablet to desktop<br>
-✔️ Custom HTML Email temaplates<br>
-✔️ Hooks & filters for Customization<br>
-✔️ Shortcodes and Gutenberg block for archive page and widgets<br>
-✔️ Easily manageable entries by viewing and filtering records from dashboard<br>
-✔️ Custom notifications templates<br>
-✔️ Export events, registrations and subscribers to CSV file<br>
-
-##Installation
-
+== Installation ==
 Installing the plugin is easy. Just follow one of the following methods:
 
-[comment]: <> (###Install The Wp Events from within WordPress)
+= Install WP Events from within WordPress =
 
-[comment]: <> (1. Visit the plugins page within your dashboard and select ‘Add New’)
+1. Visit the plugins page within your dashboard and select ‘Add New’
+2. Search for “WP Events”
+3. Install and Activate WP Events from your Plugins page
+4. You\'re done!
 
-[comment]: <> (2. Search for “WP Events”)
-
-[comment]: <> (3. Activate The WP Events from your Plugins page)
-
-[comment]: <> (4. You're done!)
-
-###Install The WP Events Manually
+= Install WP Events Manually =
 
 1. From the dashboard of your site, navigate to Plugins --> Add New.
-2. Select the Upload option and hit "Choose File."
+2. Select the Upload option and hit \"Choose File.\"
 3. When the popup appears select the wp-events.zip file from your desktop.
 4. Follow the on-screen instructions and wait as the upload completes.
-5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful.
+5. When it\'s finished, activate the plugin via the prompt. A message will show confirming activation was successful.
 
-That's it! Just configure your settings as you see fit.
+That\'s it! Just configure your settings as you see fit, and you\'re on your way to creating events in style.
 
-##Screenshots
+== Screenshots ==
+1. Subscribe Form
+2. Add Event Screen
+3. General Settings
+4. Display Settings
+5. Forms Settings
+7. Event Archive Page
+8. Event Single Page
+9. Form Entries Page
 
-![Subscribe Form](assets/Screenshot_1.png)
-![Add Event Screen](assets/Screenshot_2.png)
-![General Settings](assets/Screenshot_3.png)
-![Display Settings](assets/Screenshot_4.png)
-![Forms Settings](assets/Screenshot_5.png)
-![Event Archive Page](assets/Screenshot_6.png)
-![Event Single Page](assets/Screenshot_7.png)
-![Form Entries Page](assets/Screenshot_8.png)
+== Changelog ==
+Version-1.5.3
+Update: Past events are changed to draft so that they are not indexed.
+Added: Auto formatting for phone number field.
 
-##📃 Documentation
+Version-1.5.2
+Fixed: Deleted entries issue.
+Added: Texting permission option for registration form.
 
-All of our documentation can be found in .
+Version-1.5.0
+Update: Moved MailChimp functionality to a separate addon.
+Added:  Send registrants data to MailChimp.
 
-Additional helpful links:
+Version-1.4.3
+Added: Register button for single events in widget shortcode.
+Added: Option to export events (all, future, past, on going) to CSV.
+Added: Option to export registrations (with dates nad event title filters) to CSV.
+Added: Option to export subscriptions to CSV.
+Fixed: Add to calendar option for google calendar when start and end dates are same.
+Added: Option to disable archive page.
+Fixed: Captcha execution on subscribers form.
+Fixed: Location and date filters in shortcode.
+Fixed: location duplication issue.
+Fixed: CSS for calendar list dropdown.
 
-##Changelog
-###Version 1.0.2
-Added:   WP Events Archive template added to select from Page Attributes<br>
-Added:   priority set to high for custom meta fields<br>
-Added:   a new file added in inlcudes/wp-events-global-functions.php to add global functions<br>
-Added:   Global function "wpevent_date_time()" added to convert UNIX timestamp meta(event start/end date-time) to an associative array<br>
-Added:   Single Template can be over ride in theme<br>
-Added:   Last name Field aded in subscriber form<br>
-Updated: Subscriber Form Username changed to First name<br>
-Updated: wpevent-start-date & wpevent-start-time meta fields with wpevent-start-date-time<br>
-Updated: wpevent-end-date & wpevent-end-time meta fields with wpevent-end-date-time<br>
-Updated: updated $_POST to filter_input( INPUT_POST ) in class-wp-events-admin.php<br>
-Updated: date format ( dd-mm-yy ) in jquery date picker change to yy-mm-dd<br>
-Updated: meta query added to archive/taxonomy query<br>
-Updated: number in shortcode set to posts_per_page<br>
-Fixed:   Empty Archive title displays blank h1<br>
-Fixed:   posts_per_page overrides posts number on the whole website<br>
-Fixed:   pagination page/2 going to 404<br>
-Fixed:   subscriber form redirects to archive page by default now redirect to the requested page<br>
-Removed: default title "Events" removed from settings->display->Archive Page Title<br>
-Removed: is_past_event() function removed from class-wp-events-public.php<br>
+Version-1.4.2
+Updated: Subscriber form layout for number and permission fields.
+Fixed: Class conflict with form fence plugin.
+Fixed: Location not displaying properly in widget.
 
-###Version 1.0.1
-Added: * added to required checkboxes.<br>
-Fixed: subscriber email field type changed from text to email
+Version 1.4.1
+Fixed:  CSS conflict with list style.
+Fixed:  Forms CSS for show/hide fields.
 
-###Version 1.0.0
-Added: Separate Email Templates for Subscriber And Registerer<br>
-Added: Default Message Added for Email Templates<br>
-Added: Subscriber Form Redirect Added<br>
-Fixed: Email shortcodes emitting plain text.<br>
+Version 1.4.0
+Added: Metabox to limit seats per registration for each event.
+Fixed: List style and indentation on archive and single event page.
+Fixed: Edit entry not working for subscriptions.
+Fixed: Empty venue when no location selected.
+Added: Settings fields to show/hide optional fields in registration/subscribers forms.
+Added: Filter events by type on posts screen.
+Added: Option to turn webinar confirmation email on/off.
+Added: Duplicate event option to create a copy of the same events.
+Added: WP-editor for email templates and forms descriptions.
+Updated: Background of meta box heading and event type field to make it stand out.
+Added: Checkbox to show/hide events on the archive page.
+Added: Unique class selector for each event on the archive page.
+Added: Type attribute in the shortcode to display events of one type only.
+Added: Settings field for redirect URL for event type webinar.
