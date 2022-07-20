@@ -95,7 +95,8 @@ class Wp_Form_Request
 	        //getting mail settings
 	        $mail_options = get_option( 'wpe_mail_settings' );
 			//Get Firm information
-	        $firm_info = get_option( 'wpe_firm_settings' );
+	        $firm_info  = get_option( 'wpe_firm_settings' );
+			$admin_mail =isset( $firm_info['admin_mail'] ) ? $firm_info['admin_mail'] : get_option('admin_email');
 			// subscriber details
 	        $subscriber_subject = do_shortcode( $mail_options['subscriber_user_subject'], TRUE );
 	        $subscriber_message = do_shortcode( $mail_options['subscriber_user_message'], TRUE );
@@ -114,7 +115,7 @@ class Wp_Form_Request
 	        wp_mail( $subscriber_email, $subscriber_subject, $subscriber_message, $headers );
 
 	        //send email top admin
-	        wp_mail( $firm_info['admin_mail'], $admin_subject, $admin_message, $headers );
+	        wp_mail($admin_mail, $admin_subject, $admin_message, $headers );
 
 		    /**
 		     * Fires after submission is completed
