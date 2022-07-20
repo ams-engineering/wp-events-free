@@ -268,7 +268,6 @@ body .wpe-event .entry-title a {
 #hear_about_us {
     width: 100%;
     max-width: 100%;
-    padding: 12px 12px;
 }
 
 #wpe_privacy_policy {
@@ -655,7 +654,7 @@ span.g-recaptcha {
     width: 100%;
     justify-content: flex-start;
     align-items: center;
-	flex-wrap:wrap;
+    column-gap: 16px;
 }
 
 .wpe-register-form-container .wpe-col-2 div , .wpe-subscribe-form .wpe-col-2 div{
@@ -664,23 +663,15 @@ span.g-recaptcha {
 }
 
 .wpe-register-form-container .wpe-col-3{
-	 display: flex;
+	display: flex;
     width: 100%;
     justify-content: flex-start;
     align-items: center;
-	flex-wrap:wrap;
+    column-gap: 16px;
 }
+
 .wpe-register-form-container .wpe-col-3 div {
     flex: 33.33%;
-    padding-right: 16px;
-}
-
-.wpe-register-form-container .wpe-col-2 div  {
-    padding-right: 16px;
-}
-
-.wpe-subscribe-form .wpe-col-2 div {
-    padding-right: 16px;
 }
 
 .wpe-subscribe-form .wpe-col-2 div:last-child {

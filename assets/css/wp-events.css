@@ -30,6 +30,9 @@ body .wpe-form-control select,
 body .wpe-form-control .wpe-field {
     max-width: 100%;
     width: 100%;
+    min-height: 48px;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
 /* form#wpe-register-form {
@@ -67,6 +70,14 @@ body .wpe-form-control .wpe-field {
 .wpe-subscribe-form-container input,
 .wpe-subscribe-form-container select {
     border: 1px solid #ddd;
+}
+
+.wpe-subscribe-form-container input,
+.wpe-subscribe-form-container select {
+    border: 1px solid #ddd;
+    min-height: 48px;
+    padding: 0 15px;
+    box-sizing: border-box;
 }
 
 .wpe-popup {
