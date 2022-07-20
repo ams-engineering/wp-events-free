@@ -2,6 +2,7 @@
 Tags: events, seminars, webinars, calendar, registrations
 Donate link: //wpminds.com
 Requires at least: 5.0
+Stable tag: 5.1
 Tested up to: 6.0
 Requires PHP: 7
 License: GPL-2.0+
