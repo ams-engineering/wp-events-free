@@ -318,6 +318,7 @@ class Wp_Form_Request
 		$from_name    				= $firm_info['mail_from_name'];
 		$from_email   				= $mail_options['mail_from'];
 		$enable_webinar_confimation = $mail_options['enable_webinar_conformation'];	
+		$admin_mail 				=isset( $firm_info['admin_mail'] ) ? $firm_info['admin_mail'] : get_option('admin_email');
 
 		$headers[]  = 'Content-Type: text/html;';
 		$headers[]  = "from :$from_name <$from_email>";
@@ -357,10 +358,10 @@ class Wp_Form_Request
 		 * get notification user from post meta
 		*/
 		$notified_user = get_post_meta( $data['post_id'], 'wpevent-email-notification', TRUE );
-		if( $notified_user !=='' && $notified_user !== $firm_info['admin_mail'] ) { // if not empty and not identical to the one in mail options send to notified user
+		if( $notified_user !=='' && $notified_user !== $admin_mail ) { // if not empty and not identical to the one in mail options send to notified user
 			wp_mail( $notified_user, $admin_subject, $admin_message, $headers );
 		} else {
-			wp_mail( $firm_info['admin_mail'], $admin_subject, $admin_message, $headers );
+			wp_mail( $admin_mail, $admin_subject, $admin_message, $headers );
 		}
 	}
 
