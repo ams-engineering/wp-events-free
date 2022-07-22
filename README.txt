@@ -12,26 +12,34 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 A simple and lightweight WordPress plugin to create events and allow users to register for them.
 
 == Description ==
-Easily create and manage events on your website using Simple WP Events, whether it\'s an on-site or virtual event you can create it easily, this plugin handles all your event hurdles for you and our team of elite engineers made sure it\'s simple, fast, and reliable.
-
-Simple WP Events is built by the WP Minds team and packed with all the features to kick off events on your website. Simple WP Events is simple, reliable, and easily customizable.
-
-Simple WP Events is packed with a lot of features:
-
-✔️ Easily create events
+Simple WP Events is a free plugin to Easily create and manage events on your website. 
+ 
+Whether it’s an on-site or virtual event, this plugin handles all your event hurdles for you. Our team of elite and experienced engineers have ensured that it’s simple, fast, and reliable.
+ 
+Simple WP Events is built by the WP Minds team and packed with all the features to kick off events on your website. 
+ 
+Simple Events Plugin is lightweight, quick to set up and easily customizable.
+ 
+A Simple plugin especially made for Attorneys, Coaches, Teachers etc who need to create a quick form to get signups for their Seminars/Webinars. A place where they can set up events on the go to track registrations and collect user data.
+ 
+It is packed with numerous of features:
+✔️ Easy event creation
 ✔️ Block Editor support
 ✔️ Custom Menu labels
 ✔️ Custom Page Slug
 ✔️ Template Overriding
 ✔️ Events Taxonomies (Categories & Tags)
+✔️ Locations post type to reuse locations
 ✔️ Add event to Google Calendar
-✔️ Completely responsive from mobile to tablet to desktop
+✔️ Completely responsive for all devices (from mobile to tablet to desktop)
 ✔️ Custom HTML Email templates
-✔️ Hooks & filters for Customization
-✔️ Shortcodes and Gutenberg block for archive page and widgets
+✔️ Hooks & filters for customization
+✔️ Shortcodes for archive page and widgets
 ✔️ Easily manageable entries by viewing and filtering records from the dashboard
-✔️ Custom notifications templates
+✔️ Custom notification templates
 ✔️ Export events, registrations, and subscribers to CSV file
+ 
+= Our team is consistently working on adding more premium features and add-ons to this plugin which will be made available very soon. =
 
 == Installation ==
 Installing the plugin is easy. Just follow one of the following methods:
@@ -41,17 +49,20 @@ Installing the plugin is easy. Just follow one of the following methods:
 1. Visit the plugins page within your dashboard and select ‘Add New’
 2. Search for Simple WP Events”
 3. Install and Activate Simple WP Events from your Plugins page
-4. You\'re done!
+4. You're done!
 5. Don't forget to configure plugin settings to customize it your needs before starting to use it.
 
 = Install Simple WP Events Manually =
 
 1. From the dashboard of your site, navigate to Plugins --> Add New.
-2. Select the Upload option and hit \"Choose File.\"
+2. Select the Upload option and hit "Choose File".
 3. When the popup appears select the wp-events.zip file from your desktop.
 4. Follow the on-screen instructions and wait as the upload completes.
-5. When it\'s finished, activate the plugin via the prompt. A message will show confirming activation was successful.
+5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful.
 6. Don't forget to configure plugin settings to customize it your needs before starting to use it.
+
+== Frequently Asked Questions ==
+Coming Soon!
 
 == Screenshots ==
 1. Subscribe Form
@@ -112,3 +123,6 @@ Added: Checkbox to show/hide events on the archive page.
 Added: Unique class selector for each event on the archive page.
 Added: Type attribute in the shortcode to display events of one type only.
 Added: Settings field for redirect URL for event type webinar.
+
+== Upgrade Notice ==
+Coming Soon!
