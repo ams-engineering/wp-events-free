@@ -1,4 +1,4 @@
-=== WP Events ===
+=== Simple WP Events ===
 Tags: events, seminars, webinars, calendar, registrations
 Donate link: //wpminds.com
 Requires at least: 5.0
@@ -11,11 +11,11 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 A simple and lightweight WordPress plugin to create events and allow users to register for them.
 
 == Description ==
-Easily create and manage events on your website using WP Events, whether it\'s an on-site or virtual event you can create it easily, this plugin handles all your event hurdles for you and our team of elite engineers made sure it\'s simple, fast, and reliable.
+Easily create and manage events on your website using Simple WP Events, whether it\'s an on-site or virtual event you can create it easily, this plugin handles all your event hurdles for you and our team of elite engineers made sure it\'s simple, fast, and reliable.
 
-WP Events is built by the WP Minds team and packed with all the features to kick off events on your website. WP Events is simple, reliable, and easily customizable.
+Simple WP Events is built by the WP Minds team and packed with all the features to kick off events on your website. Simple WP Events is simple, reliable, and easily customizable.
 
-WP Events is packed with a lot of features:
+Simple WP Events is packed with a lot of features:
 
 ✔️ Easily create events
 ✔️ Block Editor support
@@ -35,15 +35,15 @@ WP Events is packed with a lot of features:
 == Installation ==
 Installing the plugin is easy. Just follow one of the following methods:
 
-= Install WP Events from within WordPress =
+= Install Simple WP Events from within WordPress =
 
 1. Visit the plugins page within your dashboard and select ‘Add New’
-2. Search for “WP Events”
-3. Install and Activate WP Events from your Plugins page
+2. Search for Simple WP Events”
+3. Install and Activate Simple WP Events from your Plugins page
 4. You\'re done!
 5. Don't forget to configure plugin settings to customize it your needs before starting to use it.
 
-= Install WP Events Manually =
+= Install Simple WP Events Manually =
 
 1. From the dashboard of your site, navigate to Plugins --> Add New.
 2. Select the Upload option and hit \"Choose File.\"

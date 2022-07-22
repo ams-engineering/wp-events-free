@@ -1,15 +1,15 @@
 <?php
 
 /**
- * WP Events
+ * Simple WP Events
  *
- * @package           WP_Events
+ * @package           Simple_WP_Events
  * @author            WP Minds
  * @copyright         2022 WP Minds
  * @license           GPL-2.0+
  *
  * @wordpress-plugin
- * Plugin Name:       WP Events
+ * Plugin Name:       Simple WP Events
  * Plugin URI:        https://wpminds.com/
  * Description:       The only WordPress plugin to create, manage and update hassle free events
  * Version:           1.5.3
