@@ -12,7 +12,7 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 A simple and lightweight WordPress plugin to create events and allow users to register for them.
 
 == Description ==
-Simple WP Events is a free plugin to Easily create and manage events on your website. 
+Simple WP Events is a free plugin to easily create and manage events on your website. 
  
 Whether it’s an on-site or virtual event, this plugin handles all your event hurdles for you. Our team of elite and experienced engineers have ensured that it’s simple, fast, and reliable.
  
