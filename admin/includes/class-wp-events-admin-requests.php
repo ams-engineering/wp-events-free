@@ -170,8 +170,8 @@ class Wp_Admin_Request {
      * @since 1.3.0
      */
     public function wpe_update_location() {
-        $postID           = $_POST['locationID'];
-        $eventID          = $_POST['eventID'];
+        $postID           = sanitize_text_field( $_POST['locationID'] );
+        $eventID          = sanitize_text_field( $_POST['eventID'] );
         $options          = get_option( 'wpe_integration_settings' );
         $maps_key         = $options['gmaps_api'];
         $maps_type        = $options['gmaps_type'];

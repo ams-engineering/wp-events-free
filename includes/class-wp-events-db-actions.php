@@ -178,6 +178,7 @@ class Wp_Events_Db_Actions {
 		 */
 		wpe_request_log( $_REQUEST );
 
+		$_POST     = filter_input_array( INPUT_POST, FILTER_SANITIZE_STRING );
 		$form_data = $_POST['formData'];
 
 		/**
@@ -185,7 +186,7 @@ class Wp_Events_Db_Actions {
 		*/
 		$form_data = wpe_decode_array( $form_data );
 		$referrer  = $form_data['_wp_http_referer'];
-		$text_perm = $_POST['permissions'];
+		$text_perm = sanitize_text_field( $_POST['permissions'] );
 
 		global $wpdb;
 
@@ -214,8 +215,25 @@ class Wp_Events_Db_Actions {
 				'wpe_seats'		 	 => isset( $form_data['wpe_seats'] ) ? sanitize_text_field( $form_data['wpe_seats'] ) : '',
 				'guests'		 	 => isset( $form_data['guests'] ) ? sanitize_text_field( $form_data['guests'] ) : '',
 				'texting_permission' => $text_perm === 'true' ? 1 : 0,
-
 			);
+			// Data Format
+			$format = [
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%d',
+			];
 		} else {
 			$table_name	  = 'events_subscribers';
 			$id			  = 'id';
@@ -226,6 +244,14 @@ class Wp_Events_Db_Actions {
 				'subscriber_phone'	   			   => isset( $form_data['wpe_phone'] ) ? sanitize_text_field( $form_data['wpe_phone'] ) : '',
 				'subscriber_texting_permission'	   => $text_perm === 'true' ? 1 : 0,
 			);
+			// Data Format
+			$format = [
+				'%s',
+				'%s',
+				'%s',
+				'%s',
+				'%d',
+			];
 		}
 
 		$entry_id = isset( $form_data['entry'] ) ? $form_data['entry'] : '';
@@ -233,7 +259,7 @@ class Wp_Events_Db_Actions {
 			"{$wpdb->prefix}$table_name",
 			$updated_data,
 			[ $id => $entry_id ],
-			'%s',
+			$format,
 			'%d'
 		);
 		

@@ -20,7 +20,7 @@ if ( ! function_exists( 'wpe_add_entry_fields' ) ) {
 	 */
 	function wpe_add_entry_fields() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $entry_id    = $_GET['entry'];
+            $entry_id    = sanitize_text_field( $_GET['entry'] );
             $seats       = [];
             $form_fields = [];
             $guest_class = array('guest-div');
@@ -212,15 +212,12 @@ if ( ! function_exists( 'wpe_display_entry_form' ) ) {
                 $event_id = Wp_Events_Db_Actions::wpe_get_event_id( $_GET['entry'] );
                 $entry_title = 'Event: ' . get_the_title( $event_id );
             } else  {
-                $entry_title = 'Entry # ' . $_GET['entry'];
+                $entry_title = 'Entry # ' . sanitize_text_field( $_GET['entry'] );
             }
             $form_fields = wpe_add_entry_fields();
             ?>
             <span class="wpe-entry-header">
-            <span class="wpe-entry-title"><?php echo $entry_title ?></span>
-            <!-- <span class="wpe-show-empty">
-            <input type="checkbox" id="wpe-show-empty" name="wpe-show-empty" value="1">
-            <label for="wpe-show-empty">Show Empty Fields</label></span> -->
+            <span class="wpe-entry-title"><?php echo esc_attr( $entry_title ); ?></span>
             </span>
             <form method="post" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" class="wpe-register-form disabledform wpe-edit-entry-form" id="wpe-edit-entry-form">
             <?php
@@ -246,7 +243,7 @@ if ( ! function_exists( 'wpe_get_entry_sidebar' ) ) {
 	 */
 	function wpe_get_entry_sidebar() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $tab       = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+            $tab       = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
             $event_url = '';
             $info      = wpe_get_entry_info();
             $footer    = wpe_sidebar_footer( 'Move To Trash', 'Edit' );
@@ -291,9 +288,9 @@ if ( ! function_exists( 'wpe_prev_next_entry' ) ) {
 	 */
 	function wpe_prev_next_entry() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $entry_id = $_GET['entry'];
-            $tab      = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
-            $display  = isset( $_GET["display"] ) ? $_GET["display"] : 'all';
+            $entry_id = sanitize_text_field( $_GET['entry'] );
+            $tab      = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
+            $display  = isset( $_GET["display"] ) ? sanitize_text_field( $_GET["display"] ) : 'all';
             if ( $tab == 'registrations' ) {
                 switch ( $display ) {
                     case 'pending':

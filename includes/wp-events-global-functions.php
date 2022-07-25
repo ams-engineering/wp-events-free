@@ -439,6 +439,42 @@ if ( ! function_exists( 'wpe_form_field' ) ) {
 			}
 		}
 
+		$allowed_html = array(
+			'div' => array(
+				'class' => array(),
+			),
+			'label' => array(
+				'class' => array(),
+			),
+			'textarea' => array(
+				'name' => array(),
+				'class' => array(),
+				'id' => array(),
+			),
+			'input' => array(
+				'type' => array(),
+				'class' => array(),
+				'value' => array(),
+				'name' => array(),
+				'id' => array(),
+				'checked' => array(),
+				'disabled' => array(),
+				'required' => array(),
+				'style' => array(),
+			),
+			'small' => array(),
+			'option' => array(
+				'value' => array(),
+				'selected' => array(),
+			),
+			'select' => array(
+				'name' => array(),
+				'class' => array(),
+				'id' => array(),
+			),
+		);
+
+		// echo wp_kses( $field_html, $allowed_html );
 		echo $field_html;
 	}
 }
@@ -458,7 +494,7 @@ if ( ! function_exists( 'wpe_get_hearaboutus_options' ) ) {
 		if( $options === '' ) {
 			$options = $default_options;
 		}
-		$options		 = explode( ',', $options );
+		$options		 = explode( ', ', $options );
 		return $options;
 	}
 }
@@ -477,12 +513,12 @@ if ( ! function_exists( 'wpe_get_dropdown' ) ) {
 	function wpe_get_dropdown( $name, $label, $options ) {
 		?>
 		<div class="wpe-form-control wpe-field-container wpe-full-width">
-			<label for="<?php echo $name ?>"><?php echo $label ?></label>
-			<select name="<?php echo $name ?>" id="<?php echo $name ?>">
+			<label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_attr( $label ); ?></label>
+			<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $name ); ?>">
 			<?php
 				for( $i = 0; $i < sizeof( $options ); $i++ ) {
 					?>
-					<option value="<?php echo $options[$i] ?>"><?php echo $options[$i] ?></option>
+					<option value="<?php echo esc_attr( $options[$i] ); ?>"><?php echo esc_attr( $options[$i] ); ?></option>
 					<?php
 				}
 			?>
