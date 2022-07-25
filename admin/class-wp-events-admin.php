@@ -87,7 +87,7 @@ class Wp_Events_Admin {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __DIR__ ) . 'assets/css/wp-events.css', array(), $this->version, 'all' );
 
 		wp_enqueue_style( $this->plugin_name.'-jquery-ui', plugin_dir_url( __FILE__ ) .'css/jquery-ui.min.css', array(), $this->version, 'all' );
-        wp_enqueue_style('select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css' );
+        wp_enqueue_style( $this->plugin_name.'-select2', plugin_dir_url( __FILE__ ) .'css/select2.min.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Wp_Events_Admin {
 
         wp_enqueue_script( 'jquery-serialize', plugin_dir_url( __DIR__ ) . 'assets/js/jquery.serializejson.js', array( 'jquery' ), $this->version, false );
         
-        wp_enqueue_script('select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js', array('jquery'), $this->version );
+        wp_enqueue_script( 'jquery-select2', plugin_dir_url( __FILE__ ) . 'js/select2.min.js', array( 'jquery' ), $this->version, false );
 
         //localizing ajax url
 		wp_localize_script(
