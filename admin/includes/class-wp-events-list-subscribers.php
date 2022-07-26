@@ -420,7 +420,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 			$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}$this->table_name WHERE wpe_status = ". WPE_ACTIVE;
 		}
 
-		return $wpdb->get_var( $sql );
+		return $wpdb->get_var( $wpdb->prepare( $sql ) );
 	}
 
 	/**
@@ -457,7 +457,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 			$sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
 		}
 
-		$results = $wpdb->get_results( $sql, ARRAY_A );
+		$results = $wpdb->get_results( $wpdb->prepare( $sql, ARRAY_A ) );
 
 		return $results;
 	}

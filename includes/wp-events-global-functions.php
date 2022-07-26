@@ -157,7 +157,7 @@ if ( ! function_exists( 'get_booked_seats' ) ) {
 		}
 		$sql = "SELECT SUM(wpe_seats) FROM {$wpdb->prefix}$table_name WHERE post_id = $post_id AND 
 				wpe_status in (" . WPE_ACTIVE . ", " . WPE_APPROVED . ")";
-		$result = $wpdb->get_var( $sql );
+		$result = $wpdb->get_var( $wpdb->prepare( $sql ) );
 		$result = (int) $result;
 		return $result;
 	}

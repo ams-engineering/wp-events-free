@@ -97,7 +97,7 @@ class Wp_Events_Db_Actions {
 		global $wpdb;
 		$table_name = $wpdb->prefix . $table;
 
-		if ( $wpdb->get_var( "SHOW TABLES LIKE '$table_name'" ) != $table_name ) {
+		if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE '$table_name'" ) ) != $table_name ) {
 			return false;
 		}
 
@@ -122,7 +122,7 @@ class Wp_Events_Db_Actions {
 			$append_status = "WHERE wpe_status in (". $status . ")";
 		}
 		$sql     = "SELECT * FROM {$wpdb->prefix}$table_name " . $append_id . $append_status;
-		$results = $wpdb->get_results( $sql, $format );
+		$results = $wpdb->get_results( $wpdb->prepare( $sql, $format ) );
 		return $results;
 	}
 
@@ -144,7 +144,7 @@ class Wp_Events_Db_Actions {
 			$append_status = "WHERE wpe_status in (". $status . ")";
 		}
 		$sql     = "SELECT * FROM {$wpdb->prefix}$table_name " . $append_id . $append_status;
-		$results = $wpdb->get_results( $sql, OBJECT );
+		$results = $wpdb->get_results( $wpdb->prepare( $sql, OBJECT ) );
 		return $results;
 	}
 
@@ -158,7 +158,7 @@ class Wp_Events_Db_Actions {
 		global $wpdb;
 		$table_name      = 'events_registration';
 		$sql             = "SELECT post_id FROM {$wpdb->prefix}$table_name WHERE ID = " . $entry_id;
-		$event_id        = $wpdb->get_var( $sql );
+		$event_id        = $wpdb->get_var( $wpdb->prepare( $sql ) );
 		return $event_id;
 	}
 

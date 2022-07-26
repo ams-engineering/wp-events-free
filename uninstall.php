@@ -67,8 +67,8 @@ if( !function_exists( 'wpe_drop_tables' ) ) {
 		$sql   = 'DROP TABLE IF EXISTS '.$sub_table;
 		$query = 'DROP TABLE IF EXISTS '.$reg_table;
 
-		$wpdb->query( $sql );
-		$wpdb->query( $query );
+		$wpdb->query( $wpdb->prepare( $sql ) );
+		$wpdb->query( $wpdb->prepare( $query ) );
 	}
 }
 
@@ -80,7 +80,6 @@ if( !function_exists( 'wpe_drop_tables' ) ) {
 
 if( !function_exists( 'wpe_delete_all_events' ) ) {
 	function wpe_delete_all_events() {
-		global $wpdb;
 
 		$posts = get_posts( array(
 				'numberposts' => - 1,
@@ -109,9 +108,9 @@ if( !function_exists( 'wpe_delete_all_categories' ) ) {
 				FROM ' . $wpdb->terms . ' AS t
 				INNER JOIN ' . $wpdb->term_taxonomy . ' AS tt
 				ON t.term_id = tt.term_id
-				WHERE tt.taxonomy = "' . $taxonomy . '"';
+				WHERE tt.taxonomy = %s';
 
-		$terms = $wpdb->get_results( $query );
+		$terms = $wpdb->get_results( $wpdb->prepare( $query, $taxonomy ) );
 
 		foreach ( $terms as $term ) {
 			wp_delete_term( $term->term_id, $taxonomy );

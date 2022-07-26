@@ -163,7 +163,7 @@ function get_wpe_subscribers() {
 
 	global $wpdb;
 	$table_name = $wpdb->prefix . 'events_subscribers';
-	$results    = $wpdb->get_results('SELECT * FROM '. $table_name);
+	$results    = $wpdb->get_results( $wpdb->prepare('SELECT * FROM '. $table_name) );
 
 	foreach ( $results as $result ) {
 
@@ -271,7 +271,7 @@ function wpe_event_entries_export() {
 
 			global $wpdb;
 			$table_name = $wpdb->prefix . 'events_registration';
-			$results    = $wpdb->get_results('SELECT * FROM '. $table_name .' WHERE post_id = '. $postID );
+			$results    = $wpdb->get_results( $wpdb->prepare('SELECT * FROM '. $table_name .' WHERE post_id = '. $postID ) );
 
 			foreach ( $results as $result ) {
 

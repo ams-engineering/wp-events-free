@@ -460,7 +460,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 				$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}$this->table_name WHERE wpe_status in (" . WPE_ACTIVE . ", " . WPE_PENDING . ", " . WPE_APPROVED . ", " . WPE_CANCELLED . ")" . $filter_string;
 		}
 
-		return $wpdb->get_var( $sql );
+		return $wpdb->get_var( $wpdb->prepare( $sql ) );
 	}
 
 	/**
@@ -512,7 +512,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 			$sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
 		}
 
-		$results = $wpdb->get_results( $sql, ARRAY_A );
+		$results = $wpdb->get_results( $wpdb->prepare( $sql, ARRAY_A ) );
 
 		return $results;
 	}
@@ -934,7 +934,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
         global $wpdb;
 		// $table_name	   = 'events_registration';
 		$sql 	 	   = "SELECT post_id FROM {$wpdb->prefix}$this->table_name";
-		$results 	   = $wpdb->get_results( $sql, ARRAY_A );
+		$results 	   = $wpdb->get_results( $wpdb->prepare( $sql, ARRAY_A ) );
 		$deleted_event = [];
 
 		$args = array(
