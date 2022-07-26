@@ -604,7 +604,7 @@ class Wp_Events_Public {
 				$des_post = ( $des_post !== '' ) ? $des_post : $option['meta_description'];
 				echo '<meta name="description" content="' . esc_html( $des_post ) . '" />' . "\n";
 			} else {
-				echo '<meta name="description" content="' . $option['meta_description'] . '" />' . "\n";
+				echo '<meta name="description" content="' . esc_attr( $option['meta_description'] ) . '" />' . "\n";
 			}
 		}
 	}

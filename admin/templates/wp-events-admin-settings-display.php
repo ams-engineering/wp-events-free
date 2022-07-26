@@ -17,7 +17,7 @@
 <?php
     settings_errors();
     global $wpe_active_tab;
-    $wpe_active_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'general'; ?>
+    $wpe_active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'general'; ?>
     <h1><?php esc_html_e( 'WP Events Settings', 'wp-events' ); ?></h1>
     <form method="post" action="options.php">
     <h2 class="nav-tab-wrapper">

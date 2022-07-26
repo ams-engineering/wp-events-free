@@ -23,16 +23,16 @@
 <div class="wrapper">
 	<?php
 	global $wpe_entries_tab;
-	$wpe_entries_tab = isset( $_GET['tab'] ) ? $_GET['tab'] : 'registrations'; 
+	$wpe_entries_tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'registrations'; 
 	?>
     <form id="wpe-list-form" method="get">
         <input type="hidden" name="post_type" class="post_type_page" value="wp_events">
         <input type="hidden" name="page" value="<?php
-		echo $_REQUEST['page'] ?>">
+		echo esc_url( $_REQUEST['page'] ) ?>">
 		<input type="hidden" name="tab" value="<?php
-		echo $wpe_entries_tab; ?>">
+		echo esc_attr( $wpe_entries_tab ) ?>">
         <input type="hidden" name="display" value="<?php
-	    echo isset( $_GET['display'] ) ? $_GET['display'] : 'all'; ?>">
+	    echo isset( $_GET['display'] ) ? esc_attr( $_GET['display'] ) : 'all'; ?>">
         <h2 class="nav-tab-wrapper">
 			<?php
 			//To hook function wpe_admin_entries_tab.

@@ -20,14 +20,14 @@ if ( ! function_exists( 'wpe_sidebar_section' ) ) {
         ?>
         <div class="wpe-sidebar-section">
             <div class="section-header">
-                <h2 class="section-heading"><?php echo $title ?></h2>
+                <h2 class="section-heading"><?php esc_html_e( $title ); ?></h2>
                 <div class="section-actions">
                     <span class="dashicons dashicons-arrow-up wpe-action-icon"></span>
                 </div>
             </div>
             <div class="section-body">
             <?php
-                echo $body;
+                esc_html_e( $body );
             ?>
             </div>
         </div>
@@ -205,7 +205,7 @@ if( ! function_exists( 'wpevents_country_drop_down' ) ) {
             }
         }
         $html.='</select>';
-        echo  $html;
+        echo  wp_kses( $html, wpe_get_allowed_html() );
     }
 }
 
@@ -244,7 +244,7 @@ if( ! function_exists( 'wpevents_location_drop_down' ) ) {
             }
         }
         $html.='</select>';
-        echo  $html;
+        echo  wp_kses( $html, wpe_get_allowed_html() );
     }
 }
 

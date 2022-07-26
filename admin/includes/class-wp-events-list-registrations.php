@@ -122,7 +122,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	public function get_bulk_actions() {
 		$bulk_actions['bulk-delete'] = __( 'Move to Trash', 'wp-events' );
 
-		$display = isset( $_GET['display'] ) ? $_GET['display'] : 'all';
+		$display = isset( $_GET['display'] ) ? sanitize_text_field( $_GET['display'] ) : 'all';
 
 		switch( $display ) {
 			case 'pending':
@@ -175,7 +175,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	 */
 	function column_ID( $item ) {
 		
-		$display	   = isset( $_GET["display"] ) ? $_GET["display"] : 'all';
+		$display	   = isset( $_GET["display"] ) ? sanitize_text_field( $_GET["display"] ) : 'all';
 		$event_options = get_option('wpe_events_settings');
 
 		if ( isset( $event_options['approve_registrations'] ) ) { //only for pending approval entries
@@ -441,7 +441,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	public function record_count( $filter_string ) {
 		global $wpdb;
 
-		$display_tab = isset( $_GET['display'] ) ? $_GET['display'] : 'all';
+		$display_tab = isset( $_GET['display'] ) ? sanitize_text_field( $_GET['display'] ) : 'all';
 
 		switch ( $display_tab ) {
 			case 'trash':
@@ -480,7 +480,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 
 		global $wpdb;
 
-		$display_tab = isset( $_GET["display"] ) ? $_GET["display"] : 'all';
+		$display_tab = isset( $_GET["display"] ) ? sanitize_text_field( $_GET["display"] ) : 'all';
 
 		switch ( $display_tab ) {
 			case 'trash':
@@ -544,7 +544,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	 */
 	public function views() {
 
-		$wpe_current_display = isset( $_GET['display'] ) ? $_GET['display'] : 'all';
+		$wpe_current_display = isset( $_GET['display'] ) ? sanitize_text_field( $_GET['display'] ) : 'all';
 
 		$views = [
 			'all'	    => '<a '. wpe_is_current( $wpe_current_display, 'all' ) .'href="edit.php?post_type=wp_events&page=wp_forms_entries&display=all">' . __( 'All', 'wp-events' ) . '</a>',
@@ -553,7 +553,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		$event_options = get_option('wpe_events_settings');
 		$event 		   = '';
 		if ( isset( $_GET['wpe_titles'] ) ) {
-			$number = isset( $_GET['posts_page'] ) ? $_GET['posts_page'] : '1';
+			$number = isset( $_GET['posts_page'] ) ? sanitize_text_field( $_GET['posts_page'] ) : '1';
 			$event  = '&posts_page='. $number .'&wpe_titles='. $_GET['wpe_titles'];
 		}
 
@@ -722,7 +722,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 					array(
 						'taxonomy' => 'wpevents-category',
 						'field'    => 'slug',
-						'terms'    => $_GET['wpe_categories'],
+						'terms'    => sanitize_text_field( $_GET['wpe_categories'] ),
 					),
 				),
 			);
@@ -745,8 +745,8 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	 */
 	public function output_dates_filter() {
 		?>
-			<input id="wpe-filter-start-date" autocomplete="off" class="wp-event-datepicker" type="text" name="wpe-filter-start-date" placeholder="Filter by start date" value="<?php echo isset( $_GET['wpe-filter-start-date'] ) ? $_GET['wpe-filter-start-date'] : '' ;?>"/>
-			<input id="wpe-filter-end-date" autocomplete="off" class="wp-event-datepicker" type="text" name="wpe-filter-end-date" placeholder="Filter by end date" value="<?php echo isset( $_GET['wpe-filter-end-date'] ) ? $_GET['wpe-filter-end-date'] : '' ;?>"/>
+			<input id="wpe-filter-start-date" autocomplete="off" class="wp-event-datepicker" type="text" name="wpe-filter-start-date" placeholder="Filter by start date" value="<?php echo isset( $_GET['wpe-filter-start-date'] ) ? esc_attr( $_GET['wpe-filter-start-date'] ) : '' ;?>"/>
+			<input id="wpe-filter-end-date" autocomplete="off" class="wp-event-datepicker" type="text" name="wpe-filter-end-date" placeholder="Filter by end date" value="<?php echo isset( $_GET['wpe-filter-end-date'] ) ? esc_attr( $_GET['wpe-filter-end-date'] ) : '' ;?>"/>
 		<?php
 	}
 
@@ -830,7 +830,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		}
 
 		if ( isset( $_GET['wpe_titles'] ) && $_GET['wpe_titles'] != -1 ) {
-			$title_filter 	  = $_GET['wpe_titles'];
+			$title_filter 	  = sanitize_text_field( $_GET['wpe_titles'] );
 			$title_filter_arr = explode( ",", $title_filter );
 			if ( isset( $filter ) ) {
 				$filter = array_intersect( $title_filter_arr, $filter );

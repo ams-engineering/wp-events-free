@@ -189,7 +189,7 @@ class Wpe_Shortcodes {
 			//     $venue_html .= '&nbsp;<span class="wpe-state">' . ucfirst( $wpe_state ) . '</span>';
 		    // }
 		    if ( $venue_html !== '' ) {
-			    echo '<p style="margin: 5px 0">' . $venue_html . '</p>';
+			    echo '<p style="margin: 5px 0">' . wp_kses( $venue_html, wpe_get_allowed_html() ) . '</p>';
 		    }
 	    }
 	    return ob_get_clean();
