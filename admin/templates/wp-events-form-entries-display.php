@@ -28,7 +28,7 @@
     <form id="wpe-list-form" method="get">
         <input type="hidden" name="post_type" class="post_type_page" value="wp_events">
         <input type="hidden" name="page" value="<?php
-		echo esc_url( $_REQUEST['page'] ) ?>">
+		echo esc_attr( $_REQUEST['page'] ) ?>">
 		<input type="hidden" name="tab" value="<?php
 		echo esc_attr( $wpe_entries_tab ) ?>">
         <input type="hidden" name="display" value="<?php
