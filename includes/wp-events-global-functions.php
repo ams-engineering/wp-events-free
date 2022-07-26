@@ -155,9 +155,9 @@ if ( ! function_exists( 'get_booked_seats' ) ) {
 		if ( ! Wp_Events_Db_Actions::wpe_table_exists( $table_name ) ) {
 			Wp_Events_Db_Actions::add_registration_table();
 		}
-		$sql = "SELECT SUM(wpe_seats) FROM {$wpdb->prefix}$table_name WHERE post_id = $post_id AND 
-				wpe_status in (" . WPE_ACTIVE . ", " . WPE_APPROVED . ")";
-		$result = $wpdb->get_var( $wpdb->prepare( $sql ) );
+		$sql = "SELECT SUM(wpe_seats) FROM {$wpdb->prefix}$table_name WHERE post_id = %d AND 
+				wpe_status in ( %d, %d )";
+		$result = $wpdb->get_var( $wpdb->prepare( $sql, $post_id, WPE_ACTIVE, WPE_APPROVED ) );
 		$result = (int) $result;
 		return $result;
 	}

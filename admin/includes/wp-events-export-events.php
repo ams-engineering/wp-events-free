@@ -271,7 +271,7 @@ function wpe_event_entries_export() {
 
 			global $wpdb;
 			$table_name = $wpdb->prefix . 'events_registration';
-			$results    = $wpdb->get_results( $wpdb->prepare('SELECT * FROM '. $table_name .' WHERE post_id = '. $postID ) );
+			$results    = $wpdb->get_results( $wpdb->prepare('SELECT * FROM '. $table_name .' WHERE post_id = %d', $postID ) );
 
 			foreach ( $results as $result ) {
 

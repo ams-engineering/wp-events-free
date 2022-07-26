@@ -157,8 +157,8 @@ class Wp_Events_Db_Actions {
 	public static function wpe_get_event_id( $entry_id ) {
 		global $wpdb;
 		$table_name      = 'events_registration';
-		$sql             = "SELECT post_id FROM {$wpdb->prefix}$table_name WHERE ID = " . $entry_id;
-		$event_id        = $wpdb->get_var( $wpdb->prepare( $sql ) );
+		$sql             = "SELECT post_id FROM {$wpdb->prefix}$table_name WHERE ID = %d";
+		$event_id        = $wpdb->get_var( $wpdb->prepare( $sql, $entry_id ) );
 		return $event_id;
 	}
 
