@@ -87,7 +87,7 @@ class Wp_Events_Admin {
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __DIR__ ) . 'assets/css/wp-events.css', array(), $this->version, 'all' );
 
 		wp_enqueue_style( $this->plugin_name.'-jquery-ui', plugin_dir_url( __FILE__ ) .'css/jquery-ui.min.css', array(), $this->version, 'all' );
-        wp_enqueue_style('select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css' );
+        wp_enqueue_style( $this->plugin_name.'-select2', plugin_dir_url( __FILE__ ) .'css/select2.min.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -119,7 +119,7 @@ class Wp_Events_Admin {
 
         wp_enqueue_script( 'jquery-serialize', plugin_dir_url( __DIR__ ) . 'assets/js/jquery.serializejson.js', array( 'jquery' ), $this->version, false );
         
-        wp_enqueue_script('select2', 'https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js', array('jquery'), $this->version );
+        wp_enqueue_script( 'jquery-select2', plugin_dir_url( __FILE__ ) . 'js/select2.min.js', array( 'jquery' ), $this->version, false );
 
         //localizing ajax url
 		wp_localize_script(
@@ -481,17 +481,17 @@ class Wp_Events_Admin {
 		foreach ( $all_users as $user ) {
 			if ( $notified_user === $user->user_email ) {
 				$is_selected = TRUE;
-				echo '<option selected="selected" value="' . esc_html( $user->user_email ) . '">' . esc_html( $user->display_name ) . '</option>';
+				echo '<option selected="selected" value="' . esc_attr( $user->user_email ) . '">' . esc_html( $user->display_name ) . '</option>';
 			} else {
-				echo '<option value="' . esc_html( $user->user_email ) . '">' . esc_html( $user->display_name ) . '</option>';
+				echo '<option value="' . esc_attr( $user->user_email ) . '">' . esc_html( $user->display_name ) . '</option>';
 			}
 		}
 		if ( $is_selected === FALSE && $notified_user === 'Default' ) {
 			echo '<option selected="selected" value="">Select a Contact Person</option>';
 		} elseif ( $is_selected === FALSE && isset( $wpe_firm_settings['admin_mail'] ) ) {
-			echo '<option selected="selected" value="' . $wpe_firm_settings['admin_mail'] . '">' . $wpe_firm_settings['admin_mail'] . '</option>';
+			echo '<option selected="selected" value="' . esc_attr( $wpe_firm_settings['admin_mail'] ) . '">' . esc_html( $wpe_firm_settings['admin_mail'] ) . '</option>';
 		} elseif ( isset( $wpe_firm_settings['admin_mail'] ) ) {
-			echo '<option value="' . $wpe_firm_settings['admin_mail'] . '">' . $wpe_firm_settings['admin_mail'] . '</option>';
+			echo '<option value="' . esc_attr( $wpe_firm_settings['admin_mail'] ) . '">' . esc_html( $wpe_firm_settings['admin_mail'] ) . '</option>';
 		}
 		echo '</select>';
 	}
@@ -673,7 +673,7 @@ class Wp_Events_Admin {
         $wpe_current_view = '';
 
         if ( ! isset( $_GET['post_status'] ) ) {
-            $wpe_current_view = isset( $_GET['event_status'] ) ? $_GET['event_status'] : 'all'; 
+            $wpe_current_view = isset( $_GET['event_status'] ) ? sanitize_text_field( $_GET['event_status'] ) : 'all'; 
         }
 
 		$updated['all']     = '<a '. wpe_is_current( $wpe_current_view, 'all' ) .'href="edit.php?post_type=wp_events">All <span class="count">(' . wpe_get_posts_count() .')</span></a>';
@@ -812,7 +812,7 @@ class Wp_Events_Admin {
      */
     public function restrict_events_by_type() {
         global $typenow;
-        $type = isset( $_GET['wp_events_type'] ) ? $_GET['wp_events_type'] : 'all';
+        $type = isset( $_GET['wp_events_type'] ) ? sanitize_text_field( $_GET['wp_events_type'] ) : 'all';
         if ( $typenow == 'wp_events' ) {
             ?>
             <select id="wp_events_type" name="wp_events_type">

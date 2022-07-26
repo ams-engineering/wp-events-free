@@ -155,9 +155,9 @@ if ( ! function_exists( 'get_booked_seats' ) ) {
 		if ( ! Wp_Events_Db_Actions::wpe_table_exists( $table_name ) ) {
 			Wp_Events_Db_Actions::add_registration_table();
 		}
-		$sql = "SELECT SUM(wpe_seats) FROM {$wpdb->prefix}$table_name WHERE post_id = $post_id AND 
-				wpe_status in (" . WPE_ACTIVE . ", " . WPE_APPROVED . ")";
-		$result = $wpdb->get_var( $sql );
+		$sql = "SELECT SUM(wpe_seats) FROM {$wpdb->prefix}$table_name WHERE post_id = %d AND 
+				wpe_status in ( %d, %d )";
+		$result = $wpdb->get_var( $wpdb->prepare( $sql, $post_id, WPE_ACTIVE, WPE_APPROVED ) );
 		$result = (int) $result;
 		return $result;
 	}
@@ -439,7 +439,7 @@ if ( ! function_exists( 'wpe_form_field' ) ) {
 			}
 		}
 
-		echo $field_html;
+		echo wp_kses( $field_html, wpe_get_allowed_html() );
 	}
 }
 
@@ -458,7 +458,7 @@ if ( ! function_exists( 'wpe_get_hearaboutus_options' ) ) {
 		if( $options === '' ) {
 			$options = $default_options;
 		}
-		$options		 = explode( ',', $options );
+		$options		 = explode( ', ', $options );
 		return $options;
 	}
 }
@@ -477,12 +477,12 @@ if ( ! function_exists( 'wpe_get_dropdown' ) ) {
 	function wpe_get_dropdown( $name, $label, $options ) {
 		?>
 		<div class="wpe-form-control wpe-field-container wpe-full-width">
-			<label for="<?php echo $name ?>"><?php echo $label ?></label>
-			<select name="<?php echo $name ?>" id="<?php echo $name ?>">
+			<label for="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( $label ); ?></label>
+			<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $name ); ?>">
 			<?php
 				for( $i = 0; $i < sizeof( $options ); $i++ ) {
 					?>
-					<option value="<?php echo $options[$i] ?>"><?php echo $options[$i] ?></option>
+					<option value="<?php echo esc_attr( $options[$i] ); ?>"><?php esc_html_e( $options[$i] ); ?></option>
 					<?php
 				}
 			?>
@@ -615,5 +615,59 @@ if( ! function_exists( 'wpe_dark_bg' ) ) {
 		$display_options = get_option( 'wpe_display_settings' );
         $darkmode        = isset( $display_options['dark_mode'] ) ? 'wpe-dark-mode' : '';
 		return $darkmode;
+    }
+}
+
+if( ! function_exists( 'wpe_get_allowed_html' ) ) {
+	/**
+	 * Returns allowed html array for filtering
+	 *
+	 * @return array
+	 * @since 1.5.3
+	 */
+	function wpe_get_allowed_html() {
+		$allowed_html = array(
+			'div' => array(
+				'class' => array(),
+			),
+			'label' => array(
+				'class' => array(),
+			),
+			'textarea' => array(
+				'name' => array(),
+				'class' => array(),
+				'id' => array(),
+			),
+			'input' => array(
+				'type' => array(),
+				'class' => array(),
+				'value' => array(),
+				'name' => array(),
+				'id' => array(),
+				'checked' => array(),
+				'disabled' => array(),
+				'required' => array(),
+				'style' => array(),
+			),
+			'small' => array(),
+			'option' => array(
+				'value' => array(),
+				'selected' => array(),
+			),
+			'select' => array(
+				'name' => array(),
+				'class' => array(),
+				'id' => array(),
+			),
+			'br' => array(),
+			'span' => array(
+				'class' => array(),
+			),
+			'p' => array(
+				'style' => array(),
+			),
+		);
+
+		return $allowed_html;
     }
 }

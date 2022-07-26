@@ -91,7 +91,7 @@ if ( ! function_exists( 'wpe_get_thankyou_popup' ) ) {
         <div class="thankyou-popup" style="display:none;">
             <div class="t-y-inner"><span class="close-btn"></span>
                 <p><?php
-					echo __( $text, 'wp-events' );
+					_e( $text, 'wp-events' );
 					?>
                 </p>
             </div>
@@ -144,7 +144,7 @@ if ( ! function_exists( 'wpe_get_event_address' ) ) {
 				$venue_html .= '&nbsp;<span class="wpe-state">' . $wpe_country . '</span>';
 			}
 			if ( $venue_html !== '' ) {
-				echo '<div class="wpe-location"><strong>Venue: </strong>' . $venue_html . '</div>';
+				echo '<div class="wpe-location"><strong>Venue: </strong>' . wp_kses( $venue_html, wpe_get_allowed_html() ) . '</div>';
 			}
 		}
 	}
@@ -198,7 +198,7 @@ if ( ! function_exists( 'wpe_get_event_title' ) ) {
 		$target 		  = $wpe_external_url !== '' ? '_blank' : '';
 	?>
         <div class="wpe-title entry-title">
-            <a class="entry-title-link <?php echo wpe_dark_mode(); ?>" href="<?php echo $href_link ?>" target="<?php echo $target ?>" 
+            <a class="entry-title-link <?php echo wpe_dark_mode(); ?>" href="<?php echo esc_url( $href_link ) ?>" target="<?php esc_url( $target ) ?>" 
 			title="<?php echo get_the_title(); ?>"><?php echo get_the_title(); ?></a>
         </div>
 		<?php
@@ -340,7 +340,7 @@ if ( ! function_exists( 'wpe_get_taxonomy_page_title' ) ) {
 			ob_start();
 			single_term_title();        //taxonomy title
 			$cat_title = ob_get_clean();
-			echo $post_title['events_post_name'] . ' Category: ' . ucwords( $cat_title );   //Events Category: cat_name
+			echo esc_html( $post_title['events_post_name'] ) . ' Category: ' . ucwords( $cat_title );   //Events Category: cat_name
 			?></h1>
 		<?php
 	}
@@ -449,8 +449,8 @@ if ( ! function_exists( 'wpe_get_registration_button' ) ) {
 			$target 		  = $wpe_external_url !== '' ? '_blank' : '';
 			?>
             <div class="wpe-archive-registration">
-                <a class="wpe-reg-button wpe-detail-button" href="<?php echo $href_link ?>" target="<?php echo $target ?>" 
-				title="Click to Register"><?php echo $option['button_text']; ?></a>
+                <a class="wpe-reg-button wpe-detail-button" href="<?php echo esc_url( $href_link ) ?>" target="<?php echo esc_url( $target ) ?>" 
+				title="Click to Register"><?php echo esc_html( $option['button_text'] ); ?></a>
             </div>
 			<?php
 		}
@@ -468,7 +468,7 @@ if ( ! function_exists( 'wpe_get_closed_reg_text' ) ) {
 		$option = get_option( 'wpe_display_settings' );
 		$text   = $option['closed_reg'];
 		echo '<p style="color:#8b0000">';
-		echo $text;
+		echo esc_html( $text );
 		echo '</p>';
 	}
 }
@@ -519,7 +519,7 @@ if ( ! function_exists( 'wpe_get_event_row' ) ) {
 	 */
 	function wpe_get_event_row( $post_id ) {
 		?>
-		<div class="wpe-row wpe-<?php echo $post_id; ?>">
+		<div class="wpe-row wpe-<?php echo absint( $post_id ); ?>">
 			<?php 
 			wpe_get_events_day_date_column( $post_id );
 			do_action( 'wp_events_event_body', $post_id );

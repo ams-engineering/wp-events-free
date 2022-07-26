@@ -20,7 +20,7 @@ if ( ! function_exists( 'wpe_add_entry_fields' ) ) {
 	 */
 	function wpe_add_entry_fields() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $entry_id    = $_GET['entry'];
+            $entry_id    = sanitize_text_field( $_GET['entry'] );
             $seats       = [];
             $form_fields = [];
             $guest_class = array('guest-div');
@@ -151,7 +151,7 @@ if ( ! function_exists( 'wpe_add_subscribers_fields' ) ) {
 	 */
 	function wpe_add_subscribers_fields() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $entry_id = $_GET['entry'];
+            $entry_id = sanitize_text_field( $_GET['entry'] );
             $results  = Wp_Events_Db_Actions::wpe_get_subscription_data( $entry_id );
 
             $form_fields = array(
@@ -212,15 +212,12 @@ if ( ! function_exists( 'wpe_display_entry_form' ) ) {
                 $event_id = Wp_Events_Db_Actions::wpe_get_event_id( $_GET['entry'] );
                 $entry_title = 'Event: ' . get_the_title( $event_id );
             } else  {
-                $entry_title = 'Entry # ' . $_GET['entry'];
+                $entry_title = 'Entry # ' . sanitize_text_field( $_GET['entry'] );
             }
             $form_fields = wpe_add_entry_fields();
             ?>
             <span class="wpe-entry-header">
-            <span class="wpe-entry-title"><?php echo $entry_title ?></span>
-            <!-- <span class="wpe-show-empty">
-            <input type="checkbox" id="wpe-show-empty" name="wpe-show-empty" value="1">
-            <label for="wpe-show-empty">Show Empty Fields</label></span> -->
+            <span class="wpe-entry-title"><?php esc_html_e( $entry_title ); ?></span>
             </span>
             <form method="post" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" class="wpe-register-form disabledform wpe-edit-entry-form" id="wpe-edit-entry-form">
             <?php
@@ -232,7 +229,7 @@ if ( ! function_exists( 'wpe_display_entry_form' ) ) {
             ?>
             </form>
             <?php
-        } else echo 'Entry Not Found!';
+        } else _e( 'Entry Not Found!', 'wp-events' );
     }
 }
 
@@ -246,7 +243,7 @@ if ( ! function_exists( 'wpe_get_entry_sidebar' ) ) {
 	 */
 	function wpe_get_entry_sidebar() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $tab       = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+            $tab       = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
             $event_url = '';
             $info      = wpe_get_entry_info();
             $footer    = wpe_sidebar_footer( 'Move To Trash', 'Edit' );
@@ -291,9 +288,9 @@ if ( ! function_exists( 'wpe_prev_next_entry' ) ) {
 	 */
 	function wpe_prev_next_entry() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $entry_id = $_GET['entry'];
-            $tab      = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
-            $display  = isset( $_GET["display"] ) ? $_GET["display"] : 'all';
+            $entry_id = sanitize_text_field( $_GET['entry'] );
+            $tab      = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
+            $display  = isset( $_GET["display"] ) ? sanitize_text_field( $_GET["display"] ) : 'all';
             if ( $tab == 'registrations' ) {
                 switch ( $display ) {
                     case 'pending':
@@ -330,7 +327,7 @@ if ( ! function_exists( 'wpe_prev_next_entry' ) ) {
                 unset( $data[ $key ] );
             }
             if( isset( $_GET['event'] ) && $_GET['event'] !== '' ) {
-                $eventID = '&event='.$_GET['event'];
+                $eventID = '&event='. sanitize_text_field( $_GET['event'] );
                 if( $entry_data->post_id !== $_GET['event'] ) {
                     unset( $data[ $key ] );
                 }
@@ -365,9 +362,9 @@ if ( ! function_exists( 'wpe_prev_next_entry' ) ) {
         }
         
         ?>
-        <span class="wpe-switch-entry">Entry <?php echo (string) $entry_number ?> of <?php echo $size; ?>
-        <a id="wpe-entry-previous" href="<?php echo $href_before ?>" title="Previous"><span class="dashicons dashicons-arrow-left-alt"></span></a>
-        <a id="wpe-entry-next" href="<?php echo $href_after ?>" title="Next"><span class="dashicons dashicons-arrow-right-alt"></span></a>
+        <span class="wpe-switch-entry">Entry <?php echo esc_html( (string) $entry_number ) ?> of <?php echo $size; ?>
+        <a id="wpe-entry-previous" href="<?php echo esc_attr( $href_before ) ?>" title="Previous"><span class="dashicons dashicons-arrow-left-alt"></span></a>
+        <a id="wpe-entry-next" href="<?php echo esc_attr( $href_after ) ?>" title="Next"><span class="dashicons dashicons-arrow-right-alt"></span></a>
         </span>
         <?php
     }
@@ -384,8 +381,8 @@ if ( ! function_exists( 'wpe_get_entry_info' ) ) {
 	 */
 	function wpe_get_entry_info() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $entry_id = $_GET['entry'];
-            $tab      = isset( $_GET['tab'] ) ? $_GET['tab'] : '';
+            $entry_id = sanitize_text_field( $_GET['entry'] );
+            $tab      = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
             if ( $tab == 'registrations' ) {
                 $data = Wp_Events_Db_Actions::wpe_get_registration_data( $entry_id );
             } else {
@@ -414,15 +411,15 @@ if ( ! function_exists( 'wpe_go_back_link' ) ) {
 	 */
 	function wpe_go_back_link() {
         if ( isset( $_GET['posts_page'] ) && $_GET['posts_page'] > 0 ) {
-            $status = isset( $_GET['event_status'] ) ? $_GET['event_status'] : '';
+            $status = isset( $_GET['event_status'] ) ? sanitize_text_field( $_GET['event_status'] ) : '';
             if ( $status !== '' ) {
                 $status = '&event_status='. $status;
             }
-            $post_status = isset( $_GET['post_status'] ) ? $_GET['post_status'] : '';
+            $post_status = isset( $_GET['post_status'] ) ? sanitize_text_field( $_GET['post_status'] ) : '';
             if ( $post_status !== '' ) {
                 $post_status = '&post_status='. $post_status;
             }
-            echo '<span class="go-back-link"><a class="button" href="edit.php?post_type=wp_events&paged='. $_GET['posts_page'] . $status . $post_status .'" title="Go back"><span class="dashicons dashicons-arrow-left-alt"></span>Go Back</a></span>';
+            echo '<span class="go-back-link"><a class="button" href="edit.php?post_type=wp_events&paged='. esc_attr( $_GET['posts_page'] ) . $status . $post_status .'" title="Go back"><span class="dashicons dashicons-arrow-left-alt"></span>Go Back</a></span>';
         }
     }
 }

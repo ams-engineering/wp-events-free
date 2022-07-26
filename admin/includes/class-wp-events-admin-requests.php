@@ -23,6 +23,7 @@ class Wp_Admin_Request {
      */
     public function wpe_resend_notification() {
 
+        $_POST             = filter_input_array( INPUT_POST, FILTER_SANITIZE_STRING );
 		$formData          = isset( $_POST['formData'] ) ? $_POST['formData'] : [];
         $tab               = isset( $_POST['displayTab'] ) ? $_POST['displayTab'] : 'registrations';
         $admin_noification = $_POST['adminNoti'];
@@ -85,9 +86,9 @@ class Wp_Admin_Request {
      */
     public function wpe_trash_restore() {
 
-        $button_text = $_POST['text'];
-        $entry_id    = $_POST['entryID'];
-        $tab         = isset( $_POST['displayTab'] ) ? $_POST['displayTab'] : 'registrations';
+        $button_text = sanitize_text_field( $_POST['text'] );
+        $entry_id    = sanitize_text_field( $_POST['entryID'] );
+        $tab         = isset( $_POST['displayTab'] ) ? sanitize_text_field( $_POST['displayTab'] ) : 'registrations';
         $val         = WPE_TRASHED;
         global $wpdb;
 
@@ -170,8 +171,8 @@ class Wp_Admin_Request {
      * @since 1.3.0
      */
     public function wpe_update_location() {
-        $postID           = $_POST['locationID'];
-        $eventID          = $_POST['eventID'];
+        $postID           = sanitize_text_field( $_POST['locationID'] );
+        $eventID          = sanitize_text_field( $_POST['eventID'] );
         $options          = get_option( 'wpe_integration_settings' );
         $maps_key         = $options['gmaps_api'];
         $maps_type        = $options['gmaps_type'];
@@ -208,6 +209,7 @@ class Wp_Admin_Request {
      * @since 1.3.0
      */
     public function wpe_create_location() {
+        $_POST         = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
         $location_data = $_POST['location'];
         $postTitle     = stripcslashes( $location_data['venue'] );
         if ( $location_data['venue'] === '' || $location_data['address'] === '' 

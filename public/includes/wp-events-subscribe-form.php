@@ -25,10 +25,10 @@ if( !function_exists( 'wpe_display_subscribe_form' ) ) {
 		$form_options               = get_option( 'wpe_forms_settings' );
         $captcha_options            = get_option( 'wpe_reCAPTCHA_settings' );
 		$labels                     = isset( $form_options['subscriber_form_labels'] );
-		$form_title                 = isset( $form_options['subscriber_form_title'] ) ? $form_options['subscriber_form_title'] : '';
-		$form_description           = isset( $form_options['subscriber_form_description'] ) ? $form_options['subscriber_form_description'] : '';
-		$form_button                = isset( $form_options['subscriber_form_button'] ) ? $form_options['subscriber_form_button'] : 'Subscribe';
-        $form_textin_permission     = isset( $form_options['subscriber_form_texting_permission'] ) ? $form_options['subscriber_form_texting_permission'] : 'I agree to receive texts at the number provided from [wpe_firm_name]. Frequency may vary and include information on appointments, events, and other marketing messages. Message/data rates may apply. To opt-out, text STOP at any time.';
+		$form_title                 = isset( $form_options['subscriber_form_title'] ) ? sanitize_text_field( $form_options['subscriber_form_title'] ) : '';
+		$form_description           = isset( $form_options['subscriber_form_description'] ) ? sanitize_text_field( $form_options['subscriber_form_description'] ) : '';
+		$form_button                = isset( $form_options['subscriber_form_button'] ) ? sanitize_text_field( $form_options['subscriber_form_button'] ) : __( 'Subscribe', 'wp-events' );
+        $form_textin_permission     = isset( $form_options['subscriber_form_texting_permission'] ) ? sanitize_text_field( $form_options['subscriber_form_texting_permission'] ) : __( 'I agree to receive texts at the number provided from [wpe_firm_name]. Frequency may vary and include information on appointments, events, and other marketing messages. Message/data rates may apply. To opt-out, text STOP at any time.', 'wp-events' );
         $hide_phone_number          = isset( $form_options['subscriber_enable_phone_number'] );
         $hide_texting_permission    = isset( $form_options['subscriber_enable_texting_permission'] );
         ?>
@@ -91,7 +91,7 @@ if( !function_exists( 'wpe_display_subscribe_form' ) ) {
                     if( $site_key !== '' ) {
                         ?>
                         <div class="wpe-form-control wpe-field-container wpe-full-width">
-                        <div class="g-recaptcha" data-expired-callback="CaptchaExpired" data-sitekey="<?php echo $site_key ?>" <?php if ( $captcha_options['reCAPTCHA_type'] === 'invisible' ) { echo 'data-size="invisible"'; } ?> ></div>
+                        <div class="g-recaptcha" data-expired-callback="CaptchaExpired" data-sitekey="<?php echo esc_attr( $site_key ) ?>" <?php if ( $captcha_options['reCAPTCHA_type'] === 'invisible' ) { echo 'data-size="invisible"'; } ?> ></div>
                         <small class="recaptcha-error"><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                         </div>
                         <?php
@@ -130,7 +130,7 @@ if( !function_exists( 'wpe_before_subscribe_form' ) ) {
 		$before_form_message = get_option( 'wpe_forms_settings' );
 		if ( isset( $before_form_message['before_subscriber_form_message'] ) && $before_form_message['before_subscriber_form_message'] !== '' ) {
 			$html = '<div class="before-subscribe-form '. wpe_dark_mode() .'"><p>' . $before_form_message['before_subscriber_form_message'] . '</p></div>';
-			echo $html;
+			echo wp_kses( $html, wpe_get_allowed_html() );
 		}
 	}
 }
@@ -148,7 +148,7 @@ if( !function_exists( 'wpe_after_subscribe_form' ) ) {
 		$after_form_message = get_option( 'wpe_forms_settings' );
 		if ( isset($after_form_message['after_subscriber_form_message']) && $after_form_message['after_subscriber_form_message'] !== '' ) {
 			$html = '<div class="after-subscribe-form '. wpe_dark_mode() .'"><p>' . $after_form_message['after_subscriber_form_message'] . '</p></div>';
-			echo $html;
+			echo wp_kses( $html, wpe_get_allowed_html() );
 		}
 	}
 }

@@ -162,7 +162,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 	 */
 	function column_ID( $item ) {
 
-		$display = isset( $_GET["display"] ) ? $_GET["display"] : 'all';
+		$display = isset( $_GET["display"] ) ? sanitize_text_field( $_GET["display"] ) : 'all';
 
 		$actions = [ 'view_entry' => sprintf(
 			'<a href="edit.php?post_type=wp_events&page=wpe_view_entry&entry=%s&tab=subscriptions&display='. $display .'">' . __( 'View', 'wp-events' ) . '</a>',
@@ -420,7 +420,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 			$sql = "SELECT COUNT(*) FROM {$wpdb->prefix}$this->table_name WHERE wpe_status = ". WPE_ACTIVE;
 		}
 
-		return $wpdb->get_var( $sql );
+		return $wpdb->get_var( $wpdb->prepare( $sql ) );
 	}
 
 	/**
@@ -457,7 +457,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 			$sql .= ' OFFSET ' . ( $page_number - 1 ) * $per_page;
 		}
 
-		$results = $wpdb->get_results( $sql, ARRAY_A );
+		$results = $wpdb->get_results( $wpdb->prepare( $sql, ARRAY_A ) );
 
 		return $results;
 	}
@@ -489,7 +489,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 	 */
 	public function views() {
 
-		$wpe_current_display = isset( $_GET['display'] ) ? $_GET['display'] : 'all';
+		$wpe_current_display = isset( $_GET['display'] ) ? sanitize_text_field( $_GET['display'] ) : 'all';
 
 		$views = array(
 			'all' 	=> '<a '. wpe_is_current( $wpe_current_display, 'all' ) .' href="edit.php?post_type=wp_events&page=wp_forms_entries&tab=subscriptions&display=all">All</a>',
