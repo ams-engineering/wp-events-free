@@ -80,19 +80,19 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 			case 'first_name':
 			case 'last_name':
 			case 'email':
-				return $item[ $column_name ];
+				return $item->$column_name;
 			case 'event':
-				return '<a href="' . get_the_permalink( $item['post_id'] ) . '">' . get_the_title( $item['post_id'] ) . '</a>';
+				return '<a href="' . get_the_permalink( $item->post_id ) . '">' . get_the_title( $item->post_id ) . '</a>';
 			case 'event_type':
-				return get_post_meta( esc_attr( $item['post_id'] ), 'wpevent-type', TRUE );
+				return get_post_meta( esc_attr( $item->post_id ), 'wpevent-type', TRUE );
 			case 'time':
-				return $item['time_generated'];
+				return $item->time_generated;
 			case 'wpe_seat':
-				return $item['wpe_seats'];
+				return $item->wpe_seats;
 			case 'texting_permission': 
-				return $item[ $column_name ];
+				return $item->$column_name;
 			case 'ID':
-				return $item['ID'];
+				return $item->ID;
 			default:
 				return print_r( $item, TRUE );
 		}
@@ -109,7 +109,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	function column_cb( $item ) {
 		return sprintf(
 			'<input type="checkbox" name="bulk-delete[]" value="%s" />',
-			$item['ID']
+			$item->ID
 		);
 	}
 
@@ -179,22 +179,22 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		$event_options = get_option('wpe_events_settings');
 
 		if ( isset( $event_options['approve_registrations'] ) ) { //only for pending approval entries
-			if( $display === 'pending' || $item['wpe_status'] == WPE_PENDING || $display === 'cancelled' || $item['wpe_status'] == WPE_CANCELLED ) {
+			if( $display === 'pending' || $item->wpe_status == WPE_PENDING || $display === 'cancelled' || $item->wpe_status == WPE_CANCELLED ) {
 				$actions['approve_entry'] = sprintf(
 						'<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=approve-entry&_wpnonce=%s">' . __( 'Approve', 'wp-events' ) . '</a>',
 						$_REQUEST['page'],
 						$display,
 						'approve-entry',
-						$item['ID'],
+						$item->ID,
 						wp_create_nonce( 'wp_events_entries' ) );
 			}
-			if( $display === 'pending' || $item['wpe_status'] == WPE_PENDING || $display === 'approved' || $item['wpe_status'] == WPE_APPROVED ) {
+			if( $display === 'pending' || $item->wpe_status == WPE_PENDING || $display === 'approved' || $item->wpe_status == WPE_APPROVED ) {
 				$actions['cancel_entry'] = sprintf(
 						'<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=cancel-entry&_wpnonce=%s">' . __( 'Cancel', 'wp-events' ) . '</a>',
 						$_REQUEST['page'],
 						$display,
 						'cancel-entry',
-						$item['ID'],
+						$item->ID,
 						wp_create_nonce( 'wp_events_entries' ) );
 			}
 		}
@@ -205,7 +205,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		if( isset( $_GET['wpe_titles'] ) && $_GET['wpe_titles'] !== '' ) {
 			$event_ids = explode( ',', $_GET['wpe_titles'] );
 			for( $i = 0; $i < sizeof( $event_ids ); $i++ ) {
-				if( $event_ids[$i] == $item['post_id'] ) {
+				if( $event_ids[$i] == $item->post_id ) {
 					$eventID = '&event=' . $event_ids[$i];
 				}
 			}
@@ -213,7 +213,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 
 		$actions['view_entry'] = sprintf(
 			'<a href="edit.php?post_type=wp_events&page=wpe_view_entry'. $eventID .'&entry=%s&tab=registrations&display='. $display .'">' . __( 'View', 'wp-events' ) . '</a>',
-			$item['ID'] );
+			$item->ID );
 
 
 		if ( $display === 'trash' ) {  //only for trash entries
@@ -221,13 +221,13 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 				'<a href="edit.php?post_type=wp_events&page=%s&display=trash&action=%s&bulk-delete[0]=%s&action2=permanent-delete&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete item(s)?\');">' . __( 'Delete Permanently', 'wp-events' ) . '</a>',
 				$_REQUEST['page'],
 				'permanent-delete',
-				$item['ID'],
+				$item->ID,
 				wp_create_nonce( 'wp_events_entries' ) );
 			$actions['restore'] 		 = sprintf(
 				'<a href="edit.php?post_type=wp_events&page=%s&display=trash&action=%s&bulk-delete[0]=%s&action2=restore&_wpnonce=%s">' . __( 'Restore', 'wp-events' ) . '</a>',
 				$_REQUEST['page'],
 				'restore',
-				$item['ID'],
+				$item->ID,
 				wp_create_nonce( 'wp_events_entries' ) );
 		} else {
             $actions['delete'] = sprintf(
@@ -235,13 +235,13 @@ class Wp_Events_Registrations_list extends WP_List_Table {
                     $_REQUEST['page'],
 					$display,
                     'bulk-delete',
-                    $item['ID'],
+                    $item->ID,
                     wp_create_nonce( 'wp_events_entries' ) );
 		}
 
 		return sprintf(
 			'%1$s %2$s',
-			$item['ID'],
+			$item->ID,
 			$this->row_actions( $actions )
         );
 	}

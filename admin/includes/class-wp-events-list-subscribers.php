@@ -82,11 +82,11 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 			case 'subscriber_email':
 			case 'subscriber_phone':
 			case 'subscriber_texting_permission':
-				return $item[ $column_name ];
+				return $item->$column_name;
 			case 'time':
-				return $item['time_generated'];
+				return $item->time_generated;
 			case 'id':
-				return $item['id'];
+				return $item->id;
 			default:
 				return print_r( $item, TRUE );
 		}
@@ -103,7 +103,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 	function column_cb( $item ) {
 		return sprintf(
 			'<input type="checkbox" name="bulk-delete[]" value="%s" />',
-			$item['id']
+			$item->id
 		);
 	}
 
@@ -166,7 +166,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 
 		$actions = [ 'view_entry' => sprintf(
 			'<a href="edit.php?post_type=wp_events&page=wpe_view_entry&entry=%s&tab=subscriptions&display='. $display .'">' . __( 'View', 'wp-events' ) . '</a>',
-			$item['id'] ),
+			$item->id ),
 		];
 
 		if ( $display === 'trash' ) {  //only for trash entries
@@ -174,26 +174,26 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&display=trash&action=%s&bulk-delete[0]=%s&action2=permanent-delete&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete item(s)?\');">' . __( 'Delete Permanently', 'wp-events' ) . '</a>',
 					$_REQUEST['page'],
 					'permanent-delete',
-					$item['id'],
+					$item->id,
 					wp_create_nonce( 'wp_events_entries' ) );
 			$actions['restore'] = sprintf(
 					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&display=trash&action=%s&bulk-delete[0]=%s&action2=restore&_wpnonce=%s">' . __( 'Restore', 'wp-events' ) . '</a>',
 					$_REQUEST['page'],
 					'restore',
-					$item['id'],
+					$item->id,
 					wp_create_nonce( 'wp_events_entries' ) );
 		} else {
 			$actions['delete'] = sprintf(
 					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&action=%s&bulk-delete[0]=%s&action2=bulk-delete&_wpnonce=%s">' . __( 'Move To Trash', 'wp-events' ) . '</a>',
 					$_REQUEST['page'],
 					'bulk-delete',
-					$item['id'],
+					$item->id,
 					wp_create_nonce( 'wp_events_entries' ) );
 		}
 
 		return sprintf(
 			'%1$s %2$s',
-			$item['id'],
+			$item->id,
 			$this->row_actions( $actions )
         );
 	}

@@ -13,10 +13,8 @@
 ?>
 <div class="wpe-header">
 	<div class="wpe-header-wrap">
-		<img width="50" height="50" src=" <?php echo plugins_url() . '/wp-events/assets/img/logo.png'; ?>">
-		<h1><?php
-		_e( 'WP Events Entries', 'wp-events' ) ?>
-		</h1>
+		<img width="50" height="50" src=" <?php echo plugins_url() . '/wp-events/assets/icon-256x256.png'; ?>">
+		<h1><?php _e( 'WP Events Entries', 'wp-events' ) ?></h1>
 	</div>
 </div> 
 <?php wpe_go_back_link(); ?>

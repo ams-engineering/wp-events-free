@@ -18,7 +18,8 @@
     settings_errors();
     global $wpe_active_tab;
     $wpe_active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'general'; ?>
-    <h1><?php esc_html_e( 'WP Events Settings', 'wp-events' ); ?></h1>
+    <img width="50" height="50" src=" <?php echo plugins_url() . '/wp-events/assets/icon-256x256.png'; ?>">
+    <h1><?php _e( 'WP Events Settings', 'wp-events' ); ?></h1>
     <form method="post" action="options.php">
     <h2 class="nav-tab-wrapper">
         <?php

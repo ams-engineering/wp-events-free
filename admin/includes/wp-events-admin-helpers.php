@@ -27,7 +27,7 @@ if ( ! function_exists( 'wpe_sidebar_section' ) ) {
             </div>
             <div class="section-body">
             <?php
-                esc_html_e( $body );
+                echo $body;
             ?>
             </div>
         </div>
