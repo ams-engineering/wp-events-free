@@ -49,12 +49,12 @@ if( !function_exists( 'wpe_display_subscribe_form' ) ) {
                     <div class="wpe-name-box wpe-col-2">
                         <div class="wpe-form-control">
                             <?php if( $labels ) { echo'<label for="wpe_username">' . esc_html_e(  'First Name *', 'wp-events' ) . '</label>';}?>
-                            <input type="text" name="wpe_first_name" id="wpe_firstname" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'First Name*', 'wp-events' ); ?>"<?php }?> required>
+                            <input class="wpe-no-special" type="text" name="wpe_first_name" id="wpe_firstname" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'First Name*', 'wp-events' ); ?>"<?php }?> required>
                             <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                         </div>
                         <div class="wpe-form-control">
                             <?php if( $labels ) { echo'<label for="wpe_username">' . esc_html_e(  'Last Name*', 'wp-events' ) . '</label>';}?>
-                            <input type="text" name="wpe_last_name" id="wpe_lastname" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Last Name*', 'wp-events' ); ?>"<?php }?> required>
+                            <input class="wpe-no-special" type="text" name="wpe_last_name" id="wpe_lastname" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Last Name*', 'wp-events' ); ?>"<?php }?> required>
                             <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                         </div>
                     </div>

@@ -46,12 +46,12 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                 <div class="wpe-col-2 wpe-field">
                   <div class="wpe-form-control wpe-field-container wpe-left-half">
                         <?php if( $labels) { echo'<label for="wpe_first_name">' . esc_html_e(  'First Name *', 'wp-events' ) . '</label>';}?>
-                        <input class="wpe-field" type="text" name="wpe_first_name" id="wpe_first_name" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'First Name *', 'wp-events' ); ?>" <?php } ?> required>
+                        <input class="wpe-no-special wpe-field" type="text" name="wpe_first_name" id="wpe_first_name" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'First Name *', 'wp-events' ); ?>" <?php } ?> required>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                    </div>
                    <div class="wpe-form-control wpe-field-container wpe-right-half">
                         <?php if( $labels) { echo'<label for="wpe_last_name">' . esc_html_e(  'Last Name *', 'wp-events' ) . '</label>';}?>
-                        <input class="wpe-field" type="text" name="wpe_last_name" id="wpe_last_name" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Last Name *', 'wp-events' ); ?>" <?php } ?>required>
+                        <input class="wpe-no-special wpe-field" type="text" name="wpe_last_name" id="wpe_last_name" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Last Name *', 'wp-events' ); ?>" <?php } ?>required>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                    </div>
                 </div>
@@ -59,13 +59,13 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                 <?php if ( ! $addrees1 ) { ?>
                     <div class="wpe-form-control wpe-field-container wpe-left-half">
                         <?php if( $labels) { echo'<label for="wpe_address">' . esc_html_e(  'Address *', 'wp-events' ) . '</label>';}?>
-                        <input class="wpe-field" type="text" name="wpe_address" id="wpe_address" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Address *', 'wp-events' ); ?>" <?php } ?>required>
+                        <input class="wpe-no-special wpe-field" type="text" name="wpe_address" id="wpe_address" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Address *', 'wp-events' ); ?>" <?php } ?>required>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                     <?php }   if ( ! $addrees2 ) {?>
                     <div class="wpe-form-control wpe-field-container wpe-right-half">
                         <?php if( $labels) { echo'<label for="wpe_address_2">' . esc_html_e(  'Address 2', 'wp-events' ) . '</label>';}?>
-                        <input class="wpe-field" type="text" name="wpe_address_2" id="wpe_address_2" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Address 2', 'wp-events' ); ?>" <?php } ?>>
+                        <input class="wpe-no-special wpe-field" type="text" name="wpe_address_2" id="wpe_address_2" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Address 2', 'wp-events' ); ?>" <?php } ?>>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                     <?php  } ?>
@@ -74,19 +74,19 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                 <?php if ( ! $city ) { ?>
                     <div class="wpe-form-control wpe-field-container wpe-left-third">
                         <?php if( $labels) { echo'<label for="wpe_city">' . esc_html_e(  'City *', 'wp-events' ) . '</label>';}?>
-                        <input class="wpe-field" type="text" name="wpe_city" id="wpe_city" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'City *', 'wp-events' ); ?>" <?php } ?>required>
+                        <input class="wpe-no-special wpe-field" type="text" name="wpe_city" id="wpe_city" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'City *', 'wp-events' ); ?>" <?php } ?>required>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                     <?php } if ( ! $state ) { ?>
                     <div class="wpe-form-control wpe-field-container wpe-middle-third">
                         <?php if( $labels) { echo'<label for="wpe_state">' . esc_html_e(  'State *', 'wp-events' ) . '</label>';}?>
-                        <input class="wpe-field" type="text" name="wpe_state" id="wpe_state" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'State *', 'wp-events' ); ?>" <?php } ?>required>
+                        <input class="wpe-no-special wpe-field" type="text" name="wpe_state" id="wpe_state" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'State *', 'wp-events' ); ?>" <?php } ?>required>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                     <?php } if ( ! $zip ) { ?>
                     <div class="wpe-form-control wpe-field-container wpe-right-third">
                         <?php if( $labels) { echo'<label for="wpe_zip">' . esc_html_e(  'Zip', 'wp-events' ) . '</label>';}?>
-                        <input class="wpe-field" type="number" name="wpe_zip" id="wpe_zip" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Zip *', 'wp-events' ); ?>" <?php } ?>required>
+                        <input class="wpe-field" type="number" minlength="5" name="wpe_zip" id="wpe_zip" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Zip *', 'wp-events' ); ?>" <?php } ?>required>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                     <?php }?>

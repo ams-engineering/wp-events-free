@@ -1726,7 +1726,7 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_admin_from_callback() {
 		$option= get_option('wpe_firm_settings');
 		?>
-        <input class="wpe-settings-field" name="wpe_firm_settings[admin_mail]" id="wpe_admin_mail" type="text" value="<?php echo isset( $option['admin_mail'] ) ? esc_attr( $option['admin_mail'] ) : get_option('admin_email'); ?>" />
+        <input class="wpe-settings-field" name="wpe_firm_settings[admin_mail]" id="wpe_admin_mail" type="text" value="<?php echo isset( $option['admin_mail'] ) ? $option['admin_mail'] : get_option('admin_email'); ?>" />
         <small class="wpe-fields-description"><?php esc_html_e( 'Enter contact email address of firm', 'wp-events' ); ?></small>
 		<?php
     }
