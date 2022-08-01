@@ -14,7 +14,7 @@
 ?>
 <div class="wpe-header">
     <div class="wpe-header-wrap">
-        <img width="50" height="50" src="<?php echo plugins_url() . '/wp-events/assets/icon-256x256.png'; ?>">
+        <img width="50" height="50" src="<?php echo plugins_url() . '/wp-events/assets/img/logo.png'; ?>">
         <h1 class="wpe-header-title"><?php _e( 'WP Events', 'wp-events' ); ?></h1> 
     </div>
 </div>
