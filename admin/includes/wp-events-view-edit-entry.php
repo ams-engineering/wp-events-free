@@ -38,27 +38,33 @@ if ( ! function_exists( 'wpe_add_entry_fields' ) ) {
                         'label' 	    => 'First Name',
                         'value'         => $results[0]->first_name,
                         'required'      => true,
+                        'class'         => ['wpe-no-special'],
                     ),
                     'wpe_last_name'     => array(
                         'label' 	    => 'Last Name',
                         'value'         => $results[0]->last_name,
                         'required'      => true,
+                        'class'         => ['wpe-no-special'],
                     ),
                     'wpe_address'       => array(
                         'label' 	    => 'Address',
                         'value'         => $results[0]->addres_one,
+                        'class'         => ['wpe-no-special'],
                     ),
                     'wpe_address_2'     => array(
                         'label' 	    => 'Address2',
                         'value'         => $results[0]->addres_two,
+                        'class'         => ['wpe-no-special'],
                     ),
                     'wpe_city'          => array(
                         'label'	        => 'City',
                         'value'         => $results[0]->city,
+                        'class'         => ['wpe-no-special'],
                     ),
                     'wpe_state'         => array(
                         'label' 	    => 'State',
                         'value'         => $results[0]->state,
+                        'class'         => ['wpe-no-special'],
                     ),
                     'wpe_zip'           => array(
                         'label' 	    => 'Zip',
@@ -99,6 +105,7 @@ if ( ! function_exists( 'wpe_add_entry_fields' ) ) {
                         'label'         => 'Guests',
                         'value'         => $results[0]->guests,
                         'guest-class'   => $guest_class,
+                        'class'         => ['wpe-no-special'],
                     ),
                     'wpe_texting'       => array(
                         'type'          => 'checkbox',

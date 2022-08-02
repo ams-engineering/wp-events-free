@@ -4,6 +4,17 @@
  */
 
 jQuery(document).ready( function($) {
+
+	$('.wpe-form-control .wpe-no-special').on( 'input', function() {
+		var c = this.selectionStart,
+			r = /[^a-z0-9 ]/gi,
+			v = $(this).val();
+		if( r.test( v ) ) {
+		  $( this ).val( v.replace( r, '' ) );
+		  c--;
+		}
+		this.setSelectionRange(c, c);
+	});
 	
 	const startDate = document.getElementById('wpevent-start-date');
 	const endDate	= document.getElementById('wpevent-end-date');

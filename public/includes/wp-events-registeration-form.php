@@ -179,12 +179,12 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     <div style="display: none" class="wpe-col-2 wpe-field guest-box">
                         <div class="wpe-form-control wpe-field-container wpe-left-half">
                             <?php if( $labels) { echo'<label>' . esc_html_e(  'Guest First Name*', 'wp-events' ) . '</label>';}?>
-                            <input class="wpe-field wpe-guest-field" type="text" name="wpe_guest_first_name[]" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Guest First Name*', 'wp-events' ); ?>" <?php } ?>>
+                            <input class="wpe-no-special wpe-field wpe-guest-field" type="text" name="wpe_guest_first_name[]" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Guest First Name*', 'wp-events' ); ?>" <?php } ?>>
                             <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                         </div>
                         <div class="wpe-form-control wpe-field-container wpe-right-half">
                             <?php if( $labels) { echo'<label>' . esc_html_e(  'Guest Last name*', 'wp-events' ) . '</label>';}?>
-                            <input class="wpe-field wpe-guest-field" type="text" name="wpe_guest_last_name[]" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Guest Last name*', 'wp-events' ); ?>" <?php } ?>>
+                            <input class="wpe-no-special wpe-field wpe-guest-field" type="text" name="wpe_guest_last_name[]" <?php if( !$labels ) {?>placeholder="<?php esc_html_e( 'Guest Last name*', 'wp-events' ); ?>" <?php } ?>>
                             <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                         </div>
                     </div>
