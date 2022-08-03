@@ -377,9 +377,7 @@ add_action('wp_ajax_nopriv_wpe_delete_file', 'wpe_delete_file');
 function wpe_delete_file() {
 	$file 		 = $_POST['url'];
 	$path 		 = wp_upload_dir();
-	$file_folder = explode('wp-content', $file);
-	$base_path   = explode('wp-content', $path['path']);
-	$file_path   = $base_path[0] . 'wp-content' . $file_folder[1];
+	$file_path   = $path['path'] . '/' . basename( $file );
 	unlink( $file_path );
 
 	wpe_send_ajax_response( 1 );

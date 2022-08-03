@@ -135,7 +135,7 @@ class Wp_Events_Public {
 		if ( is_post_type_archive( 'wp_events' ) ) {
 
 			if ( function_exists( 'genesis' ) === TRUE ) {  //if genesis is active load genesis template
-				$template_path   = 'wp-events/genesis/archive-wp_events.php';
+				$template_path   = WPE_PLUGIN_BASE . '/genesis/archive-wp_events.php';
 				$exists_in_theme = locate_template( $template_path );
 				if ( $exists_in_theme !== '' ) {
 					return $exists_in_theme;
@@ -146,7 +146,7 @@ class Wp_Events_Public {
 
 				$theme_files     = [
 					'archive-wp_events.php',
-					'wp-events/archive-wp_events.php',
+					WPE_PLUGIN_BASE . '/archive-wp_events.php',
 				];
 				$exists_in_theme = locate_template( $theme_files );
 				if ( $exists_in_theme !== '' ) {
@@ -172,7 +172,7 @@ class Wp_Events_Public {
 		global $post;
 
 		if ( ( $post->post_type === 'wp_events' ) && file_exists( plugin_dir_path( __FILE__ ) . 'templates/single-wp_events.php' ) ) {
-			$theme_files = array('single-wp_events.php', 'wp-events/single-wp_events.php');
+			$theme_files = array('single-wp_events.php', WPE_PLUGIN_BASE . '/single-wp_events.php');
 			$exists_in_theme = locate_template($theme_files, false);
 			if ( $exists_in_theme !== '' ) {
 				return $exists_in_theme;
@@ -262,7 +262,7 @@ class Wp_Events_Public {
 		if ( 'archive-wp_events.php' === basename( $page_template ) ) {
 			$theme_files     = [
 				'archive-wp_events.php',
-				'wp-events/archive-wp_events.php',
+				WPE_PLUGIN_BASE . '/archive-wp_events.php',
 			];
 			$exists_in_theme = locate_template( $theme_files, FALSE );
 			if ( $exists_in_theme !== '' ) {

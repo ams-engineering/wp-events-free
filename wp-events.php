@@ -33,6 +33,11 @@ if ( ! defined( 'WPINC' ) ) {
 define( 'WP_EVENTS_VERSION', '1.5.4' );
 
 /**
+ * Name of plugin folder.
+ */
+define( 'WPE_PLUGIN_BASE', plugin_basename( __DIR__ ) );
+
+/**
  * File that contains functions related to database operations
  */
 require plugin_dir_path( __FILE__ ) . 'includes/class-wp-events-db-actions.php';
