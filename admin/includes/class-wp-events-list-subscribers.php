@@ -445,8 +445,8 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 		}
 
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			$sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
-			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' ASC';
+			$sql .= ' ORDER BY ' . sanitize_sql_orderby( $_REQUEST['orderby'] );
+			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . sanitize_sql_orderby( $_REQUEST['order'] ) : ' ASC';
 		} else {
 			$sql .= ' ORDER BY time_generated DESC';
 		}
@@ -549,7 +549,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 		global $pagenow;
 		if ( $pagenow == 'edit.php' && isset( $_REQUEST['page'] ) && 'wp_forms_entries' === $_REQUEST['page'] ) {
 			 echo '<div class="notice notice-success is-dismissible">
-				 <p>'. $message .'</p>
+				 <p>'. esc_html( $message ) .'</p>
 			 </div>';
 		}
 	}

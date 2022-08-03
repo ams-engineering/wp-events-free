@@ -51,7 +51,7 @@ get_header();
                         ?>
                         <div class="wpe-single-content">
                             <span class="wpe-category"><?php
-	                            echo apply_filters( 'wpe_single_type', '<span class="wpe-terms"><strong>Type:&nbsp;</strong>' . $wpe_type . '</span>' );
+	                            echo apply_filters( 'wpe_single_type', '<span class="wpe-terms"><strong>Type:&nbsp;</strong>' . esc_html( $wpe_type ) . '</span>' );
 	                            if( !empty( $terms ) ) {
 		                            $cat_html  = '';
 		                            foreach ( $terms as $term ) {
@@ -78,7 +78,7 @@ get_header();
                             <?php if( $wpe_phone !== '' ) {?>
                             <span class="wpe-duration-date">
                                 <strong>Phone: </strong><?php
-								echo "<a href='tel:$wpe_phone'>" . $wpe_phone . "</a>"; ?>
+								echo '<a href="tel:'. esc_attr( $wpe_phone ) . '">' . esc_html( $wpe_phone ) . '</a>'; ?>
                             </span>
                             <?php  } ?>
                             <span class="wpe-address">
@@ -101,7 +101,7 @@ get_header();
                                         $venue_html .= '&nbsp;<span class="wpe-state">' . $wpe_country . '</span>';
                                     }
                                     if ( $venue_html !== '' ) {
-                                        echo '<strong>Venue: </strong>' . $venue_html;
+                                        echo '<strong>Venue: </strong>' . wp_kses( $venue_html, wpe_get_allowed_html() );
                                     }
                                 }
                                 ?>
@@ -111,7 +111,7 @@ get_header();
                         <div class="wpe-add-to-calendar">
 							<?php
 							if ( $gmap_url !== '' ) {
-								echo '<a class="wpe-button gmap-button" target="_blank" href="' . $gmap_url . '">Google Map</a>';
+								echo '<a class="wpe-button gmap-button" target="_blank" href="' . esc_url( $gmap_url ) . '">Google Map</a>';
 							}
 							//Replacing Spaces with + symbol to add in Query String
 							$e_title         = preg_replace( '/\s+/', '+', get_the_title() );
@@ -125,10 +125,10 @@ get_header();
                                 <li class="wpe-calendar-list"><a href="javascript:void(0)">+ Calendar</a>
                                     <ul class="wpe-calendar-sublist">
                                         <li><a target="_blank" href="<?php
-											echo $add_to_calendar; ?>">Google
+											echo esc_url( $add_to_calendar ); ?>">Google
                                                 Calendar</a></li>
                                         <li><a target="_blank" href="<?php
-											echo $add_to_outlook; ?>">Outlook
+											echo esc_url( $add_to_outlook ); ?>">Outlook
                                                 Calendar</a></li>
                                         <li id="download-ics"><a href="javascript:void(0)">Download ICS File</a></li>
                                         <?php $venue = get_post_meta( $wpe_location, 'wpevent-loc-venue', TRUE );
@@ -140,7 +140,7 @@ get_header();
                                         	$address = 'webinar';
                                         }
                                         ?>
-                                        <div class="ics-text" id="get-ics-text">BEGIN:VCALENDAR<?php echo "\n" ?>VERSION:2.0<?php echo "\n" ?>PRODID:-//WPMINDS//NONSGML v1.0//EN<?php echo "\n" ?>CALSCALE:GREGORIAN<?php echo "\n" ?>BEGIN:VEVENT<?php echo "\n" ?>VENUE:<?php echo $wpe_venue; ?><?php echo "\n" ?>DESCRIPTION:<?php echo strip_tags( get_the_excerpt()); ?><?php echo "\n" ?>ADDRESS:<?php echo $wpe_addr; ?><?php echo "\n" ?>DTSTART:<?php echo date('Ymd\THis', get_post_meta( $post_id , 'wpevent-start-date-time', TRUE )); ?><?php echo "\n" ?>DTEND:<?php echo date('Ymd\THis', get_post_meta( $post_id , 'wpevent-end-date-time', TRUE )); ?><?php echo "\n" ?>URL;VALUE=URI:<?php echo get_the_permalink( $post_id ); ?><?php echo "\n" ?>SUMMARY:<?php echo strip_tags( get_the_title()); ?><?php echo "\n" ?>LOCATION:<?php echo $venue_html; ?><?php echo "\n" ?>PHONE:<?php echo get_post_meta( $post_id, 'wpevent-phone', true ); ?><?php echo "\n" ?>DTSTAMP:<?php echo date('Ymd\THis'); ?><?php echo "\n" ?>UID:<?php echo uniqid(); ?><?php echo "\n" ?>END:VEVENT<?php echo "\n" ?>END:VCALENDAR</div>
+                                        <div class="ics-text" id="get-ics-text">BEGIN:VCALENDAR<?php echo "\n" ?>VERSION:2.0<?php echo "\n" ?>PRODID:-//WPMINDS//NONSGML v1.0//EN<?php echo "\n" ?>CALSCALE:GREGORIAN<?php echo "\n" ?>BEGIN:VEVENT<?php echo "\n" ?>VENUE:<?php echo esc_html( $wpe_venue ); ?><?php echo "\n" ?>DESCRIPTION:<?php echo strip_tags( get_the_excerpt()); ?><?php echo "\n" ?>ADDRESS:<?php echo esc_html( $wpe_addr ); ?><?php echo "\n" ?>DTSTART:<?php echo date('Ymd\THis', get_post_meta( $post_id , 'wpevent-start-date-time', TRUE )); ?><?php echo "\n" ?>DTEND:<?php echo date('Ymd\THis', get_post_meta( $post_id , 'wpevent-end-date-time', TRUE )); ?><?php echo "\n" ?>URL;VALUE=URI:<?php echo get_the_permalink( $post_id ); ?><?php echo "\n" ?>SUMMARY:<?php echo strip_tags( get_the_title()); ?><?php echo "\n" ?>LOCATION:<?php echo wp_kses( $venue_html, wpe_get_allowed_html() ); ?><?php echo "\n" ?>PHONE:<?php echo get_post_meta( $post_id, 'wpevent-phone', true ); ?><?php echo "\n" ?>DTSTAMP:<?php echo date('Ymd\THis'); ?><?php echo "\n" ?>UID:<?php echo uniqid(); ?><?php echo "\n" ?>END:VEVENT<?php echo "\n" ?>END:VCALENDAR</div>
                                         <div class="filename"><?php echo strip_tags( get_the_title()) .'.ics' ?></div>
                                     </ul>
                                 </li>

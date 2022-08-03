@@ -161,7 +161,7 @@ class Wpe_Shortcodes {
         ob_start();
         ?>
         <p style="color: blue; margin: 5px 0; text-transform: uppercase;">
-            <strong><?php echo $event_name; ?></strong>
+            <strong><?php echo esc_html( $event_name ); ?></strong>
         </p>
         <p style="margin: 5px 0">
             <strong>DAY: </strong>

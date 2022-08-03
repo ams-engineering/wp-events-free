@@ -369,7 +369,7 @@ if ( ! function_exists( 'wpe_prev_next_entry' ) ) {
         }
         
         ?>
-        <span class="wpe-switch-entry">Entry <?php echo esc_html( (string) $entry_number ) ?> of <?php echo $size; ?>
+        <span class="wpe-switch-entry">Entry <?php echo esc_html( (string) $entry_number ) ?> of <?php echo esc_html( $size ); ?>
         <a id="wpe-entry-previous" href="<?php echo esc_attr( $href_before ) ?>" title="Previous"><span class="dashicons dashicons-arrow-left-alt"></span></a>
         <a id="wpe-entry-next" href="<?php echo esc_attr( $href_after ) ?>" title="Next"><span class="dashicons dashicons-arrow-right-alt"></span></a>
         </span>
@@ -426,7 +426,7 @@ if ( ! function_exists( 'wpe_go_back_link' ) ) {
             if ( $post_status !== '' ) {
                 $post_status = '&post_status='. $post_status;
             }
-            echo '<span class="go-back-link"><a class="button" href="edit.php?post_type=wp_events&paged='. esc_attr( $_GET['posts_page'] ) . $status . $post_status .'" title="Go back"><span class="dashicons dashicons-arrow-left-alt"></span>Go Back</a></span>';
+            echo '<span class="go-back-link"><a class="button" href="edit.php?post_type=wp_events&paged='. esc_attr( $_GET['posts_page'] ) . esc_attr( $status ) . esc_attr( $post_status ) .'" title="Go back"><span class="dashicons dashicons-arrow-left-alt"></span>Go Back</a></span>';
         }
     }
 }

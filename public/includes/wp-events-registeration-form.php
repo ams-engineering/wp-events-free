@@ -130,7 +130,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
                         <label for="wpe_privacy_policy"><?php esc_html_e( 'Privacy Policy', 'wp-events' ); ?></label>
                         <textarea class="wpe-field" name="wpe_settings[privacy_policy]" id="wpe_privacy_policy" readonly><?php
-                            echo trim($option['privacy_policy']);  ?></textarea>
+                            echo trim( $option['privacy_policy'] );  ?></textarea>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                     <?php } ?>
@@ -142,12 +142,12 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                 <div class="wpe-col-full wpe-field">
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
                         <input  type="checkbox" name="wpe_consent_box" id="wpe_consent_box" value="I have read &amp; consent to the above." required>
-                        <label for="wpe_consent_box"><?php echo $consent_box ?></label>
+                        <label for="wpe_consent_box"><?php echo esc_html( $consent_box ); ?></label>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
                         <input  type="checkbox" name="wpe_disclaimer_box" id="wpe_disclaimer_box" value="I have read &amp; understand your website Disclaimer." required>
-                        <label for="wpe_disclaimer_box"> <?php echo $disclaimer_box ?></label>
+                        <label for="wpe_disclaimer_box"> <?php echo esc_html( $disclaimer_box ); ?></label>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                     <?php
@@ -155,7 +155,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     ?>
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
                         <input  type="checkbox" name="wpe_texting_permission" id="wpe_texting_permission" value="1">
-                        <label for="wpe_texting_permission"><?php echo do_shortcode( $form_textin_permission ); ?></label>
+                        <label for="wpe_texting_permission"><?php echo esc_html( do_shortcode( $form_textin_permission ) ); ?></label>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                     <?php
@@ -197,7 +197,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     ?>
                 <div class="form-flex">
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
-                        <div class="g-recaptcha" data-expired-callback="CaptchaExpired" data-sitekey="<?php echo $site_key ?>" <?php if ( $captcha_options['reCAPTCHA_type'] === 'invisible' ) { echo 'data-size="invisible"'; } ?> ></div>
+                        <div class="g-recaptcha" data-expired-callback="CaptchaExpired" data-sitekey="<?php echo esc_html( $site_key ); ?>" <?php if ( $captcha_options['reCAPTCHA_type'] === 'invisible' ) { echo 'data-size="invisible"'; } ?> ></div>
                         <small class="recaptcha-error"><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                 </div>
@@ -240,7 +240,7 @@ if( !function_exists( 'wpe_before_registration_form' ) ) {
 		$before_form_message = get_option( 'wpe_forms_settings' );
 		if ( isset( $before_form_message['before_registration_form_message'] ) && $before_form_message['before_registration_form_message'] !== '' ) {
 			$html = '<div class="before-registration-form"><p>' . $before_form_message['before_registration_form_message'] . '</p></div>';
-			echo $html;
+			echo wp_kses( $html, wpe_get_allowed_html() );
 		}
 	}
 }
@@ -258,7 +258,7 @@ if( !function_exists( 'wpe_after_registration_form' ) ) {
 		$after_form_message = get_option( 'wpe_forms_settings' );
 		if ( isset( $after_form_message['after_registration_form_message'] ) && $after_form_message['after_registration_form_message'] !== '' ) {
 			$html = '<div class="after-registration-form"><p>' . $after_form_message['after_registration_form_message'] . '</p></div>';
-			echo $html;
+			echo wp_kses( $html, wpe_get_allowed_html() );
 		}
 	}
 }

@@ -178,7 +178,6 @@ class Wp_Events_Db_Actions {
 		 */
 		wpe_request_log( $_REQUEST );
 
-		$_POST     = filter_input_array( INPUT_POST, FILTER_SANITIZE_STRING );
 		$form_data = $_POST['formData'];
 
 		/**

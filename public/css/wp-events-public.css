@@ -414,6 +414,7 @@ span.wpe-category a {
 
 .wpevents-section {
     text-align: center;
+    padding: 20px 0;
 }
 
 .wpevents-section strong.wpe-main-title {
@@ -803,7 +804,8 @@ body .wpe-dark-mode .wpe-subscribe-form-container input {
     background: #121016;
 }
 
-.wpe-dark-mode .wpe-subscribe-form-container {
+.wpe-dark-mode .wpe-subscribe-form-container,
+body .entry-content .wpe-dark-mode .wpevent-card {
     background-color: #121016;
     border: 1px solid #fff;
 }

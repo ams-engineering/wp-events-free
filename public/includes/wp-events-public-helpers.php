@@ -164,7 +164,7 @@ if ( ! function_exists( 'wpe_get_event_category_and_type' ) ) {
 		$wpe_type = get_post_meta( $post_id, 'wpevent-type', TRUE );
 		?>
         <span class="wpe-category"><?php
-			echo apply_filters( 'wpe_single_category_type', '<span class="wpe-type"><strong>Type:&nbsp;</strong>' . $wpe_type . '</span><br>' );
+			echo apply_filters( 'wpe_single_category_type', '<span class="wpe-type"><strong>Type:&nbsp;</strong>' . esc_html( $wpe_type ) . '</span><br>' );
 			if ( ! empty( $terms ) ) {
 				$cat_html  = '';
 				foreach ( $terms as $term ) {
@@ -346,33 +346,6 @@ if ( ! function_exists( 'wpe_get_taxonomy_page_title' ) ) {
 	}
 }
 
-
-if ( ! function_exists( 'wpe_get_pagination_list' ) ) {
-	/**
-     * Generates the pagination links fro archive page
-     *
-	 * @param $max_num_pages
-     *
-     * @since 1.0.448
-	 */
-	function wpe_get_pagination_list( $max_num_pages ) {
-
-		$pagination_args = [
-			'base'      => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
-			'total'     => $max_num_pages,
-			'current'   => max( 1, wpe_get_events_paged_attribute() ),
-			'format'    => '?paged=%#%',
-			'type'      => 'list',
-			'prev_next' => TRUE,
-			'prev_text' => 'Previous',
-			'next_text' => 'Next',
-		];
-		if ( $pagination_list = paginate_links( apply_filters( 'wpe_pagination_args', $pagination_args ) ) ) {
-			echo '<div class="archive-pagination pagination wpe-pagination">' . $pagination_list . '</div>';
-		}
-	}
-}
-
 if ( ! function_exists( 'wpe_get_archive_details' ) ) {
 	/**
 	 * Generates the content of current post
@@ -380,8 +353,8 @@ if ( ! function_exists( 'wpe_get_archive_details' ) ) {
 	 * @since 1.0.449
 	 */
 	function wpe_get_archive_details() {
-	    $event_content= get_the_content();
-	    if( $event_content !=='' ) {
+	    $event_content = get_the_content();
+	    if( $event_content !== '' ) {
             ?>
             <div class="wpe-archive-description">
             <span title="Click for Details" class="wpe-detail-button"><?php
@@ -500,7 +473,7 @@ if ( ! function_exists( 'wpe_get_seats_dropdown' ) ) {
 				break;
 			}
 			if ( $nmber <= $seats_per_entry ) {
-				echo '<option value="' . $nmber . '">' . $nmber . '</option>';
+				echo '<option value="' . absint( $nmber ) . '">' . absint( $nmber ) . '</option>';
 			}
 		}
 		?>

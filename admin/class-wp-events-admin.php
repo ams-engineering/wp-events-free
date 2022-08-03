@@ -299,7 +299,7 @@ class Wp_Events_Admin {
             <div class="wpe-event-settings wpe-limit-seats wp-event-subsection">
                 <div class="wpe-settings-title wp-event-section-title"><p><?php esc_html_e( 'Seats per Registration', 'wp-events' ); ?></p></div>
                 <div class="event-control wpe-left">
-                    <input id="wpevent-limit-seats" class="wp-event-field" type="number" min="1" max="10" name="wpevent-limit-seats" value="<?php echo get_post_meta( $post->ID, 'wpevent-limit-seats', true );?>"/>
+                    <input id="wpevent-limit-seats" class="wp-event-field" type="number" min="1" max="10" name="wpevent-limit-seats" value="<?php echo get_post_meta( $post->ID, 'wpevent-limit-seats', true ); ?>"/>
                 </div>
             </div>
 
@@ -341,27 +341,27 @@ class Wp_Events_Admin {
 	            ?>
             <div class="start-date event-control wpe-left">
                 <label for="wpevent-start-date"><?php esc_html_e( 'Start Date*', 'wp-events' ); ?></label>
-                <input id="wpevent-start-date" class="wpevent-start-date wp-event-datepicker wp-event-field" type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title="YYYY-MM-DD" name="wpevent-start-date" value="<?php echo isset( $event_date_time['start_date'] ) ? $event_date_time['start_date'] : '' ;?>" autocomplete="off" required/>
+                <input id="wpevent-start-date" class="wpevent-start-date wp-event-datepicker wp-event-field" type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title="YYYY-MM-DD" name="wpevent-start-date" value="<?php echo isset( $event_date_time['start_date'] ) ? esc_attr( $event_date_time['start_date'] ) : '' ;?>" autocomplete="off" required/>
                 <p><?php esc_html_e( 'This field is required', 'wp-events' ); ?></p>
                 <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
             </div>
 
             <div class="end-date event-control wpe-right">
                 <label for="wpevent-end-date"><?php esc_html_e( 'End Date*', 'wp-events' ); ?></label>
-                <input id="wpevent-end-date" class="wpevent-end-date wp-event-datepicker wp-event-field" type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title="YYYY-MM-DD" name="wpevent-end-date" value="<?php echo isset( $event_date_time['end_date'] ) ? $event_date_time['end_date'] : '' ;?>" autocomplete="off" required/>
+                <input id="wpevent-end-date" class="wpevent-end-date wp-event-datepicker wp-event-field" type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title="YYYY-MM-DD" name="wpevent-end-date" value="<?php echo isset( $event_date_time['end_date'] ) ? esc_attr( $event_date_time['end_date'] ) : '' ;?>" autocomplete="off" required/>
                 <p><?php esc_html_e( 'This field is required', 'wp-events' ); ?></p>
                 <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
             </div>
 
             <div class="start-time event-control wpe-left">
                 <label for="wpevent-start-time"><?php esc_html_e( 'Start Time', 'wp-events' ); ?></label>
-                <input id="wpevent-start-time" class="wpevent-start-time wp-event-field timepicker" type="time" name="wpevent-start-time" value="<?php echo isset( $event_date_time['start_time'] ) ? $event_date_time['start_time'] : '00:00';?>"/>
+                <input id="wpevent-start-time" class="wpevent-start-time wp-event-field timepicker" type="time" name="wpevent-start-time" value="<?php echo isset( $event_date_time['start_time'] ) ? esc_attr( $event_date_time['start_time'] ) : '00:00';?>"/>
                 <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
             </div>
 
             <div class="end-time event-control wpe-right">
                 <label for="wpevent-end-time"><?php esc_html_e( 'End Time', 'wp-events' ); ?></label>
-                <input id="wpevent-end-time" class="wpevent-end-time wp-event-field timepicker" type="time" name="wpevent-end-time" value="<?php echo isset( $event_date_time['end_time'] ) ? $event_date_time['end_time'] : '23:59' ;?>"/>
+                <input id="wpevent-end-time" class="wpevent-end-time wp-event-field timepicker" type="time" name="wpevent-end-time" value="<?php echo isset( $event_date_time['end_time'] ) ? esc_attr( $event_date_time['end_time'] ) : '23:59' ;?>"/>
                 <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
             </div>
 
@@ -429,12 +429,12 @@ class Wp_Events_Admin {
             </div>
             <div class="seats event-control wpe-left">
                 <label for="wpevent-seats"><?php esc_html_e( 'Total Seats', 'wp-events' ); ?></label>
-                <input id="wpevent-seats" class="wp-event-field" type="number" min="1" step="1" name="wpevent-seats" value="<?php echo wpe_get_total_seats( $post->ID );?>"/>
+                <input id="wpevent-seats" class="wp-event-field" type="number" min="1" step="1" name="wpevent-seats" value="<?php echo esc_attr( wpe_get_total_seats( $post->ID ) ); ?>"/>
                 <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
             </div>
             <div class="seats event-control wpe-right">
                 <label for="wpevent-remaining-seats"><?php esc_html_e( 'Remaining Seats', 'wp-events' ); ?></label>
-                <input id="wpevent-remaining-seats" class="wp-event-field" type="number" name="wpevent-remaining-seats" value="<?php echo wpe_get_remaining_seats( $post->ID );?>" readonly/>
+                <input id="wpevent-remaining-seats" class="wp-event-field" type="number" name="wpevent-remaining-seats" value="<?php echo absint( wpe_get_remaining_seats( $post->ID ) ); ?>" readonly/>
                 <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
             </div>
             <div <?php if( $type === 'webinar' ) echo 'style="display:none;"'; ?>  class="wpe-map-div map event-control wpe-left">
@@ -521,7 +521,7 @@ class Wp_Events_Admin {
             'duplicate_nonce'
         );
     
-        echo '<a href="' . $url . '" title="Duplicate this item" rel="permalink">Duplicate</a>';
+        echo '<a href="' . esc_url( $url ) . '" title="Duplicate this item" rel="permalink">Duplicate</a>';
 
     }
 
@@ -899,7 +899,7 @@ class Wp_Events_Admin {
                     $this->post_type_categpry_column( $post_id ) ;
                 break;
             case 'event_date':
-	            echo wpe_get_event_dates( $post_id );
+	            echo esc_html( wpe_get_event_dates( $post_id ) );
                 break;
             case 'start_time':
                 $start_time = get_post_meta( $post_id, 'wpevent-start-date-time', true );
@@ -926,10 +926,10 @@ class Wp_Events_Admin {
                 }
                 break;
 			case 'wpe_seats':
-				echo wpe_get_remaining_seats( $post_id ) . ' | ' . wpe_get_total_seats( $post_id );
+				echo esc_html( wpe_get_remaining_seats( $post_id ) . ' | ' . wpe_get_total_seats( $post_id ) );
                 break;
             case 'wpe_status':
-                echo wpevent_event_status ( $post_id );
+                echo esc_html( wpevent_event_status ( $post_id ) );
                 break;
         }
     }
@@ -963,7 +963,7 @@ class Wp_Events_Admin {
                 $output[]='<a href="' . admin_url( 'edit.php?' . 'taxonomy' . '='.  $term->taxonomy . '&tag_ID='. $term->term_id .'&post_type=' . $post_type ) . '">' . $term->name . '</a>';
             }
             if( isset( $output ) ) {
-                echo implode(', ', $output);
+                echo esc_html( implode(', ', $output) );
             }
         } else {
             _e('Uncategorized', 'wp-events');
@@ -1337,7 +1337,7 @@ class Wp_Events_Admin {
                 $single_post = substr( $post_name, 0, -1 );
             }
 
-            echo '<div class="notice notice-success is-dismissible"><p>'. $single_post .' duplicated.</p></div>';
+            echo '<div class="notice notice-success is-dismissible"><p>'. esc_html( $single_post ) .' duplicated.</p></div>';
              
         }
     }

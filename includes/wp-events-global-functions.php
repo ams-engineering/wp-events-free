@@ -666,6 +666,13 @@ if( ! function_exists( 'wpe_get_allowed_html' ) ) {
 			'p' => array(
 				'style' => array(),
 			),
+			'a' => array(
+				'href' => array(),
+				'class' => array(),
+			),
+			'button' => array(
+				'class' => array(),
+			),
 		);
 
 		return $allowed_html;

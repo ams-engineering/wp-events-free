@@ -59,7 +59,7 @@ class Wp_Events_Admin_Settings {
             <a class="nav-tab <?php
 			wpe_is_active_tab( $wpe_active_tab, $tab, TRUE ) ?>"
                href="<?php
-			   echo admin_url( "edit.php?post_type=wp_events&page=wp_events_settings&tab=$tab" ); ?>"><?php
+			   echo admin_url( 'edit.php?post_type=wp_events&page=wp_events_settings&tab='. esc_html( $tab ) ); ?>"><?php
 				echo __( ucfirst( $tab ), 'wp-events' ); ?> </a>
 			<?php
 		}
@@ -974,7 +974,7 @@ class Wp_Events_Admin_Settings {
 		<tr>
    			<th><?php esc_html_e( 'Select Event', 'wp-events' ); ?></th>
     		<td>
-				<?php echo wpe_event_title(); ?>
+				<?php echo wp_kses( wpe_event_title(), wpe_get_allowed_html() ); ?>
 			</td>
   		</tr>
  		<tr>
@@ -1726,7 +1726,7 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_admin_from_callback() {
 		$option= get_option('wpe_firm_settings');
 		?>
-        <input class="wpe-settings-field" name="wpe_firm_settings[admin_mail]" id="wpe_admin_mail" type="text" value="<?php echo isset( $option['admin_mail'] ) ? $option['admin_mail'] : get_option('admin_email'); ?>" />
+        <input class="wpe-settings-field" name="wpe_firm_settings[admin_mail]" id="wpe_admin_mail" type="text" value="<?php echo isset( $option['admin_mail'] ) ? esc_attr( $option['admin_mail'] ) : esc_attr( get_option('admin_email') ); ?>" />
         <small class="wpe-fields-description"><?php esc_html_e( 'Enter contact email address of firm', 'wp-events' ); ?></small>
 		<?php
     }

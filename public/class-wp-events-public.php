@@ -400,7 +400,7 @@ class Wp_Events_Public {
 		if ( $html === '' ) {
 			ob_start();
 			if ( $wpevent_atts['title'] !== '' ) {
-				echo '<strong class="wpe-main-title" >' . __( $wpevent_atts['title'], 'wp-events' ) . '</strong><div class="wpevent-main">' . $html . '</div>';
+				echo '<strong class="wpe-main-title" >' . __( esc_html( $wpevent_atts['title'] ), 'wp-events' ) . '</strong><div class="wpevent-main">' . wp_kses( $html, wpe_get_allowed_html() ) . '</div>';
 			}
 			do_action( 'wp_events_subscribe_form' );
 			$html = ob_get_clean(); 
@@ -415,7 +415,7 @@ class Wp_Events_Public {
 			if ( $wpevent_atts['class'] !== '' ) {
 				$html = '<div class="wpevents-shortcode-section '. $wpevent_atts['class'] .' wpevents-section">' . $html . $button_html . '</div>';
 			} else {
-				$html = '<div class="wpevents-shortcode-section wpevents-section">' . $html . $button_html . '</div>';
+				$html = '<div class="wpevents-shortcode-section wpevents-section ' . wpe_dark_bg() . ' ' . wpe_dark_mode() . '">' . $html . $button_html . '</div>';
 			}
 		}
 

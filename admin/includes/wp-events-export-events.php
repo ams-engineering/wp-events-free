@@ -17,12 +17,10 @@ function wp_get_ajax_events() {
 	$args = array(
 		'post_type'		 => 'wp_events',
 		'posts_per_page' => '-1',
-		'post_status' => array( 'publish', 'pending', 'draft', 'auto-draft', 'future', 'private', 'inherit', 'trash' ),
+		'post_status' 	 => array( 'publish', 'pending', 'draft', 'auto-draft', 'future', 'private', 'inherit', 'trash' ),
 	);
 
-	$event_status = $_POST['postStatus'];
-	$include_reg  = $_POST['includeReg'];
-	$include_sub  = $_POST['includeSub'];
+	$event_status = sanitize_text_field( $_POST['postStatus'] );
 
 	if ( $event_status === 'Past' ) {
 		$args['meta_query'] = [
@@ -208,9 +206,9 @@ add_action('wp_ajax_nopriv_wpe_event_entries', 'wpe_event_entries_export');
 
 function wpe_event_entries_export() {
 
-	$event_startDate = $_POST['Startdate'];
-	$event_endDate   = $_POST['Enddate'];
-	$wpeevent  		 = $_POST['wpeeventid'];
+	$event_startDate = sanitize_text_field( $_POST['Startdate'] );
+	$event_endDate   = sanitize_text_field( $_POST['Enddate'] );
+	$wpeevent  		 = sanitize_text_field( $_POST['wpeeventid'] );
 	$path 			 = wp_upload_dir();
 	$entries 		 = array();
 	$file 			 = fopen( $path['path']."/events-entries.csv", 'w');

@@ -79,7 +79,7 @@ if( !function_exists( 'wpe_display_subscribe_form' ) ) {
                     ?>
                     <div class="wpe-form-control wpe-field-container wpe-full-width wpe-texting-permission">
                         <input  type="checkbox" name="wpe_texting_permission" id="wpe_texting_permission" value="1">
-                        <label for="wpe_texting_permission"> <?php echo do_shortcode( $form_textin_permission ); ?></label>
+                        <label for="wpe_texting_permission"> <?php echo esc_html( do_shortcode( $form_textin_permission ) ); ?></label>
                         <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
                     </div>
                     <?php

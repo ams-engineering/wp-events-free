@@ -854,7 +854,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		global $pagenow;
 		if ( $pagenow == 'edit.php' && isset( $_REQUEST['page'] ) && 'wp_forms_entries' === $_REQUEST['page'] ) {
 			 echo '<div class="notice notice-success is-dismissible">
-				 <p>'. $message .'</p>
+				 <p>'. esc_html( $message ) .'</p>
 			 </div>';
 		}
 	}

@@ -27,7 +27,7 @@ if ( ! function_exists( 'wpe_sidebar_section' ) ) {
             </div>
             <div class="section-body">
             <?php
-                echo $body;
+                echo wp_kses( $body, wpe_get_allowed_html() );
             ?>
             </div>
         </div>

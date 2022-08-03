@@ -3,7 +3,7 @@ Contributors: noorshuja
 Tags: events, seminars, webinars, calendar, registrations
 Donate link: //wpminds.com
 Requires at least: 5.0
-Stable tag: 1.5.3
+Stable tag: 1.5.4
 Tested up to: 6.0
 Requires PHP: 7.0
 License: GPL-2.0+
