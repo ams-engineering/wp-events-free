@@ -129,7 +129,7 @@ if( !function_exists( 'wpe_before_subscribe_form' ) ) {
 	function wpe_before_subscribe_form() {
 		$before_form_message = get_option( 'wpe_forms_settings' );
 		if ( isset( $before_form_message['before_subscriber_form_message'] ) && $before_form_message['before_subscriber_form_message'] !== '' ) {
-			$html = '<div class="before-subscribe-form '. wpe_dark_mode() .'"><p>' . $before_form_message['before_subscriber_form_message'] . '</p></div>';
+			$html = '<div class="before-subscribe-form '. wpe_dark_mode() .'"><p>' . do_shortcode( $before_form_message['before_subscriber_form_message'] ) . '</p></div>';
 			echo wp_kses( $html, wpe_get_allowed_html() );
 		}
 	}
@@ -147,7 +147,7 @@ if( !function_exists( 'wpe_after_subscribe_form' ) ) {
 	function wpe_after_subscribe_form() {
 		$after_form_message = get_option( 'wpe_forms_settings' );
 		if ( isset($after_form_message['after_subscriber_form_message']) && $after_form_message['after_subscriber_form_message'] !== '' ) {
-			$html = '<div class="after-subscribe-form '. wpe_dark_mode() .'"><p>' . $after_form_message['after_subscriber_form_message'] . '</p></div>';
+			$html = '<div class="after-subscribe-form '. wpe_dark_mode() .'"><p>' . do_shortcode( $after_form_message['after_subscriber_form_message'] ) . '</p></div>';
 			echo wp_kses( $html, wpe_get_allowed_html() );
 		}
 	}

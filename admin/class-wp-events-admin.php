@@ -899,7 +899,7 @@ class Wp_Events_Admin {
                     $this->post_type_categpry_column( $post_id ) ;
                 break;
             case 'event_date':
-	            echo esc_html( wpe_get_event_dates( $post_id ) );
+	            echo wpe_get_event_dates( $post_id );
                 break;
             case 'start_time':
                 $start_time = get_post_meta( $post_id, 'wpevent-start-date-time', true );
@@ -963,7 +963,7 @@ class Wp_Events_Admin {
                 $output[]='<a href="' . admin_url( 'edit.php?' . 'taxonomy' . '='.  $term->taxonomy . '&tag_ID='. $term->term_id .'&post_type=' . $post_type ) . '">' . $term->name . '</a>';
             }
             if( isset( $output ) ) {
-                echo esc_html( implode(', ', $output) );
+                echo implode(', ', $output);
             }
         } else {
             _e('Uncategorized', 'wp-events');
