@@ -12,7 +12,7 @@ jQuery(document).ready(function ($) {
 		this.setSelectionRange(c, c);
 	});
 
-	$('input#wpe_phone').attr("onkeydown", "phoneNumberFormatter()");
+	// $('input#wpe_phone').attr("onkeydown", "phoneNumberFormatter()");
 
 	/**
 	 * display error if form is submitted without checking recaptcha
