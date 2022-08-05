@@ -835,10 +835,10 @@ class Wp_Events_Admin {
     public function wpe_filter_by_type( $query ) {
         global $pagenow;
         // Get the post type
-        $post_type = isset( $_GET['post_type'] ) ? $_GET['post_type'] : '';
+        $post_type = isset( $_GET['post_type'] ) ? sanitize_text_field( $_GET['post_type'] ) : '';
         if ( is_admin() && $pagenow =='edit.php' && $post_type == 'wp_events' && isset( $_GET['wp_events_type'] ) && $_GET['wp_events_type'] !== 'all' ) {
           $query->query_vars['meta_key'] = 'wpevent-type';
-          $query->query_vars['meta_value'] = $_GET['wp_events_type'];
+          $query->query_vars['meta_value'] = sanitize_text_field( $_GET['wp_events_type'] );
           $query->query_vars['meta_compare'] = '=';
         }
     }
@@ -1150,12 +1150,12 @@ class Wp_Events_Admin {
     public function view_registrations_link( $actions, $post ) {
 
         if ( $post->post_type === 'wp_events' ) {
-            $number = isset( $_GET['paged'] ) ? $_GET['paged'] : '1';
-            $status = isset( $_GET['event_status'] ) ? $_GET['event_status'] : '';
+            $number = isset( $_GET['paged'] ) ? sanitize_text_field( $_GET['paged'] ) : '1';
+            $status = isset( $_GET['event_status'] ) ? sanitize_text_field( $_GET['event_status'] ) : '';
             if ( $status !== '' ) {
                 $status = '&event_status='. $status;
             }
-            $post_status = isset( $_GET['post_status'] ) ? $_GET['post_status'] : '';
+            $post_status = isset( $_GET['post_status'] ) ? sanitize_text_field( $_GET['post_status'] ) : '';
             if ( $post_status !== '' ) {
                 $post_status = '&post_status='. $post_status;
             }

@@ -302,7 +302,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 			if ( ! wp_verify_nonce( $nonce, 'wp_events_entries' ) ) {
 				die( 'Go get a life script kiddies' );
 			} else {
-				$delete_arr = $_GET['bulk-delete'];
+				$delete_arr = wpe_sanitize( $_GET['bulk-delete'] );
 				if ( is_array( $delete_arr ) ) {
 					foreach ( $delete_arr as $id ) {
 						$this->delete_restore_entry( (int) $id, WPE_TRASHED );
@@ -322,7 +322,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 			if ( ! wp_verify_nonce( $nonce, 'wp_events_entries') ) {
 				die( 'Go get a life script kiddies' );
 			} else {
-				$delete_arr = $_GET['bulk-delete'];
+				$delete_arr = wpe_sanitize( $_GET['bulk-delete'] );
 				if ( is_array( $delete_arr ) ) {
 					foreach ( $delete_arr as $id ) {
 						$this->delete_restore_entry( (int) $id, WPE_DELETED );
@@ -342,7 +342,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 			if ( ! wp_verify_nonce( $nonce, 'wp_events_entries' ) ) {
 				die( 'Go get a life script kiddies' );
 			} else {
-				$delete_arr = $_GET['bulk-delete'];
+				$delete_arr = wpe_sanitize( $_GET['bulk-delete'] );
 				if ( is_array( $delete_arr ) ) {
 					foreach ( $delete_arr as $id ) {
 						$this->delete_restore_entry( (int) $id, WPE_ACTIVE );

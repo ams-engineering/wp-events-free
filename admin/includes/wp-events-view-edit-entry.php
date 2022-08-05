@@ -216,7 +216,7 @@ if ( ! function_exists( 'wpe_display_entry_form' ) ) {
 	function wpe_display_entry_form() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
             if ( isset( $_GET['tab'] ) && $_GET['tab'] === 'registrations' ) {
-                $event_id = Wp_Events_Db_Actions::wpe_get_event_id( $_GET['entry'] );
+                $event_id = Wp_Events_Db_Actions::wpe_get_event_id( sanitize_text_field( $_GET['entry'] ) );
                 $entry_title = 'Event: ' . get_the_title( $event_id );
             } else  {
                 $entry_title = 'Entry # ' . sanitize_text_field( $_GET['entry'] );

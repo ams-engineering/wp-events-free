@@ -203,7 +203,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 
 		//if there is more than one event with same name
 		if( isset( $_GET['wpe_titles'] ) && $_GET['wpe_titles'] !== '' ) {
-			$event_ids = explode( ',', $_GET['wpe_titles'] );
+			$event_ids = explode( ',', wpe_sanitize( $_GET['wpe_titles'] ) );
 			for( $i = 0; $i < sizeof( $event_ids ); $i++ ) {
 				if( $event_ids[$i] == $item->post_id ) {
 					$eventID = '&event=' . $event_ids[$i];
@@ -554,7 +554,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		$event 		   = '';
 		if ( isset( $_GET['wpe_titles'] ) ) {
 			$number = isset( $_GET['posts_page'] ) ? sanitize_text_field( $_GET['posts_page'] ) : '1';
-			$event  = '&posts_page='. $number .'&wpe_titles='. $_GET['wpe_titles'];
+			$event  = '&posts_page='. $number .'&wpe_titles='. wpe_sanitize( $_GET['wpe_titles'] );
 		}
 
 		if ( isset( $event_options['approve_registrations'] ) ) {
@@ -658,7 +658,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 			} else {
 				$ids = (string) $ids;
 			}
-			$selected = ( isset( $_GET['wpe_titles'] ) && ( (string) strpos( $ids, $_GET['wpe_titles'] )) !== '' ) ? "selected" : "";
+			$selected = ( isset( $_GET['wpe_titles'] ) && ( (string) strpos( $ids, wpe_sanitize( $_GET['wpe_titles'] ) )) !== '' ) ? "selected" : "";
 			$output .= '<option value="' . $ids . '" ' . $selected . '>' . $title . '</option>';
 		}
 
@@ -770,7 +770,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 				[
 					'key'     => 'wpevent-end-date-time',
 					'compare' => '<=',
-					'value'   => strtotime( $_GET['wpe-filter-end-date'] . '23:59:59' ),
+					'value'   => strtotime( wpe_sanitize( $_GET['wpe-filter-end-date'] ) . '23:59:59' ),
 					'type'    => 'numeric',
 				],
 				[
@@ -785,7 +785,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 				[
 					'key'     => 'wpevent-start-date-time',
 					'compare' => '>=',
-					'value'   => strtotime( $_GET['wpe-filter-start-date'] ),
+					'value'   => strtotime( wpe_sanitize( $_GET['wpe-filter-start-date'] ) ),
 					'type'    => 'numeric',
 				],
 			];
@@ -794,7 +794,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 				[
 					'key'     => 'wpevent-end-date-time',
 					'compare' => '<=',
-					'value'   => strtotime( $_GET['wpe-filter-end-date'] . '23:59:59' ),
+					'value'   => strtotime( wpe_sanitize( $_GET['wpe-filter-end-date'] ) . '23:59:59' ),
 					'type'    => 'numeric',
 				],
 			];
@@ -910,7 +910,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		if ( ! wp_verify_nonce( $nonce, 'wp_events_entries' ) ) {
 			die('Go get a life script kiddies');
 		} else {
-			$delete_arr = $_GET['bulk-delete'];
+			$delete_arr = wpe_sanitize( $_GET['bulk-delete'] );
 			if ( is_array( $delete_arr ) ) {
 				foreach ( $delete_arr as $id ) {
 					$this->update_registration_status( (int) $id, $entry_status );
@@ -988,7 +988,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		if ( ! wp_verify_nonce( $nonce, 'wp_events_entries' ) ) {
 			die('Go get a life script kiddies');
 		} else {
-			$delete_arr   = $_GET['bulk-delete'];
+			$delete_arr   = wpe_sanitize( $_GET['bulk-delete'] );
 			$mail_options = get_option('wpe_mail_settings');
 			$firm_info 	  = get_option('wpe_firm_settings');
 			$from_name    = $firm_info['mail_from_name'];
