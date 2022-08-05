@@ -115,15 +115,16 @@ class Wp_Events_Db_Actions {
 		$append_id	   = '';
 		$append_status = '';
 		$table_name	   = 'events_registration';
-		$sql     = "SELECT * FROM {$wpdb->prefix}$table_name";
 		if ( isset( $entry_id ) && $entry_id !== '' && isset( $status ) && $status !== '' ) {
-			$sql = "SELECT * FROM {$wpdb->prefix}$table_name WHERE ID = ". $entry_id ." AND wpe_status in (". $status . ")";
+			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}$table_name WHERE ID = %s AND wpe_status in ( %s )", [ $entry_id, $status ] );
 		} else if ( isset( $entry_id ) && $entry_id !== '' ) {
-			$sql = "SELECT * FROM {$wpdb->prefix}$table_name WHERE ID = ". $entry_id;
+			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}$table_name WHERE ID = %s", $entry_id );
 		} else if ( isset( $status ) && $status !== '' ) {
-			$sql = "SELECT * FROM {$wpdb->prefix}$table_name WHERE wpe_status in (". $status . ")";
+			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}$table_name WHERE wpe_status in ( %s )", $status );
+		} else {
+			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}$table_name" );
 		}
-		$results = $wpdb->get_results( $wpdb->prepare( $sql, $format ) );
+		$results = $wpdb->get_results( $sql, $format );
 		return $results;
 	}
 
@@ -138,15 +139,16 @@ class Wp_Events_Db_Actions {
 		$append_id	   = '';
 		$append_status = '';
 		$table_name	   = 'events_subscribers';
-		$sql     = "SELECT * FROM {$wpdb->prefix}$table_name";
 		if ( isset( $entry_id ) && $entry_id !== '' && isset( $status ) && $status !== '' ) {
-			$sql = "SELECT * FROM {$wpdb->prefix}$table_name WHERE ID = ". $entry_id ." AND wpe_status in (". $status . ")";
+			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}$table_name WHERE ID = %s AND wpe_status in ( %s )", [ $entry_id, $status ] );
 		} else if ( isset( $entry_id ) && $entry_id !== '' ) {
-			$sql = "SELECT * FROM {$wpdb->prefix}$table_name WHERE ID = ". $entry_id;
+			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}$table_name WHERE ID = %s", $entry_id );
 		} else if ( isset( $status ) && $status !== '' ) {
-			$sql = "SELECT * FROM {$wpdb->prefix}$table_name WHERE wpe_status in (". $status . ")";
+			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}$table_name WHERE wpe_status in ( %s )", $status );
+		} else {
+			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}$table_name" );
 		}
-		$results = $wpdb->get_results( $wpdb->prepare( $sql, OBJECT ) );
+		$results = $wpdb->get_results( $sql, OBJECT );
 		return $results;
 	}
 
