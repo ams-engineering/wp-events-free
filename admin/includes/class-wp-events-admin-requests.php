@@ -23,11 +23,10 @@ class Wp_Admin_Request {
      */
     public function wpe_resend_notification() {
 
-        $_POST             = filter_input_array( INPUT_POST, FILTER_SANITIZE_STRING );
-		$formData          = isset( $_POST['formData'] ) ? $_POST['formData'] : [];
-        $tab               = isset( $_POST['displayTab'] ) ? $_POST['displayTab'] : 'registrations';
-        $admin_noification = $_POST['adminNoti'];
-        $user_noification  = $_POST['userNoti'];
+		$formData          = isset( $_POST['formData'] ) ? wpe_sanitize( $_POST['formData'] ) : [];
+        $tab               = isset( $_POST['displayTab'] ) ? wpe_sanitize( $_POST['displayTab'] ) : 'registrations';
+        $admin_noification = wpe_sanitize( $_POST['adminNoti'] );
+        $user_noification  = wpe_sanitize( $_POST['userNoti'] );
         $mail_options      = get_option('wpe_mail_settings');
         $firm_info         = get_option('wpe_firm_settings');
         $from_name         = $firm_info['mail_from_name'];
@@ -86,9 +85,9 @@ class Wp_Admin_Request {
      */
     public function wpe_trash_restore() {
 
-        $button_text = sanitize_text_field( $_POST['text'] );
-        $entry_id    = sanitize_text_field( $_POST['entryID'] );
-        $tab         = isset( $_POST['displayTab'] ) ? sanitize_text_field( $_POST['displayTab'] ) : 'registrations';
+        $button_text = wpe_sanitize( $_POST['text'] );
+        $entry_id    = wpe_sanitize( $_POST['entryID'] );
+        $tab         = isset( $_POST['displayTab'] ) ? wpe_sanitize( $_POST['displayTab'] ) : 'registrations';
         $val         = WPE_TRASHED;
         global $wpdb;
 
@@ -171,11 +170,9 @@ class Wp_Admin_Request {
      * @since 1.3.0
      */
     public function wpe_update_location() {
-        $postID           = sanitize_text_field( $_POST['locationID'] );
-        $eventID          = sanitize_text_field( $_POST['eventID'] );
+        $postID           = wpe_sanitize( $_POST['locationID'] );
+        $eventID          = wpe_sanitize( $_POST['eventID'] );
         $options          = get_option( 'wpe_integration_settings' );
-        $maps_key         = $options['gmaps_api'];
-        $maps_type        = $options['gmaps_type'];
         $pattern          = array( ' ', '-', '&' );
         $wpeObj           = new stdClass();
         if ( $postID === 'xxx' ) {
@@ -193,10 +190,7 @@ class Wp_Admin_Request {
         $wpeObj->state    = get_post_meta( $postID, 'wpevent-loc-state', true ) ? get_post_meta( $postID, 'wpevent-loc-state', true ) : '';
         $state            = str_replace( $pattern, '+', $wpeObj->state) ?? '';
         $wpeObj->zip      = get_post_meta( $postID, 'wpevent-loc-zip', true ) ? get_post_meta( $postID, 'wpevent-loc-zip', true ) : '';
-        if( $maps_type === 'embed_map' && ( $venue !== '' || $address !== '' || $city !== '' || $state !== '' ) && $maps_key !== '' ) {
-            $wpeObj->map_url  = "https://www.google.com/maps/embed/v1/place?key=" . $maps_key . " &q=" . $venue . '+' . $address . "," . $city . '+' . $state;
-        }
-        if( $maps_type === 'button' && ( $venue !== '' || $address !== '' || $city !== '' || $state !== '' ) ) {
+        if( $venue !== '' || $address !== '' || $city !== '' || $state !== '' ) {
             $wpeObj->map_url  = "https://www.google.com/maps/place?q=" . $venue . '+' . $address . "," . $city . '+' . $state;
         }
         $location_obj     = json_encode( $wpeObj );
@@ -209,8 +203,7 @@ class Wp_Admin_Request {
      * @since 1.3.0
      */
     public function wpe_create_location() {
-        $_POST         = filter_input_array(INPUT_POST, FILTER_SANITIZE_STRING);
-        $location_data = $_POST['location'];
+        $location_data = wpe_sanitize( $_POST['location'] );
         $postTitle     = stripcslashes( $location_data['venue'] );
         if ( $location_data['venue'] === '' || $location_data['address'] === '' 
         || $location_data['country'] === '' || $location_data['city'] === ''

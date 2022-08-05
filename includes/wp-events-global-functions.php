@@ -672,9 +672,27 @@ if( ! function_exists( 'wpe_get_allowed_html' ) ) {
 			),
 			'button' => array(
 				'class' => array(),
+				'id' => array(),
 			),
 		);
 
 		return $allowed_html;
     }
+}
+
+if( ! function_exists( 'wpe_sanitize' ) ) {
+	/**
+	 * Clean variables using sanitize_text_field. Arrays are cleaned recursively.
+	 * Non-scalar values are ignored.
+	 *
+	 * @param string|array $data Data to sanitize.
+	 * @return string|array
+	 */
+	function wpe_sanitize( $data ) {
+		if ( is_array( $data ) ) {
+			return array_map( 'wpe_sanitize', $data );
+		} else {
+			return is_scalar( $data ) ? sanitize_text_field( $data ) : $data;
+		}
+	}
 }

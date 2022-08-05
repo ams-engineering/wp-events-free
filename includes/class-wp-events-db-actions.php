@@ -180,14 +180,14 @@ class Wp_Events_Db_Actions {
 		 */
 		wpe_request_log( $_REQUEST );
 
-		$form_data = $_POST['formData'];
+		$form_data = wpe_sanitize( $_POST['formData'] );
 
 		/**
 		 * wpe_decode_array global function created in includes/wp-events-global-functions.php
 		*/
 		$form_data = wpe_decode_array( $form_data );
 		$referrer  = $form_data['_wp_http_referer'];
-		$text_perm = sanitize_text_field( $_POST['permissions'] );
+		$text_perm = wpe_sanitize( $_POST['permissions'] );
 
 		global $wpdb;
 

@@ -47,7 +47,7 @@ jQuery(document).ready( function($) {
 				$( '#wpevent-map-url' ).val( loc.map_url );
 			},
 			error: function (error) {
-				var imgURL = wpe_ajaxobject.pluginsUrl + '/' + WPE_PLUGIN_BASE + '/assets/img/wpe-error.png';
+				var imgURL = wpe_ajaxobject.pluginsUrl + '/' + wpe_ajaxobject.wpePluginBase + '/assets/img/wpe-error.png';
 				wpe_popup('Location not found', imgURL );
 			}
 		} );
@@ -73,10 +73,10 @@ jQuery(document).ready( function($) {
 				},
 			success: function( response ) {
 				if ( response === 'Location Already Exists!' || response === 'Please fill all fields!' ) {
-					var imgURL = wpe_ajaxobject.pluginsUrl + '/' + WPE_PLUGIN_BASE + '/assets/img/wpe-error.png';
+					var imgURL = wpe_ajaxobject.pluginsUrl + '/' + wpe_ajaxobject.wpePluginBase + '/assets/img/wpe-error.png';
 					wpe_popup( response, imgURL );
 				} else {
-					var imgURL = wpe_ajaxobject.pluginsUrl + '/' + WPE_PLUGIN_BASE + '/assets/img/wpe-success.png';
+					var imgURL = wpe_ajaxobject.pluginsUrl + '/' + wpe_ajaxobject.wpePluginBase + '/assets/img/wpe-success.png';
 					wpe_popup('New Location Added Successfully.', imgURL );
 					$( '.wpe-location-fields' ).fadeOut();
 					$( '#wpe-location-btn' ).fadeIn();
@@ -88,7 +88,7 @@ jQuery(document).ready( function($) {
 				}
 			},
 			error: function (error) {
-				var imgURL = wpe_ajaxobject.pluginsUrl + '/' + WPE_PLUGIN_BASE + '/assets/img/wpe-error.png';
+				var imgURL = wpe_ajaxobject.pluginsUrl + '/' + wpe_ajaxobject.wpePluginBase + '/assets/img/wpe-error.png';
 				wpe_popup('Location could not be added.', imgURL );
 			}
 		} );
@@ -455,10 +455,10 @@ jQuery(document).ready( function($) {
 				},
 			success: function( response ) {
 				if ( response != '0000' ) {
-					var imgURL = wpe_ajaxobject.pluginsUrl + '/' + WPE_PLUGIN_BASE + '/assets/img/wpe-success.png';
+					var imgURL = wpe_ajaxobject.pluginsUrl + '/' + wpe_ajaxobject.wpePluginBase + '/assets/img/wpe-success.png';
 					wpe_popup( 'Record Updated Successfully.', imgURL );
 				} else {
-					var imgURL = wpe_ajaxobject.pluginsUrl + '/' + WPE_PLUGIN_BASE + '/assets/img/wpe-error.png';
+					var imgURL = wpe_ajaxobject.pluginsUrl + '/' + wpe_ajaxobject.wpePluginBase + '/assets/img/wpe-error.png';
 					wpe_popup('Could not update data!', imgURL );
 				}
 				$('.wpe-edit-entry-form').addClass('disabledform');
@@ -467,7 +467,7 @@ jQuery(document).ready( function($) {
 				$('.wpe-save-registration').removeClass('wpe-save-registration');
 			},
 			error: function (error) {
-				var imgURL = wpe_ajaxobject.pluginsUrl + '/' + WPE_PLUGIN_BASE + '/assets/img/wpe-error.png';
+				var imgURL = wpe_ajaxobject.pluginsUrl + '/' + wpe_ajaxobject.wpePluginBase + '/assets/img/wpe-error.png';
 				wpe_popup('Could not update data!', imgURL );
 			}
 		} );

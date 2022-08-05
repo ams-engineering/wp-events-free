@@ -131,6 +131,7 @@ class Wp_Events_Admin {
                 'seminarMessage' => wpe_get_seminar_message(),
                 'webinarMessage' => wpe_get_webinar_message(),
                 'wpeAjaxNonce'   => wp_create_nonce('ajax-nonce'),
+                'wpePluginBase'  => WPE_PLUGIN_BASE,
 			)
 		);
 	}
@@ -1068,13 +1069,13 @@ class Wp_Events_Admin {
      
         // update the start date and time
         if ( isset( $_POST['wpevent-quickedit-start-date'] ) && isset( $_POST['wpevent-quickedit-start-time'] ) ) {
-            $new_s_dt = $_POST['wpevent-quickedit-start-date'] . ' ' . $_POST['wpevent-quickedit-start-time'];
+            $new_s_dt = wpe_sanitize( $_POST['wpevent-quickedit-start-date'] ) . ' ' . wpe_sanitize( $_POST['wpevent-quickedit-start-time'] );
             update_post_meta( $post_id, "wpevent-start-date-time", strtotime( $new_s_dt ) );
         }
      
         // update the end date and time
         if ( isset( $_POST['wpevent-quickedit-end-date'] ) && isset( $_POST['wpevent-quickedit-end-time'] ) ) {
-            $new_e_dt = $_POST['wpevent-quickedit-end-date'] . ' ' . $_POST['wpevent-quickedit-end-time'];
+            $new_e_dt = wpe_sanitize( $_POST['wpevent-quickedit-end-date'] ) . ' ' . wpe_sanitize( $_POST['wpevent-quickedit-end-time'] );
             update_post_meta( $post_id, "wpevent-end-date-time", strtotime( $new_e_dt ) );
         }
      

@@ -20,7 +20,7 @@ function wp_get_ajax_events() {
 		'post_status' 	 => array( 'publish', 'pending', 'draft', 'auto-draft', 'future', 'private', 'inherit', 'trash' ),
 	);
 
-	$event_status = sanitize_text_field( $_POST['postStatus'] );
+	$event_status = wpe_sanitize( $_POST['postStatus'] );
 
 	if ( $event_status === 'Past' ) {
 		$args['meta_query'] = [
@@ -206,9 +206,9 @@ add_action('wp_ajax_nopriv_wpe_event_entries', 'wpe_event_entries_export');
 
 function wpe_event_entries_export() {
 
-	$event_startDate = sanitize_text_field( $_POST['Startdate'] );
-	$event_endDate   = sanitize_text_field( $_POST['Enddate'] );
-	$wpeevent  		 = sanitize_text_field( $_POST['wpeeventid'] );
+	$event_startDate = wpe_sanitize( $_POST['Startdate'] );
+	$event_endDate   = wpe_sanitize( $_POST['Enddate'] );
+	$wpeevent  		 = wpe_sanitize( $_POST['wpeeventid'] );
 	$path 			 = wp_upload_dir();
 	$entries 		 = array();
 	$file 			 = fopen( $path['path']."/events-entries.csv", 'w');
@@ -375,7 +375,7 @@ add_action('wp_ajax_nopriv_wpe_delete_file', 'wpe_delete_file');
  * @since 1.4.3
  */
 function wpe_delete_file() {
-	$file 		 = $_POST['url'];
+	$file 		 = wpe_sanitize( $_POST['url'] );
 	$path 		 = wp_upload_dir();
 	$file_path   = $path['path'] . '/' . basename( $file );
 	unlink( $file_path );

@@ -28,7 +28,7 @@ class Wp_Form_Request
 		 */
 		wpe_request_log( $_REQUEST );
 
-		$form_data = isset( $_POST['form_data'] ) ? $_POST['form_data'] : [];
+		$form_data = isset( $_POST['form_data'] ) ? wpe_sanitize( $_POST['form_data'] ) : [];
 		$page_slug = get_option( 'wpe_settings' );
 
 		/**
@@ -144,7 +144,7 @@ class Wp_Form_Request
 		*/
 		wpe_request_log( $_REQUEST );
 
-		$form_data = isset( $_POST['form_data'] ) ? $_POST['form_data'] : [];
+		$form_data = isset( $_POST['form_data'] ) ? wpe_sanitize( $_POST['form_data'] ) : [];
 
 		$page_slug    = get_option( 'wpe_settings' );
 		$redirect_url = get_site_url() . '/' . $page_slug['events_slug'];
@@ -421,7 +421,7 @@ class Wp_Form_Request
 	
 		// prepare our arguments for the query
 		$args 						 = json_decode( stripslashes( $_POST['query'] ), true );
-		$args['paged'] 				 = $_POST['page'] + 1; // we need next page to be loaded
+		$args['paged'] 				 = absint( $_POST['page'] ) + 1; // we need next page to be loaded
 		$args['post_status']		 = 'publish';
 		$args['meta_key']			 = 'wpevent-start-date-time';
 		$args['ignore_custom_sort']  = true;
