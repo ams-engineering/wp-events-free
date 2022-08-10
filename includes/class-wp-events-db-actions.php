@@ -112,8 +112,6 @@ class Wp_Events_Db_Actions {
 	 */
 	public static function wpe_get_registration_data( $entry_id = null, $status = null, $format = 'OBJECT' ) {
 		global $wpdb;
-		$append_id	   = '';
-		$append_status = '';
 		$table_name	   = 'events_registration';
 		if ( isset( $entry_id ) && $entry_id !== '' && isset( $status ) && $status !== '' ) {
 			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}$table_name WHERE ID = %s AND wpe_status in ( %s )", [ $entry_id, $status ] );
@@ -136,8 +134,6 @@ class Wp_Events_Db_Actions {
 	 */
 	public static function wpe_get_subscription_data( $entry_id = null, $status = null ) {
 		global $wpdb;
-		$append_id	   = '';
-		$append_status = '';
 		$table_name	   = 'events_subscribers';
 		if ( isset( $entry_id ) && $entry_id !== '' && isset( $status ) && $status !== '' ) {
 			$sql = $wpdb->prepare( "SELECT * FROM {$wpdb->prefix}$table_name WHERE ID = %s AND wpe_status in ( %s )", [ $entry_id, $status ] );
