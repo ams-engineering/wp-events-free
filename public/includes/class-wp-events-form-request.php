@@ -396,8 +396,8 @@ class Wp_Form_Request
 		if( isset( $_POST['captchaResponse'] ) ) {
 			$option	    = get_option( 'wpe_reCAPTCHA_settings' );
 			$secret_key = isset( $option['reCAPTCHA_secret_key'] ) ? $option['reCAPTCHA_secret_key'] : '';
-			$response   = $_POST['captchaResponse'];
-			$ip	   	    = $_SERVER['SERVER_ADDR']; //server Ip
+			$response   = wpe_sanitize( $_POST['captchaResponse'] );
+			$ip	   	    = wpe_sanitize( $_SERVER['SERVER_ADDR'] ); //server Ip
 			//Build up the url
 			$url   	    = 'https://www.google.com/recaptcha/api/siteverify';
 			$full_url 	= $url . '?secret=' . $secret_key . '&response=' . $response . '&remoteip='. $ip;
@@ -420,7 +420,7 @@ class Wp_Form_Request
 	public function wpe_loadmore_ajax_handler() {
 	
 		// prepare our arguments for the query
-		$args 						 = json_decode( stripslashes( $_POST['query'] ), true );
+		$args 						 = json_decode( stripslashes( wpe_sanitize( $_POST['query'] ) ), true );
 		$args['paged'] 				 = absint( $_POST['page'] ) + 1; // we need next page to be loaded
 		$args['post_status']		 = 'publish';
 		$args['meta_key']			 = 'wpevent-start-date-time';

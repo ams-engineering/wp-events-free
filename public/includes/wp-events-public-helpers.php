@@ -171,7 +171,7 @@ if ( ! function_exists( 'wpe_get_event_category_and_type' ) ) {
 					$cat_html .= '<a href="' . get_term_link( $term->term_id ) . '">' . $term->name . '</a>,&nbsp;';
 				}
 				if ( $cat_html !== '' ) {
-					echo apply_filters( 'wpe_single_category_type', '<span class="wpe-terms"><strong>Category:&nbsp;</strong>' . rtrim( $cat_html, ',&nbsp;' ) . '</span>' );
+					echo apply_filters( 'wpe_single_category_type', '<span class="wpe-terms"><strong>Category:&nbsp;</strong>' . rtrim( wp_kses_post( $cat_html ), ',&nbsp;' ) . '</span>' );
 				}
 			}
 			?>
@@ -226,15 +226,15 @@ if ( ! function_exists( 'wpe_get_event_date_time' ) ) {
 			$start = date( 'F j', $start_date );
 			$end   = date( 'F j', $end_date );
 			if ( $start === $end ) {
-				echo $start;
+				echo esc_html( $start );
 			} else {
-				echo $start . ' - ' . $end;
+				echo esc_html( $start ) . ' - ' . esc_html( $end );
 			}
 			?>
         </span>
         <span class="wpe-duration-time">
             <strong>Time: </strong><?php
-			echo date( 'h:i A', $start_time ) . ' - ' . date( 'h:i A', $end_time ); ?>
+			echo date( 'h:i A', esc_html( $start_time ) ) . ' - ' . date( 'h:i A', esc_html( $end_time ) ); ?>
         </span>
 		<?php
 	}
@@ -360,7 +360,7 @@ if ( ! function_exists( 'wpe_get_archive_details' ) ) {
             <span title="Click for Details" class="wpe-detail-button"><?php
                 echo apply_filters( 'wpe_archive_description_text', __( 'Details', 'wp-events' ) ); ?></span>
                 <div class="wpe-archive-content wpe-display-none"><?php
-                    echo apply_filters( 'the_content', $event_content ); ?></div>
+                    echo apply_filters( 'the_content', wp_kses_post( $event_content ) ); ?></div>
             </div>
             <?php
         }

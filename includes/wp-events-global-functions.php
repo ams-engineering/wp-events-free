@@ -674,6 +674,12 @@ if( ! function_exists( 'wpe_get_allowed_html' ) ) {
 				'class' => array(),
 				'id' => array(),
 			),
+			'ul' => array(
+				'class' => array(),
+			),
+			'li' => array(
+				'class' => array(),
+			),
 		);
 
 		return $allowed_html;
@@ -693,6 +699,23 @@ if( ! function_exists( 'wpe_sanitize' ) ) {
 			return array_map( 'wpe_sanitize', $data );
 		} else {
 			return is_scalar( $data ) ? sanitize_text_field( $data ) : $data;
+		}
+	}
+}
+
+if( ! function_exists( 'wpe_escape_html' ) ) {
+	/**
+	 * Clean html using wp_kses. Arrays are cleaned recursively.
+	 * Non-scalar values are ignored.
+	 *
+	 * @param string|array $data Data to sanitize.
+	 * @return string|array
+	 */
+	function wpe_escape_html( $data ) {
+		if ( is_array( $data ) ) {
+			return array_map( 'wpe_escape_html', $data );
+		} else {
+			return is_scalar( $data ) ? wp_kses_post( $data ) : $data;
 		}
 	}
 }

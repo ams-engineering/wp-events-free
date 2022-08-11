@@ -182,7 +182,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 			if( $display === 'pending' || $item->wpe_status == WPE_PENDING || $display === 'cancelled' || $item->wpe_status == WPE_CANCELLED ) {
 				$actions['approve_entry'] = sprintf(
 						'<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=approve-entry&_wpnonce=%s">' . __( 'Approve', 'wp-events' ) . '</a>',
-						$_REQUEST['page'],
+						wpe_sanitize( $_REQUEST['page'] ),
 						$display,
 						'approve-entry',
 						$item->ID,
@@ -191,7 +191,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 			if( $display === 'pending' || $item->wpe_status == WPE_PENDING || $display === 'approved' || $item->wpe_status == WPE_APPROVED ) {
 				$actions['cancel_entry'] = sprintf(
 						'<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=cancel-entry&_wpnonce=%s">' . __( 'Cancel', 'wp-events' ) . '</a>',
-						$_REQUEST['page'],
+						wpe_sanitize( $_REQUEST['page'] ),
 						$display,
 						'cancel-entry',
 						$item->ID,
@@ -219,20 +219,20 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		if ( $display === 'trash' ) {  //only for trash entries
 				$actions['delete_permanent'] = sprintf(
 				'<a href="edit.php?post_type=wp_events&page=%s&display=trash&action=%s&bulk-delete[0]=%s&action2=permanent-delete&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete item(s)?\');">' . __( 'Delete Permanently', 'wp-events' ) . '</a>',
-				$_REQUEST['page'],
+				wpe_sanitize( $_REQUEST['page'] ),
 				'permanent-delete',
 				$item->ID,
 				wp_create_nonce( 'wp_events_entries' ) );
 			$actions['restore'] 		 = sprintf(
 				'<a href="edit.php?post_type=wp_events&page=%s&display=trash&action=%s&bulk-delete[0]=%s&action2=restore&_wpnonce=%s">' . __( 'Restore', 'wp-events' ) . '</a>',
-				$_REQUEST['page'],
+				wpe_sanitize( $_REQUEST['page'] ),
 				'restore',
 				$item->ID,
 				wp_create_nonce( 'wp_events_entries' ) );
 		} else {
             $actions['delete'] = sprintf(
                     '<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=bulk-delete&_wpnonce=%s">' . __( 'Move To Trash', 'wp-events' ) . '</a>',
-                    $_REQUEST['page'],
+                    wpe_sanitize( $_REQUEST['page'] ),
 					$display,
                     'bulk-delete',
                     $item->ID,
@@ -259,7 +259,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 
 		// $this->wpe_remove_deleted_event_entries();
 
-		$search_key = isset( $_REQUEST['s'] ) ? wp_unslash( trim( $_REQUEST['s'] ) ) : '';
+		$search_key = isset( $_REQUEST['s'] ) ? wpe_sanitize( wp_unslash( trim( $_REQUEST['s'] ) ) ) : '';
 
 		$this->_column_headers = [
 			$this->get_columns(),
@@ -500,8 +500,8 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		}
 		
 		if ( ! empty( $_REQUEST['orderby'] ) ) {
-			$sql .= ' ORDER BY ' . esc_sql( $_REQUEST['orderby'] );
-			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . esc_sql( $_REQUEST['order'] ) : ' DESC';
+			$sql .= ' ORDER BY ' . sanitize_sql_orderby( $_REQUEST['orderby'] );
+			$sql .= ! empty( $_REQUEST['order'] ) ? ' ' . sanitize_sql_orderby( $_REQUEST['order'] ) : ' DESC';
 		} else {
 		    $sql .= ' ORDER BY time_generated DESC';
         }
@@ -585,7 +585,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		foreach ( $views as $class => $view ) {
 			$views[ $class ] = "\t<li class='$class'>$view";
 		}
-		echo implode( " |</li>\n", $views ) . "</li>\n";
+		echo implode( " |</li>\n", wpe_escape_html( $views ) ) . "</li>\n";
 		echo '</ul>';
 	}
 

@@ -964,7 +964,7 @@ class Wp_Events_Admin {
                 $output[]='<a href="' . admin_url( 'edit.php?' . 'taxonomy' . '='.  $term->taxonomy . '&tag_ID='. $term->term_id .'&post_type=' . $post_type ) . '">' . $term->name . '</a>';
             }
             if( isset( $output ) ) {
-                echo implode(', ', $output);
+                echo implode(', ', wpe_escape_html( $output ) );
             }
         } else {
             _e('Uncategorized', 'wp-events');

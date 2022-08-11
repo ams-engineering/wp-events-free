@@ -172,20 +172,20 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 		if ( $display === 'trash' ) {  //only for trash entries
 			$actions['delete_permanent'] = sprintf(
 					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&display=trash&action=%s&bulk-delete[0]=%s&action2=permanent-delete&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete item(s)?\');">' . __( 'Delete Permanently', 'wp-events' ) . '</a>',
-					$_REQUEST['page'],
+					wpe_sanitize( $_REQUEST['page'] ),
 					'permanent-delete',
 					$item->id,
 					wp_create_nonce( 'wp_events_entries' ) );
 			$actions['restore'] = sprintf(
 					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&display=trash&action=%s&bulk-delete[0]=%s&action2=restore&_wpnonce=%s">' . __( 'Restore', 'wp-events' ) . '</a>',
-					$_REQUEST['page'],
+					wpe_sanitize( $_REQUEST['page'] ),
 					'restore',
 					$item->id,
 					wp_create_nonce( 'wp_events_entries' ) );
 		} else {
 			$actions['delete'] = sprintf(
 					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&action=%s&bulk-delete[0]=%s&action2=bulk-delete&_wpnonce=%s">' . __( 'Move To Trash', 'wp-events' ) . '</a>',
-					$_REQUEST['page'],
+					wpe_sanitize( $_REQUEST['page'] ),
 					'bulk-delete',
 					$item->id,
 					wp_create_nonce( 'wp_events_entries' ) );
@@ -209,7 +209,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 			Wp_Events_Db_Actions::add_subscriber_table();
 		}
 
-		$search_key = isset( $_REQUEST['s'] ) ? wp_unslash( trim( $_REQUEST['s'] ) ) : '';
+		$search_key = isset( $_REQUEST['s'] ) ? wpe_sanitize( wp_unslash( trim( $_REQUEST['s'] ) ) ) : '';
 
 		$this->_column_headers = [
 			$this->get_columns(),
@@ -518,7 +518,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 		foreach ( $views as $class => $view ) {
 			$views[ $class ] = "\t<li class='$class'>$view";
 		}
-		echo implode( " |</li>\n", $views ) . "</li>\n";
+		echo implode( " |</li>\n", wpe_escape_html( $views ) ) . "</li>\n";
 		echo '</ul>';
 	}
 

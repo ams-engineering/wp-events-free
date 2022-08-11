@@ -38,12 +38,12 @@ if( !function_exists( 'wpe_display_subscribe_form' ) ) {
                     <?php wp_nonce_field('wp_events_subscribe_form','wpe_subscribe_form');
                     if( $form_title != '' ) {
                         ?>
-                        <h2 class="wpe-h2"><?php echo apply_filters( 'wpe_subscribe_form_heading',  __( $form_title, 'wp-events' ) ); ?></h2>
+                        <h2 class="wpe-h2"><?php echo apply_filters( 'wpe_subscribe_form_heading',  __( esc_html( $form_title ), 'wp-events' ) ); ?></h2>
 	                    <?php
                     }
                     if( $form_description != '' ) {
                         ?>
-                        <p class="wpe-form-description"><?php echo apply_filters( 'wpe_subscribe_form_description',  __( $form_description, 'wp-events' ) ); ?></p>
+                        <p class="wpe-form-description"><?php echo apply_filters( 'wpe_subscribe_form_description',  __( esc_html( $form_description ), 'wp-events' ) ); ?></p>
 	                    <?php
                     }?>
                     <div class="wpe-name-box wpe-col-2">
@@ -101,7 +101,7 @@ if( !function_exists( 'wpe_display_subscribe_form' ) ) {
                         <?php
                     }
                     ?>
-                    <button id="wpe-button" class="button wpe-button"><?php echo apply_filters( 'wpe_subscribe_form_button_text',  __( $form_button, 'wp-events' ) ); ?></button>
+                    <button id="wpe-button" class="button wpe-button"><?php echo apply_filters( 'wpe_subscribe_form_button_text',  __( esc_html( $form_button ), 'wp-events' ) ); ?></button>
                     <div class="wpe-button-loader"></div>
                 </form>
             </div>

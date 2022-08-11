@@ -58,7 +58,7 @@ get_header();
 			                            $cat_html .= '<a href="' . get_term_link( $term->term_id ) . '">' . $term->name . '</a>,&nbsp;';
 		                            }
 		                            if( $cat_html !== '' ) {
-			                            echo apply_filters( 'wpe_single_category', '<span class="wpe-type"><strong>Category:&nbsp;</strong>' . rtrim( $cat_html, ',&nbsp;' ) . '</span>' );
+			                            echo apply_filters( 'wpe_single_category', '<span class="wpe-type"><strong>Category:&nbsp;</strong>' . rtrim( wp_kses_post( $cat_html ), ',&nbsp;' ) . '</span>' );
 		                            }
 	                            }
 	                            ?>

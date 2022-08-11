@@ -60,7 +60,7 @@ class Wp_Events_Admin_Settings {
 			wpe_is_active_tab( $wpe_active_tab, $tab, TRUE ) ?>"
                href="<?php
 			   echo admin_url( 'edit.php?post_type=wp_events&page=wp_events_settings&tab='. esc_html( $tab ) ); ?>"><?php
-				echo __( ucfirst( $tab ), 'wp-events' ); ?> </a>
+				echo __( ucfirst( esc_html( $tab ) ), 'wp-events' ); ?> </a>
 			<?php
 		}
 	}
