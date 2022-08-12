@@ -340,7 +340,7 @@ if ( ! function_exists( 'wpe_get_taxonomy_page_title' ) ) {
 			ob_start();
 			single_term_title();        //taxonomy title
 			$cat_title = ob_get_clean();
-			echo esc_html( $post_title['events_post_name'] ) . ' Category: ' . ucwords( $cat_title );   //Events Category: cat_name
+			echo esc_html( $post_title['events_post_name'] ) . ' Category: ' . ucwords( esc_html( $cat_title ) );   //Events Category: cat_name
 			?></h1>
 		<?php
 	}
