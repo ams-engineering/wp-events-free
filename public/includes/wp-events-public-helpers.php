@@ -90,10 +90,7 @@ if ( ! function_exists( 'wpe_get_thankyou_popup' ) ) {
 		?>
         <div class="thankyou-popup" style="display:none;">
             <div class="t-y-inner"><span class="close-btn"></span>
-                <p><?php
-					_e( $text, 'wp-events' );
-					?>
-                </p>
+                <p><?php echo esc_html( $text ); ?></p>
             </div>
         </div>
 		<?php
@@ -358,7 +355,7 @@ if ( ! function_exists( 'wpe_get_archive_details' ) ) {
             ?>
             <div class="wpe-archive-description">
             <span title="Click for Details" class="wpe-detail-button"><?php
-                echo apply_filters( 'wpe_archive_description_text', __( 'Details', 'wp-events' ) ); ?></span>
+                echo apply_filters( 'wpe_archive_description_text', __( 'Details', 'simple-wp-events' ) ); ?></span>
                 <div class="wpe-archive-content wpe-display-none"><?php
                     echo apply_filters( 'the_content', wp_kses_post( $event_content ) ); ?></div>
             </div>
@@ -402,7 +399,7 @@ if ( ! function_exists( 'wpe_display_external_url_to_admin' ) ) {
 	function wpe_display_external_url_to_admin( $post_id ) {
 		$wpe_external_url = get_post_meta( $post_id, 'wpevent-external-url', TRUE );
 		if ( !empty( $wpe_external_url ) && current_user_can( 'manage_options' ) ) {
-			return '<span class="wpe-type"><strong>External URL:&nbsp;</strong><a href="'. $wpe_external_url .'">'. $wpe_external_url .'</a><small>&nbsp;'. __( 'Click to visit external url (external URL is only visible to administrators all other visitors will be redirected to external URL)', 'wp-events' ) .'</small></span>';
+			return '<span class="wpe-type"><strong>External URL:&nbsp;</strong><a href="'. $wpe_external_url .'">'. $wpe_external_url .'</a><small>&nbsp;'. __( 'Click to visit external url (external URL is only visible to administrators all other visitors will be redirected to external URL)', 'simple-wp-events' ) .'</small></span>';
 		}
 	}
 }

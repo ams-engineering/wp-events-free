@@ -217,14 +217,14 @@ if ( ! function_exists( 'wpe_display_entry_form' ) ) {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
             if ( isset( $_GET['tab'] ) && $_GET['tab'] === 'registrations' ) {
                 $event_id = Wp_Events_Db_Actions::wpe_get_event_id( sanitize_text_field( $_GET['entry'] ) );
-                $entry_title = 'Event: ' . get_the_title( $event_id );
+                $entry_title = __( 'Event: ', 'simple-wp-events' ) . get_the_title( $event_id );
             } else  {
-                $entry_title = 'Entry # ' . sanitize_text_field( $_GET['entry'] );
+                $entry_title = __( 'Entry # ', 'simple-wp-events' ) . sanitize_text_field( $_GET['entry'] );
             }
             $form_fields = wpe_add_entry_fields();
             ?>
             <span class="wpe-entry-header">
-            <span class="wpe-entry-title"><?php esc_html_e( $entry_title ); ?></span>
+            <span class="wpe-entry-title"><?php echo esc_html( $entry_title ); ?></span>
             </span>
             <form method="post" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" class="wpe-register-form disabledform wpe-edit-entry-form" id="wpe-edit-entry-form">
             <?php
@@ -236,7 +236,7 @@ if ( ! function_exists( 'wpe_display_entry_form' ) ) {
             ?>
             </form>
             <?php
-        } else _e( 'Entry Not Found!', 'wp-events' );
+        } else _e( 'Entry Not Found!', 'simple-wp-events' );
     }
 }
 
@@ -274,13 +274,13 @@ if ( ! function_exists( 'wpe_get_entry_sidebar' ) ) {
             <label for="wpe-entry-notification-user">User Notification</label><br>
             <button title="Resend Notification" class="wpe-btn" id="resend-btn">Resend</button>';
 
-            wpe_sidebar_section( 'Entry', $entry_info );
+            wpe_sidebar_section( __( 'Entry', 'simple-wp-events' ), $entry_info );
             if ( $tab === 'registrations' ) {
-                wpe_sidebar_section( 'Notifications', $notification_body );
+                wpe_sidebar_section( __( 'Notifications', 'simple-wp-events' ), $notification_body );
             }
         } else {
             $error_info = 'Entry Not Found!';
-            wpe_sidebar_section( 'Entry', $error_info );
+            wpe_sidebar_section( __( 'Entry', 'simple-wp-events' ), $error_info );
         }
     }
 }

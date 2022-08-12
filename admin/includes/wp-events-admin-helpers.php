@@ -20,7 +20,7 @@ if ( ! function_exists( 'wpe_sidebar_section' ) ) {
         ?>
         <div class="wpe-sidebar-section">
             <div class="section-header">
-                <h2 class="section-heading"><?php esc_html_e( $title ); ?></h2>
+                <h2 class="section-heading"><?php echo esc_html( $title ); ?></h2>
                 <div class="section-actions">
                     <span class="dashicons dashicons-arrow-up wpe-action-icon"></span>
                 </div>

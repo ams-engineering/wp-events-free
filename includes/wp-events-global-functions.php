@@ -477,12 +477,12 @@ if ( ! function_exists( 'wpe_get_dropdown' ) ) {
 	function wpe_get_dropdown( $name, $label, $options ) {
 		?>
 		<div class="wpe-form-control wpe-field-container wpe-full-width">
-			<label for="<?php echo esc_attr( $name ); ?>"><?php esc_html_e( $label ); ?></label>
+			<label for="<?php echo esc_attr( $name ); ?>"><?php echo esc_html( $label ); ?></label>
 			<select name="<?php echo esc_attr( $name ); ?>" id="<?php echo esc_attr( $name ); ?>">
 			<?php
 				for( $i = 0; $i < sizeof( $options ); $i++ ) {
 					?>
-					<option value="<?php echo esc_attr( $options[$i] ); ?>"><?php esc_html_e( $options[$i] ); ?></option>
+					<option value="<?php echo esc_attr( $options[$i] ); ?>"><?php echo esc_html( $options[$i] ); ?></option>
 					<?php
 				}
 			?>

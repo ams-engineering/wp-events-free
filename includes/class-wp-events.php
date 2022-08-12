@@ -72,7 +72,7 @@ class Wp_Events {
 		} else {
 			$this->version = '1.0.0';
 		}
-		$this->plugin_name = 'wp-events';
+		$this->plugin_name = 'simple-wp-events';
 
 		$this->load_dependencies();
 		$this->set_locale();

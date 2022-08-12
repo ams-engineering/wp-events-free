@@ -21,7 +21,7 @@
     <div class="wpe-header">
         <div class="wpe-header-wrap">
             <img width="40" height="40" src="<?php echo plugins_url() . '/' . WPE_PLUGIN_BASE . '/assets/img/logo.png'; ?>">
-            <h1><?php _e( 'Simple WP Events Settings', 'wp-events' ); ?></h1>
+            <h1><?php _e( 'Simple WP Events Settings', 'simple-wp-events' ); ?></h1>
         </div>
     </div>
     <form method="post" action="options.php">

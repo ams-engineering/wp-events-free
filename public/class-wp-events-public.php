@@ -193,7 +193,7 @@ class Wp_Events_Public {
 	public function wpe_body_classes( $classes ) {
 
 		if( is_post_type_archive('wp_events' ) ) {
-			$classes[] = 'wp-events';
+			$classes[] = 'simple-wp-events';
 		}
 		return $classes;
 
@@ -304,7 +304,7 @@ class Wp_Events_Public {
 		if ( isset( $wpe_settings['events_post_name'] ) ) {
 			$title = $wpe_settings['events_post_name']; 
 		} else {
-			$title = 'Upcoming Events';
+			$title = __( 'Upcoming Events', 'simple-wp-events' );
 		}
 		// normalize attribute keys, lowercase
 		$atts = array_change_key_case( (array) $atts, CASE_LOWER );
@@ -319,7 +319,7 @@ class Wp_Events_Public {
 				'date'          => 'true',
 				'class'		    => '',
 				'category'	    => '',
-				'button_text'   => __( 'See all ' . $title, 'wp-events' ),
+				'button_text'   => __( 'See all ', 'simple-wp-events' ) . $title,
 				'type' 		    => '',
 				'single-button' => 'false',
 			], $atts
@@ -400,7 +400,7 @@ class Wp_Events_Public {
 		if ( $html === '' ) {
 			ob_start();
 			if ( $wpevent_atts['title'] !== '' ) {
-				echo '<strong class="wpe-main-title" >' . __( esc_html( $wpevent_atts['title'] ), 'wp-events' ) . '</strong><div class="wpevent-main">' . wp_kses( $html, wpe_get_allowed_html() ) . '</div>';
+				echo '<strong class="wpe-main-title" >' . __( esc_html( $wpevent_atts['title'] ), 'simple-wp-events' ) . '</strong><div class="wpevent-main">' . wp_kses( $html, wpe_get_allowed_html() ) . '</div>';
 			}
 			do_action( 'wp_events_subscribe_form' );
 			$html = ob_get_clean(); 
@@ -410,7 +410,7 @@ class Wp_Events_Public {
 				$button_html .= '<div class="wpevent-archive-button"><a class="button" href="' . get_post_type_archive_link( 'wp_events' ) . '"> ' . apply_filters( 'wpevents_shortcode_button', $wpevent_atts['button_text'] ) . ' </a></div>';
 			}
 			if ( $wpevent_atts['title'] !== '' ) {
-				$html = '<strong class="wpe-main-title" >' . __( $wpevent_atts['title'], 'wp-events' ) . '</strong><div class="wpevent-main">' . $html . '</div>';
+				$html = '<strong class="wpe-main-title" >' . __( $wpevent_atts['title'], 'simple-wp-events' ) . '</strong><div class="wpevent-main">' . $html . '</div>';
 			}
 			if ( $wpevent_atts['class'] !== '' ) {
 				$html = '<div class="wpevents-shortcode-section '. $wpevent_atts['class'] .' wpevents-section">' . $html . $button_html . '</div>';
@@ -571,7 +571,7 @@ class Wp_Events_Public {
 						 * @action wpe_display_subscribe_form
 						 */
 						do_action( 'wp_events_subscribe_form' );          // Displays Subscribe Form
-						$text = 'ThankYou For Subscribing.';
+						$text = __( 'ThankYou For Subscribing.', 'simple-wp-events' );
 			    		wpe_get_thankyou_popup( $text );
 					}
 					wp_reset_postdata();

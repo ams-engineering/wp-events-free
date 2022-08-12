@@ -26,7 +26,7 @@ get_header();
                  * @action wpe_display_subscribe_form
                  */
                 do_action( 'wp_events_subscribe_form' );          // Displays Subscribe Form
-                $text = 'ThankYou For Subscribing.';
+                $text = __( 'ThankYou For Subscribing.', 'simple-wp-events' );
                 wpe_get_thankyou_popup( $text );
             }
             wp_reset_postdata();

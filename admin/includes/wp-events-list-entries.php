@@ -29,7 +29,7 @@ if ( ! function_exists( 'wpe_add_registration_entries_list' ) ) {
         ?>
         <div id="icon-users" class="icon32"></div>
         <?php
-        $registrations_list->search_box(__( 'Search', 'wp-events' ), 'wpe-search');
+        $registrations_list->search_box(__( 'Search', 'simple-wp-events' ), 'wpe-search');
         $registrations_list->views();
         $registrations_list->display(); ?>
     </div>
@@ -54,7 +54,7 @@ if ( ! function_exists( 'wpe_add_subscriber_entries_list' ) ) {
         ?>
         <div id="icon-users" class="icon32"></div>
         <?php
-        $subscribers_list->search_box(__( 'Search', 'wp-events' ), 'wpe-search');
+        $subscribers_list->search_box(__( 'Search', 'simple-wp-events' ), 'wpe-search');
         $subscribers_list->views();
         $subscribers_list->display(); ?>
     </div>
@@ -73,8 +73,8 @@ if ( ! function_exists( 'wpe_admin_entries_tab' ) ) {
 	function wpe_admin_entries_tab() {
     global $wpe_entries_tab;
 ?>
-    <a class="nav-tab <?php echo $wpe_entries_tab === 'registrations' || '' ? 'nav-tab-active' : ''; ?>" href="<?php echo admin_url('edit.php?post_type=wp_events&page=wp_forms_entries&tab=registrations'); ?>"><?php echo __('Registrations', 'wp-events'); ?> </a>
-    <a class="nav-tab <?php echo $wpe_entries_tab === 'subscriptions' || '' ? 'nav-tab-active' : ''; ?>" href="<?php echo admin_url('edit.php?post_type=wp_events&page=wp_forms_entries&tab=subscriptions'); ?>"><?php echo __('Subscriptions', 'wp-events'); ?> </a>
+    <a class="nav-tab <?php echo $wpe_entries_tab === 'registrations' || '' ? 'nav-tab-active' : ''; ?>" href="<?php echo admin_url('edit.php?post_type=wp_events&page=wp_forms_entries&tab=registrations'); ?>"><?php echo __('Registrations', 'simple-wp-events'); ?> </a>
+    <a class="nav-tab <?php echo $wpe_entries_tab === 'subscriptions' || '' ? 'nav-tab-active' : ''; ?>" href="<?php echo admin_url('edit.php?post_type=wp_events&page=wp_forms_entries&tab=subscriptions'); ?>"><?php echo __('Subscriptions', 'simple-wp-events'); ?> </a>
 <?php
 }
 }

@@ -118,34 +118,34 @@ class Wp_Events_Locations {
         <div class="wpevents-main">
         <div class="wp-events-location wp-event-subsection">
             <div class="venue event-control wpe-left">
-                <label for="wpevent-loc-venue"><?php esc_html_e( 'Venue', 'wp-events' ); ?></label>
+                <label for="wpevent-loc-venue"><?php _e( 'Venue', 'simple-wp-events' ); ?></label>
                 <input  id="wpevent-loc-venue" class="wp-event-field wpevent-location" type="text" name="wpevent-loc-venue" value="<?php echo get_post_meta( $post->ID, 'wpevent-loc-venue', true );?>"/>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="address event-control wpe-right">
-                <label for="wpevent-loc-address"><?php esc_html_e( 'Address', 'wp-events' ); ?></label>
+                <label for="wpevent-loc-address"><?php _e( 'Address', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-loc-address" class="wp-event-field wpevent-location" type="text" name="wpevent-loc-address" value="<?php echo get_post_meta( $post->ID, 'wpevent-loc-address', true );?>"/>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="city event-control wpe-left">
-                <label for="wpevent-loc-city"><?php esc_html_e( 'City', 'wp-events' ); ?></label>
+                <label for="wpevent-loc-city"><?php _e( 'City', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-loc-city" class="wp-event-field wpevent-location" type="text" name="wpevent-loc-city" value="<?php echo get_post_meta( $post->ID, 'wpevent-loc-city', true );?>"/>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="state event-control wpe-right">
-                <label for="wpevent-loc-state"><?php esc_html_e( 'State', 'wp-events' ); ?></label>
+                <label for="wpevent-loc-state"><?php _e( 'State', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-loc-state" class="wp-event-field wpevent-location" type="text" name="wpevent-loc-state" value="<?php echo get_post_meta( $post->ID, 'wpevent-loc-state', true );?>"/>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="zip event-control wpe-left">
-                <label for="wpevent-loc-zip"><?php esc_html_e( 'Zip', 'wp-events' ); ?></label>
+                <label for="wpevent-loc-zip"><?php _e( 'Zip', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-loc-zip" class="wp-event-field" type="text" name="wpevent-loc-zip" value="<?php echo get_post_meta( $post->ID, 'wpevent-loc-zip', true );?>"/>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="country event-control wpe-right">
-                <label for="country"><?php esc_html_e( 'Country', 'wp-events' ); ?></label>
+                <label for="country"><?php _e( 'Country', 'simple-wp-events' ); ?></label>
                 <?php wpevents_country_drop_down( get_post_meta( $post->ID, 'wpevent-loc-country', true ), 'wpevent-loc-country' );?>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
         </div>
         </div>

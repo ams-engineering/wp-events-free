@@ -160,7 +160,7 @@ get_header();
 						$close_event = get_post_meta( $post_id, 'wpevent-close-reg', true );
 						if ( $booked_seats < $seats && $close_event !== 'yes' ) {  // booked seats is less than available seats and event is not closed
 							if ( $end_date_time < strtotime( current_time( 'mysql' ) ) ) {              //current datetime is greater than event end datetime
-								echo __( 'Event is due and cannot be registered at the moment', 'wp-events' );
+								echo __( 'Event is due and cannot be registered at the moment', 'simple-wp-events' );
 							} else {
 								/**
 								 * Prints Registration Form
@@ -181,7 +181,7 @@ get_header();
 				?>
             </div>
 			<?php
-			$text = 'ThankYou For Registering.';
+			$text = __( 'ThankYou For Registering.', 'simple-wp-events' );
 			wpe_get_thankyou_popup( $text );
 			?>
         </div>

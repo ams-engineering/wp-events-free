@@ -48,9 +48,9 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 	public function __construct()
 	{
 		parent::__construct([
-			'singular' => __( 'Subscribers', 'wp-events' ),
+			'singular' => __( 'Subscribers', 'simple-wp-events' ),
 			//singular name of the listed records
-			'plural'   => __( 'Subscribers', 'wp-events' ),
+			'plural'   => __( 'Subscribers', 'simple-wp-events' ),
 			//plural name of the listed records
 			'ajax'     => FALSE
 			//should this table support ajax?
@@ -63,7 +63,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 	 * @since 1.0.449
 	 */
 	public function no_items() {
-		_e( 'No Subscribers available.', 'wp-events' );
+		_e( 'No Subscribers available.', 'simple-wp-events' );
 	}
 
 	/**
@@ -116,13 +116,13 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 	public function get_bulk_actions() {
 		if ( isset( $_GET["display"] ) && $_GET["display"] === 'trash' ) {
 			return [
-				'permanent-delete' => __( 'Delete Permanently', 'wp-events' ),
-				'restore'          => __( 'Restore', 'wp-events' ),
+				'permanent-delete' => __( 'Delete Permanently', 'simple-wp-events' ),
+				'restore'          => __( 'Restore', 'simple-wp-events' ),
 			];
 		}
 
 		return [
-			'bulk-delete' => __( 'Move to Trash', 'wp-events' ),
+			'bulk-delete' => __( 'Move to Trash', 'simple-wp-events' ),
 		];
 	}
 
@@ -165,26 +165,26 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 		$display = isset( $_GET["display"] ) ? sanitize_text_field( $_GET["display"] ) : 'all';
 
 		$actions = [ 'view_entry' => sprintf(
-			'<a href="edit.php?post_type=wp_events&page=wpe_view_entry&entry=%s&tab=subscriptions&display='. $display .'">' . __( 'View', 'wp-events' ) . '</a>',
+			'<a href="edit.php?post_type=wp_events&page=wpe_view_entry&entry=%s&tab=subscriptions&display='. $display .'">' . __( 'View', 'simple-wp-events' ) . '</a>',
 			$item->id ),
 		];
 
 		if ( $display === 'trash' ) {  //only for trash entries
 			$actions['delete_permanent'] = sprintf(
-					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&display=trash&action=%s&bulk-delete[0]=%s&action2=permanent-delete&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete item(s)?\');">' . __( 'Delete Permanently', 'wp-events' ) . '</a>',
+					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&display=trash&action=%s&bulk-delete[0]=%s&action2=permanent-delete&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete item(s)?\');">' . __( 'Delete Permanently', 'simple-wp-events' ) . '</a>',
 					wpe_sanitize( $_REQUEST['page'] ),
 					'permanent-delete',
 					$item->id,
 					wp_create_nonce( 'wp_events_entries' ) );
 			$actions['restore'] = sprintf(
-					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&display=trash&action=%s&bulk-delete[0]=%s&action2=restore&_wpnonce=%s">' . __( 'Restore', 'wp-events' ) . '</a>',
+					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&display=trash&action=%s&bulk-delete[0]=%s&action2=restore&_wpnonce=%s">' . __( 'Restore', 'simple-wp-events' ) . '</a>',
 					wpe_sanitize( $_REQUEST['page'] ),
 					'restore',
 					$item->id,
 					wp_create_nonce( 'wp_events_entries' ) );
 		} else {
 			$actions['delete'] = sprintf(
-					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&action=%s&bulk-delete[0]=%s&action2=bulk-delete&_wpnonce=%s">' . __( 'Move To Trash', 'wp-events' ) . '</a>',
+					'<a href="edit.php?post_type=wp_events&page=%s&tab=subscriptions&action=%s&bulk-delete[0]=%s&action2=bulk-delete&_wpnonce=%s">' . __( 'Move To Trash', 'simple-wp-events' ) . '</a>',
 					wpe_sanitize( $_REQUEST['page'] ),
 					'bulk-delete',
 					$item->id,
@@ -264,13 +264,13 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 	public function get_columns() {
 		return [
 			'cb'         					=> '<input type="checkbox">',
-			'id'         					=> __('Id', 'wp-events'),
-			'subscriber_firstname' 			=> __('First Name', 'wp-events'),
-			'subscriber_lastname'  			=> __('Last Name', 'wp-events'),
-			'subscriber_email'      		=> __('Email', 'wp-events'),
-			'subscriber_phone'      		=> __('Cell Phone', 'wp-events'),
-			'subscriber_texting_permission'	=> __('Texting Permission', 'wp-events'),
-			'time'       					=> __('Time', 'wp-events'),
+			'id'         					=> __('Id', 'simple-wp-events'),
+			'subscriber_firstname' 			=> __('First Name', 'simple-wp-events'),
+			'subscriber_lastname'  			=> __('Last Name', 'simple-wp-events'),
+			'subscriber_email'      		=> __('Email', 'simple-wp-events'),
+			'subscriber_phone'      		=> __('Cell Phone', 'simple-wp-events'),
+			'subscriber_texting_permission'	=> __('Texting Permission', 'simple-wp-events'),
+			'time'       					=> __('Time', 'simple-wp-events'),
 		];
 	}
 
@@ -308,7 +308,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 						$this->delete_restore_entry( (int) $id, WPE_TRASHED );
 					}
 					$no_of_posts = sizeof( $delete_arr );
-					$message = $no_of_posts . __( ' item(s) moved to the Trash.', 'wp-events' );
+					$message = $no_of_posts . __( ' item(s) moved to the Trash.', 'simple-wp-events' );
 					$this->wpe_admin_notice( $message );
 				}
 			}
@@ -328,7 +328,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 						$this->delete_restore_entry( (int) $id, WPE_DELETED );
 					}
 					$no_of_posts = sizeof( $delete_arr );
-					$message = $no_of_posts . __( ' item(s) permanently deleted.', 'wp-events' );
+					$message = $no_of_posts . __( ' item(s) permanently deleted.', 'simple-wp-events' );
 					$this->wpe_admin_notice( $message );
 				}
 			}
@@ -348,7 +348,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 						$this->delete_restore_entry( (int) $id, WPE_ACTIVE );
 					}
 					$no_of_posts = sizeof( $delete_arr );
-					$message = $no_of_posts . __( ' item(s) restored from the Trash.', 'wp-events' );
+					$message = $no_of_posts . __( ' item(s) restored from the Trash.', 'simple-wp-events' );
 					$this->wpe_admin_notice( $message );
 				}
 			}

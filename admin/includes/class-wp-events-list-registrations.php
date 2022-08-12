@@ -47,9 +47,9 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	 */
 	public function __construct() {
 		parent::__construct([
-			'singular' => __( 'Registrations', 'wp-events' ),
+			'singular' => __( 'Registrations', 'simple-wp-events' ),
 			//singular name of the listed records
-			'plural'   => __( 'Registrations', 'wp-events' ),
+			'plural'   => __( 'Registrations', 'simple-wp-events' ),
 			//plural name of the listed records
 			'ajax'     => FALSE
 			//should this table support ajax?
@@ -62,7 +62,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	 * @since 1.0.449
 	 */
 	public function no_items() {
-		_e( 'No Registrations available.', 'wp-events' );
+		_e( 'No Registrations available.', 'simple-wp-events' );
 	}
 
 	/**
@@ -120,19 +120,19 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	 * @since 1.1.0
 	 */
 	public function get_bulk_actions() {
-		$bulk_actions['bulk-delete'] = __( 'Move to Trash', 'wp-events' );
+		$bulk_actions['bulk-delete'] = __( 'Move to Trash', 'simple-wp-events' );
 
 		$display = isset( $_GET['display'] ) ? sanitize_text_field( $_GET['display'] ) : 'all';
 
 		switch( $display ) {
 			case 'pending':
-				$bulk_actions['approve-entry']	  = __( 'Approve', 'wp-events' );
-				$bulk_actions['cancel-entry']	  = __( 'Cancel', 'wp-events' );
+				$bulk_actions['approve-entry']	  = __( 'Approve', 'simple-wp-events' );
+				$bulk_actions['cancel-entry']	  = __( 'Cancel', 'simple-wp-events' );
 				break;
 			case 'trash':
 				unset( $bulk_actions['bulk-delete'] );
-				$bulk_actions['permanent-delete'] = __( 'Delete Permanently', 'wp-events' );
-				$bulk_actions['restore']		  = __( 'Restore', 'wp-events' );
+				$bulk_actions['permanent-delete'] = __( 'Delete Permanently', 'simple-wp-events' );
+				$bulk_actions['restore']		  = __( 'Restore', 'simple-wp-events' );
 				break;
 		}
 
@@ -181,7 +181,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		if ( isset( $event_options['approve_registrations'] ) ) { //only for pending approval entries
 			if( $display === 'pending' || $item->wpe_status == WPE_PENDING || $display === 'cancelled' || $item->wpe_status == WPE_CANCELLED ) {
 				$actions['approve_entry'] = sprintf(
-						'<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=approve-entry&_wpnonce=%s">' . __( 'Approve', 'wp-events' ) . '</a>',
+						'<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=approve-entry&_wpnonce=%s">' . __( 'Approve', 'simple-wp-events' ) . '</a>',
 						wpe_sanitize( $_REQUEST['page'] ),
 						$display,
 						'approve-entry',
@@ -190,7 +190,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 			}
 			if( $display === 'pending' || $item->wpe_status == WPE_PENDING || $display === 'approved' || $item->wpe_status == WPE_APPROVED ) {
 				$actions['cancel_entry'] = sprintf(
-						'<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=cancel-entry&_wpnonce=%s">' . __( 'Cancel', 'wp-events' ) . '</a>',
+						'<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=cancel-entry&_wpnonce=%s">' . __( 'Cancel', 'simple-wp-events' ) . '</a>',
 						wpe_sanitize( $_REQUEST['page'] ),
 						$display,
 						'cancel-entry',
@@ -212,26 +212,26 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		}
 
 		$actions['view_entry'] = sprintf(
-			'<a href="edit.php?post_type=wp_events&page=wpe_view_entry'. $eventID .'&entry=%s&tab=registrations&display='. $display .'">' . __( 'View', 'wp-events' ) . '</a>',
+			'<a href="edit.php?post_type=wp_events&page=wpe_view_entry'. $eventID .'&entry=%s&tab=registrations&display='. $display .'">' . __( 'View', 'simple-wp-events' ) . '</a>',
 			$item->ID );
 
 
 		if ( $display === 'trash' ) {  //only for trash entries
 				$actions['delete_permanent'] = sprintf(
-				'<a href="edit.php?post_type=wp_events&page=%s&display=trash&action=%s&bulk-delete[0]=%s&action2=permanent-delete&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete item(s)?\');">' . __( 'Delete Permanently', 'wp-events' ) . '</a>',
+				'<a href="edit.php?post_type=wp_events&page=%s&display=trash&action=%s&bulk-delete[0]=%s&action2=permanent-delete&_wpnonce=%s" onclick="return confirm(\'Are you sure you want to delete item(s)?\');">' . __( 'Delete Permanently', 'simple-wp-events' ) . '</a>',
 				wpe_sanitize( $_REQUEST['page'] ),
 				'permanent-delete',
 				$item->ID,
 				wp_create_nonce( 'wp_events_entries' ) );
 			$actions['restore'] 		 = sprintf(
-				'<a href="edit.php?post_type=wp_events&page=%s&display=trash&action=%s&bulk-delete[0]=%s&action2=restore&_wpnonce=%s">' . __( 'Restore', 'wp-events' ) . '</a>',
+				'<a href="edit.php?post_type=wp_events&page=%s&display=trash&action=%s&bulk-delete[0]=%s&action2=restore&_wpnonce=%s">' . __( 'Restore', 'simple-wp-events' ) . '</a>',
 				wpe_sanitize( $_REQUEST['page'] ),
 				'restore',
 				$item->ID,
 				wp_create_nonce( 'wp_events_entries' ) );
 		} else {
             $actions['delete'] = sprintf(
-                    '<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=bulk-delete&_wpnonce=%s">' . __( 'Move To Trash', 'wp-events' ) . '</a>',
+                    '<a href="edit.php?post_type=wp_events&page=%s&display=%s&action=%s&bulk-delete[0]=%s&action2=bulk-delete&_wpnonce=%s">' . __( 'Move To Trash', 'simple-wp-events' ) . '</a>',
                     wpe_sanitize( $_REQUEST['page'] ),
 					$display,
                     'bulk-delete',
@@ -324,15 +324,15 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	public function get_columns() {
 		return [
 			'cb'         			=> '<input type="checkbox">',
-			'ID'         			=> __('Id', 'wp-events'),
-			'first_name' 			=> __('First Name', 'wp-events'),
-			'last_name'  			=> __('Last Name', 'wp-events'),
-			'email'      			=> __('Email', 'wp-events'),
-			'event'      			=> __('Event', 'wp-events'),
-			'event_type' 			=> __('Type', 'wp-events'),
-			'wpe_seat'   			=> __('Seats', 'wp-events'),
-			'texting_permission'	=> __('Texting Permission', 'wp-events'),
-			'time'       			=> __('Time', 'wp-events'),
+			'ID'         			=> __('Id', 'simple-wp-events'),
+			'first_name' 			=> __('First Name', 'simple-wp-events'),
+			'last_name'  			=> __('Last Name', 'simple-wp-events'),
+			'email'      			=> __('Email', 'simple-wp-events'),
+			'event'      			=> __('Event', 'simple-wp-events'),
+			'event_type' 			=> __('Type', 'simple-wp-events'),
+			'wpe_seat'   			=> __('Seats', 'simple-wp-events'),
+			'texting_permission'	=> __('Texting Permission', 'simple-wp-events'),
+			'time'       			=> __('Time', 'simple-wp-events'),
 		];
 	}
 
@@ -547,7 +547,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		$wpe_current_display = isset( $_GET['display'] ) ? sanitize_text_field( $_GET['display'] ) : 'all';
 
 		$views = [
-			'all'	    => '<a '. wpe_is_current( $wpe_current_display, 'all' ) .'href="edit.php?post_type=wp_events&page=wp_forms_entries&display=all">' . __( 'All', 'wp-events' ) . '</a>',
+			'all'	    => '<a '. wpe_is_current( $wpe_current_display, 'all' ) .'href="edit.php?post_type=wp_events&page=wp_forms_entries&display=all">' . __( 'All', 'simple-wp-events' ) . '</a>',
 		];
 
 		$event_options = get_option('wpe_events_settings');
@@ -558,12 +558,12 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		}
 
 		if ( isset( $event_options['approve_registrations'] ) ) {
-			$views['pending']   = '<a '. wpe_is_current( $wpe_current_display, 'pending' ) .' href="edit.php?post_type=wp_events&page=wp_forms_entries&display=pending'. $event .'">' . __( 'Pending Approval', 'wp-events' ) . '</a>';
-			$views['approved']  = '<a '. wpe_is_current( $wpe_current_display, 'approved' ) .' href="edit.php?post_type=wp_events&page=wp_forms_entries&display=approved'. $event .'">' . __( 'Approved', 'wp-events' ) . '</a>';
-			$views['cancelled'] = '<a '. wpe_is_current( $wpe_current_display, 'cancelled' ) .' href="edit.php?post_type=wp_events&page=wp_forms_entries&display=cancelled'. $event .'">' . __( 'Cancelled', 'wp-events' ) . '</a>';
+			$views['pending']   = '<a '. wpe_is_current( $wpe_current_display, 'pending' ) .' href="edit.php?post_type=wp_events&page=wp_forms_entries&display=pending'. $event .'">' . __( 'Pending Approval', 'simple-wp-events' ) . '</a>';
+			$views['approved']  = '<a '. wpe_is_current( $wpe_current_display, 'approved' ) .' href="edit.php?post_type=wp_events&page=wp_forms_entries&display=approved'. $event .'">' . __( 'Approved', 'simple-wp-events' ) . '</a>';
+			$views['cancelled'] = '<a '. wpe_is_current( $wpe_current_display, 'cancelled' ) .' href="edit.php?post_type=wp_events&page=wp_forms_entries&display=cancelled'. $event .'">' . __( 'Cancelled', 'simple-wp-events' ) . '</a>';
 		}
 
-		$views['trash'] = '<a '. wpe_is_current( $wpe_current_display, 'trash' ) .' href="edit.php?post_type=wp_events&page=wp_forms_entries&display=trash'. $event .'">' . __( 'Trash', 'wp-events' ) . '</a>';
+		$views['trash'] = '<a '. wpe_is_current( $wpe_current_display, 'trash' ) .' href="edit.php?post_type=wp_events&page=wp_forms_entries&display=trash'. $event .'">' . __( 'Trash', 'simple-wp-events' ) . '</a>';
 
 		/**
 		 * Filters the list of available list table views.
@@ -650,7 +650,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		// HTML for our select printing post titles as loop.
 		$output = '<select name="wpe_titles" id="wpe_titles" class="mdb-select md-form" searchable="Search here..">';
 
-		$output .= '<option value="-1" selected>' . __( 'All Events', 'wp-events' ) . '</option>';
+		$output .= '<option value="-1" selected>' . __( 'All Events', 'simple-wp-events' ) . '</option>';
 
 		foreach ( $results as $title => $ids ) {
 			if ( is_array( $ids ) ) {
@@ -916,7 +916,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 					$this->update_registration_status( (int) $id, $entry_status );
 				}
 				$no_of_posts = sizeof( $delete_arr );
-				$message = $no_of_posts . __( $message, 'wp-events' );
+				$message = $no_of_posts . __( $message, 'simple-wp-events' );
 				$this->wpe_admin_notice( $message );
 			}
 		}

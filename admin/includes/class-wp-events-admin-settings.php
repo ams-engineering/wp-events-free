@@ -60,7 +60,7 @@ class Wp_Events_Admin_Settings {
 			wpe_is_active_tab( $wpe_active_tab, $tab, TRUE ) ?>"
                href="<?php
 			   echo admin_url( 'edit.php?post_type=wp_events&page=wp_events_settings&tab='. esc_html( $tab ) ); ?>"><?php
-				echo __( ucfirst( esc_html( $tab ) ), 'wp-events' ); ?> </a>
+				echo ucfirst( esc_html( $tab ) ); ?> </a>
 			<?php
 		}
 	}
@@ -759,33 +759,33 @@ class Wp_Events_Admin_Settings {
 		?>
         <ul class="mail-accordion">
             <li>
-                <div class="other-hold"><?php esc_html_e( 'Registrant templates', 'wp-events' ); ?></div>
+                <div class="other-hold"><?php _e( 'Registrant templates', 'simple-wp-events' ); ?></div>
                 <div class="other-post">
                     <table class="form-table wpe-settings-table" role="presentation">
                         <tbody>
                         <tr>
-                            <th scope="row"><?php esc_html_e( 'User Email Subject', 'wp-events' ); ?></th>
+                            <th scope="row"><?php _e( 'User Email Subject', 'simple-wp-events' ); ?></th>
                             <td>
                                 <input class="wpe-settings-field wpe-sub-tab-field" name="wpe_mail_settings[mail_success_subject]" id="wpe_mail_success_subject" type="text"
-                                       value="<?php echo isset( $wpe_mail_settings['mail_success_subject'] ) ? esc_attr( $wpe_mail_settings['mail_success_subject'] ) : __( 'Thank you for registering!', 'wp-events'); ?>">
-                                <small class="wpe-fields-description"><?php esc_html_e( 'Enter user email subject (users will receive this subject in mail)', 'wp-events' ); ?></small>
+                                       value="<?php echo isset( $wpe_mail_settings['mail_success_subject'] ) ? esc_attr( $wpe_mail_settings['mail_success_subject'] ) : __( 'Thank you for registering!', 'simple-wp-events'); ?>">
+                                <small class="wpe-fields-description"><?php _e( 'Enter user email subject (users will receive this subject in mail)', 'simple-wp-events' ); ?></small>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( 'Seminar Email Message', 'wp-events' ); ?></th>
+                            <th scope="row"><?php _e( 'Seminar Email Message', 'simple-wp-events' ); ?></th>
                             <td>
 							<?php
 								$mailsuccessMessage =  isset( $wpe_mail_settings['mail_success_message'] ) ? $wpe_mail_settings['mail_success_message'] : '';
 								echo wpe_editor( $mailsuccessMessage, 'mail_success_message', 'wpe_mail_settings[mail_success_message]' );
 							?>
                                 <small class="wpe-fields-description">
-									<?php esc_html_e( 'Enter user email message (users will receive this message on registering for seminars)', 'wp-events' ); ?>
+									<?php _e( 'Enter user email message (users will receive this message on registering for seminars)', 'simple-wp-events' ); ?>
                                     <?php echo $this->shortcode_helper_tooltip(); ?>
                                 </small>
                             </td>
                         </tr>
 						<tr>
-                            <th scope="row"><?php esc_html_e( 'Webinar Email Message', 'wp-events' ); ?></th>
+                            <th scope="row"><?php _e( 'Webinar Email Message', 'simple-wp-events' ); ?></th>
                             <td>
 							<?php
 								$webinar_success_Message =  isset( $wpe_mail_settings['webinar_success_messages'] ) ? $wpe_mail_settings['webinar_success_message'] : '';
@@ -793,28 +793,28 @@ class Wp_Events_Admin_Settings {
 								echo wpe_editor( $webinar_success_Message, 'webinar_success_message-'. $disable_editor, 'wpe_mail_settings[webinar_success_message]' );
 							?>
                                 <small class="wpe-fields-description">
-								<?php esc_html_e( 'Enter user email message (users will receive this message on registering for webinars)', 'wp-events' ); ?>
+								<?php _e( 'Enter user email message (users will receive this message on registering for webinars)', 'simple-wp-events' ); ?>
                                     <?php echo $this->shortcode_helper_tooltip(); ?>
                                 </small>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( 'Admin Email Subject', 'wp-events' ); ?></th>
+                            <th scope="row"><?php _e( 'Admin Email Subject', 'simple-wp-events' ); ?></th>
                             <td>
                                 <input class="wpe-settings-field wpe-sub-tab-field" name="wpe_mail_settings[registrant_admin_subject]" id="wpe_registrant_admin_subject" type="text"
                                        value="<?php echo isset( $wpe_mail_settings['registrant_admin_subject'] ) ? esc_attr( $wpe_mail_settings['registrant_admin_subject'] ) : '';?>">
-                                <small class="wpe-fields-description"><?php esc_html_e( 'Enter admin email subject (admin will receive this subject in mail)', 'wp-events' ); ?></small>
+                                <small class="wpe-fields-description"><?php _e( 'Enter admin email subject (admin will receive this subject in mail)', 'simple-wp-events' ); ?></small>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( 'Admin Email Message', 'wp-events' ); ?></th>
+                            <th scope="row"><?php _e( 'Admin Email Message', 'simple-wp-events' ); ?></th>
                             <td>
 							<?php
 								$registrant_admin_Message =  isset( $wpe_mail_settings['registrant_admin_message'] ) ? $wpe_mail_settings['registrant_admin_message'] : '';
 								echo wpe_editor( $registrant_admin_Message, 'registrant_admin_message', 'wpe_mail_settings[registrant_admin_message]' );
 							?>
                                 <small class="wpe-fields-description">
-									<?php esc_html_e( 'Enter admin email Message (admin will receive this message when a user submits a form)', 'wp-events' ); ?>
+									<?php _e( 'Enter admin email Message (admin will receive this message when a user submits a form)', 'simple-wp-events' ); ?>
 		                            <?php echo $this->shortcode_helper_tooltip(); ?>
                                 </small>
                             </td>
@@ -824,48 +824,48 @@ class Wp_Events_Admin_Settings {
                 </div>
             </li>
             <li>
-                <div class="other-hold"><?php esc_html_e( 'Subscriber templates', 'wp-events' ); ?></div>
+                <div class="other-hold"><?php _e( 'Subscriber templates', 'simple-wp-events' ); ?></div>
                 <div class="other-post">
 					<table class="form-table wpe-settings-table" role="presentation">
                         <tbody>
                         <tr>
-                            <th scope="row"><?php esc_html_e( 'User Email Subject', 'wp-events' ); ?></th>
+                            <th scope="row"><?php _e( 'User Email Subject', 'simple-wp-events' ); ?></th>
                             <td>
                                 <input class="wpe-settings-field wpe-sub-tab-field" name="wpe_mail_settings[subscriber_user_subject]" id="wpe_subscriber_user_subject" type="text"
                                        value="<?php echo isset( $wpe_mail_settings['subscriber_user_subject'] ) ? esc_attr( $wpe_mail_settings['subscriber_user_subject'] ) : '';?>">
-                                <small class="wpe-fields-description"><?php esc_html_e( 'Enter admin email subject (admin will receive this subject in mail)', 'wp-events' ); ?></small>
+                                <small class="wpe-fields-description"><?php _e( 'Enter admin email subject (admin will receive this subject in mail)', 'simple-wp-events' ); ?></small>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( 'User Email Message', 'wp-events' ); ?></th>
+                            <th scope="row"><?php _e( 'User Email Message', 'simple-wp-events' ); ?></th>
                             <td>
 								<?php
 									$subscriber_user_Message =  isset( $wpe_mail_settings['subscriber_user_message'] ) ? $wpe_mail_settings['subscriber_user_message'] : '';
 									echo wpe_editor( $subscriber_user_Message, 'subscriber_user_message', 'wpe_mail_settings[subscriber_user_message]' );
 								?>
                                 <small class="wpe-fields-description">
-									<?php esc_html_e( 'Enter user email message (users will receive this message on submitting form)', 'wp-events' ); ?>
+									<?php _e( 'Enter user email message (users will receive this message on submitting form)', 'simple-wp-events' ); ?>
 					                <?php echo $this->shortcode_helper_tooltip(); ?>
                                 </small>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( 'Admin Email Subject', 'wp-events' ); ?></th>
+                            <th scope="row"><?php _e( 'Admin Email Subject', 'simple-wp-events' ); ?></th>
                             <td>
                                 <input class="wpe-settings-field wpe-sub-tab-field" name="wpe_mail_settings[subscriber_admin_subject]" id="wpe_subscriber_admin_subject" type="text"
                                        value="<?php echo isset( $wpe_mail_settings['subscriber_admin_subject'] ) ? esc_attr( $wpe_mail_settings['subscriber_admin_subject'] ) : '';?>">
-                                <small class="wpe-fields-description"><?php esc_html_e( 'Enter admin email subject (admin will receive this subject in mail)', 'wp-events' ); ?></small>
+                                <small class="wpe-fields-description"><?php _e( 'Enter admin email subject (admin will receive this subject in mail)', 'simple-wp-events' ); ?></small>
                             </td>
                         </tr>
                         <tr>
-                            <th scope="row"><?php esc_html_e( 'Admin Email Message', 'wp-events' ); ?></th>
+                            <th scope="row"><?php _e( 'Admin Email Message', 'simple-wp-events' ); ?></th>
                             <td>
 								<?php
 									$subscriber_admin_Message =  isset( $wpe_mail_settings['subscriber_admin_message'] ) ? $wpe_mail_settings['subscriber_admin_message'] : '';
 									echo wpe_editor( $subscriber_admin_Message, 'subscriber_admin_message', 'wpe_mail_settings[subscriber_admin_message]' );
 								?>
                                 <small class="wpe-fields-description">
-									<?php esc_html_e( 'Enter admin email Message (admin will receive this message when a user submits a form)', 'wp-events' ); ?>
+									<?php _e( 'Enter admin email Message (admin will receive this message when a user submits a form)', 'simple-wp-events' ); ?>
 					                <?php echo $this->shortcode_helper_tooltip(); ?>
                                 </small>
                             </td>
@@ -895,11 +895,11 @@ class Wp_Events_Admin_Settings {
         <ul class="subsubsub">
             <li>
                 <a href="#registration-form-settings"
-                   class="current"><?php esc_html_e( 'Registration Form', 'wp-events' ); ?></a> |
+                   class="current"><?php _e( 'Registration Form', 'simple-wp-events' ); ?></a> |
             </li>
             <li>
                 <a href="#subscriber-form-settings"
-                   class=""><?php esc_html_e( 'Subscriber Form', 'wp-events' ); ?></a>
+                   class=""><?php _e( 'Subscriber Form', 'simple-wp-events' ); ?></a>
             </li>
         </ul>
         <?php
@@ -910,22 +910,22 @@ class Wp_Events_Admin_Settings {
 	 * callback for Setting Section ID=> wpe_settings_maps_section
 	*/
 	public function wpe_settings_display_callback() {
-		_e( 'All the Display Settings are available under this tab', 'wp-events' );
+		_e( 'All the Display Settings are available under this tab', 'simple-wp-events' );
 	}
 
 	/**
 	 * callback for Setting Section ID=> wpe_settings_maps_section
 	*/
 	public function wpe_settings_events_callback() {
-		_e( 'All the Events Settings are available under this tab', 'wp-events' );
+		_e( 'All the Events Settings are available under this tab', 'simple-wp-events' );
 	}
 
 	/**
 	 * callback for Setting Section ID=> wpe_settings_mail_section
 	*/
 	public function wpe_settings_mail_callback() {
-		esc_html_e( 'All the mail Settings are available under this tab', 'wp-events' ); ?>
-		<h3><?php esc_html_e( 'General Settings', 'wp-events' ); ?></h3>
+		_e( 'All the mail Settings are available under this tab', 'simple-wp-events' ); ?>
+		<h3><?php _e( 'General Settings', 'simple-wp-events' ); ?></h3>
 		<?php
 	}
 	
@@ -933,21 +933,21 @@ class Wp_Events_Admin_Settings {
 	 * callback for Setting Section ID=> wpe_settings_firm_section
 	*/
 	public function wpe_settings_firm_callback() {
-		esc_html_e( 'You can enter information about your firm here.', 'wp-events' ) ;
+		_e( 'You can enter information about your firm here.', 'simple-wp-events' ) ;
 	}
 
 	/**
 	 * callback for Setting Section ID=> wpe_settings_reCAPTCHA_section
 	*/
 	public function wpe_settings_reCAPTCHA_callback() {
-		esc_html_e( 'All the reCAPTCHA Settings are available under this tab', 'wp-events' ) ;
+		_e( 'All the reCAPTCHA Settings are available under this tab', 'simple-wp-events' ) ;
 	}
 
 	/**
 	 * callback for Setting Section ID=> wpe_settings_export_section
 	*/
 	public function wpe_settings_export_callback() {
-		esc_html_e( 'All the Export Events Settings are available here', 'wp-events' ) ;
+		_e( 'All the Export Events Settings are available here', 'simple-wp-events' ) ;
 	}
 
 
@@ -956,43 +956,43 @@ class Wp_Events_Admin_Settings {
 	*/
 	public function wpe_settings_export_reg_callback() {
 	?>
-	<p><?php esc_html_e( 'All the Export Registrations Settings are available here', 'wp-events' ); ?></p>
+	<p><?php _e( 'All the Export Registrations Settings are available here', 'simple-wp-events' ); ?></p>
 
 	<table class="form-table">
   		<tr>
-   			<th><?php esc_html_e( 'Event Start Date', 'wp-events' ); ?></th>
+   			<th><?php _e( 'Event Start Date', 'simple-wp-events' ); ?></th>
     		<td>
 				<input id="wpe-filter-start-date" autocomplete="off" class="wp-event-datepicker" type="text" name="wpe-filter-start-date" placeholder="Filter by start date" value=""/>
 			</td>
   		</tr>
   		<tr>
-    		<th><?php esc_html_e( 'Event End Date', 'wp-events' ); ?></th>
+    		<th><?php _e( 'Event End Date', 'simple-wp-events' ); ?></th>
     		<td>
 				<input id="wpe-filter-end-date" autocomplete="off" class="wp-event-datepicker" type="text" name="wpe-filter-end-date" placeholder="Filter by end date" value=""/>
 			</td>
   		</tr>
 		<tr>
-   			<th><?php esc_html_e( 'Select Event', 'wp-events' ); ?></th>
+   			<th><?php _e( 'Select Event', 'simple-wp-events' ); ?></th>
     		<td>
 				<?php echo wp_kses( wpe_event_title(), wpe_get_allowed_html() ); ?>
 			</td>
   		</tr>
  		<tr>
-			<th scope="row"><?php esc_html_e( 'Export Registrations', 'wp-events' ); ?></th>
+			<th scope="row"><?php _e( 'Export Registrations', 'simple-wp-events' ); ?></th>
   			<td>
 				<input type="submit" id="export-event-entries" class="button button-primary" value="Export Entries">
-        		<small class="wpe-fields-description"><?php esc_html_e( 'Export Registrations to CSV (Leave the filters empty if you want to export all entries.)', 'wp-events' ); ?></small>
+        		<small class="wpe-fields-description"><?php _e( 'Export Registrations to CSV (Leave the filters empty if you want to export all entries.)', 'simple-wp-events' ); ?></small>
 			</td>
 		</tr>
 	</table>
 
-	<h2> <?php esc_html_e( 'Export Subscriptions', 'wp-events' ); ?> </h2>
+	<h2> <?php _e( 'Export Subscriptions', 'simple-wp-events' ); ?> </h2>
 	<table class="form-table">
  		<tr>
-			<th scope="row"><?php esc_html_e( 'Export Subscriptions', 'wp-events' ); ?></th>
+			<th scope="row"><?php _e( 'Export Subscriptions', 'simple-wp-events' ); ?></th>
   			<td>
 				<input type="submit" id="export-subscription" class="button button-primary" value="Export Subscriptions">
-        		<small class="wpe-fields-description"><?php esc_html_e( 'Export Subscriptions to CSV', 'wp-events' ); ?></small>
+        		<small class="wpe-fields-description"><?php _e( 'Export Subscriptions to CSV', 'simple-wp-events' ); ?></small>
 			</td>
 		</tr>
 	</table>
@@ -1015,7 +1015,7 @@ class Wp_Events_Admin_Settings {
 	    ?>
 	    <input pattern="^[A-Za-z-]+$" title="Only alphabets(a-z) are allowed" class="wpe-settings-field" name="wpe_settings[events_slug]" id="wpe_page_slug" type="text" value="<?php echo esc_attr( $option['events_slug'] ) ?: 'events';?>"/>
         <a class="view-page" title="View Page" target="_blank" href="<?php echo get_site_url().'/'.esc_attr( $option['events_slug'] ); ?>"><span class="dashicons dashicons-external"></span></a>
-        <small class="wpe-fields-description"><?php esc_html_e( 'Event Page Slug', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Event Page Slug', 'simple-wp-events' ); ?></small>
 		<?php
 		delete_option('rewrite_rules');
 	}
@@ -1027,7 +1027,7 @@ class Wp_Events_Admin_Settings {
 	    $option = get_option('wpe_settings');
 	    ?>
         <textarea name="wpe_settings[privacy_policy]" id="wpe_privacy_policy" style="width:50%;height:100px;"><?php echo isset( $option['privacy_policy'] ) ? esc_textarea( $option['privacy_policy'] ) : '' ;?></textarea>
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter Privacy Policy (Appears on Registration Form)', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter Privacy Policy (Appears on Registration Form)', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1041,7 +1041,7 @@ class Wp_Events_Admin_Settings {
             <input name="wpe_settings[remove_on_uninstall]" id="wpe_remove_on_uninstall" value="l_true" type="checkbox" <?php echo isset( $option['remove_on_uninstall'] ) ? 'checked' : ''; ?> />
             <span class="slider round"></span>
     	</label>
-        <small><?php esc_html_e( 'Check this box if you would like to completely remove all of its data when the plugin is deleted.', 'wp-events' ); ?></small>
+        <small><?php _e( 'Check this box if you would like to completely remove all of its data when the plugin is deleted.', 'simple-wp-events' ); ?></small>
         <?php
     }
 
@@ -1055,7 +1055,7 @@ class Wp_Events_Admin_Settings {
         }
 	    ?>
         <input class="wpe-settings-field" name="wpe_settings[events_post_name]" id="wpe_post_name" type="text" value="<?php echo isset( $option['events_post_name'] ) ? esc_attr( $option['events_post_name'] ) : 'Events';?>"/>
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter Post Menu Name (This name will be replace by events).', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter Post Menu Name (This name will be replace by events).', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1065,8 +1065,8 @@ class Wp_Events_Admin_Settings {
     public function wpe_settings_archive_meta_description_callback() {
 	    $option = get_option('wpe_settings');
 	    ?>
-		<textarea name="wpe_settings[meta_description]" id="wpe_meta_description" style="width:50%;height:100px;"><?php echo isset( $option['meta_description'] ) ? esc_textarea( $option['meta_description'] ) : __( 'Join us for free seminars for the most up-to-date information on how you can protect your assets during your life and preserve them after your death.', 'wp-events' ); ?></textarea>
-		<small class="wpe-fields-description"><?php esc_html_e( 'Enter Meta Description to be displayed for Archive Page.', 'wp-events' ); ?></small>
+		<textarea name="wpe_settings[meta_description]" id="wpe_meta_description" style="width:50%;height:100px;"><?php echo isset( $option['meta_description'] ) ? esc_textarea( $option['meta_description'] ) : __( 'Join us for free seminars for the most up-to-date information on how you can protect your assets during your life and preserve them after your death.', 'simple-wp-events' ); ?></textarea>
+		<small class="wpe-fields-description"><?php _e( 'Enter Meta Description to be displayed for Archive Page.', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1083,7 +1083,7 @@ class Wp_Events_Admin_Settings {
     public function wpe_settings_form_success_callback() {
 	    ?>
         <input class="wpe-settings-field" name="wpe_forms_settings[form_success]" id="wpe_form_successs" type="url" value="<?php echo isset( $this->wpe_form_settings['form_success'] ) ? esc_attr( $this->wpe_form_settings['form_success'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'User will be redirected to entered URL on successful seminar registration.', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'User will be redirected to entered URL on successful seminar registration.', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1093,7 +1093,7 @@ class Wp_Events_Admin_Settings {
     public function wpe_settings_form_success_webinar_callback() {
 	    ?>
         <input class="wpe-settings-field" name="wpe_forms_settings[form_success_webinar]" id="wpe_form_successs_webinar" type="url" value="<?php echo isset( $this->wpe_form_settings['form_success_webinar'] ) ? esc_attr( $this->wpe_form_settings['form_success_webinar'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'User will be redirected to entered URL on successful webinar registration.', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'User will be redirected to entered URL on successful webinar registration.', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1106,8 +1106,8 @@ class Wp_Events_Admin_Settings {
 		?>
         <textarea name="wpe_forms_settings[reg_form_texting_permission]" id="wpe_reg_texting_permission" style="width:50%;height:100px;"><?php echo isset( $this->wpe_form_settings['reg_form_texting_permission'] ) ? 
 		esc_textarea( $this->wpe_form_settings['reg_form_texting_permission'] ) : 
-			__( 'I agree to receive texts at the number provided from [wpe_firm_name]. Frequency may vary and include information on appointments, events, and other marketing messages. Message/data rates may apply. To opt-out, text STOP at any time.', 'wp-events' ); ?></textarea>
-        <small class="wpe-fields-texting-permission wpe-fields-description"><?php esc_html_e( 'This text will be displayed as the label for texting permission checkbox', 'wp-events' ); ?></small>
+			__( 'I agree to receive texts at the number provided from [wpe_firm_name]. Frequency may vary and include information on appointments, events, and other marketing messages. Message/data rates may apply. To opt-out, text STOP at any time.', 'simple-wp-events' ); ?></textarea>
+        <small class="wpe-fields-texting-permission wpe-fields-description"><?php _e( 'This text will be displayed as the label for texting permission checkbox', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1120,7 +1120,7 @@ class Wp_Events_Admin_Settings {
         <input name="wpe_forms_settings[reg_enable_texting_permission]" id="wpe_reg_enable_texting_permission" value="yes" type="checkbox" <?php echo isset($this->wpe_form_settings['reg_enable_texting_permission']) ? 'checked' : ''; ?> />
         <span class="slider round"></span>
     	</label>
-        <small class=""><?php esc_html_e( 'Check To show the Texting permission field.', 'wp-events' ); ?></small>
+        <small class=""><?php _e( 'Check To show the Texting permission field.', 'simple-wp-events' ); ?></small>
 	    <?php
 	}
 
@@ -1130,7 +1130,7 @@ class Wp_Events_Admin_Settings {
     public function wpe_settings_subscriber_form_success_callback() {
 	    ?>
         <input class="wpe-settings-field" name="wpe_forms_settings[subsc_form_success]" id="wpe_subsc_form_success" type="url" value="<?php echo isset( $this->wpe_form_settings['subsc_form_success'] ) ? esc_attr( $this->wpe_form_settings['subsc_form_success'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'User will be redirected to entered URL on successful subscription.', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'User will be redirected to entered URL on successful subscription.', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1145,7 +1145,7 @@ class Wp_Events_Admin_Settings {
         <input name="wpe_forms_settings[form_labels]" id="wpe_form_labels" value="l_true" type="checkbox" <?php echo isset($this->wpe_form_settings['form_labels']) ? 'checked' : ''; ?> />
         <span class="slider round"></span>
     	</label>
-        <small><?php esc_html_e( 'Check To Display Field Labels (This will remove placeholders from fields).', 'wp-events' ); ?></small>
+        <small><?php _e( 'Check To Display Field Labels (This will remove placeholders from fields).', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1158,7 +1158,7 @@ class Wp_Events_Admin_Settings {
         <input name="wpe_forms_settings[subscriber_form_labels]" id="wpe_subscriber_form_labels" value="l_true" type="checkbox" <?php echo isset($this->wpe_form_settings['subscriber_form_labels']) ? 'checked' : ''; ?> />
         <span class="slider round"></span>
     	</label>
-        <small class=""><?php esc_html_e( 'Check To Display Field Labels (This will remove placeholders from fields).', 'wp-events' ); ?></small>
+        <small class=""><?php _e( 'Check To Display Field Labels (This will remove placeholders from fields).', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1172,8 +1172,8 @@ class Wp_Events_Admin_Settings {
 		?>
         <textarea name="wpe_forms_settings[subscriber_form_texting_permission]" id="wpe_sub_texting_permission" style="width:50%;height:100px;"><?php echo isset( $this->wpe_form_settings['subscriber_form_texting_permission'] ) ? 
 		esc_textarea( $this->wpe_form_settings['subscriber_form_texting_permission'] ) : 
-		__( 'I agree to receive texts at the number provided from [wpe_firm_name]. Frequency may vary and include information on appointments, events, and other marketing messages. Message/data rates may apply. To opt-out, text STOP at any time.', 'wp-events' ); ?></textarea>
-        <small class="wpe-fields-texting-permission wpe-fields-description"><?php esc_html_e( 'This text will be displayed as the label for texting permission checkbox', 'wp-events' ); ?></small>
+		__( 'I agree to receive texts at the number provided from [wpe_firm_name]. Frequency may vary and include information on appointments, events, and other marketing messages. Message/data rates may apply. To opt-out, text STOP at any time.', 'simple-wp-events' ); ?></textarea>
+        <small class="wpe-fields-texting-permission wpe-fields-description"><?php _e( 'This text will be displayed as the label for texting permission checkbox', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 	
@@ -1187,7 +1187,7 @@ class Wp_Events_Admin_Settings {
         <input name="wpe_forms_settings[subscriber_enable_phone_number]" id="wpe_subscriber_enable_phone_number" value="l_true" type="checkbox" <?php echo isset($this->wpe_form_settings['subscriber_enable_phone_number']) ? 'checked' : ''; ?> />
         <span class="slider round"></span>
     	</label>
-        <small class=""><?php esc_html_e( 'Check To show the phone number field.', 'wp-events' ); ?></small>
+        <small class=""><?php _e( 'Check To show the phone number field.', 'simple-wp-events' ); ?></small>
 	    <?php
 	}
 
@@ -1201,7 +1201,7 @@ class Wp_Events_Admin_Settings {
 		echo isset($this->wpe_form_settings['subscriber_enable_phone_number']) ? '' : 'disabled';?> />
         <span class="slider round"></span>
     	</label>
-        <small class=""><?php esc_html_e( 'Check To show the Texting permission field.', 'wp-events' ); ?></small>
+        <small class=""><?php _e( 'Check To show the Texting permission field.', 'simple-wp-events' ); ?></small>
 	    <?php
 	}
 
@@ -1215,7 +1215,7 @@ class Wp_Events_Admin_Settings {
 		$before_registration_content = isset( $this->wpe_form_settings['before_registration_form_message'] ) ? $this->wpe_form_settings['before_registration_form_message'] : '';
 		echo wpe_editor( $before_registration_content, 'before_registration_form_message', 'wpe_forms_settings[before_registration_form_message]' );
 	    ?>
-        <small class="wpe-fields-description"><?php esc_html_e( 'Add HTML or text before registration form', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Add HTML or text before registration form', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1228,7 +1228,7 @@ class Wp_Events_Admin_Settings {
 		$after_registration_content = isset( $this->wpe_form_settings['after_registration_form_message'] ) ? $this->wpe_form_settings['after_registration_form_message'] : '';
 		echo wpe_editor( $after_registration_content, 'after_registration_form_message', 'wpe_forms_settings[after_registration_form_message]' );
 		?>
-        <small class="wpe-fields-description"><?php esc_html_e( 'Add HTML or text after registration form', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Add HTML or text after registration form', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1242,7 +1242,7 @@ class Wp_Events_Admin_Settings {
 		$before_subscriber_content =  isset( $this->wpe_form_settings['before_subscriber_form_message'] ) ? $this->wpe_form_settings['before_subscriber_form_message'] : '';
 		echo wpe_editor( $before_subscriber_content, 'before_subscriber_form_message', 'wpe_forms_settings[before_subscriber_form_message]' );
 	    ?>
-        <small class="wpe-fields-description"><?php esc_html_e( 'Add HTML or text before subscriber form', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Add HTML or text before subscriber form', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1256,7 +1256,7 @@ class Wp_Events_Admin_Settings {
 		$after_subscriber_content =  isset( $this->wpe_form_settings['after_subscriber_form_message'] ) ? $this->wpe_form_settings['after_subscriber_form_message'] : '';
 		echo wpe_editor( $after_subscriber_content, 'after_subscriber_form_message', 'wpe_forms_settings[after_subscriber_form_message]' );
 		?>
-        <small class="wpe-fields-description"><?php esc_html_e( 'Add HTML or text after subscriber form', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Add HTML or text after subscriber form', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1268,7 +1268,7 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_subscriber_form_title_callback() {
 		?>
         <input class="wpe-settings-field" name="wpe_forms_settings[subscriber_form_title]" id="wpe_sub_form_title" type="text" value="<?php echo isset( $this->wpe_form_settings['subscriber_form_title'] ) ? esc_attr( $this->wpe_form_settings['subscriber_form_title'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'This title will be displayed at the top of subscriber form', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'This title will be displayed at the top of subscriber form', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1281,7 +1281,7 @@ class Wp_Events_Admin_Settings {
 		$subscriber_description_content =  isset( $this->wpe_form_settings['subscriber_form_description'] ) ? $this->wpe_form_settings['subscriber_form_description'] : '';
 		echo wpe_editor( $subscriber_description_content, 'subscriber_form_description', 'wpe_forms_settings[subscriber_form_description]' );
 		?>
-        <small class="wpe-fields-description">vz<?php esc_html_e( 'Subscriber form description will be displayed after title', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description">vz<?php _e( 'Subscriber form description will be displayed after title', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1293,7 +1293,7 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_subscriber_form_button_callback() {
 		?>
         <input class="wpe-settings-field" name="wpe_forms_settings[subscriber_form_button]" id="wpe_sub_form_button" type="text" value="<?php echo isset( $this->wpe_form_settings['subscriber_form_button'] ) ? esc_attr( $this->wpe_form_settings['subscriber_form_button'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'This text will be displayed at Subscriber form button', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'This text will be displayed at Subscriber form button', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1305,7 +1305,7 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_registration_form_button_callback() {
 		?>
         <input class="wpe-settings-field" name="wpe_forms_settings[registration_form_button]" id="wpe_reg_form_button" type="text" value="<?php echo isset( $this->wpe_form_settings['registration_form_button'] ) ? esc_attr( $this->wpe_form_settings['registration_form_button'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'This text will be displayed at Registration form button', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'This text will be displayed at Registration form button', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1316,9 +1316,9 @@ class Wp_Events_Admin_Settings {
 	 */
 	public function wpe_settings_consent_checkbox_callback() {
 		?>
-        <textarea name="wpe_forms_settings[consent_checkbox]" id="wpe_consent_checkbox" style="width:50%;height:100px;"><?php echo isset( $this->wpe_form_settings['consent_checkbox'] ) ? esc_textarea( $this->wpe_form_settings['consent_checkbox'] ) : __( 'I have read & consent to the above.*', 'wp-events' ); ?>
+        <textarea name="wpe_forms_settings[consent_checkbox]" id="wpe_consent_checkbox" style="width:50%;height:100px;"><?php echo isset( $this->wpe_form_settings['consent_checkbox'] ) ? esc_textarea( $this->wpe_form_settings['consent_checkbox'] ) : __( 'I have read & consent to the above.*', 'simple-wp-events' ); ?>
 		</textarea>
-        <small class="wpe-fields-description"><?php esc_html_e( 'This text will be displayed as label for consent checkbox.', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'This text will be displayed as label for consent checkbox.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1329,9 +1329,9 @@ class Wp_Events_Admin_Settings {
 	 */
 	public function wpe_settings_disclaimer_checkbox_callback() {
 		?>
-        <textarea name="wpe_forms_settings[disclaimer_checkbox]" id="wpe_disclaimer_checkbox" style="width:50%;height:100px;"><?php echo isset( $this->wpe_form_settings['disclaimer_checkbox'] ) ? esc_textarea( $this->wpe_form_settings['disclaimer_checkbox'] ) : __( 'I have read & understand your website Disclaimer.*', 'wp-events') ; ?>
+        <textarea name="wpe_forms_settings[disclaimer_checkbox]" id="wpe_disclaimer_checkbox" style="width:50%;height:100px;"><?php echo isset( $this->wpe_form_settings['disclaimer_checkbox'] ) ? esc_textarea( $this->wpe_form_settings['disclaimer_checkbox'] ) : __( 'I have read & understand your website Disclaimer.*', 'simple-wp-events') ; ?>
 		</textarea>
-        <small class="wpe-fields-description"><?php esc_html_e( 'This text will be displayed as label for disclaimer checkbox.', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'This text will be displayed as label for disclaimer checkbox.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1342,9 +1342,9 @@ class Wp_Events_Admin_Settings {
 	 */
 	public function wpe_settings_hearaboutus_options_callback() {
 		?>
-        <textarea name="wpe_forms_settings[hearaboutus_options]" id="wpe_hearaboutus_options" style="width:50%;height:100px;"><?php echo isset( $this->wpe_form_settings['hearaboutus_options'] ) ? esc_textarea( $this->wpe_form_settings['hearaboutus_options'] ) : __( 'An Email I Received, Blog / Facebook, Internet / Search Engine, Landing Pages, Radio and TV, Link from another website, Mailing / Postcard, Newsletter, Newspaper, Other, Referral', 'wp-events'); ?>
+        <textarea name="wpe_forms_settings[hearaboutus_options]" id="wpe_hearaboutus_options" style="width:50%;height:100px;"><?php echo isset( $this->wpe_form_settings['hearaboutus_options'] ) ? esc_textarea( $this->wpe_form_settings['hearaboutus_options'] ) : __( 'An Email I Received, Blog / Facebook, Internet / Search Engine, Landing Pages, Radio and TV, Link from another website, Mailing / Postcard, Newsletter, Newspaper, Other, Referral', 'simple-wp-events'); ?>
 		</textarea>
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter comma(,) separated values for the dropdown. e.g. (Option 1, Option 2)', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter comma(,) separated values for the dropdown. e.g. (Option 1, Option 2)', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1356,8 +1356,8 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_subscriber_form_section_callback() {
 	    ?>
         <div id="subscriber-form-settings">
-            <h2><?php esc_html_e( 'Subscriber Form Settings', 'wp-events' ); ?></h2>
-            <p><?php esc_html_e( 'All the Subscriber form settings are available here.', 'wp-events' ); ?></p>
+            <h2><?php _e( 'Subscriber Form Settings', 'simple-wp-events' ); ?></h2>
+            <p><?php _e( 'All the Subscriber form settings are available here.', 'simple-wp-events' ); ?></p>
         </div>
         <?php
 	}
@@ -1370,13 +1370,13 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_registration_form_section_callback() {
 		?>
         <div id="registration-form-settings">
-			<h2><?php esc_html_e( 'Enable/Disable the Registration Form Fields', 'wp-events' ); ?></h2>
-			<p><?php esc_html_e( 'Check To Hide the field from the form.', 'wp-events' ); ?></p>
+			<h2><?php _e( 'Enable/Disable the Registration Form Fields', 'simple-wp-events' ); ?></h2>
+			<p><?php _e( 'Check To Hide the field from the form.', 'simple-wp-events' ); ?></p>
 			<div class="wpe-registration-form">
 				<table class="wpe-settings-table">
 					<tr>
 						<td>
-							<span class="label"><?php esc_html_e( 'Address 1', 'wp-events' ); ?></span>
+							<span class="label"><?php _e( 'Address 1', 'simple-wp-events' ); ?></span>
 						</td>
 						<td>
 							<label class="wpe-checkbox">
@@ -1385,7 +1385,7 @@ class Wp_Events_Admin_Settings {
 							</label>
 						</td>
 						<td>
-							<span class="label"><?php esc_html_e( 'Address 2', 'wp-events' ); ?></span>
+							<span class="label"><?php _e( 'Address 2', 'simple-wp-events' ); ?></span>
 						</td>
 						<td>
 							<label class="wpe-checkbox">
@@ -1396,7 +1396,7 @@ class Wp_Events_Admin_Settings {
 					</tr>
 					<tr>
 						<td>
-							<span class="label"><?php esc_html_e( 'City', 'wp-events' ); ?></span>
+							<span class="label"><?php _e( 'City', 'simple-wp-events' ); ?></span>
 						</td>
 						<td>
 							<label class="wpe-checkbox">
@@ -1405,7 +1405,7 @@ class Wp_Events_Admin_Settings {
 							</label>
 						</td>
 						<td>
-							<span class="label"><?php esc_html_e( 'State', 'wp-events' ); ?></span>
+							<span class="label"><?php _e( 'State', 'simple-wp-events' ); ?></span>
 						</td>
 						<td>
 							<label class="wpe-checkbox">
@@ -1416,7 +1416,7 @@ class Wp_Events_Admin_Settings {
 					</tr>
 					<tr>
 						<td>
-							<span class="label"><?php esc_html_e( 'Zip', 'wp-events' ); ?></span>
+							<span class="label"><?php _e( 'Zip', 'simple-wp-events' ); ?></span>
 						</td>
 						<td>
 							<label class="wpe-checkbox">
@@ -1425,7 +1425,7 @@ class Wp_Events_Admin_Settings {
 							</label>
 						</td>
 						<td>
-							<span class="label"><?php esc_html_e( 'Fax', 'wp-events' ); ?></span>
+							<span class="label"><?php _e( 'Fax', 'simple-wp-events' ); ?></span>
 						</td>
 						<td>
 							<label class="wpe-checkbox">
@@ -1436,7 +1436,7 @@ class Wp_Events_Admin_Settings {
 					</tr>
 					<tr>
 						<td>
-							<span class="label"><?php esc_html_e( 'Business Name', 'wp-events' ); ?></span>
+							<span class="label"><?php _e( 'Business Name', 'simple-wp-events' ); ?></span>
 						</td>
 						<td>
 							<label class="wpe-checkbox">
@@ -1445,7 +1445,7 @@ class Wp_Events_Admin_Settings {
 							</label>
 						</td>
 						<td>
-							<span class="label"><?php esc_html_e( 'Hear About Us', 'wp-events' ); ?></span>
+							<span class="label"><?php _e( 'Hear About Us', 'simple-wp-events' ); ?></span>
 						</td>
 						<td>
 							<label class="wpe-checkbox">
@@ -1456,8 +1456,8 @@ class Wp_Events_Admin_Settings {
 					</tr>
 				</table>
 			</div>
-			<h2><?php esc_html_e( 'Registration Form Settings', 'wp-events' ); ?></h2>
-        	<p><?php esc_html_e( 'All the Registration form settings are available here.', 'wp-events' ); ?></p>
+			<h2><?php _e( 'Registration Form Settings', 'simple-wp-events' ); ?></h2>
+        	<p><?php _e( 'All the Registration form settings are available here.', 'simple-wp-events' ); ?></p>
         </div>
 		<?php
 	}
@@ -1482,7 +1482,7 @@ class Wp_Events_Admin_Settings {
                    type="checkbox" <?php echo isset( $option['approve_registrations'] ) ? 'checked' : ''; ?> />
             <span class="slider round"></span>
         </label>
-        <small><?php esc_html_e( 'Check to enable option for Registration Cancellation/Approval.', 'wp-events' ); ?></small>
+        <small><?php _e( 'Check to enable option for Registration Cancellation/Approval.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1500,7 +1500,7 @@ class Wp_Events_Admin_Settings {
                    type="checkbox" <?php echo isset( $option['draft_past_events'] ) ? 'checked' : ''; ?> />
             <span class="slider round"></span>
         </label>
-        <small><?php esc_html_e( 'Move past events to draft (to exclude from indexing).', 'wp-events' ); ?></small>
+        <small><?php _e( 'Move past events to draft (to exclude from indexing).', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1525,7 +1525,7 @@ class Wp_Events_Admin_Settings {
                    type="checkbox" <?php echo isset( $option['dark_mode'] ) ? 'checked' : ''; ?> />
             <span class="slider round"></span>
         </label>
-        <small><?php esc_html_e( 'Check to enable dark mode.', 'wp-events' ); ?></small>
+        <small><?php _e( 'Check to enable dark mode.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1543,7 +1543,7 @@ class Wp_Events_Admin_Settings {
                    type="checkbox" <?php echo isset( $option['disable_archive'] ) ? 'checked' : ''; ?> />
             <span class="slider round"></span>
         </label>
-        <small><?php esc_html_e( 'Check to disable archive page. (Please refresh the permalinks after saving the changes).', 'wp-events' ); ?></small>
+        <small><?php _e( 'Check to disable archive page. (Please refresh the permalinks after saving the changes).', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1556,7 +1556,7 @@ class Wp_Events_Admin_Settings {
 	    $option= get_option('wpe_display_settings');
 	    ?>
         <input class="wpe-settings-field" name="wpe_display_settings[archive_posts]" id="wpe_archive_posts" type="number" value="<?php echo isset( $option['archive_posts'] ) ? absint( $option['archive_posts'] ) : 12; ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Number of Events To Display Per Page', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Number of Events To Display Per Page', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1570,7 +1570,7 @@ class Wp_Events_Admin_Settings {
 		$option= get_option('wpe_display_settings');
 		?>
         <input class="wpe-settings-field" name="wpe_display_settings[archive_title]" id="wpe_archive_title" type="text" value="<?php echo isset( $option['archive_title'] ) ? esc_attr( $option['archive_title'] ) : '' ; ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Archive page Title', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Archive page Title', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1590,7 +1590,7 @@ class Wp_Events_Admin_Settings {
                    type="checkbox" <?php echo isset( $option['reg_button'] ) ? 'checked' : ''; ?> />
             <span class="slider round"></span>
         </label>
-        <small><?php esc_html_e( 'Enable To Display Registration Button on Events Archive Page.', 'wp-events' ); ?></small>
+        <small><?php _e( 'Enable To Display Registration Button on Events Archive Page.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1608,7 +1608,7 @@ class Wp_Events_Admin_Settings {
 			<table class="wpe-settings-table">
 				<tr>
 					<td>
-						<span class="label"><?php esc_html_e( 'List', 'wp-events' ); ?></span>
+						<span class="label"><?php _e( 'List', 'simple-wp-events' ); ?></span>
 					</td>
 					<td>
 						<label class="wpe-checkbox">
@@ -1636,7 +1636,7 @@ class Wp_Events_Admin_Settings {
 		?>
         <input class="wpe-settings-field" name="wpe_display_settings[button_text]" id="wpe_button_text" type="text"
                value="<?php echo esc_attr( $option['button_text'] ) ?? 'Register'; ?>"/>
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter Text to display on Registration Button.', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter Text to display on Registration Button.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1650,8 +1650,8 @@ class Wp_Events_Admin_Settings {
 		$option = get_option( 'wpe_display_settings' );
 		?>
         <input class="wpe-settings-field" name="wpe_display_settings[closed_reg]" id="wpe_closed_reg" type="text"
-               value="<?php echo isset( $option['closed_reg'] ) ? esc_attr( $option['closed_reg'] ) : __( 'Event Seats Quota is Full', 'wp-events' ); ?>"/>
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter Text to display when Registrations are closed.', 'wp-events' ); ?></small>
+               value="<?php echo isset( $option['closed_reg'] ) ? esc_attr( $option['closed_reg'] ) : __( 'Event Seats Quota is Full', 'simple-wp-events' ); ?>"/>
+        <small class="wpe-fields-description"><?php _e( 'Enter Text to display when Registrations are closed.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1666,7 +1666,7 @@ class Wp_Events_Admin_Settings {
 		?>
 		<input class="wpe-settings-field" name="wpe_display_settings[max_seats]" id="wpe_max_seats" type="number"
 		       min="1" max="10" value="<?php echo isset( $option['max_seats'] ) ? absint( $option['max_seats'] ) : 10; ?>"/>
-		<small class="wpe-fields-description"><?php esc_html_e( 'Enter Maximum Number of Seats Allowed in One Registration.', 'wp-events' ); ?></small>
+		<small class="wpe-fields-description"><?php _e( 'Enter Maximum Number of Seats Allowed in One Registration.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1685,7 +1685,7 @@ class Wp_Events_Admin_Settings {
 		$option = get_option('wpe_mail_settings');
 		?>
         <input class="wpe-settings-field" name="wpe_mail_settings[mail_from]" id="wpe_mail_from" type="text" value="<?php echo isset( $option['mail_from'] ) ? esc_attr( $option['mail_from'] ) : get_option('admin_email'); ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter email from users will receive email (It is recommended to use email like name@yourdomain.com)', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter email from users will receive email (It is recommended to use email like name@yourdomain.com)', 'simple-wp-events' ); ?></small>
 		<?php
     }
 	/**
@@ -1699,7 +1699,7 @@ class Wp_Events_Admin_Settings {
                    type="checkbox" <?php echo isset( $option['enable_webinar_conformation'] ) ? 'checked' : ''; ?> />
             <span class="slider round"></span>
         </label>
-        <small><?php esc_html_e( 'Check this box to enable the webinar confirmation email for registrants.', 'wp-events' ); ?></small>
+        <small><?php _e( 'Check this box to enable the webinar confirmation email for registrants.', 'simple-wp-events' ); ?></small>
 		<?php
     }
 
@@ -1716,7 +1716,7 @@ class Wp_Events_Admin_Settings {
 	    $option= get_option('wpe_firm_settings');
 	    ?>
         <input class="wpe-settings-field" name="wpe_firm_settings[owner_name]" id="wpe_owner_name" type="text" value="<?php echo isset( $option['owner_name'] ) ? esc_attr( $option['owner_name'] ) : '' ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter Name of Owner for your firm', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter Name of Owner for your firm', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1727,7 +1727,7 @@ class Wp_Events_Admin_Settings {
 		$option= get_option('wpe_firm_settings');
 		?>
         <input class="wpe-settings-field" name="wpe_firm_settings[admin_mail]" id="wpe_admin_mail" type="text" value="<?php echo isset( $option['admin_mail'] ) ? esc_attr( $option['admin_mail'] ) : esc_attr( get_option('admin_email') ); ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter contact email address of firm', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter contact email address of firm', 'simple-wp-events' ); ?></small>
 		<?php
     }
 
@@ -1738,7 +1738,7 @@ class Wp_Events_Admin_Settings {
 	    $option= get_option('wpe_firm_settings');
 	    ?>
         <input class="wpe-settings-field" name="wpe_firm_settings[mail_from_name]" id="wpe_mail_from_name" type="text" value="<?php echo isset( $option['mail_from_name'] ) ? esc_attr( $option['mail_from_name'] ) : get_bloginfo( 'name' ); ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter Name of your firm', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter Name of your firm', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1749,7 +1749,7 @@ class Wp_Events_Admin_Settings {
 	    $option= get_option('wpe_firm_settings');
 	    ?>
         <input class="wpe-settings-field" name="wpe_firm_settings[firm_phone]" id="wpe_firm_phone" type="text" value="<?php echo isset( $option['firm_phone'] ) ? esc_attr( $option['firm_phone'] ) : '(XXX) XXX-XXXX' ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter Phone Number of your firm', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter Phone Number of your firm', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1760,7 +1760,7 @@ class Wp_Events_Admin_Settings {
 	    $option= get_option('wpe_firm_settings');
 	    ?>
         <input class="wpe-settings-field" name="wpe_firm_settings[firm_fax]" id="wpe_firm_fax" type="text" value="<?php echo isset( $option['firm_fax'] ) ? esc_attr( $option['firm_fax'] ) : '' ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter Fax Number of your firm', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter Fax Number of your firm', 'simple-wp-events' ); ?></small>
 	    <?php
     }
 
@@ -1778,10 +1778,10 @@ class Wp_Events_Admin_Settings {
 	    ?>
 		<div id="wpe-radio-div">
 			<input type="radio" id="wpe_reCAPTCHA_invisible" name="wpe_reCAPTCHA_settings[reCAPTCHA_type]" value="invisible" <?php if( $option['reCAPTCHA_type'] == 'invisible') echo 'checked="checked"'; ?> >
-			<label for="wpe_reCAPTCHA_invisible"><?php esc_html_e( 'Invisible', 'wp-events' ); ?></label><br>
+			<label for="wpe_reCAPTCHA_invisible"><?php _e( 'Invisible', 'simple-wp-events' ); ?></label><br>
 			<input type="radio" id="wpe_reCAPTCHA_checkbox" name="wpe_reCAPTCHA_settings[reCAPTCHA_type]" value="checkbox" <?php if( $option['reCAPTCHA_type'] == 'checkbox') echo 'checked="checked"'; ?> >
-			<label for="wpe_reCAPTCHA_checkbox"><?php esc_html_e( 'Checkbox', 'wp-events' ); ?></label>
-			<small class="wpe-fields-description"><?php esc_html_e( 'Select type of reCAPTCHA for forms.', 'wp-events' ); ?></small>
+			<label for="wpe_reCAPTCHA_checkbox"><?php _e( 'Checkbox', 'simple-wp-events' ); ?></label>
+			<small class="wpe-fields-description"><?php _e( 'Select type of reCAPTCHA for forms.', 'simple-wp-events' ); ?></small>
 		</div>
 	    <?php
     }
@@ -1796,8 +1796,8 @@ class Wp_Events_Admin_Settings {
 		?>
         <input name="wpe_reCAPTCHA_settings[reCAPTCHA_site_key]" id="wpe_reCAPTCHA_site_key" style="width:50%;padding:5px 10px;"
 		type="text" value="<?php echo isset( $option['reCAPTCHA_site_key'] ) ? esc_attr( $option['reCAPTCHA_site_key'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter your reCAPTCHA Site Key, if you do not have a key you can register ', 'wp-events' ); ?>
-		<a href="https://www.google.com/recaptcha/admin/create" target="_blank"><?php esc_html_e( 'here.', 'wp-events' ); ?></a> <?php esc_html_e( 'reCAPTCHA is a free service.', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter your reCAPTCHA Site Key, if you do not have a key you can register ', 'simple-wp-events' ); ?>
+		<a href="https://www.google.com/recaptcha/admin/create" target="_blank"><?php _e( 'here.', 'simple-wp-events' ); ?></a> <?php _e( 'reCAPTCHA is a free service.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1811,8 +1811,8 @@ class Wp_Events_Admin_Settings {
 		?>
         <input name="wpe_reCAPTCHA_settings[reCAPTCHA_secret_key]" id="wpe_reCAPTCHA_secret_key" style="width:50%;padding:5px 10px;"
 		type="text" value="<?php echo isset( $option['reCAPTCHA_secret_key'] ) ? esc_attr( $option['reCAPTCHA_secret_key'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Enter your reCAPTCHA Secret Key, if you do not have a key you can register ', 'wp-events' ); ?>
-		<a href="https://www.google.com/recaptcha/admin/create" target="_blank"><?php esc_html_e( 'here.', 'wp-events' ); ?></a> <?php esc_html_e( 'reCAPTCHA is a free service.', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Enter your reCAPTCHA Secret Key, if you do not have a key you can register ', 'simple-wp-events' ); ?>
+		<a href="https://www.google.com/recaptcha/admin/create" target="_blank"><?php _e( 'here.', 'simple-wp-events' ); ?></a> <?php _e( 'reCAPTCHA is a free service.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1829,7 +1829,7 @@ class Wp_Events_Admin_Settings {
 		$option= get_option('wpe_export_settings');
 		?>
         <input class="wpe_export_events button button-primary" name="wpe_export_settings[export_button]" id="wpe_export_events" type="button" value="Export Events" />
-        <small class="wpe-fields-description"><?php esc_html_e( 'Export Events to CSV', 'wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Export Events to CSV', 'simple-wp-events' ); ?></small>
 		<?php
     }
 
@@ -1943,14 +1943,14 @@ class Wp_Events_Admin_Settings {
 	public function set_wpe_settings_tabs( array $wpe_settings_tabs = [] ) : void {
 		if ( $wpe_settings_tabs === [] ) {
 			$this->wpe_settings_tabs = [
-				'general',
-				'events',
-				'display',
-				'forms',
-				'mail',
-				'firm',
-				'reCAPTCHA',
-				'export',
+				__( 'general', 'simple-wp-events' ),
+				__( 'events', 'simple-wp-events' ),
+				__( 'display', 'simple-wp-events' ),
+				__( 'forms', 'simple-wp-events' ),
+				__( 'mail', 'simple-wp-events' ),
+				__( 'firm', 'simple-wp-events' ),
+				__( 'reCAPTCHA', 'simple-wp-events' ),
+				__( 'export', 'simple-wp-events' ),
 			];
 		} else {
 			$this->wpe_settings_tabs = $wpe_settings_tabs;

@@ -276,7 +276,7 @@ class Wp_Events_Admin {
         ?>
         <div class="wpevents-main">
             <div class="wpe-event-settings close-reg wp-event-subsection">
-                <div class="wpe-settings-title wp-event-section-title"><p><?php esc_html_e( 'Close Registrations', 'wp-events' ); ?></p></div>
+                <div class="wpe-settings-title wp-event-section-title"><p><?php _e( 'Close Registrations', 'simple-wp-events' ); ?></p></div>
                 <div class="close-reg event-control">
                     <?php $checkbox_meta = get_post_meta( $post->ID, 'wpevent-close-reg', true ); ?>
                     <label for="wpevent-close-reg" class="wpe-checkbox">
@@ -294,11 +294,11 @@ class Wp_Events_Admin {
                     <input name="wpevent-hide-archive" id="wpevent-hide-archive" value="yes" type="checkbox" <?php echo $checkbox2_meta === 'yes' ? 'checked' : '' ?> />
                     <span class="slider round"></span>
                     </label>
-                    <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                    <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
                 </div>
             </div>
             <div class="wpe-event-settings wpe-limit-seats wp-event-subsection">
-                <div class="wpe-settings-title wp-event-section-title"><p><?php esc_html_e( 'Seats per Registration', 'wp-events' ); ?></p></div>
+                <div class="wpe-settings-title wp-event-section-title"><p><?php _e( 'Seats per Registration', 'simple-wp-events' ); ?></p></div>
                 <div class="event-control wpe-left">
                     <input id="wpevent-limit-seats" class="wp-event-field" type="number" min="1" max="10" name="wpevent-limit-seats" value="<?php echo get_post_meta( $post->ID, 'wpevent-limit-seats', true ); ?>"/>
                 </div>
@@ -322,129 +322,129 @@ class Wp_Events_Admin {
         ?>
         <div class="wpevents-main">
             <div class="wp-event-subsection wpe-event-type">
-                <div class="wp-event-section-title"><p><?php esc_html_e( 'Event Type', 'wp-events' ); ?></p></div>
+                <div class="wp-event-section-title"><p><?php _e( 'Event Type', 'simple-wp-events' ); ?></p></div>
                 <div class="event-type event-control wpe-left">
                 <?php
                 $type = get_post_meta( $post->ID, 'wpevent-type', true );
                 ?>
-                    <label for="event-type"><?php esc_html_e( 'Select Event Type Below', 'wp-events' ); ?></label>
+                    <label for="event-type"><?php _e( 'Select Event Type Below', 'simple-wp-events' ); ?></label>
                     <select class="wp-event-field wpe-form-control" id="event-type" name="wpevent-type">
-                        <option <?php  if( $type === 'seminar' ) echo 'selected'; ?> value="seminar"><?php esc_html_e( 'Seminar', 'wp-events' ); ?></option>
-                        <option <?php  if( $type === 'webinar' ) echo 'selected'; ?> value="webinar"><?php esc_html_e( 'Webinar (Online Event)', 'wp-events' ); ?></option>
+                        <option <?php  if( $type === 'seminar' ) echo 'selected'; ?> value="seminar"><?php _e( 'Seminar', 'simple-wp-events' ); ?></option>
+                        <option <?php  if( $type === 'webinar' ) echo 'selected'; ?> value="webinar"><?php _e( 'Webinar (Online Event)', 'simple-wp-events' ); ?></option>
                     </select>
                 </div>
             </div>
 
-            <div class="wp-event-section-title"><p><?php esc_html_e( 'Time & Date', 'wp-events' ); ?></p></div>
+            <div class="wp-event-section-title"><p><?php _e( 'Time & Date', 'simple-wp-events' ); ?></p></div>
             <div class="wpevent-time-date wp-event-subsection">
 	            <?php
                 $event_date_time = wpevent_date_time( $post->ID );
 	            ?>
             <div class="start-date event-control wpe-left">
-                <label for="wpevent-start-date"><?php esc_html_e( 'Start Date*', 'wp-events' ); ?></label>
+                <label for="wpevent-start-date"><?php _e( 'Start Date*', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-start-date" class="wpevent-start-date wp-event-datepicker wp-event-field" type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title="YYYY-MM-DD" name="wpevent-start-date" value="<?php echo isset( $event_date_time['start_date'] ) ? esc_attr( $event_date_time['start_date'] ) : '' ;?>" autocomplete="off" required/>
-                <p><?php esc_html_e( 'This field is required', 'wp-events' ); ?></p>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <p><?php _e( 'This field is required', 'simple-wp-events' ); ?></p>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
 
             <div class="end-date event-control wpe-right">
-                <label for="wpevent-end-date"><?php esc_html_e( 'End Date*', 'wp-events' ); ?></label>
+                <label for="wpevent-end-date"><?php _e( 'End Date*', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-end-date" class="wpevent-end-date wp-event-datepicker wp-event-field" type="text" pattern="[0-9]{4}-(0[1-9]|1[012])-(0[1-9]|1[0-9]|2[0-9]|3[01])" title="YYYY-MM-DD" name="wpevent-end-date" value="<?php echo isset( $event_date_time['end_date'] ) ? esc_attr( $event_date_time['end_date'] ) : '' ;?>" autocomplete="off" required/>
-                <p><?php esc_html_e( 'This field is required', 'wp-events' ); ?></p>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <p><?php _e( 'This field is required', 'simple-wp-events' ); ?></p>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
 
             <div class="start-time event-control wpe-left">
-                <label for="wpevent-start-time"><?php esc_html_e( 'Start Time', 'wp-events' ); ?></label>
+                <label for="wpevent-start-time"><?php _e( 'Start Time', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-start-time" class="wpevent-start-time wp-event-field timepicker" type="time" name="wpevent-start-time" value="<?php echo isset( $event_date_time['start_time'] ) ? esc_attr( $event_date_time['start_time'] ) : '00:00';?>"/>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
 
             <div class="end-time event-control wpe-right">
-                <label for="wpevent-end-time"><?php esc_html_e( 'End Time', 'wp-events' ); ?></label>
+                <label for="wpevent-end-time"><?php _e( 'End Time', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-end-time" class="wpevent-end-time wp-event-field timepicker" type="time" name="wpevent-end-time" value="<?php echo isset( $event_date_time['end_time'] ) ? esc_attr( $event_date_time['end_time'] ) : '23:59' ;?>"/>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
 
         </div>
         <div <?php if( $type === 'webinar' ) echo 'style="display:none;"'; ?>  class="wp-events-location wp-event-subsection">
             <div class="location event-control wpe-left">
-                <label for="wpevent-location"><?php esc_html_e( 'Location', 'wp-events' ); ?></label>
+                <label for="wpevent-location"><?php _e( 'Location', 'simple-wp-events' ); ?></label>
                 <?php wpevents_location_drop_down(get_post_meta( $post->ID, 'wpevent-location', true ), 'wpevent-location' );?>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="wpe-add-location event-control wpe-right">
-                <button id="wpe-location-btn" class="wpe-location-btn components-button is-primary"><?php esc_html_e( 'Add New Location', 'wp-events' ); ?></button>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <button id="wpe-location-btn" class="wpe-location-btn components-button is-primary"><?php _e( 'Add New Location', 'simple-wp-events' ); ?></button>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="wpe-location-fields" <?php echo 'style="display:none;"'; ?>>
                 <div class="venue event-control wpe-left">
-                    <label for="wpevent-venue"><?php esc_html_e( 'Venue', 'wp-events' ); ?></label>
+                    <label for="wpevent-venue"><?php _e( 'Venue', 'simple-wp-events' ); ?></label>
                     <input  id="wpevent-venue" class="wp-event-field wpe-location-field" type="text" name="wpevent-venue" value="<?php echo get_post_meta( $post->ID, 'wpevent-venue', true );?>"/>
-                    <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                    <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
                 </div>
                 <div class="address event-control wpe-right">
-                    <label for="wpevent-address"><?php esc_html_e( 'Address', 'wp-events' ); ?></label>
+                    <label for="wpevent-address"><?php _e( 'Address', 'simple-wp-events' ); ?></label>
                     <input id="wpevent-address" class="wp-event-field wpe-location-field" type="text" name="wpevent-address" value="<?php echo get_post_meta( $post->ID, 'wpevent-address', true );?>"/>
-                    <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                    <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
                 </div>
                 <div class="countery event-control wpe-left">
-                    <label for="country"><?php esc_html_e( 'Country', 'wp-events' ); ?></label>
+                    <label for="country"><?php _e( 'Country', 'simple-wp-events' ); ?></label>
                     <?php wpevents_country_drop_down(get_post_meta( $post->ID, 'wpevent-country', true ), 'wpevent-country' );?>
-                    <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                    <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
                 </div>
                 <div class="city event-control wpe-right">
-                    <label for="wpevent-city"><?php esc_html_e( 'City', 'wp-events' ); ?></label>
+                    <label for="wpevent-city"><?php _e( 'City', 'simple-wp-events' ); ?></label>
                     <input id="wpevent-city" class="wp-event-field wpe-location-field" type="text" name="wpevent-city" value="<?php echo get_post_meta( $post->ID, 'wpevent-city', true );?>"/>
-                    <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                    <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
                 </div>
                 <div class="state event-control wpe-left">
-                    <label for="wpevent-state"><?php esc_html_e( 'State', 'wp-events' ); ?></label>
+                    <label for="wpevent-state"><?php _e( 'State', 'simple-wp-events' ); ?></label>
                     <input id="wpevent-state" class="wp-event-field wpe-location-field" type="text" name="wpevent-state" value="<?php echo get_post_meta( $post->ID, 'wpevent-state', true );?>"/>
-                    <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                    <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
                 </div>
                 <div class="zip event-control wpe-right">
-                    <label for="wpevent-zip"><?php esc_html_e( 'Zip', 'wp-events' ); ?></label>
+                    <label for="wpevent-zip"><?php _e( 'Zip', 'simple-wp-events' ); ?></label>
                     <input id="wpevent-zip" class="wp-event-field wpe-location-field" type="text" name="wpevent-zip" value="<?php echo get_post_meta( $post->ID, 'wpevent-zip', true );?>"/>
-                    <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                    <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
                 </div>
                 <div class="wpe-save-location event-control wpe-left">
-                    <button id="wpe-save-location" class="wpe-location-btn components-button is-primary"><?php esc_html_e( 'Save Location', 'wp-events' ); ?></button>
-                    <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                    <button id="wpe-save-location" class="wpe-location-btn components-button is-primary"><?php _e( 'Save Location', 'simple-wp-events' ); ?></button>
+                    <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
                 </div>
             </div>
         </div>
         <div class="wp-events-additional wp-event-subsection">
-            <div class="wp-event-section-title"><p><?php esc_html_e( 'Additonal Information', 'wp-events' ); ?></p></div>
+            <div class="wp-event-section-title"><p><?php _e( 'Additonal Information', 'simple-wp-events' ); ?></p></div>
             <div class="phone event-control wpe-left" id="event-control">
-                <label for="wpevent-phone"><?php esc_html_e( 'Phone*', 'wp-events' ); ?></label>
+                <label for="wpevent-phone"><?php _e( 'Phone*', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-phone" title="(123) 111-1234" class="wp-event-field" type="tel" pattern="^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$" name="wpevent-phone" value="<?php echo get_post_meta( $post->ID, 'wpevent-phone', true );?>"/>
-                <p><?php esc_html_e( 'format: (123) 123-1234', 'wp-events' ); ?></p>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <p><?php _e( 'format: (123) 123-1234', 'simple-wp-events' ); ?></p>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="external-url event-control wpe-right">
-                <label for="wpevent-external-url"><?php esc_html_e( 'External URL', 'wp-events' ); ?></label>
+                <label for="wpevent-external-url"><?php _e( 'External URL', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-external-url" class="wp-event-field" type="url" name="wpevent-external-url" value="<?php echo get_post_meta( $post->ID, 'wpevent-external-url', true );?>"/>
                 <p><br></p>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="seats event-control wpe-left">
-                <label for="wpevent-seats"><?php esc_html_e( 'Total Seats', 'wp-events' ); ?></label>
+                <label for="wpevent-seats"><?php _e( 'Total Seats', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-seats" class="wp-event-field" type="number" min="1" step="1" name="wpevent-seats" value="<?php echo esc_attr( wpe_get_total_seats( $post->ID ) ); ?>"/>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="seats event-control wpe-right">
-                <label for="wpevent-remaining-seats"><?php esc_html_e( 'Remaining Seats', 'wp-events' ); ?></label>
+                <label for="wpevent-remaining-seats"><?php _e( 'Remaining Seats', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-remaining-seats" class="wp-event-field" type="number" name="wpevent-remaining-seats" value="<?php echo absint( wpe_get_remaining_seats( $post->ID ) ); ?>" readonly/>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div <?php if( $type === 'webinar' ) echo 'style="display:none;"'; ?>  class="wpe-map-div map event-control wpe-left">
-                <label for="wpevent-map-url"><?php esc_html_e( 'Map URL', 'wp-events' ); ?></label>
+                <label for="wpevent-map-url"><?php _e( 'Map URL', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-map-url" class="wp-event-field" type="url" name="wpevent-map-url" value="<?php echo get_post_meta( $post->ID, 'wpevent-map-url', true );?>"/>
-                <small><?php esc_html_e( 'Error Message', 'wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="confirmation_message event-control">
-                <label class="confirmation-message-label"><?php esc_html_e( 'Confirmation Mail Message', 'wp-events' ); ?></label>
+                <label class="confirmation-message-label"><?php _e( 'Confirmation Mail Message', 'simple-wp-events' ); ?></label>
                     <?php
                         $confirmation_me_meta = get_post_meta( $post->ID, 'wpevent-confirmation-message', TRUE );
                         if ( ! $confirmation_me_meta ) {
@@ -636,15 +636,15 @@ class Wp_Events_Admin {
     public function wpevents_category() {
 
         $labels = array(
-            'name'          => _x( 'Categories', 'taxonomy general name', 'wp-events' ),
-            'singular_name' => _x( 'Category', 'taxonomy singular name', 'wp-events' ),
-            'search_items'  => __( 'Search Categories', 'wp-events' ),
-            'all_items'     => __( 'All Categories', 'wp-events' ),
-            'edit_item'     => __( 'Edit Category', 'wp-events' ),
-            'update_item'   => __( 'Update Category', 'wp-events' ),
-            'add_new_item'  => __( 'Add New Category', 'wp-events' ),
-            'new_item_name' => __( 'New Category', 'wp-events' ),
-            'menu_name'     => __( 'Categories', 'wp-events' ),
+            'name'          => _x( 'Categories', 'taxonomy general name', 'simple-wp-events' ),
+            'singular_name' => _x( 'Category', 'taxonomy singular name', 'simple-wp-events' ),
+            'search_items'  => __( 'Search Categories', 'simple-wp-events' ),
+            'all_items'     => __( 'All Categories', 'simple-wp-events' ),
+            'edit_item'     => __( 'Edit Category', 'simple-wp-events' ),
+            'update_item'   => __( 'Update Category', 'simple-wp-events' ),
+            'add_new_item'  => __( 'Add New Category', 'simple-wp-events' ),
+            'new_item_name' => __( 'New Category', 'simple-wp-events' ),
+            'menu_name'     => __( 'Categories', 'simple-wp-events' ),
         );
 
         $args = array(
@@ -799,7 +799,7 @@ class Wp_Events_Admin {
 		}
 
 		$arguments = [
-			'label'   => __( 'Entries Per Page', 'wp-events' ),
+			'label'   => __( 'Entries Per Page', 'simple-wp-events' ),
 			'default' => 20,
 			'option'  => 'wpe_entries_per_page',
 		];
@@ -817,9 +817,9 @@ class Wp_Events_Admin {
         if ( $typenow == 'wp_events' ) {
             ?>
             <select id="wp_events_type" name="wp_events_type">
-                <option <?php  if( $type === 'all' ) echo 'selected'; ?> value="all"><?php esc_html_e( 'All Types', 'wp-events' ); ?></option>
-                <option <?php  if( $type === 'seminar' ) echo 'selected'; ?> value="seminar"><?php esc_html_e( 'Seminar', 'wp-events' ); ?></option>
-                <option <?php  if( $type === 'webinar' ) echo 'selected'; ?> value="webinar"><?php esc_html_e( 'Webinar (Online Event)', 'wp-events' ); ?></option>
+                <option <?php  if( $type === 'all' ) echo 'selected'; ?> value="all"><?php _e( 'All Types', 'simple-wp-events' ); ?></option>
+                <option <?php  if( $type === 'seminar' ) echo 'selected'; ?> value="seminar"><?php _e( 'Seminar', 'simple-wp-events' ); ?></option>
+                <option <?php  if( $type === 'webinar' ) echo 'selected'; ?> value="webinar"><?php _e( 'Webinar (Online Event)', 'simple-wp-events' ); ?></option>
             </select>
             <?php
         }
@@ -869,17 +869,17 @@ class Wp_Events_Admin {
         $post_name  = $label['events_post_name'];
         return array(
             'cb'              => '<input type="checkbox" />',
-            'title'           => __( $post_name.' Title', 'wp-events' ),
-            'author'          => __( 'Author', 'wp-events' ),
-            'category'        => __( $post_name.' Category', 'wp-events'  ),
-            'event_date'      => __( $post_name.' Date', 'wp-events'  ),
-			'wpe_seats'       => __( 'Remaining | Total<br>Seats', 'wp-events' ),
-            'wpe_status'      => __( $post_name.' Status', 'wp-events' ),
-            'date'            => __( 'Date', 'wp-events' ),
-            'start_date'      => __( $post_name.' start date' ),
-            'start_time'      => __( $post_name.' start time' ),
-            'end_date'        => __( $post_name.' end date' ),
-            'end_time'        => __( $post_name.' end time' ),
+            'title'           => $post_name . __( ' Title', 'simple-wp-events' ),
+            'author'          => __( 'Author', 'simple-wp-events' ),
+            'category'        => $post_name . __(' Category', 'simple-wp-events' ),
+            'event_date'      => $post_name . __( ' Date', 'simple-wp-events' ),
+			'wpe_seats'       => __( 'Remaining | Total<br>Seats', 'simple-wp-events' ),
+            'wpe_status'      => $post_name . __( ' Status', 'simple-wp-events' ),
+            'date'            => __( 'Date', 'simple-wp-events' ),
+            'start_date'      => $post_name . __( ' start date', 'simple-wp-events' ),
+            'start_time'      => $post_name . __( ' start time', 'simple-wp-events' ),
+            'end_date'        => $post_name . __( ' end date', 'simple-wp-events' ),
+            'end_time'        => $post_name . __( ' end time', 'simple-wp-events' ),
         );
     }
 
@@ -967,7 +967,7 @@ class Wp_Events_Admin {
                 echo implode(', ', wpe_escape_html( $output ) );
             }
         } else {
-            _e('Uncategorized', 'wp-events');
+            _e( 'Uncategorized', 'simple-wp-events' );
         }
     }
 
@@ -1159,7 +1159,7 @@ class Wp_Events_Admin {
             if ( $post_status !== '' ) {
                 $post_status = '&post_status='. $post_status;
             }
-            $actions['view_registrations'] = '<a href="edit.php?post_type=wp_events&page=wp_forms_entries&tab=registrations&display=all&wpe_titles='. $post->ID .'&posts_page='. $number . $status . $post_status .'" class="view_registrations">' . __('View Registrations', 'wp-events') . '</a>';
+            $actions['view_registrations'] = '<a href="edit.php?post_type=wp_events&page=wp_forms_entries&tab=registrations&display=all&wpe_titles='. $post->ID .'&posts_page='. $number . $status . $post_status .'" class="view_registrations">' . __('View Registrations', 'simple-wp-events') . '</a>';
         }
         
         return $actions; 
