@@ -297,7 +297,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 		if ( 'bulk-delete' === $this->current_action() ) {
 
 			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+			$nonce = wpe_sanitize( $_REQUEST['_wpnonce'] );
 
 			if ( ! wp_verify_nonce( $nonce, 'wp_events_entries' ) ) {
 				die( 'Go get a life script kiddies' );
@@ -317,7 +317,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 		if ( 'permanent-delete' === $this->current_action() ) {
 
 			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+			$nonce = wpe_sanitize( $_REQUEST['_wpnonce'] );
 
 			if ( ! wp_verify_nonce( $nonce, 'wp_events_entries') ) {
 				die( 'Go get a life script kiddies' );
@@ -337,7 +337,7 @@ class Wp_Events_Subscribers_list extends WP_List_Table {
 		if ( 'restore' === $this->current_action() ) {
 
 			// In our file that handles the request, verify the nonce.
-			$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+			$nonce = wpe_sanitize( $_REQUEST['_wpnonce'] );
 
 			if ( ! wp_verify_nonce( $nonce, 'wp_events_entries' ) ) {
 				die( 'Go get a life script kiddies' );

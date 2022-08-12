@@ -776,7 +776,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 				[
 					'key'     => 'wpevent-start-date-time',
 					'compare' => '>=',
-					'value'   => strtotime( $_GET['wpe-filter-start-date'] ),
+					'value'   => strtotime( wpe_sanitize( $_GET['wpe-filter-start-date'] ) ),
 					'type'    => 'numeric',
 				],
 			];
@@ -905,7 +905,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	public function wpe_process_bulk_action( $entry_status, $message ) {
 
 		// In our file that handles the request, verify the nonce.
-		$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+		$nonce = wpe_sanitize( $_REQUEST['_wpnonce'] );
 
 		if ( ! wp_verify_nonce( $nonce, 'wp_events_entries' ) ) {
 			die('Go get a life script kiddies');
@@ -983,7 +983,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		$status		    = $entry_status == WPE_CANCELLED ? 'cancelled.' : 'approved.';
 		$append_message = $entry_status == WPE_APPROVED ? 'We look forward to seeing you' : '';
 		// In our file that handles the request, verify the nonce.
-		$nonce = esc_attr( $_REQUEST['_wpnonce'] );
+		$nonce = wpe_sanitize( $_REQUEST['_wpnonce'] );
 
 		if ( ! wp_verify_nonce( $nonce, 'wp_events_entries' ) ) {
 			die('Go get a life script kiddies');

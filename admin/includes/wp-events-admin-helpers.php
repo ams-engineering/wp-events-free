@@ -304,7 +304,7 @@ if( ! function_exists( 'wpe_event_title' ) ) {
 			} else {
 				$ids = (string) $ids;
 			}
-			$selected = ( isset( $_GET['wpe_titles'] ) && ( (string) strpos( $ids, $_GET['wpe_titles'] )) !== '' ) ? "selected" : "";
+			$selected = ( isset( $_GET['wpe_titles'] ) && ( (string) strpos( $ids, wpe_sanitize( $_GET['wpe_titles'] ) )) !== '' ) ? "selected" : "";
 			$output .= '<option value="' . $ids . '" ' . $selected . '>' . $title . '</option>';
 		}
 
