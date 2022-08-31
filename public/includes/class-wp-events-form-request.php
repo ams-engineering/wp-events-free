@@ -403,10 +403,12 @@ class Wp_Form_Request
 			$full_url 	= $url . '?secret=' . $secret_key . '&response=' . $response . '&remoteip='. $ip;
 			
 			//Get the response back decode the json
-			$data = json_decode( wp_remote_get( $full_url ) );
+			$data 	    = wp_remote_get( $full_url );
+			$data_body  = $data['body'];
+			$data_array = explode(":", $data_body );
 			//Return true or false, based on users input
-			if( isset( $data->success ) && $data->success == true ) {
-			wpe_send_ajax_response('success');
+			if( strpos( $data_array[1], "true" ) !== false ) {
+				wpe_send_ajax_response('success');
 			}
 		}
 		wpe_send_ajax_response('error');
