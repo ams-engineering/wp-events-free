@@ -866,7 +866,7 @@ class Wp_Events_Admin {
      */
     public function wpevents_post_type_columns() {
         $label      = get_option( 'wpe_settings' );
-        $post_name  = $label['events_post_name'];
+        $post_name  = esc_attr( $label['events_post_name'] );
         return array(
             'cb'              => '<input type="checkbox" />',
             'title'           => $post_name . __( ' Title', 'simple-wp-events' ),

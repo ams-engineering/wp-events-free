@@ -361,24 +361,24 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 
 		switch ( $bulkaction ) {
 			case 'bulk-delete':
-				$this->wpe_process_bulk_action( WPE_TRASHED, ' item(s) moved to the Trash.' );
+				$this->wpe_process_bulk_action( WPE_TRASHED, __( ' item(s) moved to the Trash.', 'simple-wp-events' ) );
 				break;
 			case 'permanent-delete':
-				$this->wpe_process_bulk_action( WPE_DELETED, ' item(s) permanently deleted.' );
+				$this->wpe_process_bulk_action( WPE_DELETED, __( ' item(s) permanently deleted.', 'simple-wp-events' ) );
 				break;
 			case 'cancel-entry':
-				$this->wpe_process_bulk_action( WPE_CANCELLED,  ' item(s) Cancelled.' );
+				$this->wpe_process_bulk_action( WPE_CANCELLED,  __( ' item(s) Cancelled.', 'simple-wp-events' ) );
 				$this->wpe_approve_cancel_notification( WPE_CANCELLED );
 				break;
 			case 'approve-entry':
-				$this->wpe_process_bulk_action( WPE_APPROVED, ' item(s) Approved.' );
+				$this->wpe_process_bulk_action( WPE_APPROVED, __( ' item(s) Approved.', 'simple-wp-events' ) );
 				$this->wpe_approve_cancel_notification( WPE_APPROVED );
 				break;
 			case 'restore':
 				if ( isset( $event_options['approve_registrations'] ) ) {
-					$this->wpe_process_bulk_action( WPE_PENDING, ' item(s) restored from the Trash.' );
+					$this->wpe_process_bulk_action( WPE_PENDING, __( ' item(s) restored from the Trash.', 'simple-wp-events' ) );
 				} else {
-					$this->wpe_process_bulk_action( WPE_ACTIVE, ' item(s) restored from the Trash.' );
+					$this->wpe_process_bulk_action( WPE_ACTIVE, __( ' item(s) restored from the Trash.', 'simple-wp-events' ) );
 				}
 		}
 	}
@@ -916,7 +916,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 					$this->update_registration_status( (int) $id, $entry_status );
 				}
 				$no_of_posts = sizeof( $delete_arr );
-				$message = $no_of_posts . __( $message, 'simple-wp-events' );
+				$message = $no_of_posts . $message;
 				$this->wpe_admin_notice( $message );
 			}
 		}
