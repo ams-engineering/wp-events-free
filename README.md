@@ -1,7 +1,7 @@
 === Simple WP Events ===
 Contributors: noorshuja
 Tags: events, seminars, webinars, calendar, registrations
-Donate link: //wpminds.com
+Donate link: https://wpminds.com/
 Requires at least: 5.0
 Stable tag: 1.5.4
 Tested up to: 6.0
@@ -12,34 +12,36 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 A simple and lightweight WordPress plugin to create events and allow users to register for them.
 
 == Description ==
-Simple WP Events is a free plugin to Easily create and manage events on your website. 
+[Simple WP Events](https://simplewpevents.com/) is a free plugin to easily create and manage events on your website.
+
+Whether it’s an on-site or virtual event, this plugin handles all your event hurdles for you. Our team of elite and experienced engineers has ensured that it’s simple, fast, and reliable.
+
+Simple WP Events is built by the WP Minds team and packed with all the features to kick off events on your website.
+
+Simple Events Plugin is lightweight, quick to set up, and easily customizable.
+
+A Simple plugin specially made for Attorneys, Coaches, Teachers, etc who need to create a quick form to get signups for their seminars/webinars. A place where they can set up events on the go to track registrations and collect user data.
  
-Whether it’s an on-site or virtual event, this plugin handles all your event hurdles for you. Our team of elite and experienced engineers have ensured that it’s simple, fast, and reliable.
- 
-Simple WP Events is built by the WP Minds team and packed with all the features to kick off events on your website. 
- 
-Simple Events Plugin is lightweight, quick to set up and easily customizable.
- 
-A Simple plugin especially made for Attorneys, Coaches, Teachers etc who need to create a quick form to get signups for their Seminars/Webinars. A place where they can set up events on the go to track registrations and collect user data.
- 
-It is packed with numerous of features:
+It is packed with numerous features:
 ✔️ Easy event creation
-✔️ Block Editor support
-✔️ Custom Menu labels
-✔️ Custom Page Slug
-✔️ Template Overriding
-✔️ Events Taxonomies (Categories & Tags)
+✔️ Block editor support
+✔️ Custom menu labels
+✔️ Custom page slug
+✔️ Template overriding
+✔️ Events taxonomies (categories & tags)
 ✔️ Locations post type to reuse locations
 ✔️ Add event to Google Calendar
 ✔️ Completely responsive for all devices (from mobile to tablet to desktop)
-✔️ Custom HTML Email templates
+✔️ Custom HTML email templates
 ✔️ Hooks & filters for customization
 ✔️ Shortcodes for archive page and widgets
 ✔️ Easily manageable entries by viewing and filtering records from the dashboard
 ✔️ Custom notification templates
 ✔️ Export events, registrations, and subscribers to CSV file
+
+Just getting started? Visit the [documentation site](https://simplewpevents.com/docs/) to get set up.
  
-= Our team is consistently working on adding more premium features and add-ons to this plugin which will be made available very soon. =
+= Our Team is Consistently Working on Adding More Premium Features and Add-ons to This Plugin Which Will Be Made Available Very Soon. =
 
 == Installation ==
 Installing the plugin is easy. Just follow one of the following methods:

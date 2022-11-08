@@ -10,13 +10,13 @@
  *
  * @wordpress-plugin
  * Plugin Name:       Simple WP Events
- * Plugin URI:        https://wpminds.com/
+ * Plugin URI:        https://simplewpevents.com/
  * Description:       The only WordPress plugin to create, manage and update hassle free events
  * Version:           1.5.4
  * Requires at least: 5.0
  * Requires PHP:      7.0
  * Author:            WP Minds
- * Author URI:        //wpminds.com
+ * Author URI:        https://wpminds.com/
  * License:           GPL-2.0+
  * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain:       wp-events
