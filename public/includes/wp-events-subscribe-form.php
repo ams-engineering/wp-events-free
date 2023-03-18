@@ -39,7 +39,7 @@ if( !function_exists( 'wpe_display_subscribe_form' ) ) {
                 <form method="post" action="<?php echo esc_url( admin_url('admin-post.php') ); ?>" novalidate class="wpe-subscribe-form" id="wpe-subscribe-form" autocomplete="off">
                     <div class="wpe-col-full wpe-field">
                         <div class="wpe-above-error-field">
-                            <span class="wpe-error-exclamation">!</span><?php _e( 'There was some problem with your submission. Please review the fields below', 'simple-wp-events' ); ?>
+                            <span class="wpe-error-exclamation">! </span><?php _e( 'There was some problem with your submission. Please review the fields below', 'simple-wp-events' ); ?>
                         </div>
                     </div>
                     <?php wp_nonce_field('wp_events_subscribe_form','wpe_subscribe_form');

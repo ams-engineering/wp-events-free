@@ -53,7 +53,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
             <div class="wpe-register-form-container">
                 <form method="post" action="<?php echo esc_url( $_SERVER['REQUEST_URI'] ); ?>" class="wpe-register-form" id="wpe-register-form" novalidate autocomplete="off">
                     <div class="wpe-col-full wpe-field">
-                        <div class="wpe-above-error-field" id="wpe-error-div"><span class="wpe-error-exclamation">!</span> There was some problem with your submission. Please review the fields below</div>
+                        <div class="wpe-above-error-field" id="wpe-error-div"><span class="wpe-error-exclamation">! </span><?php _e( 'There was some problem with your submission. Please review the fields below', 'simple-wp-events' ); ?></div>
                     </div>
                     <div class="wpe-col-2 wpe-field">
                         <div class="wpe-form-control wpe-field-container wpe-left-half">
