@@ -57,7 +57,6 @@ class Wp_Events_Db_Actions {
 		global $wpdb;
 		$charset_collate = $wpdb->get_charset_collate();
 		$table_name = $wpdb->prefix . 'events_registration';
-		$post_table_name = $wpdb->prefix .'posts (ID)';
 		$sql = "CREATE TABLE IF NOT EXISTS " . $table_name. " (
                     ID BIGINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
                     post_id BIGINT(20) UNSIGNED,

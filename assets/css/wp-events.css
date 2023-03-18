@@ -41,12 +41,40 @@ body .wpe-form-control .wpe-field {
     justify-content: space-between;
 } */
 
-.wpe-form-control small {
+.wpe-form-control small, .wpe-above-error-field, .wpe-form-control .wpe-email-error-class,
+.wpe-form-control .wpe-phone-error-class {
     color: var(--error-color);
     /*position: absolute;*/
     /*bottom: 0;*/
     /*left: 0;*/
     visibility: hidden;
+    display: none;
+    width: 100%;
+    padding: 2px;
+    background: #f9eeee;
+    color: #9b0b0b;
+    font-weight: bold
+
+}
+
+.wpe-email-error-class, .wpe-phone-error-class {
+    font-size: smaller;
+}
+
+.wpe-above-error-field {
+    text-align: center;
+    border: 1px solid #9b0b0b;
+    width: 100%;
+    border-radius: 5px;
+    background: none;
+    margin-bottom: 20px;
+}
+
+.wpe-error-exclamation {
+    color: white;
+    border-radius: 50%;
+    background:#9b0b0b ;
+    padding: 1px 8px;
 }
 
 .wpe-form-control.success input {
@@ -57,8 +85,11 @@ body .wpe-form-control .wpe-field {
     border-color: var(--error-color);
 }
 
-.wpe-form-control.error small {
+.wpe-form-control.error small, .wpe-above-error-field.error,
+.wpe-form-control.correct-email .wpe-email-error-class,
+.wpe-form-control.correct-phone .wpe-phone-error-class {
     visibility: visible;
+    display: block;
 }
 
 .wpe-register-form-container {
@@ -72,12 +103,20 @@ body .wpe-form-control .wpe-field {
     border: 1px solid #ddd;
 }
 
-.wpe-subscribe-form-container input,
+.wpe-subscribe-form-container input:not([type='checkbox']),
 .wpe-subscribe-form-container select {
     border: 1px solid #ddd;
     min-height: 48px;
     padding: 0 15px;
     box-sizing: border-box;
+}
+
+.wpe-subscribe-form-container input[type="checkbox"],
+.wpe-subscribe-form-container input[type="radio"] {
+	min-width: 16px;
+	min-height: 16px;
+	top: 0;
+	max-height: 16px;
 }
 
 .wpe-popup {

@@ -85,8 +85,10 @@ class Wp_Events_Admin {
 		 */
 		wp_enqueue_style( $this->plugin_name.'-admin', plugin_dir_url( __FILE__ ) . 'css/wp-events-admin.css', array(), $this->version, 'all' );
 		wp_enqueue_style( $this->plugin_name, plugin_dir_url( __DIR__ ) . 'assets/css/wp-events.css', array(), $this->version, 'all' );
-
-		wp_enqueue_style( $this->plugin_name.'-jquery-ui', plugin_dir_url( __FILE__ ) .'css/jquery-ui.min.css', array(), $this->version, 'all' );
+        //check if current post type is wp_event then add this css file
+        if( 'wp_events' == wpe_get_current_post_type() ) {
+		    wp_enqueue_style( $this->plugin_name.'-jquery-ui', plugin_dir_url( __FILE__ ) .'css/jquery-ui.min.css', array(), $this->version, 'all' );
+        }
         wp_enqueue_style( $this->plugin_name.'-select2', plugin_dir_url( __FILE__ ) .'css/select2.min.css', array(), $this->version, 'all' );
 	}
 
@@ -114,6 +116,8 @@ class Wp_Events_Admin {
 		if ( ! did_action( 'wp_enqueue_media' ) ) {
 			wp_enqueue_media();
 		}
+        wp_enqueue_script( 'jquery-inputmask', plugin_dir_url( __DIR__ ) . 'assets/js/jquery.inputmask.min.js', array( 'jquery' ), $this->version, false );
+
 		wp_enqueue_script( 'date-validation', plugin_dir_url( __FILE__ ) . 'js/wp-events-date-validation.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-events-admin.js', array( 'jquery', 'jquery-ui-core', 'jquery-ui-datepicker', 'date-validation' ), $this->version, false );
 
@@ -418,14 +422,12 @@ class Wp_Events_Admin {
             <div class="wp-event-section-title"><p><?php _e( 'Additonal Information', 'simple-wp-events' ); ?></p></div>
             <div class="phone event-control wpe-left" id="event-control">
                 <label for="wpevent-phone"><?php _e( 'Phone*', 'simple-wp-events' ); ?></label>
-                <input id="wpevent-phone" title="(123) 111-1234" class="wp-event-field" type="tel" pattern="^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$" name="wpevent-phone" value="<?php echo get_post_meta( $post->ID, 'wpevent-phone', true );?>"/>
-                <p><?php _e( 'format: (123) 123-1234', 'simple-wp-events' ); ?></p>
+                <input id="wpevent-phone" title="(123) 111-1234" class="wp-event-field" type="tel" name="wpevent-phone" value="<?php echo get_post_meta( $post->ID, 'wpevent-phone', true );?>"/>
                 <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="external-url event-control wpe-right">
                 <label for="wpevent-external-url"><?php _e( 'External URL', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-external-url" class="wp-event-field" type="url" name="wpevent-external-url" value="<?php echo get_post_meta( $post->ID, 'wpevent-external-url', true );?>"/>
-                <p><br></p>
                 <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="seats event-control wpe-left">
@@ -1298,7 +1300,7 @@ class Wp_Events_Admin {
     /**
      * Changes past events status to draft.
      *
-     * @since 1.5.2
+     * @since 1.6.0
      */
     public function wpe_past_events_draft() {
 		$option = get_option( 'wpe_events_settings' );

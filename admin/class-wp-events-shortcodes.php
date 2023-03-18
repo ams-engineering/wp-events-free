@@ -203,6 +203,8 @@ class Wpe_Shortcodes {
         $zip             = isset( $form_options['form_zip'] );
         $fax             = isset( $form_options['form_fax'] );
         $hearAbout       = isset( $form_options['form_hear_about'] );
+		$mail_options    = get_option( 'wpe_mail_settings' );
+		$permission 	 = isset( $mail_options['enable_texting_email'] );
 
 	    $post_id        = self::$form_data['post'] ?? self::$form_data['post_id'];
 	    $wpe_first_name = sanitize_text_field( self::$form_data['wpe_first_name'] ?? self::$form_data['first_name'] );
@@ -215,6 +217,7 @@ class Wpe_Shortcodes {
 		$wpe_state		= sanitize_text_field( self::$form_data['wpe_state'] ?? self::$form_data['state'] );
 		$wpe_zip		= sanitize_text_field( self::$form_data['wpe_zip'] ?? self::$form_data['zip'] );
 		$wpe_source		= sanitize_text_field( self::$form_data['hear_about_us'] );
+		$wpe_texting	= self::$form_data['wpe_texting_permission'] == 1 ? 'Yes' : 'No';
 
         $registration_details = "<p style='margin: 5px 0'><strong>First name</strong>: $wpe_first_name</p>";
         $registration_details .= "<p style='margin: 5px 0'><strong>Last name</strong>: $wpe_last_name</p>";
@@ -236,6 +239,9 @@ class Wpe_Shortcodes {
         $registration_details .= "<p style='margin: 5px 0'><strong>How did you hear about us</strong>: $wpe_source</p>";
 		endif;
         $registration_details .= "<p style='margin: 5px 0'><strong>Seats</strong>: $wpe_seats</p>";
+		if( $permission ):
+			$registration_details .= "<p style='margin: 5px 0'><strong>Texting Permission</strong>: $wpe_texting</p>";
+		endif;
 
 		if( isset( self::$form_data['wpe_guest_first_name'] ) && isset( self::$form_data['wpe_guest_last_name'] ) ) {
 			$guest_info = $this->get_guest_information( self::$form_data['wpe_guest_first_name'], self::$form_data['wpe_guest_last_name'] );

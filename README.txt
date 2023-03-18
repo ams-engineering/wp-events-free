@@ -3,7 +3,7 @@ Contributors: noorshuja
 Tags: events, seminars, webinars, calendar, registrations
 Donate link: https://wpminds.com/
 Requires at least: 5.0
-Stable tag: 1.5.4
+Stable tag: 1.6.2
 Tested up to: 6.0
 Requires PHP: 7.0
 License: GPL-2.0+
@@ -77,6 +77,27 @@ Coming Soon!
 9. Form Entries Page
 
 == Changelog ==
+Version-1.6.2
+Update: Made phone number field on add event page as optional.
+Added: Input mask for phone number field on add event page.
+
+Version-1.6.1
+Fixed: Subscribe form layout for archive shortcode.
+Added: Attribute to change single-button text in shortcode widget.
+
+Version-1.6.0
+Added: Form validation errors.
+Added: Option to send the texting permission info to email.
+Added: Dark mode in display settings.
+Added: User notification checkbox for edit entry.
+Added: Filters to format date on archive page.
+Fixed: CSS for texting permission checkbox.
+Update: enqueue select2 file locally.
+Added: Option to make the form fields required or optional.
+Added: Option to bulk update existing email confirmation.
+Update: Add registerant address to the export registrations csv.
+Added: jQuery input mask for the phone number formatting.
+
 Version-1.5.3
 Update: Past events are changed to draft so that they are not indexed.
 Added: Auto formatting for phone number field.

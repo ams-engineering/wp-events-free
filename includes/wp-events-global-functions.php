@@ -566,6 +566,7 @@ if( ! function_exists( 'wpe_get_past_events' ) ) {
 	 * @since 1.5.2
 	 */
 	function wpe_get_past_events() {
+		$past_events = array();
 		$args = [
 			'post_type'      	 => 'wp_events',
 			'posts_per_page' 	 => -1,
@@ -718,4 +719,41 @@ if( ! function_exists( 'wpe_escape_html' ) ) {
 			return is_scalar( $data ) ? wp_kses_post( $data ) : $data;
 		}
 	}
+}
+
+if( ! function_exists( 'wpe_get_user_timezone' ) ) {
+	/**
+	 * Returns name of user's local timezone
+	 *
+	 * @since 1.6.0
+	 * @return string
+	 */
+	function wpe_get_user_timezone() {
+		$timezone_offset_minutes = isset( $_COOKIE['wpeTimezone'] ) ? $_COOKIE['wpeTimezone'] : '0';
+		$timezone_name 			 = timezone_name_from_abbr( "", (int) $timezone_offset_minutes * 60, false );
+		return $timezone_name;
+	}
+}
+
+if( ! function_exists( 'wpe_get_current_post_type' ) ) {
+    /**
+     * Gets the current post type for admin area
+     * 
+     * @since 1.8.0
+     * @return string|null
+     */
+    function wpe_get_current_post_type() {
+	
+        global $post, $typenow, $current_screen;
+        
+        if ( $post && $post->post_type ) return $post->post_type;
+        
+        else if( $typenow ) return $typenow;
+        
+        else if ( $current_screen && $current_screen->post_type ) return $current_screen->post_type;
+        
+        else if( isset($_REQUEST['post_type'] ) ) return sanitize_key( $_REQUEST['post_type'] );
+        
+        return null;
+    }
 }

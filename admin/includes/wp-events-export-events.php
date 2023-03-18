@@ -297,12 +297,20 @@ function wpe_event_entries_export() {
 					default:
 						$entry_status = 'Active';
 				}
+
+				$address1 		  = $result->addres_one;
+				$address2 		  = $result->addres_two != '' ? ', ' . $result->addres_two . ', ' : ', ';
+				$city    		  = $result->city;
+				$state   		  = $result->state;
+				$zip    		  = $result->zip;
+				$complete_address = $address1 . $address2 . $city . ', ' . $state;
 				
 				$data[] = array(
 					'Id'          		  => esc_attr( $result->ID ),
 					'Event ID'	  		  => esc_attr( $result->post_id ),
 					'First Name'  		  => esc_attr( $result->first_name ),
 					'Last Name'   		  => esc_attr( $result->last_name ),
+					'Address' 			  => esc_attr( $complete_address ),
 					'Email'       		  => esc_attr( $result->email ),
 					'Phone'       		  => esc_attr( $result->phone ),
 					'Event Name'  		  => get_the_title( esc_attr( $result->post_id ) ),

@@ -100,6 +100,7 @@ class Wp_Events_Public {
 		 * class.
 		 */
 
+		wp_enqueue_script( 'jquery-inputmask', plugin_dir_url( __DIR__ ) . 'assets/js/jquery.inputmask.min.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( 'jquery-serialize', plugin_dir_url( __DIR__ ) . 'assets/js/jquery.serializejson.js', array( 'jquery' ), $this->version, false );
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/wp-events-public.js', array( 'jquery', 'jquery-serialize' ), $this->version, false );
 		wp_enqueue_script( 'reCAPTCHA-script', 'https://www.google.com/recaptcha/api.js', array( 'jquery', 'jquery-serialize' ), $this->version, false );
@@ -117,7 +118,8 @@ class Wp_Events_Public {
 				'captchaSecretKey' => wpe_get_secret_key(),
 				'posts' 		   => json_encode( $wpe_query->query_vars ), // everything about your loop is here
 				'current_page'     => get_query_var( 'paged' ) ? get_query_var('paged') : 1,
-				'max_page'         => $wpe_query->max_num_pages
+				'max_page'         => $wpe_query->max_num_pages,
+				'wpePluginBase'    => WPE_PLUGIN_BASE,
 			)
 		);	
 	}
@@ -312,16 +314,17 @@ class Wp_Events_Public {
 		// override default attributes with user attributes
 		$wpevent_atts = shortcode_atts(
 			[
-				'title'         => $title,
-				'number'        => 3,
-				'location'      => 'true',
-				'archive'       => 'true',
-				'date'          => 'true',
-				'class'		    => '',
-				'category'	    => '',
-				'button_text'   => __( 'See all ', 'simple-wp-events' ) . $title,
-				'type' 		    => '',
-				'single-button' => 'false',
+				'title'        	     => $title,
+				'number'       	     => 3,
+				'location'  	     => 'true',
+				'archive'  	         => 'true',
+				'date'       	     => 'true',
+				'class'			     => '',
+				'category'	 	     => '',
+				'button_text' 	     => __( 'See all ' . $title, 'simple-wp-events' ),
+				'type' 		  	     => '',
+				'single-button'		 => 'false',
+				'single-button-text' => 'Register',
 			], $atts
 		);
 
@@ -392,7 +395,7 @@ class Wp_Events_Public {
 			if ( $wpevent_atts['single-button'] !== 'false' ) {
 				$html .= '<div class="wpe-single-registration">
 							<a class="button wpe-reg-button wpe-single-reg" href="' . $event_permalink . '" 
-							title="Click to Register">Register</a>
+							target="_blank" title="Click to Register">'. esc_html( $wpevent_atts['single-button-text'] ) .'</a>
 						</div>';
 			}
 			$html .= '</div>';
@@ -403,8 +406,12 @@ class Wp_Events_Public {
 				echo '<strong class="wpe-main-title" >' . esc_html( $wpevent_atts['title'] ) . '</strong><div class="wpevent-main">' . wp_kses( $html, wpe_get_allowed_html() ) . '</div>';
 			}
 			do_action( 'wp_events_subscribe_form' );
-			$html = ob_get_clean(); 
-			$html = '<div class="wpevents-shortcode-section wpevents-section">' . $html . '</div>';
+			$html = ob_get_clean();
+			if ( $wpevent_atts['class'] !== '' ) {
+				$html = '<div class="wpevents-shortcode-section '. esc_html( $wpevent_atts['class'] ) .' wpevents-section">' . wp_kses( $html, wpe_get_allowed_html() ) . '</div>';
+			} else {
+				$html = '<div class="wpevents-shortcode-section wpevents-section">' . wp_kses( $html, wpe_get_allowed_html() ) . '</div>';
+			}
 		} else {
 			if ( $wpevent_atts['archive'] === 'true' ) {
 				$button_html .= '<div class="wpevent-archive-button"><a class="button" href="' . get_post_type_archive_link( 'wp_events' ) . '"> ' . apply_filters( 'wpevents_shortcode_button', $wpevent_atts['button_text'] ) . ' </a></div>';

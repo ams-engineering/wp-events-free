@@ -578,6 +578,14 @@ class Wp_Events_Admin_Settings {
 		    'wpe_settings_mail_section'
 	    );
 
+		add_settings_field(
+		    'wpe_settings_enable_texting_email',
+		    'Send Texting Permission in email',
+		    [$this,'wpe_settings_enable_texting_email_callback'],
+		    'wp_events_settings&tab=mail',
+		    'wpe_settings_mail_section'
+	    );
+
 	    add_settings_section(
 		    'wpe_settings_mail_tab_section',
 		    '',
@@ -785,10 +793,20 @@ class Wp_Events_Admin_Settings {
                             </td>
                         </tr>
 						<tr>
+                            <th scope="row"><?php _e( 'Update Message for Existing Seminars?', 'simple-wp-events' ); ?></th>
+                            <td>
+								<label class="wpe-checkbox">
+									<input name="wpe_mail_settings[update_all_seminars]" id="wpe_update_all_seminars" value="l_true" type="checkbox" <?php echo isset( $wpe_mail_settings['update_all_seminars'] ) ? 'checked' : ''; ?> />
+									<span class="slider round"></span>
+								</label>
+                                <small><?php _e( 'Check this box to update email confirmation for all existing seminars.', 'simple-wp-events' ); ?></small>
+                            </td>
+                        </tr>
+						<tr>
                             <th scope="row"><?php _e( 'Webinar Email Message', 'simple-wp-events' ); ?></th>
                             <td>
 							<?php
-								$webinar_success_Message =  isset( $wpe_mail_settings['webinar_success_messages'] ) ? $wpe_mail_settings['webinar_success_message'] : '';
+								$webinar_success_Message = isset( $wpe_mail_settings['webinar_success_message'] ) ? $wpe_mail_settings['webinar_success_message'] : '';
 								$disable_editor 		 = isset( $wpe_mail_settings['enable_webinar_conformation'] ) ? '' : 'disable-editor';
 								echo wpe_editor( $webinar_success_Message, 'webinar_success_message-'. $disable_editor, 'wpe_mail_settings[webinar_success_message]' );
 							?>
@@ -796,6 +814,16 @@ class Wp_Events_Admin_Settings {
 								<?php _e( 'Enter user email message (users will receive this message on registering for webinars)', 'simple-wp-events' ); ?>
                                     <?php echo $this->shortcode_helper_tooltip(); ?>
                                 </small>
+                            </td>
+                        </tr>
+						<tr>
+                            <th scope="row"><?php _e( 'Update Message for Existing Webinars?', 'simple-wp-events' ); ?></th>
+                            <td>
+								<label class="wpe-checkbox">
+									<input name="wpe_mail_settings[update_all_webinars]" id="wpe_update_all_webinars" value="l_true" type="checkbox" <?php echo isset( $wpe_mail_settings['update_all_webinars'] ) ? 'checked' : ''; ?> />
+									<span class="slider round"></span>
+								</label>
+                                <small><?php _e( 'Check this box to update email confirmation for all existing webinars.', 'simple-wp-events' ); ?></small>
                             </td>
                         </tr>
                         <tr>
@@ -980,8 +1008,8 @@ class Wp_Events_Admin_Settings {
  		<tr>
 			<th scope="row"><?php _e( 'Export Registrations', 'simple-wp-events' ); ?></th>
   			<td>
-				<input type="submit" id="export-event-entries" class="button button-primary" value="Export Entries">
-        		<small class="wpe-fields-description"><?php _e( 'Export Registrations to CSV (Leave the filters empty if you want to export all entries.)', 'simple-wp-events' ); ?></small>
+				<input type="submit" id="export-event-entries" class="button button-primary" value="Export Registrations">
+        		<small class="wpe-fields-description"><?php _e( 'Export Registrations to CSV (Leave the filters empty if you want to export all entries).', 'simple-wp-events' ); ?></small>
 			</td>
 		</tr>
 	</table>
@@ -1356,6 +1384,32 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_subscriber_form_section_callback() {
 	    ?>
         <div id="subscriber-form-settings">
+			<div class="wpe-subscriber-form">
+			<h2><?php _e( 'Required/Optional Subscriber Form Fields', 'simple-wp-events' ); ?></h2>
+				<p><?php _e( 'Check To make the fields required on the form', 'simple-wp-events' ); ?></p>
+				<table class="wpe-settings-table">
+					<tr>
+						<td>
+							<span class="label"><?php _e( 'Phone', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_subform_phone]" id="wpe_req_subform_phone" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_subform_phone'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+						<td>
+							<span class="label"><?php _e( 'Email', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_subform_email]" id="wpe_req_subform_email" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_subform_email'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+					</tr>
+				</table>
+			</div>
             <h2><?php _e( 'Subscriber Form Settings', 'simple-wp-events' ); ?></h2>
             <p><?php _e( 'All the Subscriber form settings are available here.', 'simple-wp-events' ); ?></p>
         </div>
@@ -1450,6 +1504,101 @@ class Wp_Events_Admin_Settings {
 						<td>
 							<label class="wpe-checkbox">
 							<input name="wpe_forms_settings[form_hear_about]" id="wpe_form_hear_about" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['form_hear_about'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+					</tr>
+				</table>
+				<h2><?php _e( 'Required/Optional Registration Form Fields', 'simple-wp-events' ); ?></h2>
+				<p><?php _e( 'Check To make the fields required on the form', 'simple-wp-events' ); ?></p>
+				<table class="wpe-settings-table">
+					<tr>
+						<td>
+							<span class="label"><?php _e( 'Address 1', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_form_address1]" id="wpe_req_form_address1" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_form_address1'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+						<td>
+							<span class="label"><?php _e( 'Address 2', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_form_address2]" id="wpe_req_form_address2" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_form_address2'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="label"><?php _e( 'City', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_form_city]" id="wpe_req_form_city" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_form_city'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+						<td>
+							<span class="label"><?php _e( 'State', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_form_state]" id="wpe_req_form_state" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_form_state'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="label"><?php _e( 'Phone', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_form_phone]" id="wpe_req_form_phone" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_form_phone'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+						<td>
+							<span class="label"><?php _e( 'Email', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_form_email]" id="wpe_req_form_email" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_form_email'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="label"><?php _e( 'Zip', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_form_zip]" id="wpe_req_form_zip" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_form_zip'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+						<td>
+							<span class="label"><?php _e( 'Fax', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_form_fax]" id="wpe_req_form_fax" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_form_fax'] ) ? 'checked' : ''; ?> />
+							<span class="slider round"></span>
+							</label>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<span class="label"><?php _e( 'Business Name', 'simple-wp-events' ); ?></span>
+						</td>
+						<td>
+							<label class="wpe-checkbox">
+							<input name="wpe_forms_settings[req_form_businessName]" id="wpe_req_form_businessName" value="l_true" type="checkbox" <?php echo isset( $this->wpe_form_settings['req_form_businessName'] ) ? 'checked' : ''; ?> />
 							<span class="slider round"></span>
 							</label>
 						</td>
@@ -1688,6 +1837,7 @@ class Wp_Events_Admin_Settings {
         <small class="wpe-fields-description"><?php _e( 'Enter email from users will receive email (It is recommended to use email like name@yourdomain.com)', 'simple-wp-events' ); ?></small>
 		<?php
     }
+	
 	/**
      * Disable Webinar confirmation
 	*/
@@ -1700,6 +1850,21 @@ class Wp_Events_Admin_Settings {
             <span class="slider round"></span>
         </label>
         <small><?php _e( 'Check this box to enable the webinar confirmation email for registrants.', 'simple-wp-events' ); ?></small>
+		<?php
+    }
+
+	/**
+     * Send Texting Permission in email
+	*/
+	public function wpe_settings_enable_texting_email_callback() {
+		$option = get_option('wpe_mail_settings');
+		?>
+           <label class="wpe-checkbox">
+            <input name="wpe_mail_settings[enable_texting_email]" id="wpe_enable_texting_email" value="l_true"
+                   type="checkbox" <?php echo isset( $option['enable_texting_email'] ) ? 'checked' : ''; ?> />
+            <span class="slider round"></span>
+        </label>
+        <small><?php _e( 'Check this box to send texting permission status in email (for registration form).', 'simple-wp-events' ); ?></small>
 		<?php
     }
 

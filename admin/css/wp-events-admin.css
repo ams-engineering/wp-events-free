@@ -539,6 +539,12 @@ span.wpe-show-empty {
     padding: 20px 0;
 }
 
+.wpe-header-title {
+    padding-left: 10px;
+    margin: 5px 0;
+    letter-spacing: -1px;
+}
+
 .wp_events_page_wpe_view_entry #wpcontent,
 .wp_events_page_wp_forms_entries #wpcontent,
 .wp_events_page_wp_events_settings #wpcontent {
@@ -547,10 +553,6 @@ span.wpe-show-empty {
 
 .wp_events_page_wp_events_settings form {
     padding-left: 20px;
-}
-
-.wp_events_page_wp_forms_entries .wrapper {
-    padding: 0 20px 0 40px;
 }
 
 /*==========================
@@ -743,4 +745,8 @@ input#wpevent-limit-seats {
 
 .wpe-archive-views td {
     padding: 0 10px 10px 10px;
+}
+
+.wpe-display-none {
+    display: none;
 }
