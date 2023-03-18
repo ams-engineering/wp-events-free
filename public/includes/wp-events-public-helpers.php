@@ -279,16 +279,18 @@ if ( ! function_exists( 'wpe_get_events_day_date_column' ) ) {
 	function wpe_get_events_day_date_column( $post_id ) {
 		$event_date_time = wpevent_start_date_time( $post_id );
 		$start_date      = isset( $event_date_time['start_date'] ) ? strtotime( $event_date_time['start_date'] ) : 0;
+		$day_format      = apply_filters( 'wpevents_archive_day_format', 'D' );
+		$date_format     = apply_filters( 'wpevents_archive_date_format', 'j' );
 		?>
 		<div class="wpe-day-date">
 			<div class="wpe-col-dd">
 				<span class="wpe-col-day">
 					<?php
-					echo date( "D", $start_date );     //event start day ?>
+					echo date( $day_format, $start_date );     //event start day ?>
 				</span>
 				<span class="wpe-col-date">
 					<?php
-					echo date( 'j', $start_date );    //event start date ?>
+					echo date( $date_format, $start_date );    //event start date ?>
 				</span>
 			</div>
 		</div>

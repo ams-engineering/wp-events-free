@@ -1,18 +1,7 @@
 jQuery(document).ready(function ($) {
 	'use strict';
-
-	$('.wpe-form-control .wpe-no-special').on( 'input', function() {
-		var c = this.selectionStart,
-			r = /[^a-z0-9 ]/gi,
-			v = $(this).val();
-		if( r.test( v ) ) {
-		  $( this ).val( v.replace( r, '' ) );
-		  c--;
-		}
-		this.setSelectionRange(c, c);
-	});
-
-	// $('input#wpe_phone').attr("onkeydown", "phoneNumberFormatter()");
+	
+	$("#wpe_phone").inputmask({"mask": "(999) 999-9999"});
 
 	/**
 	 * display error if form is submitted without checking recaptcha
@@ -64,39 +53,142 @@ jQuery(document).ready(function ($) {
 	}
 
 	/**
-	 * Registration Form Validation
+	 * email validate function
 	 * */
-	//variables
-	var siteKey   = wpe_ajaxobject.captchaSiteKey;
-	var secretKey = wpe_ajaxobject.captchaSecretKey;
-	const form 	  = $('form').hasClass('wpe-register-form') ? $('#wpe-register-form') : $('#wpe-subscribe-form');
+	function validateEmail( $email ) {
+		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+		return emailReg.test( $email );
+	}
 
-	form.submit(function (e) {
-		e.preventDefault();
-		if( $('span.g-recaptcha').text() === 'Captcha not found.' ) {
-			submitForm( form );
-		} else { 
-			if( wpe_ajaxobject.captchaType === 'checkbox' && siteKey !== '' && secretKey !== '' ) {
-				if ( wpeValidRecaptcha() ) {
-					wpeVerifyCaptcha( form );
-				}
-			} else 
-			if( wpe_ajaxobject.captchaType === 'invisible' && siteKey !== '' && secretKey !== '' ) {
-				grecaptcha.execute();
-				setTimeout( function() {
-					wpeVerifyCaptcha( form );
-				}, 1000);
-			}
+	/**
+	 * email validate function
+	 * */
+	function validatePhone( $phone ) {
+		var phoneReg = /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
+		return phoneReg.test( $phone );
+	}
+
+	if ( $('body').hasClass('single-wp_events') || $('form').hasClass('wpe-subscribe-form') ) {
+		/**
+		 *Form Validation
+		* */
+		//variables
+		var siteKey      = wpe_ajaxobject.captchaSiteKey;
+		var secretKey    = wpe_ajaxobject.captchaSecretKey;
+		var form 		 = '';
+		var updatedClass = '';
+		var allForms 	 = $("form");
+		allForms.each( function() {
+			var form 	  = $( this );
+			var formClass = form.attr( 'class' );
+			if( formClass === 'wpe-register-form' || formClass === 'wpe-subscribe-form' || formClass === 'wpe-waitlist-form' ) {
+				updatedClass  = formClass;	
+			}	
+		});
+		switch( updatedClass ) {
+			case 'wpe-register-form':
+				var form = $( '#wpe-register-form' );
+				break;
+			case'wpe-subscribe-form':
+				var form = $( '#wpe-subscribe-form' );
+				break;
+			case'wpe-waitlist-form':
+				var form = $( '#wpe-waitlist-form' );
+				break;
 		}
-	});
+		var formInput = '';
+		switch( updatedClass ) {
+			case 'wpe-register-form':
+				formInput = $( 'form#wpe-register-form :input' );
+				break;
+			case'wpe-subscribe-form':
+				formInput = $( 'form#wpe-subscribe-form :input' );
+				break;
+			case'wpe-waitlist-form':
+				formInput = $( 'form#wpe-waitlist-form :input' );
+				break;
+		}
+			
+		form.submit( function (e) {
+			e.preventDefault();
+			
+			/**
+			 * check if any of the field is empty
+			 * */
+			//variables
+			var valueFalse = '';
+			formInput.each( function() {
+				var input = $( this ); // 
+				if ( input.prop( 'required' ) ) {
+					$( ".wpe-above-error-field" ).removeClass( 'error' );
+					input.parent().removeClass( 'error' );
+					$('.wpe-form-control small').css('display', 'none');
+					if ( ! input.val() || ( input.is( ':checkbox' ) && ! input.is( ":checked" ) ) ) {
+						input.parent().addClass( 'error' ); 
+						$('.wpe-form-control small').css('display', 'block');
+						valueFalse = 'dont Reload';
+					}
+				}
+				input.parent().removeClass( 'correct-email' );
+				input.parent().removeClass( 'correct-phone' );
+				if ( input.attr( "id" ) == 'wpe_email' && ! ( input.parent().hasClass( 'error' ) ) ) {
+					if ( ! validateEmail( input.val() ) ) {
+						input.parent().addClass( 'correct-email' );
+						$('.wpe-form-control small').css('display', 'block');
+						valueFalse = 'dont Reload';
+					}
+				}
+				if ( input.val() != '' && input.attr( "id" ) == 'wpe_phone' && ! ( input.parent().hasClass( 'error' ) ) ) {
+					if ( ! validatePhone( input.val() ) ) {
+						input.parent().addClass( 'correct-phone' );
+						$('.wpe-form-control small').css('display', 'block');
+						valueFalse = 'dont Reload';
+					}
+				}
+			});
 
+			/**
+			 * if any required field is empty stop the execution and show error 
+			 * */ 
+			if ( valueFalse == 'dont Reload' ) {
+				$( ".wpe-above-error-field" ).addClass( 'error' );
+				document.getElementById("wpe-error-div").scrollIntoView({ behavior: "smooth" });
+				return false;
+			}
+			if( $( 'span.g-recaptcha' ).text() === 'Captcha not found.' ) {
+				submitForm( form );
+			} else { 
+				if( wpe_ajaxobject.captchaType === 'checkbox' && siteKey !== '' && secretKey !== '' ) {
+					if ( wpeValidRecaptcha() ) {
+						wpeVerifyCaptcha( form );
+					}
+				} else if ( wpe_ajaxobject.captchaType === 'invisible' && siteKey !== '' && secretKey !== '' ) {
+					grecaptcha.execute();
+					setTimeout( function() {
+						wpeVerifyCaptcha( form );
+					}, 1000);
+				}
+			}
+		});
+	}
 	function submitForm( submittedForm ) {
 		// Serialize the data in the form
 		const serializedData = submittedForm.serializeJSON();
-		const action 		 =  $('form').hasClass('wpe-register-form') ? 'wpe_registration_form' : 'wpe_subscribe_form';
-		wpe_save_form_data(serializedData, action);
+		var action = "";
+		switch( updatedClass ) {
+			case 'wpe-register-form':
+				var action = 'wpe_registration_form';
+				break;
+			case 'wpe-subscribe-form':
+				var action = 'wpe_subscribe_form';
+				break;
+			case 'wpe-waitlist-form':
+				var action = 'wpe_waitlist_form';
+				break;
+		}
+		wpe_save_form_data( serializedData, action );
 	}
-
+	
 	/**
 	 * ajax request for handling saving of form data
 	 * 
@@ -116,21 +208,22 @@ jQuery(document).ready(function ($) {
 
 			// pre-request callback function.
 			beforeSend: function () {
-				$('#wpe-button').attr('disabled', true);
-				$('.wpe-button-loader').fadeIn();
+				$( '#wpe-button' ).attr( 'disabled', true);
+				$( '.wpe-button-loader' ).fadeIn();
 			},
 
 			// function to be called if the request succeeds.
 			success: function (response) {
-				$('#wpe-button').attr('disabled', false);
+				$( '#wpe-button' ).attr( 'disabled', false);
 				window.location.href = decodeURIComponent(response.url);
-				$('.wpe-button-loader').fadeOut();
+				$( '.wpe-button-loader' ).fadeOut();
 			}
 		})
 	}
 
 	//on event single page
 	if ( $('body').hasClass('single-wp_events') || $('body').hasClass('post-type-archive-wp_events') ) {
+		checkCookie();
 		if (window.location.href.includes('thankyou')) {
 			$('.thankyou-popup').css('display', 'block');
 			setTimeout(function () {
@@ -233,6 +326,40 @@ jQuery(document).ready(function ($) {
 		});
 	} );
 
+	function setCookie( cname, cvalue, exdays ) {
+		const d = new Date();
+		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+		let expires = "expires="+d.toUTCString();
+		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	}
+	  
+	function getCookie( cname ) {
+		let name = cname + "=";
+		let ca = document.cookie.split(';');
+		for(let i = 0; i < ca.length; i++) {
+			let c = ca[i];
+			while (c.charAt(0) == ' ') {
+			c = c.substring(1);
+			}
+			if (c.indexOf(name) == 0) {
+			return c.substring(name.length, c.length);
+			}
+		}
+		return "";
+	}
+	  
+	function checkCookie() {
+		let timezone = getCookie("wpeTimezone");
+		if ( timezone == "" ) {
+			var timezone_offset_minutes = new Date().getTimezoneOffset();
+			timezone = timezone_offset_minutes == 0 ? 0 : -timezone_offset_minutes;
+			if ( timezone != "" && timezone != null ) {
+				setCookie( "wpeTimezone", timezone, 1);
+			}
+		}
+	}
+	  
+
 });
 
 function validURL( str ) {
@@ -292,44 +419,4 @@ function CaptchaExpired() {
 		alert('Captcha Verification Expired.\nPlease fill the form again.');
 		form.trigger("reset");
 	}
-}
-
-
-function phoneNumberFormatter() {
-	// grab the value of what the user is typing into the input
-	const inputField = document.getElementById( 'wpe_phone' );
-  
-	// next, we're going to format this input with the `formatPhoneNumber` function, which we'll write next.
-	const formattedInputValue = formatPhoneNumber( inputField.value );
-  
-	// Then we'll set the value of the inputField to the formattedValue we generated with the formatPhoneNumber
-	inputField.value = formattedInputValue;
-}
-  
-function formatPhoneNumber( value ) {
-	// if input value is false eg if the user deletes the input, then just return
-	if ( !value ) return value;
-  
-	// clean the input for any non-digit values.
-	const phoneNumber = value.replace(/[^\d]/g, '');
-  
-	// phoneNumberLength is used to know when to apply our formatting for the phone number
-	const phoneNumberLength = phoneNumber.length;
-  
-	// we need to return the value with no formatting if its less than four digits
-	// this is to avoid weird behavior that occurs if you  format the area code too early
-	if ( phoneNumberLength < 4 ) return phoneNumber;
-  
-	// if phoneNumberLength is greater than 4 and less the 7 we start to return
-	// the formatted number
-	if ( phoneNumberLength < 7 ) {
-	  return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(3)}`;
-	}
-  
-	// finally, if the phoneNumberLength is greater then seven, we add the last
-	// bit of formatting and return it.
-	return `(${phoneNumber.slice(0, 3)}) ${phoneNumber.slice(
-		3,
-		6
-		)}-${phoneNumber.slice(6, 9)}`;
 }

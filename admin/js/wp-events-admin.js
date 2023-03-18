@@ -5,16 +5,7 @@
 
 jQuery(document).ready( function($) {
 
-	$('.wpe-form-control .wpe-no-special').on( 'input', function() {
-		var c = this.selectionStart,
-			r = /[^a-z0-9 ]/gi,
-			v = $(this).val();
-		if( r.test( v ) ) {
-		  $( this ).val( v.replace( r, '' ) );
-		  c--;
-		}
-		this.setSelectionRange(c, c);
-	});
+	$("#wpevent-phone").inputmask({"mask": "(999) 999-9999"});
 	
 	const startDate = document.getElementById('wpevent-start-date');
 	const endDate	= document.getElementById('wpevent-end-date');
@@ -202,58 +193,40 @@ jQuery(document).ready( function($) {
 			}
 		});
 	}
-
-
-		/**
+	
+	/**
 	 * if the pattern not matches with (123) 123-1224 the publish and update button will be disabled
 	 * */
-		 if ( $( 'body' ).hasClass( 'post-type-wp_events' ) ) {
+	if ( $( 'body' ).hasClass( 'post-type-wp_events' ) ) {
 
-			function checkPhoneNumber( input ) {
-				let regex = /\(\d\d\d+\)\s\d\d\d-\d\d\d\d+/i;
-				return regex.test( input );
+		$( document ).ready( function() {
+			if ( $( '#wpevent-start-date' ).val() == '' || $( '#wpevent-end-date' ).val() == '' ) {
+				$( '.editor-post-publish-button__button' ).prop( "disabled", true );
 			}
-			$( document ).ready( function() {
-				if ( ! checkPhoneNumber( $( '#wpevent-phone' ).val() ) ) {
-					$( '.editor-post-publish-button__button' ).prop( "disabled", true );
-				}
-			});
-	
-			/**
-			 * if the date fields are empty disable the publish button
-			 * */
-			$( '#wpevent-start-date' ).on( "change paste keyup", function() {
-				if ( $( '#wpevent-start-date' ) == '' ) {
-					$( '.editor-post-publish-button__button' ).prop("disabled", true );
-				}
-				else if ( checkPhoneNumber( $( '#wpevent-phone' ).val() ) && $( '#wpevent-start-date' ) != '' && $( '#wpevent-end-date' ) != '' ) {
-					$( '.editor-post-publish-button__button' ).prop( "disabled", false );
-				}
-			});
-			$( '#wpevent-end-date' ).on( "change paste keyup", function() {
-				if ( $( '#wpevent-end-date' ) == '' ) {
-					$( '.editor-post-publish-button__button' ).prop( "disabled", true );
-				}
-				else if ( checkPhoneNumber($( '#wpevent-phone' ).val()) && $( '#wpevent-start-date' ) != '' && $( '#wpevent-end-date' ) != '' ) {
-					$( '.editor-post-publish-button__button' ).prop( "disabled", false );
-				}
-			});
-			$( '#wpevent-phone' ).on( "change paste keyup", function( input ) {
-				var startDate = $( '#wpevent-start-date' ).val();
-				var endDate	  = $( '#wpevent-end-date' ).val();
-				if ( ! checkPhoneNumber( $( '#wpevent-phone' ).val() ) ) {
-					$( '.editor-post-publish-button__button' ).prop( "disabled", true );
-				}else if ( checkPhoneNumber ($( '#wpevent-phone' ).val() ) && startDate != '' && endDate != '' ) {
-					$( '.editor-post-publish-button__button' ).prop( "disabled", false );
-				}
-			});
-		 }	
+		});
 
-	//on event single page
-	if ( $('body').hasClass('post-type-wp_events') ) {
+		/**
+		 * if the date fields are empty disable the publish button
+		 * */
+		$( '#wpevent-start-date' ).on( "change paste keyup", function() {
+			if ( $( '#wpevent-start-date' ).val() == '' ) {
+				$( '.editor-post-publish-button__button' ).prop("disabled", true );
+			}
+			else if ( $( '#wpevent-start-date' ).val() != '' && $( '#wpevent-end-date' ).val() != '' ) {
+				$( '.editor-post-publish-button__button' ).prop( "disabled", false );
+			}
+		});
+		$( '#wpevent-end-date' ).on( "change paste keyup", function() {
+			if ( $( '#wpevent-end-date' ).val() == '' ) {
+				$( '.editor-post-publish-button__button' ).prop( "disabled", true );
+			}
+			else if ( $( '#wpevent-start-date' ).val() != '' && $( '#wpevent-end-date' ).val() != '' ) {
+				$( '.editor-post-publish-button__button' ).prop( "disabled", false );
+			}
+		});
+		
 		// on publish button click
-		$(document).on( 'click', '.editor-post-publish-button', function(e){
-
+		$(document).on( 'click', '.editor-post-publish-button', function( e ){
 			metaboxValidation( [startDate, endDate, seats, phone], e );
 
 		});
@@ -693,6 +666,75 @@ jQuery(document).ready( function($) {
 
 	if( window.location.href.includes('tab=export') || window.location.href.includes('tab=import') ) {
 		$('#submit').css( 'display', 'none' );
+	}
+
+	if( window.location.href.includes('tab=mail') ) {
+		var updateMessage = $('#wpe_update_all_seminars').prop("checked");
+		var message 	  = '';
+		$('#wpe_update_all_seminars').change( function(e) {
+			// checked will equal true if checked or false otherwise
+			const checked = $(this).is(':checked');
+			updateMessage = checked;
+		});
+		$("#mail_success_message").on('change keyup paste', function( event ) {
+			message = event.target.value;
+		});
+		$('#wpe-save-settings').click( function( e ) {
+			if( updateMessage == true && message != '' ) {
+				e.preventDefault();
+				$.ajax( {
+					type: 'POST',
+					url: wpe_ajaxobject.ajaxurl,
+					dataType: "text",
+					data: { action : 'wpe_update_confirmation',
+							message : message,
+							type : 'seminar' },
+					success: function( response ) {
+						if( response == 1 ) {
+							console.log( 'All seminars updated.' );
+						} else {
+							console.log( 'No posts to update.' );
+						}
+					},
+					complete: function( response ) {
+						$( "#wpe-settings-form" )[0].submit();
+					}
+				});
+			}
+		});
+		var updateWebinar = $('#wpe_update_all_webinars').prop("checked");
+		var webMessage 	  = '';
+		$('#wpe_update_all_webinars').change( function(e) {
+			// checked will equal true if checked or false otherwise
+			const checkedWeb = $(this).is(':checked');
+			updateWebinar    = checkedWeb;
+		});
+		$("#webinar_success_message").on('change keyup paste', function( event ) {
+			webMessage = event.target.value;
+		});
+		$('#wpe-save-settings').click( function( e ) {
+			if( updateWebinar == true && webMessage != '' ) {
+				e.preventDefault();
+				$.ajax( {
+					type: 'POST',
+					url: wpe_ajaxobject.ajaxurl,
+					dataType: "text",
+					data: { action : 'wpe_update_confirmation',
+							message : webMessage,
+							type : 'webinar' },
+					success: function( response ) {
+						if( response == 1 ) {
+							console.log( 'All webinars updated.' );
+						} else {
+							console.log( 'No posts to update.' );
+						}
+					},
+					complete: function( response ) {
+						$( "#wpe-settings-form" )[0].submit();
+					}
+				});
+			}
+		});
 	}
 
 	//function calls

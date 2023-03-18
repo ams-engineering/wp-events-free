@@ -240,4 +240,37 @@ class Wp_Admin_Request {
         $post_id = wp_insert_post( $post_arr );
         wpe_send_ajax_response( $post_id );
     }
+
+    /**
+     * Ajax request for updating all seminars confirmation when message
+     * is updated in settings.
+     *
+     * @since 1.6.0
+     */
+    public function wpe_update_confirmation() {
+        $type    = wpe_sanitize( $_POST['type'] );
+        $message = wpe_sanitize( $_POST['message'] );
+        $args    = [
+			'post_type'      	 => 'wp_events',
+			'posts_per_page' 	 => -1,
+			'post_status'        => 'publish',
+            'meta_query'     	 => [
+                [
+					'key'     	 => 'wpevent-type',
+					'value'   	 => $type,
+					'compare' 	 => 'LIKE',
+				],
+			],
+		];
+
+        $events = get_posts( $args );
+        if( $events ) {
+            foreach ( $events as $event ) {
+                // Run a loop and update every meta data
+                update_post_meta( $event->ID, 'wpevent-confirmation-message', $message );
+                wpe_send_ajax_response( 1 );
+            }
+        }
+        wpe_send_ajax_response( 0 );
+    }
 }

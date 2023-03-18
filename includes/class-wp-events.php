@@ -219,7 +219,7 @@ class Wp_Events {
 		$this->loader->add_action( 'wp_ajax_wpe_update_entry_status', $adminRequests, 'wpe_update_entry_status' );	
 		$this->loader->add_action( 'wp_ajax_wpe_update_location', $adminRequests, 'wpe_update_location' );	
 		$this->loader->add_action( 'wp_ajax_wpe_create_location', $adminRequests, 'wpe_create_location' );	
-		
+		$this->loader->add_action( 'wp_ajax_wpe_update_confirmation', $adminRequests, 'wpe_update_confirmation' );	
 	}
 
 	/**

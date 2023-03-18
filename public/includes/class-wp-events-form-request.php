@@ -313,7 +313,6 @@ class Wp_Form_Request
 	{
 		$mail_options 				= get_option('wpe_mail_settings');
 		$firm_info 					= get_option('wpe_firm_settings');
-		wpe_request_log( $firm_info );
 		$event_option 				= get_option('wpe_events_settings');
 		$from_name    				= $firm_info['mail_from_name'];
 		$from_email   				= $mail_options['mail_from'];
@@ -359,10 +358,8 @@ class Wp_Form_Request
 		$notified_user = get_post_meta( $data['post_id'], 'wpevent-email-notification', TRUE );
 		if( $notified_user !=='' && $notified_user !== $firm_info['admin_mail'] ) { // if not empty and not identical to the one in mail options send to notified user
 			wp_mail( $notified_user, $admin_subject, $admin_message, $headers );
-			// wpe_request_log( $notified_user );
 		} else {
 			wp_mail( $firm_info['admin_mail'], $admin_subject, $admin_message, $headers );
-			wpe_request_log( $firm_info['admin_mail'] );
 		}
 	}
 

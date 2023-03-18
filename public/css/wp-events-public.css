@@ -74,6 +74,8 @@
 
 #wpe-button {
     font-size: 18px;
+    display: inherit;
+    margin: 0 auto;
 }
 
 .wpe-button:hover {
@@ -414,7 +416,6 @@ span.wpe-category a {
 
 .wpevents-section {
     text-align: center;
-    padding: 20px 0;
 }
 
 .wpevents-section strong.wpe-main-title {
@@ -587,11 +588,6 @@ input.wpe-field::-webkit-inner-spin-button {
     margin: 0;
 }
 
-/* Firefox */
-input.wpe-field[type=number] {
-    -moz-appearance: textfield;
-}
-
 .wpe-button-loader {
     position: absolute;
     left: 0;
@@ -656,6 +652,10 @@ span.g-recaptcha {
     justify-content: flex-start;
     align-items: center;
     column-gap: 16px;
+}
+
+.wpe-display-block .wpe-subscribe-form .wpe-col-2 {
+	display: block;
 }
 
 .wpe-register-form-container .wpe-col-2 div , .wpe-subscribe-form .wpe-col-2 div{
@@ -808,6 +808,30 @@ body .wpe-dark-mode .wpe-subscribe-form-container input {
 body .entry-content .wpe-dark-mode .wpevent-card {
     background-color: #121016;
     border: 1px solid #fff;
+}
+
+.wpe-dark-mode span.dashicons {
+    color: #fff;
+}
+
+.wpe-dark-mode .wpe-grid .wpe-row {
+    border: 1px solid #fff;
+}
+
+.wpe-dark-mode .fc-icon {
+    color: #000;
+}
+
+.wpe-dark-mode .fc-button:hover .fc-icon {
+    color: #fff;
+}
+
+.wpe-dark-mode .fc-unthemed td.fc-today {
+    background: #333;
+}
+
+.wpe-dark-mode button:not(:hover):not(:active):not(.has-text-color) {
+    color: #000;
 }
 
 /*===========================================

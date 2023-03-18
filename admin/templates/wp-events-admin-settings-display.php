@@ -24,7 +24,7 @@
             <h1><?php _e( 'Simple WP Events Settings', 'simple-wp-events' ); ?></h1>
         </div>
     </div>
-    <form method="post" action="options.php">
+    <form method="post" action="options.php" id="wpe-settings-form">
     <h2 class="nav-tab-wrapper">
         <?php
         do_action( 'wp_events_settings_tab' );
@@ -35,5 +35,7 @@
         do_action( 'wp_events_settings_content' );
         ?>
     </div>
-        <?php submit_button();?>
+        <?php
+        $other_attributes = array( 'id' => 'wpe-save-settings' ); 
+        submit_button( __( 'Save Settings', 'simple-wp-events' ), 'primary', 'wpe-save-settings', true, $other_attributes ); ?>
     </form>

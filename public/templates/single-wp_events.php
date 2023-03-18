@@ -45,6 +45,11 @@ get_header();
 						$terms           = wp_get_object_terms( $post_id, 'wpevents-category' );
 						$wpe_type        = get_post_meta( $post_id, 'wpevent-type', TRUE );
 						$wpe_phone       = get_post_meta( $post_id, 'wpevent-phone', true );
+						date_default_timezone_set( wpe_get_user_timezone() );
+						$set_timezone 	 = new DateTimeZone( wpe_get_user_timezone() );
+						$start_tz_date   = new DateTime( date('Y-m-d H:i:s', get_post_meta( $post_id , 'wpevent-start-date-time', TRUE ) ), $set_timezone );
+						$end_tz_date   	 = new DateTime( date('Y-m-d H:i:s', get_post_meta( $post_id , 'wpevent-end-date-time', TRUE ) ), $set_timezone );
+						date_default_timezone_set( 'UTC' );
 						?>
                         <?php
                         echo apply_filters( 'wpe_single_title', '<h1 class="wpe-single-title">'. get_the_title() .'</h1>' );
@@ -140,7 +145,7 @@ get_header();
                                         	$address = 'webinar';
                                         }
                                         ?>
-                                        <div class="ics-text" id="get-ics-text">BEGIN:VCALENDAR<?php echo "\n" ?>VERSION:2.0<?php echo "\n" ?>PRODID:-//WPMINDS//NONSGML v1.0//EN<?php echo "\n" ?>CALSCALE:GREGORIAN<?php echo "\n" ?>BEGIN:VEVENT<?php echo "\n" ?>VENUE:<?php echo esc_html( $wpe_venue ); ?><?php echo "\n" ?>DESCRIPTION:<?php echo strip_tags( get_the_excerpt()); ?><?php echo "\n" ?>ADDRESS:<?php echo esc_html( $wpe_addr ); ?><?php echo "\n" ?>DTSTART:<?php echo date('Ymd\THis', get_post_meta( $post_id , 'wpevent-start-date-time', TRUE )); ?><?php echo "\n" ?>DTEND:<?php echo date('Ymd\THis', get_post_meta( $post_id , 'wpevent-end-date-time', TRUE )); ?><?php echo "\n" ?>URL;VALUE=URI:<?php echo get_the_permalink( $post_id ); ?><?php echo "\n" ?>SUMMARY:<?php echo strip_tags( get_the_title()); ?><?php echo "\n" ?>LOCATION:<?php echo wp_kses( $venue_html, wpe_get_allowed_html() ); ?><?php echo "\n" ?>PHONE:<?php echo get_post_meta( $post_id, 'wpevent-phone', true ); ?><?php echo "\n" ?>DTSTAMP:<?php echo date('Ymd\THis'); ?><?php echo "\n" ?>UID:<?php echo uniqid(); ?><?php echo "\n" ?>END:VEVENT<?php echo "\n" ?>END:VCALENDAR</div>
+                                        <div class="ics-text" id="get-ics-text">BEGIN:VCALENDAR<?php echo "\n" ?>VERSION:2.0<?php echo "\n" ?>PRODID:-//WPMINDS//NONSGML v1.0//EN<?php echo "\n" ?>CALSCALE:GREGORIAN<?php echo "\n" ?>BEGIN:VEVENT<?php echo "\n" ?>VENUE:<?php echo $wpe_venue; ?><?php echo "\n" ?>DESCRIPTION:<?php echo strip_tags( get_the_excerpt()); ?><?php echo "\n" ?>ADDRESS:<?php echo $wpe_addr; ?><?php echo "\n" ?>DTSTART:<?php echo $start_tz_date->format( 'Ymd\THis' ); ?><?php echo "\n" ?>DTEND:<?php echo $end_tz_date->format( 'Ymd\THis' ); ?><?php echo "\n" ?>URL;VALUE=URI:<?php echo get_the_permalink( $post_id ); ?><?php echo "\n" ?>SUMMARY:<?php echo strip_tags( get_the_title()); ?><?php echo "\n" ?>LOCATION:<?php echo $venue_html; ?><?php echo "\n" ?>PHONE:<?php echo get_post_meta( $post_id, 'wpevent-phone', true ); ?><?php echo "\n" ?>DTSTAMP:<?php echo date('Ymd\THis'); ?><?php echo "\n" ?>UID:<?php echo uniqid(); ?><?php echo "\n" ?>END:VEVENT<?php echo "\n" ?>END:VCALENDAR</div>
                                         <div class="filename"><?php echo strip_tags( get_the_title()) .'.ics' ?></div>
                                     </ul>
                                 </li>
@@ -170,20 +175,21 @@ get_header();
 								 */
 								if( empty( $post->post_password ) || !post_password_required() ){
 									// do some stuff
-									do_action( 'wp_events_registration_form' );                          // Displays Events Registration Form
+									do_action ( 'wp_events_registration_form' );                          // Displays Events Registration Form
+									$text = __( 'ThankYou For Registering.', 'simple-wp-events' );
+									wpe_get_thankyou_popup( $text );
 								}
 							}
-						} else {
-							wpe_get_closed_reg_text();
+						} 
+						else {
+							$option = get_option( 'wpe_display_settings' );							// Displays Text when Waitlisting Form is hide
+							$text   = $option['closed_reg'];
+							echo esc_html( $text );							 
 						}
 					endwhile;
 				endif;
 				?>
             </div>
-			<?php
-			$text = __( 'ThankYou For Registering.', 'simple-wp-events' );
-			wpe_get_thankyou_popup( $text );
-			?>
         </div>
     </div>
 <?php

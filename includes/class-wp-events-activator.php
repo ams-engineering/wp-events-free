@@ -88,6 +88,14 @@ class Wp_Events_Activator {
 			'disclaimer_checkbox'		  		 => 'I have read & understand your website Disclaimer. *',
 			'hearaboutus_options'		  		 => 'An Email I Received, Blog / Facebook, Internet / Search Engine, Landing Pages, Radio and TV, Link from another website, Mailing / Postcard, Newsletter, Newspaper, Other, Referral',
 			'subscriber_form_texting_permission' => 'I agree to receive texts at the number provided from [wpe_firm_name]. Frequency may vary and include information on appointments, events, and other marketing messages. Message/data rates may apply. To opt-out, text STOP at any time.',
+			'reg_enable_texting_permission'		 => 'yes',
+			'req_form_address1'					 => 'l_true',
+			'req_form_city'						 => 'l_true',
+			'req_form_state'					 => 'l_true',
+			'req_form_zip'						 => 'l_true',
+			'req_form_phone'					 => 'l_true',
+			'req_form_email'					 => 'l_true',
+			'req_subform_email'					 => 'l_true',
 		];
 
 		$this->wpe_save_default_options( $wpe_form_settings, $form_defaults, 'wpe_forms_settings' );
