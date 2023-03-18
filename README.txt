@@ -72,6 +72,7 @@ Coming Soon!
 3. General Settings
 4. Display Settings
 5. Forms Settings
+6. Mail Settings
 7. Event Archive Page
 8. Event Single Page
 9. Form Entries Page
