@@ -89,8 +89,9 @@ if ( ! function_exists( 'wpe_get_thankyou_popup' ) ) {
 	function wpe_get_thankyou_popup( $text ) {
 		?>
         <div class="thankyou-popup" style="display:none;">
-            <div class="t-y-inner"><span class="close-btn"></span>
-                <p><?php echo esc_html( $text ); ?></p>
+            <div class="t-y-inner">
+				<span class="close-btn"></span>
+				<p><?php echo esc_html( $text ); ?></p>
             </div>
         </div>
 		<?php
@@ -195,7 +196,7 @@ if ( ! function_exists( 'wpe_get_event_title' ) ) {
 		$target 		  = $wpe_external_url !== '' ? '_blank' : '';
 	?>
         <div class="wpe-title entry-title">
-            <a class="entry-title-link <?php echo wpe_dark_mode(); ?>" href="<?php echo esc_url( $href_link ) ?>" target="<?php esc_url( $target ) ?>" 
+            <a class="entry-title-link <?php echo wpe_dark_mode(); ?>" href="<?php echo esc_url( $href_link ) ?>" target="<?php echo esc_url( $target ) ?>" 
 			title="<?php echo get_the_title(); ?>"><?php echo get_the_title(); ?></a>
         </div>
 		<?php
@@ -342,6 +343,33 @@ if ( ! function_exists( 'wpe_get_taxonomy_page_title' ) ) {
 			echo esc_html( $post_title['events_post_name'] ) . ' Category: ' . ucwords( esc_html( $cat_title ) );   //Events Category: cat_name
 			?></h1>
 		<?php
+	}
+}
+
+
+if ( ! function_exists( 'wpe_get_pagination_list' ) ) {
+	/**
+     * Generates the pagination links fro archive page
+     *
+	 * @param $max_num_pages
+     *
+     * @since 1.0.448
+	 */
+	function wpe_get_pagination_list( $max_num_pages ) {
+
+		$pagination_args = [
+			'base'      => str_replace( 999999999, '%#%', esc_url( get_pagenum_link( 999999999 ) ) ),
+			'total'     => $max_num_pages,
+			'current'   => max( 1, wpe_get_events_paged_attribute() ),
+			'format'    => '?paged=%#%',
+			'type'      => 'list',
+			'prev_next' => TRUE,
+			'prev_text' => 'Previous',
+			'next_text' => 'Next',
+		];
+		if ( $pagination_list = paginate_links( apply_filters( 'wpe_pagination_args', $pagination_args ) ) ) {
+			echo '<div class="archive-pagination pagination wpe-pagination">' . esc_html( $pagination_list ) . '</div>';
+		}
 	}
 }
 

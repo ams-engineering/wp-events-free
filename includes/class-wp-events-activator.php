@@ -66,6 +66,7 @@ class Wp_Events_Activator {
 		self::$instance->default_form_settings();
 		self::$instance->default_display_settings();
 		self::$instance->default_firm_settings();
+		self::$instance->default_recaptcha_settings();
 	}
 
 	/**
@@ -113,6 +114,7 @@ class Wp_Events_Activator {
 			'button_text'	  => 'Register',
 			'closed_reg'	  => 'Event Seats Quota is Full',
 			'max_seats'	  	  => 10,
+			'past_event_text' => 'This event is over and registration has been closed.',
 		];
 
 		$this->wpe_save_default_options( $wpe_display_settings, $display_defaults, 'wpe_display_settings' );
@@ -147,6 +149,25 @@ class Wp_Events_Activator {
 		];
 
 		$this->wpe_save_default_options( $wpe_mail_settings, $email_defaults, 'wpe_mail_settings' );
+
+	}
+
+	/**
+	 * sets default values for recaptcha options
+	 *
+	 * @access private
+	 * @since  1.6.3
+	 */
+	private function default_recaptcha_settings() {
+		$wpe_recaptcha_settings = get_option( 'wpe_reCAPTCHA_settings' );
+
+		$recaptcha_defaults = [
+			'reCAPTCHA_type'	   => 'invisible',
+			'reCAPTCHA_site_key'   => '',
+			'reCAPTCHA_secret_key' => '',
+		];
+
+		$this->wpe_save_default_options( $wpe_recaptcha_settings, $recaptcha_defaults, 'wpe_reCAPTCHA_settings' );
 
 	}
 

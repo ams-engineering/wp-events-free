@@ -91,7 +91,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     $star = $req_city ? ' *' : '';
                     ?>
                     <div class="wpe-form-control wpe-field-container wpe-left-third">
-                        <?php if( $labels) { echo'<label for="wpe_city">' . __( 'City *', 'simple-wp-events' ) . $star . '</label>';}?>
+                        <?php if( $labels) { echo'<label for="wpe_city">' . __( 'City ', 'simple-wp-events' ) . $star . '</label>';}?>
                         <input class="wpe-field" type="text" name="wpe_city" id="wpe_city" <?php if( !$labels ) {?>placeholder="<?php _e( 'City', 'simple-wp-events' ); echo $star; ?>" <?php } echo $req_city ? 'required' : ''; ?>>
                         <small><?php _e( 'This field is required.', 'simple-wp-events' ); ?></small>
                     </div>
@@ -99,7 +99,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     $star = $req_state ? ' *' : '';
                     ?>
                     <div class="wpe-form-control wpe-field-container wpe-middle-third">
-                        <?php if( $labels) { echo'<label for="wpe_state">' . __( 'State *', 'simple-wp-events' ) . $star . '</label>';}?>
+                        <?php if( $labels) { echo'<label for="wpe_state">' . __( 'State ', 'simple-wp-events' ) . $star . '</label>';}?>
                         <input class="wpe-field" type="text" name="wpe_state" id="wpe_state" <?php if( !$labels ) {?>placeholder="<?php _e( 'State', 'simple-wp-events' ); echo $star; ?>" <?php } echo $req_state ? 'required' : ''; ?>>
                         <small><?php _e( 'This field is required.', 'simple-wp-events' ); ?></small>
                     </div>
@@ -107,9 +107,10 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     $star = $req_zip ? ' *' : '';
                     ?>
                     <div class="wpe-form-control wpe-field-container wpe-right-third">
-                        <?php if( $labels) { echo'<label for="wpe_zip">' . __( 'Zip', 'simple-wp-events' ) . $star . '</label>';}?>
-                        <input class="wpe-field" type="number" name="wpe_zip" id="wpe_zip" <?php if( !$labels ) {?>placeholder="<?php _e( 'Zip', 'simple-wp-events' ); echo $star; ?>" <?php } echo $req_zip ? 'required' : ''; ?>>
+                        <?php if( $labels) { echo'<label for="wpe_zip">' . __( 'Zip ', 'simple-wp-events' ) . $star . '</label>';}?>
+                        <input class="wpe-field" type="text" name="wpe_zip" id="wpe_zip" <?php if( !$labels ) {?>placeholder="<?php _e( 'Zip', 'simple-wp-events' ); echo $star; ?>" <?php } echo $req_zip ? 'required' : ''; ?>>
                         <small><?php _e( 'This field is required.', 'simple-wp-events' ); ?></small>
+                        <span class="wpe-zip-error-class"><?php _e( 'Please enter correct zip code.', 'simple-wp-events' ); ?></span>
                     </div>
                     <?php }?>
                 </div>
@@ -227,7 +228,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     ?>
                 <div class="form-flex">
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
-                        <div class="g-recaptcha" data-expired-callback="CaptchaExpired" data-sitekey="<?php echo esc_html( $site_key ); ?>" <?php if ( $captcha_options['reCAPTCHA_type'] === 'invisible' ) { echo 'data-size="invisible"'; } ?> ></div>
+                        <div class="g-recaptcha" data-expired-callback="CaptchaExpired" data-sitekey="<?php echo esc_attr( $site_key ); ?>" <?php if ( $captcha_options['reCAPTCHA_type'] === 'invisible' ) { echo 'data-size="invisible"'; } ?> ></div>
                         <small class="recaptcha-error"><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
                     </div>
                 </div>
@@ -239,7 +240,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     }
                     ?>
                     <div class="wpe-form-control wpe-field-container wpe-submit-button">
-                        <button id="wpe-button" class="button wpe-button"><?php echo apply_filters( 'wpe_registration_form_button_text',  esc_html( $form_button ) ); ?> </button>
+                        <button id="wpe-button" class="button wpe-button"><?php echo apply_filters( 'wpe_registration_form_button_text', esc_html( $form_button ) ); ?> </button>
                     </div>
                     <div class="wpe-button-loader"></div>
                 </form>

@@ -319,6 +319,14 @@ class Wp_Events_Admin_Settings {
 		);
 
 		add_settings_field(
+			'wpe_settings_past_event_text',
+			'Message for Past Events',
+			[ $this, 'wpe_settings_past_events_text_callback' ],
+			'wp_events_settings&tab=display',
+			'wpe_settings_display_section'
+		);
+
+		add_settings_field(
 			'wpe_settings_max_seats',
 			'Number of Seats per Registration',
 			[ $this, 'wpe_settings_max_seats_callback' ],
@@ -1042,7 +1050,7 @@ class Wp_Events_Admin_Settings {
 	    $option = get_option('wpe_settings');
 	    ?>
 	    <input pattern="^[A-Za-z-]+$" title="Only alphabets(a-z) are allowed" class="wpe-settings-field" name="wpe_settings[events_slug]" id="wpe_page_slug" type="text" value="<?php echo esc_attr( $option['events_slug'] ) ?: 'events';?>"/>
-        <a class="view-page" title="View Page" target="_blank" href="<?php echo get_site_url().'/'.esc_attr( $option['events_slug'] ); ?>"><span class="dashicons dashicons-external"></span></a>
+        <a class="view-page" title="View Page" target="_blank" href="<?php echo get_site_url() . '/' . esc_attr( $option['events_slug'] ); ?>"><span class="dashicons dashicons-external"></span></a>
         <small class="wpe-fields-description"><?php _e( 'Event Page Slug', 'simple-wp-events' ); ?></small>
 		<?php
 		delete_option('rewrite_rules');
@@ -1145,7 +1153,7 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_reg_enable_texting_permission_callback() {
 		?>
 	    <label class="wpe-checkbox">
-        <input name="wpe_forms_settings[reg_enable_texting_permission]" id="wpe_reg_enable_texting_permission" value="yes" type="checkbox" <?php echo isset($this->wpe_form_settings['reg_enable_texting_permission']) ? 'checked' : ''; ?> />
+        <input name="wpe_forms_settings[reg_enable_texting_permission]" id="wpe_reg_enable_texting_permission" value="yes" type="checkbox" <?php echo isset( $this->wpe_form_settings['reg_enable_texting_permission'] ) ? 'checked' : ''; ?> />
         <span class="slider round"></span>
     	</label>
         <small class=""><?php _e( 'Check To show the Texting permission field.', 'simple-wp-events' ); ?></small>
@@ -1801,6 +1809,21 @@ class Wp_Events_Admin_Settings {
         <input class="wpe-settings-field" name="wpe_display_settings[closed_reg]" id="wpe_closed_reg" type="text"
                value="<?php echo isset( $option['closed_reg'] ) ? esc_attr( $option['closed_reg'] ) : __( 'Event Seats Quota is Full', 'simple-wp-events' ); ?>"/>
         <small class="wpe-fields-description"><?php _e( 'Enter Text to display when Registrations are closed.', 'simple-wp-events' ); ?></small>
+		<?php
+	}
+
+	/**
+     * Text for past events message
+     *
+     * @access public
+     * @since 1.6.3
+	*/
+	public function wpe_settings_past_events_text_callback() {
+		$option = get_option( 'wpe_display_settings' );
+		?>
+        <input class="wpe-settings-field" name="wpe_display_settings[past_event_text]" id="wpe_past_event_text" type="text"
+               value="<?php echo isset( $option['past_event_text'] ) ? esc_attr( $option['past_event_text'] ) : 'This event is over and registration has been closed.'; ?>"/>
+        <small class="wpe-fields-description"><?php _e( 'Enter Text to replace registration form when event is over.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
