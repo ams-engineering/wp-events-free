@@ -853,6 +853,10 @@ body .entry-content .wpe-dark-mode .wpevent-card {
     color: #000;
 }
 
+.wpe-dark-mode li.wpe-calendar-list a {
+    color: #fff;
+}
+
 /*===========================================
                 Media Queries
 ============================================*/

@@ -38,6 +38,7 @@ It is packed with numerous features:
 ✔️ Easily manageable entries by viewing and filtering records from the dashboard
 ✔️ Custom notification templates
 ✔️ Export events, registrations, and subscribers to CSV file
+✔️ Dark mode for archive and single event display
 
 Just getting started? Visit the [documentation site](https://simplewpevents.com/docs/) to get set up.
  
@@ -74,8 +75,10 @@ Coming Soon!
 5. Forms Settings
 6. Mail Settings
 7. Event Archive Page
-8. Event Single Page
+8. Single Event Page
 9. Form Entries Page
+10. Archive Page in Dark Mode
+11. Single Event Page in Dark Mode
 
 == Changelog ==
 Version-1.7.2
