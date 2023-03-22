@@ -681,6 +681,9 @@ if( ! function_exists( 'wpe_get_allowed_html' ) ) {
 			'li' => array(
 				'class' => array(),
 			),
+			'strong' => array(
+				'class' => array(),
+			),
 		);
 
 		return $allowed_html;

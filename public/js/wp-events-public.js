@@ -68,6 +68,17 @@ jQuery(document).ready(function ($) {
 		return phoneReg.test( $phone );
 	}
 
+	/**
+	 * zip validate function
+	 * */
+	function validateZip( $zip ) {
+		var zipReg = /^\d{5}$/;
+		if( $zip.length != 5 || ! zipReg.test( $zip ) ) {
+			return false;
+		}
+		return true;
+	}
+
 	if ( $('body').hasClass('single-wp_events') || $('form').hasClass('wpe-subscribe-form') ) {
 		/**
 		 *Form Validation
@@ -131,6 +142,7 @@ jQuery(document).ready(function ($) {
 				}
 				input.parent().removeClass( 'correct-email' );
 				input.parent().removeClass( 'correct-phone' );
+				input.parent().removeClass( 'correct-zip' );
 				if ( input.attr( "id" ) == 'wpe_email' && ! ( input.parent().hasClass( 'error' ) ) ) {
 					if ( ! validateEmail( input.val() ) ) {
 						input.parent().addClass( 'correct-email' );
@@ -141,6 +153,13 @@ jQuery(document).ready(function ($) {
 				if ( input.val() != '' && input.attr( "id" ) == 'wpe_phone' && ! ( input.parent().hasClass( 'error' ) ) ) {
 					if ( ! validatePhone( input.val() ) ) {
 						input.parent().addClass( 'correct-phone' );
+						$('.wpe-form-control small').css('display', 'block');
+						valueFalse = 'dont Reload';
+					}
+				}
+				if ( input.attr( "id" ) == 'wpe_zip' && ! ( input.parent().hasClass( 'error' ) ) ) {
+					if ( ! validateZip( input.val() ) ) {
+						input.parent().addClass( 'correct-zip' );
 						$('.wpe-form-control small').css('display', 'block');
 						valueFalse = 'dont Reload';
 					}

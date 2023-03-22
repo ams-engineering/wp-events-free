@@ -50,69 +50,80 @@ get_header();
 						$start_tz_date   = new DateTime( date('Y-m-d H:i:s', get_post_meta( $post_id , 'wpevent-start-date-time', TRUE ) ), $set_timezone );
 						$end_tz_date   	 = new DateTime( date('Y-m-d H:i:s', get_post_meta( $post_id , 'wpevent-end-date-time', TRUE ) ), $set_timezone );
 						date_default_timezone_set( 'UTC' );
+						$image 			 = get_the_post_thumbnail();
+						$full_content 	 = ! empty( $image ) ? '' : 'wpe-full-content';
 						?>
                         <?php
                         echo apply_filters( 'wpe_single_title', '<h1 class="wpe-single-title">'. get_the_title() .'</h1>' );
                         ?>
-                        <div class="wpe-single-content">
-                            <span class="wpe-category"><?php
-	                            echo apply_filters( 'wpe_single_type', '<span class="wpe-terms"><strong>Type:&nbsp;</strong>' . esc_html( $wpe_type ) . '</span>' );
-	                            if( !empty( $terms ) ) {
-		                            $cat_html  = '';
-		                            foreach ( $terms as $term ) {
-			                            $cat_html .= '<a href="' . get_term_link( $term->term_id ) . '">' . $term->name . '</a>,&nbsp;';
-		                            }
-		                            if( $cat_html !== '' ) {
-			                            echo apply_filters( 'wpe_single_category', '<span class="wpe-type"><strong>Category:&nbsp;</strong>' . rtrim( wp_kses_post( $cat_html ), ',&nbsp;' ) . '</span>' );
-		                            }
-	                            }
-	                            ?>
-                            </span>
-                            <span class="wpe-complete-duration">
-                                <strong>Date: </strong><?php
-								if ( $start_date === $end_date ) {
-									echo date( 'F j', $start_date );
-								} else {
-									echo date( 'F j', $start_date ) . ' - ' . date( 'F j', $end_date );
-								} ?>
-                            </span>
-                            <span class="wpe-duration-date">
-                                <strong>Time: </strong><?php
-								echo date( 'h:i A', $start_time ) . ' - ' . date( 'h:i A', $end_time ); ?>
-                            </span>
-                            <?php if( $wpe_phone !== '' ) {?>
-                            <span class="wpe-duration-date">
-                                <strong>Phone: </strong><?php
-								echo '<a href="tel:'. esc_attr( $wpe_phone ) . '">' . esc_html( $wpe_phone ) . '</a>'; ?>
-                            </span>
-                            <?php  } ?>
-                            <span class="wpe-address">
-                                <?php
-                                $venue_html = '';
-                                if( $wpe_type !== 'webinar' ) {
-                                    if ( $wpe_venue !== '' ) {
-                                        $venue_html .= '<span class="wpe-venue">' . $wpe_venue . ',</span>';
-                                    }
-                                    if ( $wpe_addr !== '' ) {
-                                        $venue_html .= '&nbsp;<span class="wpe-addr">' . $wpe_addr . ',</span>';
-                                    }
-                                    if ( $wpe_city !== '' ) {
-                                        $venue_html .= '&nbsp;<span class="wpe-city">' . ucwords( $wpe_city ) . ',</span>';
-                                    }
-                                    if ( $wpe_state !== '' ) {
-                                        $venue_html .= '&nbsp;<span class="wpe-state">' . ucfirst( $wpe_state ) . '</span>';
-                                    }
-                                    if ( $wpe_country !== '' ) {
-                                        $venue_html .= '&nbsp;<span class="wpe-state">' . $wpe_country . '</span>';
-                                    }
-                                    if ( $venue_html !== '' ) {
-                                        echo '<strong>Venue: </strong>' . wp_kses( $venue_html, wpe_get_allowed_html() );
-                                    }
-                                }
-                                ?>
-                            </span>
-	                        <?php echo wpe_display_external_url_to_admin( $post_id );?>
-                        </div>
+						<div class="wpe-single-top">
+							<?php if( ! empty( $image ) ) { ?>
+							<div class="wpe-event-thumbnail">
+								<?php
+								echo $image; // Event Featured Image
+								?>
+							</div>
+							<?php } ?>
+							<div class="wpe-single-content <?php echo $full_content; ?>">
+								<span class="wpe-category"><?php
+									echo apply_filters( 'wpe_single_type', '<span class="wpe-terms"><strong>Type:&nbsp;</strong>' . esc_html( $wpe_type ) . '</span>' );
+									if( !empty( $terms ) ) {
+										$cat_html  = '';
+										foreach ( $terms as $term ) {
+											$cat_html .= '<a href="' . get_term_link( $term->term_id ) . '">' . $term->name . '</a>,&nbsp;';
+										}
+										if( $cat_html !== '' ) {
+											echo apply_filters( 'wpe_single_category', '<span class="wpe-type"><strong>Category:&nbsp;</strong>' . rtrim( wp_kses_post( $cat_html ), ',&nbsp;' ) . '</span>' );
+										}
+									}
+									?>
+								</span>
+								<span class="wpe-complete-duration">
+									<strong>Date: </strong><?php
+									if ( $start_date === $end_date ) {
+										echo date( 'F j', $start_date );
+									} else {
+										echo date( 'F j', $start_date ) . ' - ' . date( 'F j', $end_date );
+									} ?>
+								</span>
+								<span class="wpe-duration-date">
+									<strong>Time: </strong><?php
+									echo date( 'h:i A', $start_time ) . ' - ' . date( 'h:i A', $end_time ); ?>
+								</span>
+								<?php if( $wpe_phone !== '' ) {?>
+								<span class="wpe-duration-date">
+									<strong>Phone: </strong><?php
+									echo "<a href='tel:". esc_attr( $wpe_phone ) ."'>" . esc_html( $wpe_phone ) . "</a>"; ?>
+								</span>
+								<?php  } ?>
+								<span class="wpe-address">
+									<?php
+									$venue_html = '';
+									if( $wpe_type !== 'webinar' ) {
+										if ( $wpe_venue !== '' ) {
+											$venue_html .= '<span class="wpe-venue">' . $wpe_venue . ',</span>';
+										}
+										if ( $wpe_addr !== '' ) {
+											$venue_html .= '&nbsp;<span class="wpe-addr">' . $wpe_addr . ',</span>';
+										}
+										if ( $wpe_city !== '' ) {
+											$venue_html .= '&nbsp;<span class="wpe-city">' . ucwords( $wpe_city ) . ',</span>';
+										}
+										if ( $wpe_state !== '' ) {
+											$venue_html .= '&nbsp;<span class="wpe-state">' . ucfirst( $wpe_state ) . '</span>';
+										}
+										if ( $wpe_country !== '' ) {
+											$venue_html .= '&nbsp;<span class="wpe-state">' . $wpe_country . '</span>';
+										}
+										if ( $venue_html !== '' ) {
+											echo '<strong>Venue: </strong>' . wp_kses( $venue_html, wpe_get_allowed_html() );
+										}
+									}
+									?>
+								</span>
+								<?php echo wpe_display_external_url_to_admin( $post_id );?>
+							</div>
+						</div>
                         <div class="wpe-add-to-calendar">
 							<?php
 							if ( $gmap_url !== '' ) {
@@ -151,11 +162,6 @@ get_header();
                                 </li>
                             </ul>
                         </div>
-                        <div class="wpe-event-thumbnail">
-							<?php
-							echo get_the_post_thumbnail();                // Event Featured Image
-							?>
-                        </div>
                         <div class="wpe-description">
                             <?php
                             echo get_the_content();                   // Event Content
@@ -163,28 +169,39 @@ get_header();
                         </div>
 						<?php
 						$close_event = get_post_meta( $post_id, 'wpevent-close-reg', true );
-						if ( $booked_seats < $seats && $close_event !== 'yes' ) {  // booked seats is less than available seats and event is not closed
-							if ( $end_date_time < strtotime( current_time( 'mysql' ) ) ) {              //current datetime is greater than event end datetime
-								echo __( 'Event is due and cannot be registered at the moment', 'simple-wp-events' );
-							} else {
-								/**
-								 * Prints Registration Form
-								 *
-								 * @since  1.0.0
-								 * @action wpe_registration_form
-								 */
-								if( empty( $post->post_password ) || !post_password_required() ){
-									// do some stuff
-									do_action ( 'wp_events_registration_form' );                          // Displays Events Registration Form
-									$text = __( 'ThankYou For Registering.', 'simple-wp-events' );
-									wpe_get_thankyou_popup( $text );
-								}
+						if ( $end_date_time < strtotime( current_time( 'mysql' ) ) ) { //current datetime is greater than event end datetime
+							?> <div class="wpe-past-event-msg"> <?php
+							$option = get_option( 'wpe_display_settings' );
+							echo esc_html( $option['past_event_text'] );
+							?> </div> <?php
+						} else if ( $booked_seats < $seats && $close_event !== 'yes' ) {  // booked seats is less than available seats and event is not closed  
+							/**
+							 * Prints Registration Form
+							 *
+							 * @since  1.0.0
+							 * @action wpe_registration_form
+							 */
+							if( empty( $post->post_password ) || !post_password_required() ){
+								// do some stuff
+								do_action ( 'wp_events_registration_form' );                          // Displays Events Registration Form
+								$text = __( 'ThankYou For Registering.', 'simple-wp-events' );
+								wpe_get_thankyou_popup( $text );
 							}
 						} 
 						else {
-							$option = get_option( 'wpe_display_settings' );							// Displays Text when Waitlisting Form is hide
-							$text   = $option['closed_reg'];
-							echo esc_html( $text );							 
+							$option 		 = get_option( 'wpe_forms_settings' );
+							$wailtist_form   = $option['waitlist_form'];
+							if ( $wailtist_form ) {																	// Displays Events Waitlisting Form
+								do_action( 'wp_events_waitlist_form' );
+								$text = __( 'ThankYou For Your Interest.', 'simple-wp-events' );
+								wpe_get_thankyou_popup( $text );
+							} else {
+								?> <div class="wpe-close-reg-msg"> <?php
+								$option = get_option( 'wpe_display_settings' );							// Displays Text when Waitlisting Form is hide
+								$text   = wpe_sanitize( $option['closed_reg'] );
+								echo esc_html( $text );
+								?> </div> <?php
+							}							 
 						}
 					endwhile;
 				endif;

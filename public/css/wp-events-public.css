@@ -512,11 +512,29 @@ input[type="text"], input[type="email"], input[type="url"], input[type="password
     list-style-type: inherit;
 }
 
+.wpevents-container .wpe-single-top {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
+.wpevents-container .wpe-event-thumbnail {
+    width: 53%;
+    overflow: hidden;
+}
+
 .wpevents-container .wpe-single-content {
     background: #eee;
-    padding: 20px;
+    padding: 10px 20px;
     border: 1px solid #ccc;
     margin-bottom: 28px;
+    width: 43%;
+}
+
+.wpevents-container .wpe-full-content {
+    width: 100%;
 }
 
 span.wpe-address span {
@@ -528,8 +546,9 @@ span.wpe-address span {
     margin-bottom: 25px;
 }
 
-.wpe-form-control small {
-    display: none;
+
+.wpe-form-control.error small {
+    display: block;
 }
 
 .wpe-form-control {
@@ -579,13 +598,6 @@ span.wpe-detail-button.wpe-active:after {
 
 .wpe-archive-content {
     padding-top: 20px;
-}
-
-/* Chrome, Safari, Edge, Opera */
-input.wpe-field::-webkit-outer-spin-button,
-input.wpe-field::-webkit-inner-spin-button {
-    -webkit-appearance: none;
-    margin: 0;
 }
 
 .wpe-button-loader {
@@ -759,6 +771,13 @@ body .content .entry .wpe-event img {
 
 .form-flex {
     width: 100%;
+}
+
+.wpe-past-event-msg,
+.wpe-close-reg-msg {
+    color: red;
+    font-style: italic;
+    font-weight: bold;
 }
 
 /*===========================================

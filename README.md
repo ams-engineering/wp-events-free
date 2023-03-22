@@ -3,7 +3,7 @@ Contributors: wpminds, noorshuja
 Tags: events, seminars, webinars, calendar, registrations
 Donate link: https://wpminds.com/
 Requires at least: 5.0
-Stable tag: 1.6.2
+Stable tag: 1.7.2
 Tested up to: 6.0
 Requires PHP: 7.0
 License: GPL-2.0+
@@ -58,7 +58,7 @@ Installing the plugin is easy. Just follow one of the following methods:
 
 1. From the dashboard of your site, navigate to Plugins --> Add New.
 2. Select the Upload option and hit "Choose File".
-3. When the popup appears select the wp-events.zip file from your desktop.
+3. When the popup appears select the simple-wp-events.zip file from your desktop.
 4. Follow the on-screen instructions and wait as the upload completes.
 5. When it's finished, activate the plugin via the prompt. A message will show confirming activation was successful.
 6. Don't forget to configure plugin settings to customize it your needs before starting to use it.
@@ -78,6 +78,17 @@ Coming Soon!
 9. Form Entries Page
 
 == Changelog ==
+Version-1.7.2
+Fixed: Styling of dropdown fields for mozilla firefox.
+
+Version-1.7.1
+Update: Added restrictions for zipcode field.
+Update: Changed layout of image and information box on single event page.
+Fixed: HTML structure for the archive page.
+
+Version-1.6.3
+Added: Option to change the message that replaces registration form when event is over.
+
 Version-1.6.2
 Update: Made phone number field on add event page as optional.
 Added: Input mask for phone number field on add event page.

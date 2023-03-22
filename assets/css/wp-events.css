@@ -31,7 +31,7 @@ body .wpe-form-control .wpe-field {
     max-width: 100%;
     width: 100%;
     min-height: 48px;
-    padding: 0 15px;
+    padding: 15px;
     box-sizing: border-box;
 }
 
@@ -42,7 +42,7 @@ body .wpe-form-control .wpe-field {
 } */
 
 .wpe-form-control small, .wpe-above-error-field, .wpe-form-control .wpe-email-error-class,
-.wpe-form-control .wpe-phone-error-class {
+.wpe-form-control .wpe-phone-error-class, .wpe-form-control .wpe-zip-error-class {
     color: var(--error-color);
     /*position: absolute;*/
     /*bottom: 0;*/
@@ -57,7 +57,7 @@ body .wpe-form-control .wpe-field {
 
 }
 
-.wpe-email-error-class, .wpe-phone-error-class {
+.wpe-email-error-class, .wpe-phone-error-class, .wpe-zip-error-class {
     font-size: smaller;
 }
 
@@ -87,7 +87,8 @@ body .wpe-form-control .wpe-field {
 
 .wpe-form-control.error small, .wpe-above-error-field.error,
 .wpe-form-control.correct-email .wpe-email-error-class,
-.wpe-form-control.correct-phone .wpe-phone-error-class {
+.wpe-form-control.correct-phone .wpe-phone-error-class,
+.wpe-form-control.correct-zip .wpe-zip-error-class {
     visibility: visible;
     display: block;
 }

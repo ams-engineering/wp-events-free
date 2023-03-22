@@ -1,3 +1,14 @@
+Version-1.7.2
+Fixed: Styling of dropdown fields for mozilla firefox.
+
+Version-1.7.1
+Update: Added restrictions for zipcode field.
+Update: Changed layout of image and information box on single event page.
+Fixed: HTML structure for the archive page.
+
+Version-1.6.3
+Added: Option to change the message that replaces registration form when event is over.
+
 Version-1.6.2
 Update: Made phone number field on add event page as optional.
 Added: Input mask for phone number field on add event page.
