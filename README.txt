@@ -1,5 +1,5 @@
 === Simple WP Events ===
-Contributors: noorshuja
+Contributors: wpminds, noorshuja
 Tags: events, seminars, webinars, calendar, registrations
 Donate link: https://wpminds.com/
 Requires at least: 5.0
@@ -98,55 +98,6 @@ Added: Option to make the form fields required or optional.
 Added: Option to bulk update existing email confirmation.
 Update: Add registerant address to the export registrations csv.
 Added: jQuery input mask for the phone number formatting.
-
-Version-1.5.3
-Update: Past events are changed to draft so that they are not indexed.
-Added: Auto formatting for phone number field.
-
-Version-1.5.2
-Fixed: Deleted entries issue.
-Added: Texting permission option for registration form.
-
-Version-1.5.0
-Update: Moved MailChimp functionality to a separate addon.
-Added:  Send registrants data to MailChimp.
-
-Version-1.4.3
-Added: Register button for single events in widget shortcode.
-Added: Option to export events (all, future, past, on going) to CSV.
-Added: Option to export registrations (with dates nad event title filters) to CSV.
-Added: Option to export subscriptions to CSV.
-Fixed: Add to calendar option for google calendar when start and end dates are same.
-Added: Option to disable archive page.
-Fixed: Captcha execution on subscribers form.
-Fixed: Location and date filters in shortcode.
-Fixed: location duplication issue.
-Fixed: CSS for calendar list dropdown.
-
-Version-1.4.2
-Updated: Subscriber form layout for number and permission fields.
-Fixed: Class conflict with form fence plugin.
-Fixed: Location not displaying properly in widget.
-
-Version 1.4.1
-Fixed:  CSS conflict with list style.
-Fixed:  Forms CSS for show/hide fields.
-
-Version 1.4.0
-Added: Metabox to limit seats per registration for each event.
-Fixed: List style and indentation on archive and single event page.
-Fixed: Edit entry not working for subscriptions.
-Fixed: Empty venue when no location selected.
-Added: Settings fields to show/hide optional fields in registration/subscribers forms.
-Added: Filter events by type on posts screen.
-Added: Option to turn webinar confirmation email on/off.
-Added: Duplicate event option to create a copy of the same events.
-Added: WP-editor for email templates and forms descriptions.
-Updated: Background of meta box heading and event type field to make it stand out.
-Added: Checkbox to show/hide events on the archive page.
-Added: Unique class selector for each event on the archive page.
-Added: Type attribute in the shortcode to display events of one type only.
-Added: Settings field for redirect URL for event type webinar.
 
 == Upgrade Notice ==
 Coming Soon!
