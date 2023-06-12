@@ -847,6 +847,9 @@ if( ! function_exists( 'wpe_auto_email' ) ) {
 		$from_email      = $mail_options['mail_from'];
 		$headers[]       = 'Content-Type: text/html;';
 		$headers[]       = "from :$from_name <$from_email>";
+		ob_start();
+		wpe_get_event_address( $post_id );
+		$venue = ob_get_clean();
 		if( ! empty( $results ) ) {
 			foreach ( $results as $result ) {
 				if( $result->wpe_status == 1 || $result->wpe_status == 3 ) {
@@ -858,7 +861,7 @@ if( ! function_exists( 'wpe_auto_email' ) ) {
 					<strong>Name:</strong> '. get_the_title( $post_id ) .'<br>
 					<strong>Date:</strong> '. esc_html( $start ) .'<br>
 					<strong>Time:</strong> '. wpe_get_event_time( $post_id ) .'<br>
-					'. wpe_get_event_address( $post_id ) .'<br>
+					'. $venue .'<br>
 					If you have any questions, please feel free to contact us at our office number or via email.<br><br>
 					We look forward to seeing you.<br><br>
 					Sincerely,';
