@@ -823,6 +823,54 @@ if( ! function_exists( 'wpe_get_current_post_type' ) ) {
 	}
 }
 
+if( ! function_exists( 'wpe_auto_email' ) ) {
+	/**
+	 * Calls mail function for reminder emails
+	 * 
+	 * @param int $post_id
+	 *
+	 * @since 1.8.0
+	 * @return string
+	 */
+	function wpe_auto_email( $post_id ) {
+		global $wpdb;
+		$mail_options    = get_option( 'wpe_mail_settings' );
+		$firm_info       = get_option( 'wpe_firm_settings' );
+		$event_date_time = wpevent_date_time( $post_id );
+		$start_date      = isset( $event_date_time['start_date'] ) ? strtotime( $event_date_time['start_date'] ) : 0;
+		$end_date        = isset( $event_date_time['end_date'] ) ? strtotime( $event_date_time['end_date'] ) : 0;
+		$start           = date( 'F j', $start_date );
+		$table_name      = $wpdb->prefix . 'events_registration';
+		$results         = $wpdb->get_results( $wpdb->prepare('SELECT * FROM '. $table_name .' WHERE post_id = %d', $post_id ) );
+		$subject         = 'Reminder: '. get_the_title( $post_id ) .' is happening soon!';
+		$from_name       = $firm_info['mail_from_name'];
+		$from_email      = $mail_options['mail_from'];
+		$headers[]       = 'Content-Type: text/html;';
+		$headers[]       = "from :$from_name <$from_email>";
+		if( ! empty( $results ) ) {
+			foreach ( $results as $result ) {
+				if( $result->wpe_status == 1 || $result->wpe_status == 3 ) {
+					$email   = esc_attr( $result->email );
+					$message = 'Dear '. $result->first_name .' '. $result->last_name .',<br><br>
+					This is an auto-generated reminder of your registration for our upcoming event.<br><br>
+					
+					The details of the event are following:<br>
+					<strong>Name:</strong> '. get_the_title( $post_id ) .'<br>
+					<strong>Date:</strong> '. esc_html( $start ) .'<br>
+					<strong>Time:</strong> '. wpe_get_event_time( $post_id ) .'<br>
+					'. wpe_get_event_address( $post_id ) .'<br>
+					If you have any questions, please feel free to contact us at our office number or via email.<br><br>
+					We look forward to seeing you.<br><br>
+					Sincerely,';
+					wp_mail( $email, $subject, $message, $headers );
+				}
+			}
+			return 1;
+		}
+		return 2;
+	}
+}
+
 if( ! function_exists( 'wpe_get_active_posts' ) ) {
 	/**
 	 * Returns number of posts to be displayed on
