@@ -1,3 +1,21 @@
+Version-1.8.0
+Update: Changed layout for the view entry page.
+Added: Checkboxes for all day event and no end time.
+Fixed: Datepicker layout issue.
+Update: Added zip code to registrants csv file.
+Update: Replaced thank you page text field with dropdown list of all pages.
+Fixed: removed empty field headings from email.
+Fixed: Export entries csv file.
+Added: Validation errors for admin side metaboxes.
+Fixed: Meta description tags for archive and single event pages.
+Fixed: Height of banner image on archive page.
+Added: Option to select separate thank you page for each event.
+Update: Set default value for seats dropdown to 1.
+Fixed: Validation errors for registration form.
+Added: Manual email reminders for the events.
+Added: Settings field for setting admin timezone.
+Fixed: Event times when adding events to calendars or downloading ics files.
+
 Version-1.7.2
 Fixed: Styling of dropdown fields for mozilla firefox.
 
@@ -19,9 +37,12 @@ Added: Attribute to change single-button text in shortcode widget.
 
 Version-1.6.0
 Added: Form validation errors.
-Added: Option to send the texting permission info to email.
+Added: Option to display waitlist form when seats are full or registrations are closed.
+Added: Option to send the texting permission info to MailChimp and email.
+Added: Generate URL for Facebook landing page from edit event page.
 Added: Dark mode in display settings.
 Added: User notification checkbox for edit entry.
+Added: Category column in subscribers' entries.
 Added: Filters to format date on archive page.
 Fixed: CSS for texting permission checkbox.
 Update: enqueue select2 file locally.
@@ -36,11 +57,20 @@ Added: Auto formatting for phone number field.
 
 Version-1.5.2
 Fixed: Deleted entries issue.
+Fixed: Pagination for list and grid views.
 Added: Texting permission option for registration form.
+
+Version-1.5.1
+Added: Option to choose number of events per row in grid view.
+Fixed: Responsive issue for grid and calendar layouts.
+Fixed: Display Subscriber form instead of calendar when there are no events.
 
 Version-1.5.0
 Update: Moved MailChimp functionality to a separate addon.
 Added:  Send registrants data to MailChimp.
+Added:  Calendar and grid views for archive page.
+Added:  Option to import events from CSV file.
+Added:  Option to make archive page full width.
 
 Version-1.4.3
 Added: Register button for single events in widget shortcode.
@@ -68,6 +98,7 @@ Added: Metabox to limit seats per registration for each event.
 Fixed: List style and indentation on archive and single event page.
 Fixed: Edit entry not working for subscriptions.
 Fixed: Empty venue when no location selected.
+Added: Zapier Integration Add-on
 Added: Settings fields to show/hide optional fields in registration/subscribers forms.
 Added: Filter events by type on posts screen.
 Added: Option to turn webinar confirmation email on/off.
@@ -99,7 +130,9 @@ Fixed: Options for hear about us dropdown.
 
 Version 1.3.0
 Added:  Option to choose type of captcha (invisibe/checkbox).
-Added:  Locations post type to organize locations data.
+Added:  Locations post type to organize locations data
+Added:  Google maps integration.
+Added:  Option to choose type of map displayed on landing page.
 
 Version 1.2.7
 Fixed: CSS for archive details section.
@@ -155,6 +188,7 @@ Fixed: Content width under event details button on archive page.
 
 Version 1.1.1
 Added: Empty Trash button for permanently deleting bulk entries on trash tab.
+Added: Mailchimp integration.
 Added: Register button on events archive.
 Added: Option to set Maximum number of bookings per registration
 Added: Post screen columns for author, total seats and remaining seats.

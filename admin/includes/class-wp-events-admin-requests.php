@@ -46,7 +46,7 @@ class Wp_Admin_Request {
 
         if( $admin_noification === 'true' ) {
             $admin_subject = 'Entry Edited for '.do_shortcode("[wpe_event_name]");
-            $admin_message = 'This is an auto-generated email confirming change in an event reservation made from your website. A notification email has also been resent to the registrant, ( [wpe_user_first_name] ) at [wpe_user_email].<br />
+            $admin_message = 'This is an auto-generated email confirming change in an event reservation made from your website.<br />
             <br />
             Event Details:<br />
             [wpe_event_details]<br />
@@ -205,10 +205,11 @@ class Wp_Admin_Request {
     public function wpe_create_location() {
         $location_data = wpe_sanitize( $_POST['location'] );
         $postTitle     = stripcslashes( $location_data['venue'] );
-        if ( $location_data['venue'] === '' || $location_data['address'] === '' 
-        || $location_data['country'] === '' || $location_data['city'] === ''
-        || $location_data['state'] === '' || $location_data['zip'] === '' ) {
-            wpe_send_ajax_response( 'Please fill all fields!' );
+        if( 'Select Country' == $location_data['country'] ) {
+            $location_data['country'] = '';
+        }
+        if ( $location_data['venue'] === '' ) {
+            wpe_send_ajax_response( 'Please enter location(venue) title' );
         }
         $post_arr = array(
             'post_title'   => $location_data['venue'],
@@ -249,7 +250,7 @@ class Wp_Admin_Request {
      */
     public function wpe_update_confirmation() {
         $type    = wpe_sanitize( $_POST['type'] );
-        $message = wpe_sanitize( $_POST['message'] );
+        $message = wp_kses( $_POST['message'], wpe_get_allowed_html() );
         $args    = [
 			'post_type'      	 => 'wp_events',
 			'posts_per_page' 	 => -1,
@@ -272,5 +273,16 @@ class Wp_Admin_Request {
             }
         }
         wpe_send_ajax_response( 0 );
+    }
+
+    /**
+     * Ajax request for sending event reminder to registrants
+     * 
+     * @since 1.7.6
+     */
+    public function wpe_event_reminder() {
+        $post_id  = $_POST['postID'];
+        $response = wpe_auto_email( $post_id );
+        wpe_send_ajax_response( $response );
     }
 }

@@ -33,23 +33,33 @@ get_header();
 						$city_meta  	 = $wpe_location != 0 ? 'wpevent-loc-city' : 'wpevent-city';
 						$state_meta 	 = $wpe_location != 0 ? 'wpevent-loc-state' : 'wpevent-state';
 						$country_meta 	 = $wpe_location != 0 ? 'wpevent-loc-country' : 'wpevent-country';
-						$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE );
-						$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE );
-						$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE );
-						$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE );
-						$wpe_country     = get_post_meta( $location_id, $country_meta, TRUE );
+						$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE ) ?? '';
+						$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE ) ?? '';
+						$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE ) ?? '';
+						$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE ) ?? '';
+						$wpe_country     = get_post_meta( $location_id, $country_meta, TRUE ) ?? '';
 						$seats           = get_post_meta( $post_id, 'wpevent-seats', TRUE );
+						$wpe_all_day 	 = get_post_meta( $post_id, 'wpevent-all-day', TRUE );
+						$wpe_no_endtime  = get_post_meta( $post_id, 'wpevent-no-endtime', TRUE );
+						if( $wpe_no_endtime ) {
+							$end_time = strtotime('23:59');
+						}
 						$booked_seats 	 = get_booked_seats( $post_id ); //Function defined in wp-events-global-functions.php
 						$gmap_url        = get_post_meta( $post_id, 'wpevent-map-url', TRUE );                   // google map URL
 						$post_type       = 'wp_events';
 						$terms           = wp_get_object_terms( $post_id, 'wpevents-category' );
 						$wpe_type        = get_post_meta( $post_id, 'wpevent-type', TRUE );
 						$wpe_phone       = get_post_meta( $post_id, 'wpevent-phone', true );
-						date_default_timezone_set( wpe_get_user_timezone() );
+						$tzString 		 = wpe_get_admin_timezone();
+						$tz 			 = new \DateTimeZone($tzString);
+						$admin_offset 	 = ( $tz->getOffset(new \DateTime()))/3600;
+						$tzString 		 = wpe_get_user_timezone();
+						$tz 			 = new \DateTimeZone($tzString);
+						$user_offset 	 = ( $tz->getOffset(new \DateTime()))/3600;
+						$total_offset 	 = $user_offset - $admin_offset;
 						$set_timezone 	 = new DateTimeZone( wpe_get_user_timezone() );
-						$start_tz_date   = new DateTime( date('Y-m-d H:i:s', get_post_meta( $post_id , 'wpevent-start-date-time', TRUE ) ), $set_timezone );
-						$end_tz_date   	 = new DateTime( date('Y-m-d H:i:s', get_post_meta( $post_id , 'wpevent-end-date-time', TRUE ) ), $set_timezone );
-						date_default_timezone_set( 'UTC' );
+						$start_tz_date   = new DateTime( date('Y-m-d H:i:s', strtotime('+'. $total_offset .' hours', get_post_meta( $post_id , 'wpevent-start-date-time', TRUE ) ) ), $set_timezone );
+						$end_tz_date   	 = new DateTime( date('Y-m-d H:i:s', strtotime('+'. $total_offset .' hours', get_post_meta( $post_id , 'wpevent-end-date-time', TRUE ) ) ), $set_timezone );
 						$image 			 = get_the_post_thumbnail();
 						$full_content 	 = ! empty( $image ) ? '' : 'wpe-full-content';
 						?>
@@ -87,8 +97,10 @@ get_header();
 									} ?>
 								</span>
 								<span class="wpe-duration-date">
-									<strong>Time: </strong><?php
-									echo date( 'h:i A', $start_time ) . ' - ' . date( 'h:i A', $end_time ); ?>
+									<strong>Time: </strong>
+									<?php
+									echo wpe_get_event_time( $post_id );
+									?>
 								</span>
 								<?php if( $wpe_phone !== '' ) {?>
 								<span class="wpe-duration-date">
@@ -101,19 +113,19 @@ get_header();
 									$venue_html = '';
 									if( $wpe_type !== 'webinar' ) {
 										if ( $wpe_venue !== '' ) {
-											$venue_html .= '<span class="wpe-venue">' . $wpe_venue . ',</span>';
+											$venue_html .= '<span class="wpe-venue">' . $wpe_venue . '</span>';
 										}
 										if ( $wpe_addr !== '' ) {
-											$venue_html .= '&nbsp;<span class="wpe-addr">' . $wpe_addr . ',</span>';
+											$venue_html .= '<span class="wpe-addr">,&nbsp;' . $wpe_addr . '</span>';
 										}
 										if ( $wpe_city !== '' ) {
-											$venue_html .= '&nbsp;<span class="wpe-city">' . ucwords( $wpe_city ) . ',</span>';
+											$venue_html .= '<span class="wpe-city">,&nbsp;' . ucwords( $wpe_city ) . '</span>';
 										}
 										if ( $wpe_state !== '' ) {
-											$venue_html .= '&nbsp;<span class="wpe-state">' . ucfirst( $wpe_state ) . '</span>';
+											$venue_html .= '<span class="wpe-state">,&nbsp;' . ucfirst( $wpe_state ) . '</span>';
 										}
 										if ( $wpe_country !== '' ) {
-											$venue_html .= '&nbsp;<span class="wpe-state">' . $wpe_country . '</span>';
+											$venue_html .= '<span class="wpe-state">,&nbsp;' . $wpe_country . '</span>';
 										}
 										if ( $venue_html !== '' ) {
 											echo '<strong>Venue: </strong>' . wp_kses( $venue_html, wpe_get_allowed_html() );
@@ -131,11 +143,23 @@ get_header();
 							}
 							//Replacing Spaces with + symbol to add in Query String
 							$e_title         = preg_replace( '/\s+/', '+', get_the_title() );
-							$e_date          = date( 'Ymd', $start_date ) . 'T' . date( 'His', $start_time ) . '/' . date( 'Ymd', $end_date ) . 'T' . date( 'His', $end_time );
+							$s_date 		 = new DateTime(date( 'Ymd', $start_date ) . 'T' . date( 'His', $start_time ));
+							$e_date 		 = new DateTime(date( 'Ymd', $end_date ) . 'T' . date( 'His', $end_time ));
+							if( $wpe_all_day ) {
+								$c_date = $s_date->format('Ymd') . '/' . $e_date->format('Ymd');
+							} else {
+								$c_date = $s_date->format('Ymd') . 'T' . $s_date->format('His') . '/' . $e_date->format('Ymd') . 'T' . $e_date->format('His');
+							}
 							$e_description   = preg_replace( '/\s+/', '+', wp_trim_words( get_the_excerpt(), 10, ' ' ) );
 							$e_address       = preg_replace( '/\s+/', '+', $wpe_venue . '+' . $wpe_addr . '+' . $wpe_city . '+' . $wpe_country );
-							$add_to_calendar = 'https://www.google.com/calendar/event?action=TEMPLATE&amp;text=' . $e_title . '&amp;dates=' . $e_date . '&amp;details=' . $e_description . '&amp;location=' . $e_address . '&amp;trp=false&amp;' . 'sprop=website:' . get_site_url() . '&amp;ctz=' . date( 'e', strtotime( wp_timezone_string() ) );
-							$add_to_outlook  = 'https://outlook.office.com/owa/?path=/calendar/action/compose&rru=addevent&startdt=' . date( 'Y-m-d', $start_date ) . 'T' . date( 'H:i:s', $start_time ) . '&enddt=' . date( 'Y-m-d', $end_date ) . 'T' . date( 'H:i:s', $end_time ) . '&subject=' . get_the_title() . '&location=' . $e_address . '&body=' . $e_description;
+							$add_to_calendar = 'https://www.google.com/calendar/event?action=TEMPLATE&amp;text=' . $e_title . '&amp;dates=' . $c_date . '&amp;details=' . $e_description . '&amp;location=' . $e_address . '&amp;trp=false&amp;' . 'sprop=website:' . get_site_url() . '&amp;ctz=' . wpe_get_admin_timezone();
+							strpos( (string)$total_offset, '-' ) !== false ? $s_date->add(new DateInterval("PT" . absint( $total_offset ) . "H")) : $s_date->sub(new DateInterval("PT" . absint( $total_offset ) . "H"));
+							strpos( (string)$total_offset, '-' ) !== false ? $e_date->add(new DateInterval("PT" . absint( $total_offset ) . "H")) : $e_date->sub(new DateInterval("PT" . absint( $total_offset ) . "H"));
+							if( $wpe_all_day ) {
+								$add_to_outlook  = 'https://outlook.live.com/calendar/0/deeplink/compose?allday=true&body='. $e_description .'&enddt=' . $end_tz_date->format('Y-m-d') . '&location=' . $e_address . '&path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&startdt=' . $start_tz_date->format('Y-m-d') . '&subject=' . get_the_title();
+							} else {
+								$add_to_outlook  = 'https://outlook.live.com/calendar/0/deeplink/compose?body='. $e_description .'&enddt=' . $end_tz_date->format('Y-m-d') . 'T' . $end_tz_date->format('H:i:s') . '&location=' . $e_address . '&path=%2Fcalendar%2Faction%2Fcompose&rru=addevent&startdt=' . $start_tz_date->format('Y-m-d') . 'T' . $start_tz_date->format('H:i:s') . '&subject=' . get_the_title();
+							}
 							?>
                             <ul class="wpe-calendar-ul">
                                 <li class="wpe-calendar-list"><a href="javascript:void(0)">+ Calendar</a>

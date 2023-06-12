@@ -120,30 +120,32 @@ if ( ! function_exists( 'wpe_get_event_address' ) ) {
 			$city_meta  	 = $wpe_location != 0 ? 'wpevent-loc-city' : 'wpevent-city';
 			$state_meta 	 = $wpe_location != 0 ? 'wpevent-loc-state' : 'wpevent-state';
 			$country_meta 	 = $wpe_location != 0 ? 'wpevent-loc-country' : 'wpevent-country';
-			$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE );
-			$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE );
-			$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE );
-			$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE );
-			$wpe_country     = get_post_meta( $location_id, $country_meta, TRUE );
+			$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE ) ?? '';
+			$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE ) ?? '';
+			$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE ) ?? '';
+			$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE ) ?? '';
+			$wpe_country     = get_post_meta( $location_id, $country_meta, TRUE ) ?? '';
 			$venue_html  = '';
 			if ( $wpe_venue !== '' ) {
-				$venue_html .= '<span class="wpe-venue">' . $wpe_venue . ',</span>';
+				$venue_html .= '<span class="wpe-venue">' . $wpe_venue . '</span>';
 			}
 			if ( $wpe_addr !== '' ) {
-				$venue_html .= '&nbsp;<span class="wpe-addr">' . $wpe_addr . ',</span>';
+				$venue_html .= '<span class="wpe-addr">, ' . $wpe_addr . '</span>';
 			}
 			if ( $wpe_city !== '' ) {
-				$venue_html .= '&nbsp;<span class="wpe-city">' . ucwords( $wpe_city ) . ',</span>';
+				$venue_html .= '<span class="wpe-city">, ' . ucwords( $wpe_city ) . '</span>';
 			}
 			if ( $wpe_state !== '' ) {
-				$venue_html .= '&nbsp;<span class="wpe-state">' . ucfirst( $wpe_state ) . '</span>';
+				$venue_html .= '<span class="wpe-state">, ' . ucfirst( $wpe_state ) . '</span>';
 			}
 			if ( $wpe_country !== '' ) {
-				$venue_html .= '&nbsp;<span class="wpe-state">' . $wpe_country . '</span>';
+				$venue_html .= '<span class="wpe-state">, ' . $wpe_country . '</span>';
 			}
 			if ( $venue_html !== '' ) {
-				echo '<div class="wpe-location"><strong>Venue: </strong>' . wp_kses( $venue_html, wpe_get_allowed_html() ) . '</div>';
+				$venue_html = '<div class="wpe-location"><strong>Venue: </strong>' . wp_kses( $venue_html, wpe_get_allowed_html() ) . '</div>';
 			}
+
+			echo $venue_html;
 		}
 	}
 }
@@ -162,7 +164,7 @@ if ( ! function_exists( 'wpe_get_event_category_and_type' ) ) {
 		$wpe_type = get_post_meta( $post_id, 'wpevent-type', TRUE );
 		?>
         <span class="wpe-category"><?php
-			echo apply_filters( 'wpe_single_category_type', '<span class="wpe-type"><strong>Type:&nbsp;</strong>' . esc_html( $wpe_type ) . '</span><br>' );
+			echo apply_filters( 'wpe_single_category_type', '<span class="wpe-type"><strong>Type:&nbsp;</strong>' . esc_html( $wpe_type ) . '</span>' );
 			if ( ! empty( $terms ) ) {
 				$cat_html  = '';
 				foreach ( $terms as $term ) {
@@ -215,14 +217,13 @@ if ( ! function_exists( 'wpe_get_event_date_time' ) ) {
 	function wpe_get_event_date_time( $post_id ) {
 		$event_date_time = wpevent_date_time( $post_id );
 		$start_date      = isset( $event_date_time['start_date'] ) ? strtotime( $event_date_time['start_date'] ) : 0;
-		$start_time      = isset( $event_date_time['start_time'] ) ? strtotime( $event_date_time['start_time'] ) : 0;
 		$end_date        = isset( $event_date_time['end_date'] ) ? strtotime( $event_date_time['end_date'] ) : 0;
-		$end_time        = isset( $event_date_time['end_time'] ) ? strtotime( $event_date_time['end_time'] ) : 0;
+		$date_format     = apply_filters( 'wpevents_archive_date', 'F j' );
 		?>
         <span class="wpe-event-duration-date">
             <strong>Date: </strong><?php
-			$start = date( 'F j', $start_date );
-			$end   = date( 'F j', $end_date );
+			$start = date( $date_format, $start_date );
+			$end   = date( $date_format, $end_date );
 			if ( $start === $end ) {
 				echo esc_html( $start );
 			} else {
@@ -231,8 +232,10 @@ if ( ! function_exists( 'wpe_get_event_date_time' ) ) {
 			?>
         </span>
         <span class="wpe-duration-time">
-            <strong>Time: </strong><?php
-			echo date( 'h:i A', esc_html( $start_time ) ) . ' - ' . date( 'h:i A', esc_html( $end_time ) ); ?>
+            <strong>Time: </strong>
+			<?php
+			echo wpe_get_event_time( $post_id );
+			?>
         </span>
 		<?php
 	}
@@ -482,9 +485,7 @@ if ( ! function_exists( 'wpe_get_seats_dropdown' ) ) {
 	 */
 	function wpe_get_seats_dropdown() {
 		?>
-		<select id="event-seats" name="wpe_seats" required>
-		<option value="" disabled selected>Select Seats *
-		</option>
+		<select id="event-seats" name="wpe_seats">
 		<?php
 		$booked_seats    = get_booked_seats( get_the_ID() ); //Function defined in wp-events-global-functions.php
 		$totalseats      = (int) get_post_meta( get_the_ID(), 'wpevent-seats', TRUE );
@@ -562,4 +563,3 @@ if ( ! function_exists( 'wpe_display_archive_posts' ) ) {
 		return $count;
 	}
 }
-

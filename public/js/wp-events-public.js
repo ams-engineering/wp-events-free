@@ -133,34 +133,34 @@ jQuery(document).ready(function ($) {
 				if ( input.prop( 'required' ) ) {
 					$( ".wpe-above-error-field" ).removeClass( 'error' );
 					input.parent().removeClass( 'error' );
-					$('.wpe-form-control small').css('display', 'none');
+					input.siblings().css('display', 'none');
 					if ( ! input.val() || ( input.is( ':checkbox' ) && ! input.is( ":checked" ) ) ) {
 						input.parent().addClass( 'error' ); 
-						$('.wpe-form-control small').css('display', 'block');
+						input.siblings().css('display', 'inline-block');
 						valueFalse = 'dont Reload';
 					}
 				}
 				input.parent().removeClass( 'correct-email' );
 				input.parent().removeClass( 'correct-phone' );
 				input.parent().removeClass( 'correct-zip' );
-				if ( input.attr( "id" ) == 'wpe_email' && ! ( input.parent().hasClass( 'error' ) ) ) {
+				if ( input.attr( "id" ) == 'wpe_email' && ! ( input.parent().hasClass( 'correct-email' ) ) ) {
 					if ( ! validateEmail( input.val() ) ) {
 						input.parent().addClass( 'correct-email' );
-						$('.wpe-form-control small').css('display', 'block');
+						$('.wpe-form-control .wpe-email-error-class').css('display', 'block');
 						valueFalse = 'dont Reload';
 					}
 				}
 				if ( input.val() != '' && input.attr( "id" ) == 'wpe_phone' && ! ( input.parent().hasClass( 'error' ) ) ) {
 					if ( ! validatePhone( input.val() ) ) {
 						input.parent().addClass( 'correct-phone' );
-						$('.wpe-form-control small').css('display', 'block');
+						$('.wpe-form-control .wpe-phone-error-class').css('display', 'block');
 						valueFalse = 'dont Reload';
 					}
 				}
-				if ( input.attr( "id" ) == 'wpe_zip' && ! ( input.parent().hasClass( 'error' ) ) ) {
+				if ( input.val() != '' && input.attr( "id" ) == 'wpe_zip' && ! ( input.parent().hasClass( 'error' ) ) ) {
 					if ( ! validateZip( input.val() ) ) {
 						input.parent().addClass( 'correct-zip' );
-						$('.wpe-form-control small').css('display', 'block');
+						input.siblings().css('display', 'block');
 						valueFalse = 'dont Reload';
 					}
 				}
@@ -242,7 +242,9 @@ jQuery(document).ready(function ($) {
 
 	//on event single page
 	if ( $('body').hasClass('single-wp_events') || $('body').hasClass('post-type-archive-wp_events') ) {
-		checkCookie();
+		if( $('.wpe-full-wrap').hasClass('wpe-dark-mode') ) {
+			$('body').css( 'background', '#000' );
+		}
 		if (window.location.href.includes('thankyou')) {
 			$('.thankyou-popup').css('display', 'block');
 			setTimeout(function () {
@@ -345,40 +347,9 @@ jQuery(document).ready(function ($) {
 		});
 	} );
 
-	function setCookie( cname, cvalue, exdays ) {
-		const d = new Date();
-		d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-		let expires = "expires="+d.toUTCString();
-		document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+	if( $('.wpevents-container').hasClass('wpe-dark-mode') ) {
+		$('body').css( 'background', 'black' );
 	}
-	  
-	function getCookie( cname ) {
-		let name = cname + "=";
-		let ca = document.cookie.split(';');
-		for(let i = 0; i < ca.length; i++) {
-			let c = ca[i];
-			while (c.charAt(0) == ' ') {
-			c = c.substring(1);
-			}
-			if (c.indexOf(name) == 0) {
-			return c.substring(name.length, c.length);
-			}
-		}
-		return "";
-	}
-	  
-	function checkCookie() {
-		let timezone = getCookie("wpeTimezone");
-		if ( timezone == "" ) {
-			var timezone_offset_minutes = new Date().getTimezoneOffset();
-			timezone = timezone_offset_minutes == 0 ? 0 : -timezone_offset_minutes;
-			if ( timezone != "" && timezone != null ) {
-				setCookie( "wpeTimezone", timezone, 1);
-			}
-		}
-	}
-	  
-
 });
 
 function validURL( str ) {

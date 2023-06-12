@@ -384,7 +384,7 @@ if ( ! function_exists( 'wpe_form_field' ) ) {
 				break;
 			case 'checkbox':
 				$field_html .= '<label class="checkbox">
-						<input type="' . esc_attr( $data['type'] ) . '" class="input-checkbox ' . esc_attr( implode( ' ', $data['class'] ) ) . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $data['id'] ) . '" value="1" ' . checked( $data['value'], 1, false ) . ' ' . $disabled .' /> ' . $data['label'] . $required . '</label>';
+						<input type="' . esc_attr( $data['type'] ) . '" class="input-checkbox ' . esc_attr( implode( ' ', $data['class'] ) ) . '" name="' . esc_attr( $key ) . '" id="' . esc_attr( $data['id'] ) . '" data-unchecked-value="0" value="1" ' . checked( $data['value'], 1, false ) . ' ' . $disabled .' /> ' . $data['label'] . $required . '</label>';
 
 				break;
 			case 'text':
@@ -410,6 +410,7 @@ if ( ! function_exists( 'wpe_form_field' ) ) {
 
 				$field_html .= '<label>' . $data['label'] . '</label>';
 				foreach ( $data['options'] as $option_text ) {
+					$option_text = trim( $option_text, " " );
 					$options .= '<option value="' . esc_attr( $option_text ) . '" ' . selected( $data['value'], $option_text, false ) . '>' . esc_html( $option_text ) . '</option>';
 				}
 
@@ -458,7 +459,7 @@ if ( ! function_exists( 'wpe_get_hearaboutus_options' ) ) {
 		if( $options === '' ) {
 			$options = $default_options;
 		}
-		$options		 = explode( ', ', $options );
+		$options		 = explode( ',', $options );
 		return $options;
 	}
 }
@@ -510,10 +511,10 @@ if ( ! function_exists( 'get_confirmation_message' ) ) {
 			return $meta;
 		}
 		if( $type === 'webinar' ){
-			return $mail_options['webinar_success_message'];
+			return wpautop( $mail_options['webinar_success_message'] );
 		}
 
-		return $mail_options['mail_success_message'];
+		return wpautop( $mail_options['mail_success_message'] );
 	}
 }
 
@@ -617,6 +618,19 @@ if( ! function_exists( 'wpe_dark_bg' ) ) {
         $darkmode        = isset( $display_options['dark_mode'] ) ? 'wpe-dark-mode' : '';
 		return $darkmode;
     }
+}
+
+if( ! function_exists( 'wpe_get_admin_timezone' ) ) {
+	/**
+	 * Returns name of admin's local timezone
+	 *
+	 * @since 1.7.4
+	 * @return string
+	 */
+	function wpe_get_admin_timezone() {
+		$option = get_option('wpe_settings');
+		return $option['admin_timezone'];
+	}
 }
 
 if( ! function_exists( 'wpe_get_allowed_html' ) ) {
@@ -724,17 +738,65 @@ if( ! function_exists( 'wpe_escape_html' ) ) {
 	}
 }
 
+if( ! function_exists( 'wpe_get_IP' ) ) {
+	/**
+	 * gets the current user IP address
+	 *
+	 * @since  1.7.4
+	 */
+	function wpe_get_IP() {
+		//whether ip is from the share internet
+	
+		if ( ! empty( $_SERVER['HTTP_CLIENT_IP'] ) ) {
+			$ip = filter_var( $_SERVER['HTTP_CLIENT_IP'], FILTER_VALIDATE_IP);
+		} //whether ip is from the proxy
+		elseif ( ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+			$ip = filter_var( $_SERVER['HTTP_X_FORWARDED_FOR'], FILTER_VALIDATE_IP);
+		} //whether ip is from the remote address
+		else {
+			$ip = filter_var( $_SERVER['REMOTE_ADDR'], FILTER_VALIDATE_IP);
+		}
+		return $ip;
+	}
+}
+
 if( ! function_exists( 'wpe_get_user_timezone' ) ) {
 	/**
 	 * Returns name of user's local timezone
 	 *
-	 * @since 1.6.0
+	 * @since 1.7.4
 	 * @return string
 	 */
 	function wpe_get_user_timezone() {
-		$timezone_offset_minutes = isset( $_COOKIE['wpeTimezone'] ) ? $_COOKIE['wpeTimezone'] : '0';
-		$timezone_name 			 = timezone_name_from_abbr( "", (int) $timezone_offset_minutes * 60, false );
-		return $timezone_name;
+		$ip	   = wpe_get_IP();
+		$ipdat = @json_decode( file_get_contents( "http://ip-api.com/json/" . $ip ) );
+		if ( strpos( $_SERVER['HTTP_HOST'], "local" ) !== false || $_SERVER['HTTP_HOST'] == '127.0.0.1' ) {
+			$ipdat = @json_decode( file_get_contents( "http://ip-api.com/json/" ) );
+		}	
+		return $ipdat->timezone;
+	}
+}
+
+if( ! function_exists( 'wpe_get_event_time' ) ) {
+	/**
+	 * Returns event time
+	 *
+	 * @since 1.7.5
+	 * @return string
+	 */
+	function wpe_get_event_time( $post_id ) {
+		$event_date_time = wpevent_date_time( $post_id );
+		$start_time      = isset( $event_date_time['start_time'] ) ? strtotime( $event_date_time['start_time'] ) : 0;
+		$end_time        = isset( $event_date_time['end_time'] ) ? strtotime( $event_date_time['end_time'] ) : 0;
+		$wpe_all_day 	 = get_post_meta( $post_id, 'wpevent-all-day', TRUE );
+		$wpe_no_endtime  = get_post_meta( $post_id, 'wpevent-no-endtime', TRUE );
+		if( $wpe_all_day ) {
+			return 'All Day';
+		} else if( $wpe_no_endtime ) {
+			return date( 'h:i A', esc_html( $start_time ) );
+		} else {
+			return date( 'h:i A', esc_html( $start_time ) ) . ' - ' . date( 'h:i A', esc_html( $end_time ) );
+		}
 	}
 }
 
@@ -758,5 +820,28 @@ if( ! function_exists( 'wpe_get_current_post_type' ) ) {
         else if( isset($_REQUEST['post_type'] ) ) return sanitize_key( $_REQUEST['post_type'] );
         
         return null;
+	}
+}
+
+if( ! function_exists( 'wpe_get_active_posts' ) ) {
+	/**
+	 * Returns number of posts to be displayed on
+	 * archive page
+	 *
+	 * @return int
+	 *
+	 * @since 1.8.0
+	 */
+	function wpe_get_active_posts() {
+        $posts = get_posts( wpe_get_default_query_args() );
+		$count = 0;
+		foreach( $posts as $post ) {
+			$hide_in_archive = get_post_meta( $post->ID, 'wpevent-hide-archive', true );
+			if ( $hide_in_archive === 'yes' ) {
+				continue;
+			}
+			$count++;
+		}
+		return $count;
     }
 }

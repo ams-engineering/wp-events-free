@@ -78,9 +78,7 @@ class Wpe_Shortcodes {
 		$post_id         = self::$form_data['post'] ?? self::$form_data['post_id'];
 		$event_date_time = wpevent_date_time( $post_id );
 	    $start_date      = isset( $event_date_time['start_date'] ) ? strtotime( $event_date_time['start_date'] ) : 0;
-	    $start_time      = isset( $event_date_time['start_time'] ) ? strtotime( $event_date_time['start_time'] ) : 0;
 	    $end_date        = isset( $event_date_time['end_date'] ) ? strtotime( $event_date_time['end_date'] ) : 0;
-	    $end_time        = isset( $event_date_time['end_time'] ) ? strtotime( $event_date_time['end_time'] ) : 0;
 	    
 		ob_start();
         ?>
@@ -95,7 +93,7 @@ class Wpe_Shortcodes {
         </p>
         <p style="margin: 5px 0">
             <strong>Time: </strong>
-            <?php echo date( 'h:i a', $start_time ) . ' - ' . date( 'h:i a', $end_time ); ?>
+            <?php echo wpe_get_event_time( $post_id ); ?>
         </p>
 	    <?php
 		return ob_get_clean();
@@ -153,11 +151,11 @@ class Wpe_Shortcodes {
 		$city_meta  	 = $wpe_location != 0 ? 'wpevent-loc-city' : 'wpevent-city';
 		$state_meta 	 = $wpe_location != 0 ? 'wpevent-loc-state' : 'wpevent-state';
 		$country_meta 	 = $wpe_location != 0 ? 'wpevent-loc-country' : 'wpevent-country';
-		$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE );
-		$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE );
-		$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE );
-		$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE );
-		$wpe_country     = get_post_meta( $location_id, $country_meta, TRUE );
+		$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE ) ?? '';
+		$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE ) ?? '';
+		$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE ) ?? '';
+		$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE ) ?? '';
+		$wpe_country     = get_post_meta( $location_id, $country_meta, TRUE ) ?? '';
         ob_start();
         ?>
         <p style="color: blue; margin: 5px 0; text-transform: uppercase;">
@@ -167,9 +165,9 @@ class Wpe_Shortcodes {
             <strong>DAY: </strong>
             <?php
                 if ( $start_date === $end_date ) {
-                    echo date( 'F j, Y', $start_date ) . ' ' . date( 'h:i A', $start_time ) . ' - ' . date( 'h:i A', $end_time );
+                    echo date( 'F j, Y', $start_date ) . ' ' . wpe_get_event_time( $post_id );
                 } else {
-                    echo date( 'F j, Y', $start_date ) . ' - ' . date( 'F j, Y', $end_date ) . ' ' . date( 'h:i A', $start_time ) . ' - ' . date( 'h:i A', $end_time );
+                    echo date( 'F j, Y', $start_date ) . ' - ' . date( 'F j, Y', $end_date ) . ' ' . wpe_get_event_time( $post_id );
                 } ?>
         </p>
 	    <?php
@@ -204,7 +202,6 @@ class Wpe_Shortcodes {
         $fax             = isset( $form_options['form_fax'] );
         $hearAbout       = isset( $form_options['form_hear_about'] );
 		$mail_options    = get_option( 'wpe_mail_settings' );
-		$permission 	 = isset( $mail_options['enable_texting_email'] );
 
 	    $post_id        = self::$form_data['post'] ?? self::$form_data['post_id'];
 	    $wpe_first_name = sanitize_text_field( self::$form_data['wpe_first_name'] ?? self::$form_data['first_name'] );
@@ -217,31 +214,32 @@ class Wpe_Shortcodes {
 		$wpe_state		= sanitize_text_field( self::$form_data['wpe_state'] ?? self::$form_data['state'] );
 		$wpe_zip		= sanitize_text_field( self::$form_data['wpe_zip'] ?? self::$form_data['zip'] );
 		$wpe_source		= sanitize_text_field( self::$form_data['hear_about_us'] );
-		$wpe_texting	= self::$form_data['wpe_texting_permission'] == 1 ? 'Yes' : 'No';
+		$texting 		= self::$form_data['wpe_texting_permission'] ?? self::$form_data['wpe_texting'];
+		$wpe_texting	= $texting == '1' ? 'Yes' : 'No';
 
         $registration_details = "<p style='margin: 5px 0'><strong>First name</strong>: $wpe_first_name</p>";
         $registration_details .= "<p style='margin: 5px 0'><strong>Last name</strong>: $wpe_last_name</p>";
-		if( ! $addrees1 ):
+		if( ! $addrees1 && $wpe_address != '' ):
 		$registration_details .= "<p style='margin: 5px 0'><strong>Address</strong>: $wpe_address</p>";
 		endif;
-		if( ! $city ):
+		if( ! $city && $wpe_city != '' ):
         $registration_details .= "<p style='margin: 5px 0'><strong>City</strong>: $wpe_city</p>";
 		endif;
-		if( ! $state ):
+		if( ! $state && $wpe_state != '' ):
         $registration_details .= "<p style='margin: 5px 0'><strong>State</strong>: $wpe_state</p>";
         endif;
-		if( ! $zip ):
+		if( ! $zip && $wpe_zip != '' ):
 		$registration_details .= "<p style='margin: 5px 0'><strong>Zip Code</strong>: $wpe_zip</p>";
         endif;
 		$registration_details .= "<p style='margin: 5px 0'><strong>Email</strong>: $wpe_email</p>";
+		if( $wpe_phone != '' ):
         $registration_details .= "<p style='margin: 5px 0'><strong>Phone</strong>: $wpe_phone</p>";
+		endif;
 		if( ! $hearAbout ):
         $registration_details .= "<p style='margin: 5px 0'><strong>How did you hear about us</strong>: $wpe_source</p>";
 		endif;
         $registration_details .= "<p style='margin: 5px 0'><strong>Seats</strong>: $wpe_seats</p>";
-		if( $permission ):
-			$registration_details .= "<p style='margin: 5px 0'><strong>Texting Permission</strong>: $wpe_texting</p>";
-		endif;
+		$registration_details .= "<p style='margin: 5px 0'><strong>Texting Permission</strong>: $wpe_texting</p>";
 
 		if( isset( self::$form_data['wpe_guest_first_name'] ) && isset( self::$form_data['wpe_guest_last_name'] ) ) {
 			$guest_info = $this->get_guest_information( self::$form_data['wpe_guest_first_name'], self::$form_data['wpe_guest_last_name'] );

@@ -417,7 +417,7 @@ class Wp_Events_Public {
 				$button_html .= '<div class="wpevent-archive-button"><a class="button" href="' . get_post_type_archive_link( 'wp_events' ) . '"> ' . apply_filters( 'wpevents_shortcode_button', $wpevent_atts['button_text'] ) . ' </a></div>';
 			}
 			if ( $wpevent_atts['title'] !== '' ) {
-				$html = '<strong class="wpe-main-title" >' .  esc_html( $wpevent_atts['title'] ) . '</strong><div class="wpevent-main">' . $html . '</div>';
+				$html = '<strong class="wpe-main-title" >' . esc_html( $wpevent_atts['title'] ) . '</strong><div class="wpevent-main">' . $html . '</div>';
 			}
 			if ( $wpevent_atts['class'] !== '' ) {
 				$html = '<div class="wpevents-shortcode-section '. esc_html( $wpevent_atts['class'] ) .' wpevents-section">' . $html . $button_html . '</div>';
@@ -599,19 +599,19 @@ class Wp_Events_Public {
 	 *
 	 */
 	public function wpe_meta_description() {
+		global $post;
 		$post_type = get_post_type();
 		$option    = get_option( 'wpe_settings' );
-		if ( $post_type === 'wp_events' ) {
-			global $post;
+		if ( wpe_get_current_post_type() == 'wp_events' ) {
 			if ( is_singular() ) {
 				$des_post = strip_tags( $post->post_content );
 				$des_post = strip_shortcodes( $post->post_content );
 				$des_post = str_replace( array("\n", "\r", "\t"), ' ', $des_post );
 				$des_post = mb_substr( $des_post, 0, 300, 'utf8' );
 				$des_post = ( $des_post !== '' ) ? $des_post : $option['meta_description'];
-				echo '<meta name="description" content="' . esc_html( $des_post ) . '" />' . "\n";
+				echo '<meta name="description" content="' . esc_html( $des_post ) . '" class="wp-events-meta-tag" />' . "\n";
 			} else {
-				echo '<meta name="description" content="' . esc_attr( $option['meta_description'] ) . '" />' . "\n";
+				echo '<meta name="description" content="' . esc_attr( $option['meta_description'] ) . '" class="wp-events-meta-tag" />' . "\n";
 			}
 		}
 	}

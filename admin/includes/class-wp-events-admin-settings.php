@@ -154,6 +154,15 @@ class Wp_Events_Admin_Settings {
 		 * All Fields Under General Tab are added below
 		 * ===========================================
 		 */
+
+		add_settings_field(
+			'wpe_settings_set_timezone',
+			'Timezone',
+			[ $this, 'wpe_settings_set_timezone_callback' ],
+			'wp_events_settings&tab=general',
+			'wpe_settings_section'
+		);
+		
 		add_settings_field(
 			'wpe_settings_slug',
 			'Event URL Slug',
@@ -193,6 +202,7 @@ class Wp_Events_Admin_Settings {
 			'wp_events_settings&tab=general',
 			'wpe_settings_section'
 		);
+
 	}
 
 	/**
@@ -580,20 +590,11 @@ class Wp_Events_Admin_Settings {
 
 		add_settings_field(
 		    'wpe_settings_enable_webinar_conformation',
-		    'Enable Webinar Confirmation email',
+		    'Webinar Confirmation',
 		    [$this,'wpe_settings_enable_webinar_conformation_callback'],
 		    'wp_events_settings&tab=mail',
 		    'wpe_settings_mail_section'
 	    );
-
-		add_settings_field(
-		    'wpe_settings_enable_texting_email',
-		    'Send Texting Permission in email',
-		    [$this,'wpe_settings_enable_texting_email_callback'],
-		    'wp_events_settings&tab=mail',
-		    'wpe_settings_mail_section'
-	    );
-
 	    add_settings_section(
 		    'wpe_settings_mail_tab_section',
 		    '',
@@ -1044,6 +1045,32 @@ class Wp_Events_Admin_Settings {
 	 */
 
 	/**
+	 * Sets timezone for the user
+	 *
+	 * @since 1.8.0
+	 */
+	public function wpe_settings_set_timezone_callback() {
+	    $option = get_option('wpe_settings');
+		?>
+		<select class="wpe-settings-field wpe-add-select2" id="wpe-admin-timezone" name="wpe_settings[admin_timezone]">
+			<?php
+			$options = timezone_identifiers_list();
+			$options = array_merge( ['Select Timezone'], $options );
+			foreach ( $options as $timezone ) {
+				if( $timezone === $option['admin_timezone'] ) {
+					?> <option selected value="<?php echo $timezone; ?>"><?php echo $timezone; ?></option> <?php
+				} else if( $timezone === "Select Timezone" ) {
+					?> <option value=""><?php echo $timezone; ?></option> <?php
+				} else {
+					?> <option value="<?php echo $timezone; ?>"><?php echo $timezone; ?></option> <?php
+				}
+			}
+			?>
+		</select>
+		<?php
+	}
+
+	/**
 	 * Callback Setting Fields ID=>wpe_settings_slug
 	*/
 	public function wpe_settings_slug_field_callback() {
@@ -1113,25 +1140,55 @@ class Wp_Events_Admin_Settings {
      * ==============================================
 	 */
 
-    /**
+	/**
      * Settings Field wpe_settings_form_success callback
-     */
-    public function wpe_settings_form_success_callback() {
-	    ?>
-        <input class="wpe-settings-field" name="wpe_forms_settings[form_success]" id="wpe_form_successs" type="url" value="<?php echo isset( $this->wpe_form_settings['form_success'] ) ? esc_attr( $this->wpe_form_settings['form_success'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php _e( 'User will be redirected to entered URL on successful seminar registration.', 'simple-wp-events' ); ?></small>
-	    <?php
-    }
+	 *
+	 * @since 1.8.0
+	 */
+	public function wpe_settings_form_success_callback() {
+		?>
+		<select class="wpe-settings-field wpe-add-select2" id="wpe_form_successs" name="wpe_forms_settings[form_success]">
+			<?php
+			$options = wpe_get_all_pages();
+			$options = array_merge( ['Select Page'], $options );
+			foreach ( $options as $page ) {
+				if( $page == $this->wpe_form_settings['form_success'] ) {
+					?> <option selected value="<?php echo $page; ?>"><?php echo get_the_title( $page ); ?></option> <?php
+				} else if( $page == "Select Page" ) {
+					?> <option value=""><?php echo 'Select Page'; ?></option> <?php
+				} else {
+					?> <option value="<?php echo $page; ?>"><?php echo get_the_title( $page ); ?></option> <?php
+				}
+			}
+			?>
+		</select>
+		<?php
+	}
 
 	/**
      * Settings Field wpe_settings_form_success_webinar callback
-     */
-    public function wpe_settings_form_success_webinar_callback() {
-	    ?>
-        <input class="wpe-settings-field" name="wpe_forms_settings[form_success_webinar]" id="wpe_form_successs_webinar" type="url" value="<?php echo isset( $this->wpe_form_settings['form_success_webinar'] ) ? esc_attr( $this->wpe_form_settings['form_success_webinar'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php _e( 'User will be redirected to entered URL on successful webinar registration.', 'simple-wp-events' ); ?></small>
-	    <?php
-    }
+	 *
+	 * @since 1.8.0
+	 */
+	public function wpe_settings_form_success_webinar_callback() {
+		?>
+		<select class="wpe-settings-field wpe-add-select2" id="wpe_form_successs_webinar" name="wpe_forms_settings[form_success_webinar]">
+			<?php
+			$options = wpe_get_all_pages();
+			$options = array_merge( ['Select Page'], $options );
+			foreach ( $options as $page ) {
+				if( $page == $this->wpe_form_settings['form_success_webinar'] ) {
+					?> <option selected value="<?php echo $page; ?>"><?php echo get_the_title( $page ); ?></option> <?php
+				} else if( $page == "Select Page" ) {
+					?> <option value=""><?php echo 'Select Page'; ?></option> <?php
+				} else {
+					?> <option value="<?php echo $page; ?>"><?php echo get_the_title( $page ); ?></option> <?php
+				}
+			}
+			?>
+		</select>
+		<?php
+	}
 
 	/**
 	 * 
@@ -1160,15 +1217,30 @@ class Wp_Events_Admin_Settings {
 	    <?php
 	}
 
-    /**
+	/**
      * Settings Field wpe_settings_form_success callback
-     */
-    public function wpe_settings_subscriber_form_success_callback() {
-	    ?>
-        <input class="wpe-settings-field" name="wpe_forms_settings[subsc_form_success]" id="wpe_subsc_form_success" type="url" value="<?php echo isset( $this->wpe_form_settings['subsc_form_success'] ) ? esc_attr( $this->wpe_form_settings['subsc_form_success'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php _e( 'User will be redirected to entered URL on successful subscription.', 'simple-wp-events' ); ?></small>
-	    <?php
-    }
+	 *
+	 * @since 1.8.0
+	 */
+	public function wpe_settings_subscriber_form_success_callback() {
+		?>
+		<select class="wpe-settings-field wpe-add-select2" id="wpe_subsc_form_success" name="wpe_forms_settings[subsc_form_success]">
+			<?php
+			$options = wpe_get_all_pages();
+			$options = array_merge( ['Select Page'], $options );
+			foreach ( $options as $page ) {
+				if( $page == $this->wpe_form_settings['subsc_form_success'] ) {
+					?> <option selected value="<?php echo $page; ?>"><?php echo get_the_title( $page ); ?></option> <?php
+				} else if( $page == "Select Page" ) {
+					?> <option value=""><?php echo 'Select Page'; ?></option> <?php
+				} else {
+					?> <option value="<?php echo $page; ?>"><?php echo get_the_title( $page ); ?></option> <?php
+				}
+			}
+			?>
+		</select>
+		<?php
+	}
 
     /**
      * Registration Form Field Labels
@@ -1341,7 +1413,7 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_registration_form_button_callback() {
 		?>
         <input class="wpe-settings-field" name="wpe_forms_settings[registration_form_button]" id="wpe_reg_form_button" type="text" value="<?php echo isset( $this->wpe_form_settings['registration_form_button'] ) ? esc_attr( $this->wpe_form_settings['registration_form_button'] ) : ''; ?>" />
-        <small class="wpe-fields-description"><?php _e( 'This text will be displayed at Registration form button', 'simple-wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'This text will be displayed on Registration form button', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1838,7 +1910,7 @@ class Wp_Events_Admin_Settings {
 		?>
 		<input class="wpe-settings-field" name="wpe_display_settings[max_seats]" id="wpe_max_seats" type="number"
 		       min="1" max="10" value="<?php echo isset( $option['max_seats'] ) ? absint( $option['max_seats'] ) : 10; ?>"/>
-		<small class="wpe-fields-description"><?php _e( 'Enter Maximum Number of Seats Allowed in One Registration.', 'simple-wp-events' ); ?></small>
+		<small class="wpe-fields-description"><?php esc_html_e( 'Enter Maximum Number of Seats Allowed in One Registration.', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 
@@ -1873,21 +1945,6 @@ class Wp_Events_Admin_Settings {
             <span class="slider round"></span>
         </label>
         <small><?php _e( 'Check this box to enable the webinar confirmation email for registrants.', 'simple-wp-events' ); ?></small>
-		<?php
-    }
-
-	/**
-     * Send Texting Permission in email
-	*/
-	public function wpe_settings_enable_texting_email_callback() {
-		$option = get_option('wpe_mail_settings');
-		?>
-           <label class="wpe-checkbox">
-            <input name="wpe_mail_settings[enable_texting_email]" id="wpe_enable_texting_email" value="l_true"
-                   type="checkbox" <?php echo isset( $option['enable_texting_email'] ) ? 'checked' : ''; ?> />
-            <span class="slider round"></span>
-        </label>
-        <small><?php _e( 'Check this box to send texting permission status in email (for registration form).', 'simple-wp-events' ); ?></small>
 		<?php
     }
 
@@ -1929,6 +1986,7 @@ class Wp_Events_Admin_Settings {
         <small class="wpe-fields-description"><?php _e( 'Enter Name of your firm', 'simple-wp-events' ); ?></small>
 	    <?php
     }
+
 
 	/**
 	 * firm phone Callback

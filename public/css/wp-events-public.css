@@ -182,7 +182,6 @@ body .fc-button-group button {
     background: #ccc;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     margin-right: 20px;
-    color: #333;
 }
 
 .wpe-col-event span {
@@ -308,6 +307,15 @@ body .wpe-event .entry-title a {
     align-items: center;
 }
 
+span.wpe-close-popup {
+    float: right;
+    cursor: pointer;
+}
+
+.wpe-dark-mode span.wpe-close-popup {
+    color: #fff;
+}
+
 .read-more-link:hover {
     text-decoration: underline;
 }
@@ -324,6 +332,10 @@ body .wpe-event .entry-title a {
 
 .wpe-banner-image {
     margin-bottom: 30px;
+}
+
+.wpe-banner-image img {
+    height: 350px;
 }
 
 li.wpe-calendar-list {
@@ -522,7 +534,6 @@ input[type="text"], input[type="email"], input[type="url"], input[type="password
 
 .wpevents-container .wpe-event-thumbnail {
     width: 53%;
-    overflow: hidden;
 }
 
 .wpevents-container .wpe-single-content {
@@ -550,6 +561,7 @@ span.wpe-address span {
 .wpe-form-control.error small {
     display: block;
 }
+
 
 .wpe-form-control {
     margin-bottom: 16px;
@@ -725,7 +737,11 @@ body ul.wpe-calendar-sublist{
 }
 
 body .wpe-event span.fc-title {
-    color: white;
+    color: black;
+}
+
+body .wpe-dark-mode .wpe-event span.fc-title {
+    color: #fff;
 }
 
 .wpe-col-img {
@@ -784,19 +800,30 @@ body .content .entry .wpe-event img {
                DARK MODE
 ============================================*/
 
-.wpe-dark-mode {
+.wpe-dark-mode,
+.wpe-dark-mode .wpe-calendar-sublist li:hover {
     background-color: #121016;
 }
 
-.wpe-dark-mode-text {
+.wpe-dark-mode-text, .wpe-dark-mode-text a,
+.wpe-dark-mode h1,
+.wpe-event .entry-title .wpe-dark-mode-text,
+.wpe-dark-mode ::placeholder,
+.wpe-dark-mode span.dashicons,
+.wpe-dark-mode .fc-button:hover .fc-icon {
     color: #fff;
 }
 
-.wpe-event .entry-title .wpe-dark-mode-text {
-    color: #fff;
+.wpe-dark-mode .wpe-reg-button,
+.wpe-dark-mode .wpe-col-dd,
+.wpe-dark-mode .wpe-button {
+    color: #333;
 }
 
-.wpe-dark-mode .wpevents-container .wpe-single-content {
+.wpe-dark-mode .wpevents-container .wpe-single-content,
+.wpe-dark-mode .t-y-inner,
+.wpe-dark-mode li.wpe-calendar-list:hover .wpe-calendar-sublist,
+.wpe-dark-mode .fc-unthemed td.fc-today {
     background: #333;
 }
 
@@ -807,56 +834,19 @@ body .wpe-dark-mode .wpe-subscribe-form-container input {
     color: #fff;
 }
 
-.wpe-dark-mode ::placeholder {
-    color: #fff;
-}
-
-.wpe-dark-mode .t-y-inner {
-    background-color: #333;
-}
-
-.wpe-dark-mode li.wpe-calendar-list:hover .wpe-calendar-sublist {
-    background-color: #333;
-}
-
-.wpe-dark-mode .wpe-calendar-sublist li:hover {
-    background: #121016;
-}
-
-.wpe-dark-mode .wpe-subscribe-form-container,
-body .entry-content .wpe-dark-mode .wpevent-card {
+.wpe-dark-mode .wpe-subscribe-form-container {
     background-color: #121016;
     border: 1px solid #fff;
-}
-
-.wpe-dark-mode span.dashicons {
-    color: #fff;
 }
 
 .wpe-dark-mode .wpe-grid .wpe-row {
     border: 1px solid #fff;
 }
 
-.wpe-dark-mode .fc-icon {
-    color: #000;
-}
-
-.wpe-dark-mode .fc-button:hover .fc-icon {
-    color: #fff;
-}
-
-.wpe-dark-mode .fc-unthemed td.fc-today {
-    background: #333;
-}
-
+.wpe-dark-mode .fc-icon,
 .wpe-dark-mode button:not(:hover):not(:active):not(.has-text-color) {
-    color: #000;
+    color: #000 !important;
 }
-
-.wpe-dark-mode li.wpe-calendar-list a {
-    color: #fff;
-}
-
 /*===========================================
                 Media Queries
 ============================================*/
@@ -880,26 +870,15 @@ body .entry-content .wpe-dark-mode .wpevent-card {
     }
 	/* updated-css */
 	.wpe-register-form-container .wpe-col-2 , .wpe-col-3 , .wpe-subscribe-form .wpe-col-2{
-	flex-direction:column;
-}
+        flex-direction:column;
+    }
 	.wpe-register-form-container .wpe-col-2 div , .wpe-col-3 div , .wpe-subscribe-form .wpe-col-2 div {
-    flex: 100%;
-    width: 100%;
-}
+        flex: 100%;
+        width: 100%;
+    }
 	.wpe-register-form-container .wpe-col-2 div:first-child , .wpe-subscribe-form .wpe-col-2 div:first-child {
-    padding-right: 0;
-}
+        padding-right: 0;
+    }
 	.wpe-register-form-container .wpe-col-3 div{padding-right:0px;}
-
-    body .wpe-event .fc-toolbar .fc-left {
-        float: none;
-        display: inline-block;
-    }
-
-    button.fc-prevYear-button.fc-button.fc-state-default.fc-corner-left,
-    button.fc-nextYear-button.fc-button.fc-state-default.fc-corner-right,
-    body .wpe-event .fc-toolbar .fc-right {
-        display: none;
-    }
 	/* updated-css-end */
 }

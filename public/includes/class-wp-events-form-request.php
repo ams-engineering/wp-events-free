@@ -125,7 +125,7 @@ class Wp_Form_Request
 		    //redirect
 	        $on_subscriber_form_success = get_option( 'wpe_forms_settings' );
 	        if ( ! empty( $on_subscriber_form_success['subsc_form_success'] ) && $on_subscriber_form_success['subsc_form_success'] !== '#' ) { //redirect page to URL saved in settings
-		        wpe_send_ajax_response( [ 'url' => $on_subscriber_form_success['subsc_form_success'] ] );
+		        wpe_send_ajax_response( [ 'url' => get_the_permalink( $on_subscriber_form_success['subsc_form_success'] ) ] );
 	        } else {
 	        	wpe_send_ajax_response( [ 'url' => $referer ] );
 	        }
@@ -268,15 +268,17 @@ class Wp_Form_Request
 			 */
 			do_action( 'wpe_after_registration_form_submission', $form_data );
 
-			$type = get_post_meta( $post_id, 'wpevent-type', true );
-			$on_success = get_option( 'wpe_forms_settings' );
+			$type 				 = get_post_meta( $post_id, 'wpevent-type', true );
+			$on_success 		 = get_option( 'wpe_forms_settings' );
+			$success_url_webinar = get_post_meta( $post_id, 'wpevent-ty-url', TRUE ) != '' ? get_post_meta( $post_id, 'wpevent-ty-url', TRUE ) : $on_success['form_success_webinar'];
+			$success_url		 = get_post_meta( $post_id, 'wpevent-ty-url', TRUE ) != '' ? get_post_meta( $post_id, 'wpevent-ty-url', TRUE ) : $on_success['form_success'];
 
-			if ( $type === 'webinar' && ! empty( $on_success['form_success_webinar'] ) ) {
+			if ( $type === 'webinar' && ! empty( $success_url_webinar ) ) {
 				$this->send_mail_to_user_and_admin( $data, $type );
-				wpe_send_ajax_response( [ 'url' => $on_success['form_success_webinar'] ] );
-			} else if ( ! empty( $on_success['form_success'] ) ) { //redirect page to URL saved in settings
+				wpe_send_ajax_response( [ 'url' => get_the_permalink( $success_url_webinar ) ] );
+			} else if ( ! empty( $success_url ) ) { //redirect page to URL saved in settings
 				$this->send_mail_to_user_and_admin( $data, $type );
-				wpe_send_ajax_response( [ 'url' => $on_success['form_success'] ] );
+				wpe_send_ajax_response( [ 'url' => get_permalink( $success_url ) ] );
 			} else {
 				$this->send_mail_to_user_and_admin( $data, $type );
 				wpe_send_ajax_response( [ 'url' => get_the_permalink( $post_id ) . '?thankyou' ] );
