@@ -3,8 +3,8 @@ Contributors: wpminds, noorshuja
 Tags: events, seminars, webinars, calendar, registrations
 Donate link: https://wpminds.com/
 Requires at least: 5.0
-Stable tag: 1.7.2
-Tested up to: 6.0
+Stable tag: 1.8.0
+Tested up to: 6.2
 Requires PHP: 7.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
