@@ -1,6 +1,6 @@
 === Simple WP Events ===
 Contributors: wpminds, noorshuja
-Tags: events, seminars, webinars, calendar, registrations
+Tags: events, seminars, webinars, calendar, registrations, reminders
 Donate link: https://wpminds.com/
 Requires at least: 5.0
 Stable tag: 1.8.0
@@ -39,6 +39,8 @@ It is packed with numerous features:
 ✔️ Custom notification templates
 ✔️ Export events, registrations, and subscribers to CSV file
 ✔️ Dark mode for archive and single event display
+✔️ Manual Event Reminders
+✔️ Select custom thank you pages for all or each event.
 
 Just getting started? Visit the [documentation site](https://simplewpevents.com/docs/) to get set up.
  
@@ -77,8 +79,9 @@ Coming Soon!
 7. Event Archive Page
 8. Single Event Page
 9. Form Entries Page
-10. Archive Page in Dark Mode
-11. Single Event Page in Dark Mode
+10. View/Edit Registration from Dashboard
+11. Archive Page in Dark Mode
+12. Single Event Page in Dark Mode
 
 == Changelog ==
 Version-1.7.2
