@@ -371,26 +371,26 @@ class Wp_Events_Admin {
             <div class="end-time event-control wpe-right">
                 <label for="wpevent-end-time"><?php _e( 'End Time', 'simple-wp-events' ); ?></label>
                 <input id="wpevent-end-time" class="wpevent-end-time wp-event-field timepicker" type="time" name="wpevent-end-time" value="<?php echo isset( $event_date_time['end_time'] ) ? esc_attr( $event_date_time['end_time'] ) : '23:59' ;?>"/>
-                <small><?php esc_html_e( 'Error Message', 'simple-wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
 
             <div class="all-day event-control wpe-left">
-                <div class="wpe-settings-title wp-event-section-title"><p><?php esc_html_e( 'All Day', 'simple-wp-events' ); ?></p></div>
+                <div class="wpe-settings-title wp-event-section-title"><p><?php _e( 'All Day', 'simple-wp-events' ); ?></p></div>
                 <?php $checkbox4_meta = get_post_meta( $post->ID, 'wpevent-all-day', true ); ?>
                 <label for="wpevent-all-day" class="wpe-checkbox">
                 <input name="wpevent-all-day" id="wpevent-all-day" value="yes" type="checkbox" <?php echo $checkbox4_meta === 'yes' ? 'checked' : '' ?> />
                 <span class="slider round"></span>
                 </label>
-                <small><?php esc_html_e( 'Error Message', 'simple-wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="end-time event-control wpe-right">
-                <div class="wpe-settings-title wp-event-section-title"><p><?php esc_html_e( 'No End Time', 'simple-wp-events' ); ?></p></div>
+                <div class="wpe-settings-title wp-event-section-title"><p><?php _e( 'No End Time', 'simple-wp-events' ); ?></p></div>
                 <?php $checkbox3_meta = get_post_meta( $post->ID, 'wpevent-no-endtime', true ); ?>
                 <label for="wpevent-no-endtime" class="wpe-checkbox">
                 <input name="wpevent-no-endtime" id="wpevent-no-endtime" value="yes" type="checkbox" <?php echo $checkbox3_meta === 'yes' ? 'checked' : '' ?> />
                 <span class="slider round"></span>
                 </label>
-                <small><?php esc_html_e( 'Error Message', 'simple-wp-events' ); ?></small>
+                <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
 
         </div>
@@ -469,7 +469,7 @@ class Wp_Events_Admin {
                 <small><?php _e( 'Error Message', 'simple-wp-events' ); ?></small>
             </div>
             <div class="wpe-thankyou-div event-control <?php echo $type == 'webinar' ? 'wpe-left' : 'wpe-right'; ?>">
-                <label for="wpevent-ty-url"><?php esc_html_e( 'Thankyou Page', 'simple-wp-events' ); ?></label>
+                <label for="wpevent-ty-url"><?php _e( 'Thankyou Page', 'simple-wp-events' ); ?></label>
                 <select class="wp-event-field" id="wpevent-ty-url" name="wpevent-ty-url">
                     <?php
                     $options = wpe_get_all_pages();
