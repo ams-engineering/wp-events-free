@@ -8,7 +8,6 @@ Fixed: removed empty field headings from email.
 Fixed: Export entries csv file.
 Added: Validation errors for admin side metaboxes.
 Fixed: Meta description tags for archive and single event pages.
-Fixed: Height of banner image on archive page.
 Added: Option to select separate thank you page for each event.
 Update: Set default value for seats dropdown to 1.
 Fixed: Validation errors for registration form.
