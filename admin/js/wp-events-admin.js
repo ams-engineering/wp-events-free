@@ -657,15 +657,13 @@ jQuery(document).ready( function($) {
 			Enddate: WpeEndDate,
 			wpeeventid: WpeEvent },
 		    beforeSend: function() {
-		       $( "#export-event-entries" ).attr( "disabled", true );
+		       $( "#export-event-entries" ).prop( "disabled", true );
 		    },
 		    success: function( response ) {
 				window.open( response );
-		    },
-		    complete: function() {
 				deleteFile( response );
-		      $( "#export-event-entries" ).removeAttr( "disabled" );
-		    }   
+				$( "#export-event-entries" ).prop( "disabled", false );
+		    } 
 		});
 		
 	});

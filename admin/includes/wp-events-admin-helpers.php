@@ -294,7 +294,7 @@ if( ! function_exists( 'wpe_event_title' ) ) {
 		return false;
 
 		// HTML for our select printing post titles as loop.
-		$output = '<select name="wpe_titles" id="wpe_titles" class="mdb-select md-form" searchable="Search here..">';
+		$output = '<select name="wpe_titles" id="wpe_titles" class="wpe-settings-field wpe-add-select2">';
 
 		$output .= '<option value="" selected>Select Event</option>';
 

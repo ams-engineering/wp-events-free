@@ -999,13 +999,13 @@ class Wp_Events_Admin_Settings {
   		<tr>
    			<th><?php _e( 'Event Start Date', 'simple-wp-events' ); ?></th>
     		<td>
-				<input id="wpe-filter-start-date" autocomplete="off" class="wp-event-datepicker" type="text" name="wpe-filter-start-date" placeholder="Filter by start date" value=""/>
+				<input id="wpe-filter-start-date" autocomplete="off" class="wp-event-datepicker wpe-settings-field" type="text" name="wpe-filter-start-date" placeholder="Filter by start date" value=""/>
 			</td>
   		</tr>
   		<tr>
     		<th><?php _e( 'Event End Date', 'simple-wp-events' ); ?></th>
     		<td>
-				<input id="wpe-filter-end-date" autocomplete="off" class="wp-event-datepicker" type="text" name="wpe-filter-end-date" placeholder="Filter by end date" value=""/>
+				<input id="wpe-filter-end-date" autocomplete="off" class="wp-event-datepicker wpe-settings-field" type="text" name="wpe-filter-end-date" placeholder="Filter by end date" value=""/>
 			</td>
   		</tr>
 		<tr>
@@ -1017,7 +1017,7 @@ class Wp_Events_Admin_Settings {
  		<tr>
 			<th scope="row"><?php _e( 'Export Registrations', 'simple-wp-events' ); ?></th>
   			<td>
-				<input type="submit" id="export-event-entries" class="button button-primary" value="Export Registrations">
+				<input type="submit" id="export-event-entries" class="wpe-settings-field button button-primary" value="Export Registrations">
         		<small class="wpe-fields-description"><?php _e( 'Export Registrations to CSV (Leave the filters empty if you want to export all entries).', 'simple-wp-events' ); ?></small>
 			</td>
 		</tr>
@@ -1028,7 +1028,7 @@ class Wp_Events_Admin_Settings {
  		<tr>
 			<th scope="row"><?php _e( 'Export Subscriptions', 'simple-wp-events' ); ?></th>
   			<td>
-				<input type="submit" id="export-subscription" class="button button-primary" value="Export Subscriptions">
+				<input type="submit" id="export-subscription" class="wpe-settings-field button button-primary" value="Export Subscriptions">
         		<small class="wpe-fields-description"><?php _e( 'Export Subscriptions to CSV', 'simple-wp-events' ); ?></small>
 			</td>
 		</tr>
@@ -2074,7 +2074,7 @@ class Wp_Events_Admin_Settings {
 	public function wpe_settings_export_events_callback() {
 		$option= get_option('wpe_export_settings');
 		?>
-        <input class="wpe_export_events button button-primary" name="wpe_export_settings[export_button]" id="wpe_export_events" type="button" value="Export Events" />
+        <input class="wpe-settings-field wpe_export_events button button-primary" name="wpe_export_settings[export_button]" id="wpe_export_events" type="button" value="Export Events" />
         <small class="wpe-fields-description"><?php _e( 'Export Events to CSV', 'simple-wp-events' ); ?></small>
 		<?php
     }
@@ -2091,7 +2091,7 @@ class Wp_Events_Admin_Settings {
     	// Define the select option values for post status
     	$items = array( 'All', 'Past', 'Future', 'On Going');
 
-    	echo "<select id='post_status' name='wpe_export_settings[post_status]'>";
+    	echo "<select class='wpe-settings-field' id='post_status' name='wpe_export_settings[post_status]'>";
 
     	foreach( $items as $item ) {
 

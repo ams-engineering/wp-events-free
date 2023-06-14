@@ -324,7 +324,6 @@ input:checked + .slider:before {
 #wpe-filter-start-date, #wpe-filter-end-date {
     float: left;
     margin-right: 3px;
-    height: 30px;
 }
 
 .column-start_time, .column-end_time, .column-start_date, .column-end_date {
