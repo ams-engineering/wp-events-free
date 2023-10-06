@@ -230,6 +230,8 @@ class Wp_Events {
 		$this->loader->add_filter( 'theme_page_templates', $plugin_public, 'wpevents_themes_page_template' );
 		$this->loader->add_filter( 'page_template', $plugin_public, 'wpevents_archive_to_page_template' );
 		$this->loader->add_action( 'wp_head', $plugin_public, 'wpe_meta_description' );
+		$this->loader->add_action( 'wp_head', $plugin_public, 'wpe_facebook_meta' );
+		$this->loader->add_action( 'wp_head', $plugin_public, 'wpe_twitter_meta' );
 		$this->loader->add_action( 'wp_events_event_body', $plugin_public, 'wpe_event_meta', 10, 1 );
 	}
 

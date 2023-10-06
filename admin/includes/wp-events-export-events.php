@@ -211,7 +211,8 @@ function wpe_event_entries_export() {
 	$wpeevent  		 = wpe_sanitize( $_POST['wpeeventid'] );
 	$path 			 = wp_upload_dir();
 	$entries 		 = array();
-	$file 			 = fopen( $path['path']."/events-entries.csv", 'w');
+	$t				 = time();
+	$file 			 = fopen( $path['path']."/events-entries-". $t .".csv", 'w');
 
 	$args = array(
 		'post_type'		 => 'wp_events',
@@ -337,7 +338,7 @@ function wpe_event_entries_export() {
 	} 
 
 	fclose( $file );
-	$fileUrl = $path['url'].'/events-entries.csv';
+	$fileUrl = $path['url']."/events-entries-". $t .".csv";
 	wpe_send_ajax_response( $fileUrl );
 }
 

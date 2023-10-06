@@ -896,3 +896,52 @@ if( ! function_exists( 'wpe_get_active_posts' ) ) {
 		return $count;
     }
 }
+
+if ( ! function_exists( 'wpe_get_event_address' ) ) {
+	/**
+	 * Returns event venue output
+	 *
+	 * returns nothing if event type is webinar
+	 *
+	 * @param $post_id
+	 *
+	 * @since 1.0.448
+	 */
+	function wpe_get_event_address( $post_id ) {
+
+		$wpe_type 		 = get_post_meta( $post_id, 'wpevent-type', TRUE );
+		$wpe_location 	 = (int) get_post_meta( $post_id, 'wpevent-location', TRUE );
+		$location_id 	 = $wpe_location != 0 ? $wpe_location : $post_id;
+		$venue_html 	 = '';
+
+		if ( $wpe_type !== 'webinar' && $location_id !== 0 ) {
+			$venue_meta 	 = $wpe_location != 0 ? 'wpevent-loc-venue' : 'wpevent-venue';
+			$address_meta 	 = $wpe_location != 0 ? 'wpevent-loc-address' : 'wpevent-address';
+			$city_meta  	 = $wpe_location != 0 ? 'wpevent-loc-city' : 'wpevent-city';
+			$state_meta 	 = $wpe_location != 0 ? 'wpevent-loc-state' : 'wpevent-state';
+			$zip_meta   	 = $wpe_location != 0 ? 'wpevent-loc-zip' : 'wpevent-zip';
+			$country_meta 	 = $wpe_location != 0 ? 'wpevent-loc-country' : 'wpevent-country';
+			$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE ) ?? '';
+			$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE ) ?? '';
+			$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE ) ?? '';
+			$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE ) ?? '';
+			$wpe_zip         = get_post_meta( $location_id, $zip_meta, TRUE ) ?? '';
+			$wpe_country     = get_post_meta( $location_id, $country_meta, TRUE ) ?? '';
+			$venue_data 	 = array(
+				'venue'   => $wpe_venue,
+				'address' => $wpe_addr,
+				'city' 	  => $wpe_city,
+				'state'	  => $wpe_state,
+				'zip'	  => $wpe_zip,
+				'country' => $wpe_country,
+			);
+			$venue_data = apply_filters( 'wpe_event_address', $venue_data );
+			$venue_data = array_filter( $venue_data );
+			$venue_html = implode( ", ", $venue_data );
+			if ( $venue_html !== '' ) {
+				$venue_html = '<span class="wpe-location">' . wp_kses( $venue_html, wpe_get_allowed_html() ) . '</span>';
+			}
+		}
+		return $venue_html;
+	}
+}

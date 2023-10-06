@@ -109,29 +109,7 @@ get_header();
 								</span>
 								<?php  } ?>
 								<span class="wpe-address">
-									<?php
-									$venue_html = '';
-									if( $wpe_type !== 'webinar' ) {
-										if ( $wpe_venue !== '' ) {
-											$venue_html .= '<span class="wpe-venue">' . $wpe_venue . '</span>';
-										}
-										if ( $wpe_addr !== '' ) {
-											$venue_html .= '<span class="wpe-addr">,&nbsp;' . $wpe_addr . '</span>';
-										}
-										if ( $wpe_city !== '' ) {
-											$venue_html .= '<span class="wpe-city">,&nbsp;' . ucwords( $wpe_city ) . '</span>';
-										}
-										if ( $wpe_state !== '' ) {
-											$venue_html .= '<span class="wpe-state">,&nbsp;' . ucfirst( $wpe_state ) . '</span>';
-										}
-										if ( $wpe_country !== '' ) {
-											$venue_html .= '<span class="wpe-state">,&nbsp;' . $wpe_country . '</span>';
-										}
-										if ( $venue_html !== '' ) {
-											echo '<strong>Venue: </strong>' . wp_kses( $venue_html, wpe_get_allowed_html() );
-										}
-									}
-									?>
+									<?php echo '<strong>Venue:</strong> ' . wpe_get_event_address( $post_id ); ?>
 								</span>
 								<?php echo wpe_display_external_url_to_admin( $post_id );?>
 							</div>

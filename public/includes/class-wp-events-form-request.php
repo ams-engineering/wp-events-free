@@ -328,8 +328,8 @@ class Wp_Form_Request
 		 */
 		$user_subject  = do_shortcode( $mail_options['mail_success_subject'], TRUE );
 		$user_message  = get_confirmation_message( $data['post_id'], $mail_options, $type );
-		$user_message  = do_shortcode( $user_message, TRUE );
-
+		$user_message  = wpautop( do_shortcode( $user_message, TRUE ) );
+		
 		if ( isset( $event_option['approve_registrations'] ) ) {
 			$user_subject = str_replace('confirmed', 
 										'received', 

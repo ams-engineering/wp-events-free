@@ -267,6 +267,7 @@ jQuery(document).ready(function ($) {
 		let optionSelected = $("option:selected", this);
 		let valueSelected = this.value;
 		if (valueSelected > 1) {
+			$('.wpe-guests-heading').fadeIn();
 			let guest_length = $('.guest-info .guest-box').length;
 			if (guest_length >= valueSelected) {
 				for (let i = valueSelected; i < guest_length + 1; i++) {
@@ -278,6 +279,7 @@ jQuery(document).ready(function ($) {
 			}
 			$('.wpe-guest-field').prop('required', true);
 		} else {
+			$('.wpe-guests-heading').fadeOut();
 			guest_info.empty();
 			$('.wpe-guest-field').prop('required', false);
 		}

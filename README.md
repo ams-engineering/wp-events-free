@@ -3,7 +3,7 @@ Contributors: wpminds, noorshuja
 Tags: events, seminars, webinars, calendar, registrations, reminders
 Donate link: https://wpminds.com/
 Requires at least: 5.0
-Stable tag: 1.8.0
+Stable tag: 1.8.9
 Tested up to: 6.2
 Requires PHP: 7.0
 License: GPL-2.0+
@@ -84,6 +84,36 @@ Coming Soon!
 12. Single Event Page in Dark Mode
 
 == Changelog ==
+Version-1.8.9
+Added: Noindex meta tag for single pages redirecting to external URLs.
+Update: Move past events to draft option set as true by default.
+
+Version-1.8.8
+Added: Facebook and Twitter meta tags on single and archive pages.
+
+Version-1.8.7
+Added: filter for event address on archive and single event page.
+
+Version-1.8.6
+Added: Heading for guests' box in registration form.
+
+Version-1.8.0
+Update: Changed layout for the view entry page.
+Added: Checkboxes for all day event and no end time.
+Fixed: Datepicker layout issue.
+Update: Added zip code to registrants csv file.
+Update: Replaced thank you page text field with dropdown list of all pages.
+Fixed: removed empty field headings from email.
+Fixed: Export entries csv file.
+Added: Validation errors for admin side metaboxes.
+Fixed: Meta description tags for archive and single event pages.
+Added: Option to select separate thank you page for each event.
+Update: Set default value for seats dropdown to 1.
+Fixed: Validation errors for registration form.
+Added: Manual email reminders for the events.
+Added: Settings field for setting admin timezone.
+Fixed: Event times when adding events to calendars or downloading ics files.
+
 Version-1.7.2
 Fixed: Styling of dropdown fields for mozilla firefox.
 
@@ -91,30 +121,6 @@ Version-1.7.1
 Update: Added restrictions for zipcode field.
 Update: Changed layout of image and information box on single event page.
 Fixed: HTML structure for the archive page.
-
-Version-1.6.3
-Added: Option to change the message that replaces registration form when event is over.
-
-Version-1.6.2
-Update: Made phone number field on add event page as optional.
-Added: Input mask for phone number field on add event page.
-
-Version-1.6.1
-Fixed: Subscribe form layout for archive shortcode.
-Added: Attribute to change single-button text in shortcode widget.
-
-Version-1.6.0
-Added: Form validation errors.
-Added: Option to send the texting permission info to email.
-Added: Dark mode in display settings.
-Added: User notification checkbox for edit entry.
-Added: Filters to format date on archive page.
-Fixed: CSS for texting permission checkbox.
-Update: enqueue select2 file locally.
-Added: Option to make the form fields required or optional.
-Added: Option to bulk update existing email confirmation.
-Update: Add registerant address to the export registrations csv.
-Added: jQuery input mask for the phone number formatting.
 
 == Upgrade Notice ==
 Coming Soon!
