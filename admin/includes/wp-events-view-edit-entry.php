@@ -102,7 +102,6 @@ if ( ! function_exists( 'wpe_add_entry_fields' ) ) {
                     ),
                     'wpe_texting'       => array(
                         'type'          => 'checkbox',
-                        'disabled'      => true,
                         'label'	        => 'Texting Permissions',
                         'value'         => $results[0]->texting_permission,
                     ),

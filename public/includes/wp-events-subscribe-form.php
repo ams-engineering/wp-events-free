@@ -50,7 +50,7 @@ if( !function_exists( 'wpe_display_subscribe_form' ) ) {
                     }
                     if( $form_description != '' ) {
                         ?>
-                        <p class="wpe-form-description"><?php echo apply_filters( 'wpe_subscribe_form_description', esc_html( $form_description ) ); ?></p>
+                        <p class="wpe-form-description"><?php echo apply_filters( 'wpe_subscribe_form_description',  wp_kses( $form_description, wpe_get_allowed_html() ) ); ?></p>
 	                    <?php
                     }?>
                     <div class="wpe-name-box wpe-col-2">

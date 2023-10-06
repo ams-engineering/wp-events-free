@@ -180,41 +180,29 @@ class Wp_Events {
         $this->loader->add_filter( 'post_row_actions', $plugin_admin, 'wpe_duplicate_post_link', 10, 2);
         $this->loader->add_action( 'admin_action_wpe_duplicate_post_as_draft', $plugin_admin, 'wpe_duplicate_post_as_draft', 10, 2);
         $this->loader->add_action( 'admin_notices', $plugin_admin, 'wpe_duplication_admin_notice' );
-		
         $this->loader->add_action( 'wp_events_settings_tab', $plugin_admin, 'wpevents_admin_settings_tabs',1 );
         $this->loader->add_action( 'wp_events_settings_content', $plugin_admin, 'wpevents_admin_settings_content' );
         $this->loader->add_action( 'admin_init', $plugin_admin, 'wpevents_register_settings');
-
-        // Custom Columns for wp_events
         $this->loader->add_filter( 'manage_wp_events_posts_columns', $plugin_admin, 'wpevents_post_type_columns' );
         $this->loader->add_filter( 'manage_wp_events_posts_custom_column', $plugin_admin, 'wpevents_fill_post_type_columns', 10, 2  );
         $this->loader->add_filter( 'manage_edit-wp_events_sortable_columns', $plugin_admin, 'wpevent_custom_sortable_columns' );
 		$this->loader->add_filter( 'views_edit-wp_events', $plugin_admin, 'change_publish_status_text', 10, 1);
 		$this->loader->add_action( 'pre_get_posts', $plugin_admin, 'wpevents_post_status_param');
-
-		//screen options
 		$this->loader->add_filter( 'set-screen-option', $plugin_admin, 'wpe_set_screen_option', 10, 3 );
-
-		//quickeditmetaboxes
 		$this->loader->add_action( 'quick_edit_custom_box', $plugin_admin, 'wpe_quick_edit_fields', 10, 2 );
 		$this->loader->add_action( 'save_post', $plugin_admin, 'wpe_quick_edit_save');
 		$this->loader->add_action( 'admin_print_footer_scripts-edit.php', $plugin_admin, 'wpe_quick_edit_js');
-
-		//Edit row actions
 		$this->loader->add_filter( 'post_row_actions', $plugin_admin, 'view_registrations_link', 10, 2 );
-
-		//change past events to draft
 		$this->loader->add_action( 'init',  $plugin_admin, 'wpe_past_events_draft' );
 
 		//Handle view/edit entry ajax request
 		$dbOPerations = new Wp_Events_Db_Actions();
 		$this->loader->add_action( 'wp_ajax_wpe_update_entry', $dbOPerations, 'wpe_update_entry' );	
-		//handles removal of entries for deleted events.
-		// $this->loader->add_action( 'before_delete_post', $dbOPerations, 'wpe_remove_trash_event_entries' );	
 
 		//Handle ajax requests for view/edit sidebar buttons
 		$adminRequests = new Wp_Admin_Request();
 		$this->loader->add_action( 'wp_ajax_wpe_resend_notification', $adminRequests, 'wpe_resend_notification' );	
+		$this->loader->add_action( 'wp_ajax_wpe_event_reminder', $adminRequests, 'wpe_event_reminder' );	
 		$this->loader->add_action( 'wp_ajax_wpe_trash_restore', $adminRequests, 'wpe_trash_restore' );	
 		$this->loader->add_action( 'wp_ajax_wpe_update_entry_status', $adminRequests, 'wpe_update_entry_status' );	
 		$this->loader->add_action( 'wp_ajax_wpe_update_location', $adminRequests, 'wpe_update_location' );	
@@ -264,7 +252,7 @@ class Wp_Events {
 		$this->loader->add_action( 'wp_ajax_loadmore', $request_handler, 'wpe_loadmore_ajax_handler' ); 
 		$this->loader->add_action( 'wp_ajax_nopriv_loadmore', $request_handler, 'wpe_loadmore_ajax_handler' ); 
 	}
-
+	
 	/**
 	 * hook all the functions related to locations post type
 	 *

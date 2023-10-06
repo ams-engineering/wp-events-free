@@ -161,7 +161,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
                         <label for="wpe_privacy_policy"><?php _e( 'Privacy Policy', 'simple-wp-events' ); ?></label>
                         <textarea class="wpe-field" name="wpe_settings[privacy_policy]" id="wpe_privacy_policy" readonly><?php
-                            echo trim( esc_html( $option['privacy_policy'] ) );  ?></textarea>
+                            echo trim( esc_textarea( $option['privacy_policy'] ) );  ?></textarea>
                         <small><?php _e( 'This field is required.', 'simple-wp-events' ); ?></small>
                     </div>
                     <?php } ?>
@@ -173,12 +173,12 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                 <div class="wpe-col-full wpe-field">
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
                         <input  type="checkbox" name="wpe_consent_box" id="wpe_consent_box" value="I have read &amp; consent to the above." required>
-                        <label for="wpe_consent_box"><?php echo esc_html( $consent_box ); ?></label>
+                        <label for="wpe_consent_box"><?php echo wp_kses( $consent_box, wpe_get_allowed_html() ) ?></label>
                         <small><?php _e( 'This field is required.', 'simple-wp-events' ); ?></small>
                     </div>
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
                         <input  type="checkbox" name="wpe_disclaimer_box" id="wpe_disclaimer_box" value="I have read &amp; understand your website Disclaimer." required>
-                        <label for="wpe_disclaimer_box"> <?php echo esc_html( $disclaimer_box ); ?></label>
+                        <label for="wpe_disclaimer_box"> <?php echo wp_kses( $disclaimer_box, wpe_get_allowed_html() ) ?></label>
                         <small><?php _e( 'This field is required.', 'simple-wp-events' ); ?></small>
                     </div>
                     <?php
@@ -186,7 +186,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                     ?>
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
                         <input  type="checkbox" name="wpe_texting_permission" id="wpe_texting_permission" value="1">
-                        <label for="wpe_texting_permission"><?php echo esc_html( do_shortcode( $form_textin_permission ) ); ?></label>
+                        <label for="wpe_texting_permission"><?php echo wp_kses( do_shortcode( $form_textin_permission ), wpe_get_allowed_html() ); ?></label>
                         <small><?php _e( 'This field is required.', 'simple-wp-events' ); ?></small>
                     </div>
                     <?php
@@ -196,11 +196,9 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                 <div class="wpe-col-full wpe-field">
                     <div class="wpe-form-control wpe-field-container wpe-full-width">
 	                    <?php
-	                    if ( $labels ) {
 		                    ?>
-                            <label for="event-seats"><?php _e( 'Seats *', 'simple-wp-events' ); ?></label>
+                            <label for="event-seats"><?php _e( 'Seats', 'simple-wp-events' ); ?></label>
 		                    <?php
-	                    }
                         wpe_get_seats_dropdown();
 	                    ?>
                         <small><?php _e( 'This field is required.', 'simple-wp-events' ); ?></small>

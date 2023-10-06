@@ -56,6 +56,7 @@ class Wp_Events_Activator {
 			$wpe_settings['events_slug'] = 'events';
 		}
 		$wpe_settings['meta_description'] = 'Join us for free seminars for the most up-to-date information on how you can protect your assets during your life and preserve them after your death.';
+		$wpe_settings['admin_timezone']   = 'America/New_York';
 		update_option( 'wpe_settings', $wpe_settings );
 
 		if( self::$instance === NULL ) {

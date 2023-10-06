@@ -163,7 +163,7 @@ if( ! function_exists( 'wpe_get_seminar_message' ) ) {
 	 */
 	function wpe_get_seminar_message() {
         $option = get_option('wpe_mail_settings');
-        return $option['mail_success_message'];
+        return wpautop( $option['mail_success_message'] );
     }
 }
 
@@ -177,7 +177,7 @@ if( ! function_exists( 'wpe_get_webinar_message' ) ) {
 	 */
 	function wpe_get_webinar_message() {
         $option = get_option('wpe_mail_settings');
-        return $option['webinar_success_message'];
+        return wpautop( $option['webinar_success_message'] );
     }
 }
 
@@ -238,7 +238,7 @@ if( ! function_exists( 'wpevents_location_drop_down' ) ) {
             if( (string) $ID === $wp_event_location ) {
                 $html.='<option selected value="'. $ID .'">'. $location .'</option>';
             } else if( $location === "Select Location" ) {
-	            $html .= '<option value="xxx">' . $location . '</option>';
+	            $html .= '<option value="">' . $location . '</option>';
             } else {
 	            $html .= '<option value="' . $ID . '">' . $location . '</option>';
             }
@@ -294,7 +294,7 @@ if( ! function_exists( 'wpe_event_title' ) ) {
 		return false;
 
 		// HTML for our select printing post titles as loop.
-		$output = '<select name="wpe_titles" id="wpe_titles" class="mdb-select md-form" searchable="Search here..">';
+		$output = '<select name="wpe_titles" id="wpe_titles" class="wpe-settings-field wpe-add-select2">';
 
 		$output .= '<option value="" selected>Select Event</option>';
 
@@ -338,5 +338,22 @@ if( ! function_exists( 'wpe_array_combine' ) ) {
             array_walk( $result, $callback );
         }
         return $result;
+    }
+}
+
+if( ! function_exists( 'wpe_get_all_pages' ) ) {
+    /**
+     * Gets the page IDs for all pages in the site
+     * 
+     * @since 1.8.0
+     * @return array
+     */
+    function wpe_get_all_pages() {
+        $pages    = get_pages();
+        $page_ids = [];
+        foreach( $pages as $page ) {
+            $page_ids[] = $page->ID;
+        }
+        return $page_ids;
     }
 }

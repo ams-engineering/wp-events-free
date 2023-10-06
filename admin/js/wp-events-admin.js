@@ -6,11 +6,23 @@
 jQuery(document).ready( function($) {
 
 	$("#wpevent-phone").inputmask({"mask": "(999) 999-9999"});
-	
-	const startDate = document.getElementById('wpevent-start-date');
-	const endDate	= document.getElementById('wpevent-end-date');
-	const phone		= document.getElementById('wpevent-phone');
-	const seats		= document.getElementById('wpevent-seats');
+	$("#wpe_phone-id").inputmask({"mask": "(999) 999-9999"});
+
+	/**
+	 * phone validate function
+	 * */
+	function validatePhone( $phone ) {
+		var phoneReg = /^(\([0-9]{3}\) |[0-9]{3}-)[0-9]{3}-[0-9]{4}$/;
+		return phoneReg.test( $phone );
+	}
+
+	/**
+	 * email validate function
+	 * */
+	function validateEmail( $email ) {
+		var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+		return emailReg.test( $email );
+	}
 
 	/**
 	 * Ajax call for updating location data in metaboxes
@@ -63,7 +75,7 @@ jQuery(document).ready( function($) {
 					location: locObject,
 				},
 			success: function( response ) {
-				if ( response === 'Location Already Exists!' || response === 'Please fill all fields!' ) {
+				if ( response === 'Location Already Exists!' || response === 'Please enter location(venue) title' ) {
 					var imgURL = wpe_ajaxobject.pluginsUrl + '/' + wpe_ajaxobject.wpePluginBase + '/assets/img/wpe-error.png';
 					wpe_popup( response, imgURL );
 				} else {
@@ -83,49 +95,6 @@ jQuery(document).ready( function($) {
 				wpe_popup('Location could not be added.', imgURL );
 			}
 		} );
-	}
-
-	//Check validity of metaboxes
-	function metaboxValidation( inputArr, e ) {
-		inputArr.forEach( function( input ){
-			var title	 = '';
-			var getTitle = input.getAttribute("title");
-			if ( !input.checkValidity() ) {
-				if ( input.validationMessage.includes("format") && getTitle != null ) {
-					title = getTitle;
-					showError( input, input.validationMessage + ' ' + title )
-				} else if ( input.validationMessage.includes("fill out") ) {
-					for( var i = 0; i < input.labels.length; i++ ) {
-						showError( input, input.labels[i].textContent + ' cannot be empty.' )
-					}
-				} else {
-					showError( input, input.validationMessage )
-				}
-				e.stopImmediatePropagation();             
-			}else {
-				showSucces( input );
-			}
-		});
-	}
-
-	//Show input error messages
-	function showError( input, message ) {
-		const eventControl 	   = input.parentElement;
-		if ( eventControl.classList.contains( 'success' ) ) {
-			eventControl.classList.remove( 'success' );
-		}
-		eventControl.className = eventControl.className + ' the-error';
-		const small			   = eventControl.querySelector('small');
-		small.innerText		   = message;
-	}
-
-	//show success colour
-	function showSucces( input ) {
-		const eventControl	   = input.parentElement;
-		if ( eventControl.classList.contains( 'the-error' ) ) {
-			eventControl.classList.remove( 'the-error' );
-		}
-		eventControl.className = eventControl.className + ' success';
 	}
 
 	$('.wpevent-location').keyup( function( e ) {
@@ -202,6 +171,9 @@ jQuery(document).ready( function($) {
 		$( document ).ready( function() {
 			if ( $( '#wpevent-start-date' ).val() == '' || $( '#wpevent-end-date' ).val() == '' ) {
 				$( '.editor-post-publish-button__button' ).prop( "disabled", true );
+				$( '#publish' ).prop( "disabled", true );
+				$('.event-control.start-date').addClass('the-error');
+				$('.event-control.end-date').addClass('the-error');
 			}
 		});
 
@@ -211,24 +183,46 @@ jQuery(document).ready( function($) {
 		$( '#wpevent-start-date' ).on( "change paste keyup", function() {
 			if ( $( '#wpevent-start-date' ).val() == '' ) {
 				$( '.editor-post-publish-button__button' ).prop("disabled", true );
+				$( '#publish' ).prop("disabled", true );
+				$('.event-control.start-date').addClass('the-error');
 			}
 			else if ( $( '#wpevent-start-date' ).val() != '' && $( '#wpevent-end-date' ).val() != '' ) {
 				$( '.editor-post-publish-button__button' ).prop( "disabled", false );
+				$( '#publish' ).prop( "disabled", false );
+				$('.event-control.start-date').removeClass('the-error');
+				$('.event-control.end-date').removeClass('the-error');
 			}
 		});
 		$( '#wpevent-end-date' ).on( "change paste keyup", function() {
 			if ( $( '#wpevent-end-date' ).val() == '' ) {
 				$( '.editor-post-publish-button__button' ).prop( "disabled", true );
+				$( '#publish' ).prop( "disabled", true );
+				$('.event-control.end-date').removeClass('the-error');
 			}
 			else if ( $( '#wpevent-start-date' ).val() != '' && $( '#wpevent-end-date' ).val() != '' ) {
 				$( '.editor-post-publish-button__button' ).prop( "disabled", false );
+				$( '#publish' ).prop( "disabled", false );
+				$('.event-control.start-date').removeClass('the-error');
+				$('.event-control.end-date').removeClass('the-error');
 			}
 		});
-		
-		// on publish button click
-		$(document).on( 'click', '.editor-post-publish-button', function( e ){
-			metaboxValidation( [startDate, endDate, seats, phone], e );
 
+		$( '#wpevent-phone' ).on( "change paste keyup", function() {
+			if ( $( '#wpevent-phone' ).val() != '' ) {
+				if ( ! validatePhone( $( '#wpevent-phone' ).val() ) ) {
+					$( '.editor-post-publish-button__button' ).prop("disabled", true );
+					$( '#publish' ).prop("disabled", true );
+					$('.event-control.phone').addClass('the-error');
+				} else {
+					$( '.editor-post-publish-button__button' ).prop("disabled", false );
+					$( '#publish' ).prop("disabled", false );
+					$('.event-control.phone').removeClass('the-error');
+				}
+			} else {
+				$( '.editor-post-publish-button__button' ).prop("disabled", false );
+				$( '#publish' ).prop("disabled", false );
+				$('.event-control.phone').removeClass('the-error');
+			}
 		});
 
 		//disable next/prev controls if corresponding entries don't exist
@@ -258,6 +252,10 @@ jQuery(document).ready( function($) {
 		});
 	}
 
+	if( window.location.href.includes('tab=export') ) {
+		$('#wpe-save-settings').css( 'display', 'none');
+	}
+
 	function wpe_datepicker() {
 		$( "#wpevent-start-date" ).datepicker(
 			{ dateFormat : 'yy-mm-dd' }
@@ -280,6 +278,7 @@ jQuery(document).ready( function($) {
 	// Initialize select2
 	$("#wpe_titles").select2();
 	$("#wpe_categories").select2();
+	$('.wpe-add-select2').select2();
 
 	/**
 	 * Contains all the functions executed on change events of start date,
@@ -336,11 +335,15 @@ jQuery(document).ready( function($) {
 			$( '.wpe-map-div' ).fadeOut();
 			var message = wpe_ajaxobject.webinarMessage;
 			$( '#wpevent-confirmation-message' ).text(message);
+			$('.wpe-thankyou-div').removeClass('wpe-right');
+			$('.wpe-thankyou-div').addClass('wpe-left');
 		} else {
 			$( '.wp-events-location' ).fadeIn();
 			$( '.wpe-map-div' ).fadeIn();
 			var message = wpe_ajaxobject.seminarMessage;
 			$( '#wpevent-confirmation-message' ).text(message);
+			$('.wpe-thankyou-div').removeClass('wpe-left');
+			$('.wpe-thankyou-div').addClass('wpe-right');
 		}
 	});
 
@@ -366,12 +369,11 @@ jQuery(document).ready( function($) {
 
 		e.preventDefault();
 		$('.wpe-edit-entry-form').removeClass('disabledform');
-		$('#wpe_texting-id').removeAttr('disabled');
 		$('#first_name-id').focus();
-		$('.wpe-edit-registration').text('Save');
-		$('.wpe-edit-registration').addClass('wpe-save-registration');
+		$(this).text('Save');
+		$(this).addClass('wpe-save-registration');
 		$('.wpe-edit-form-button').removeClass('wpe-hidden');
-		$('.wpe-edit-registration').removeClass('wpe-edit-registration');
+		$(this).removeClass('wpe-edit-registration');
 	});
 
 	$('#wpe-edit-entry-form').submit(function (e) {
@@ -384,6 +386,28 @@ jQuery(document).ready( function($) {
 		let searchParams  = new URLSearchParams( window.location.search );
 		let tab			  = searchParams.get('tab');
 		var textingPerm   = $('#wpe_texting-id').prop('checked');
+		formInput 		  = $('.wpe-edit-entry-form input');
+		var error 		  = 0;
+		formInput.each( function() {
+			if( $(this).hasClass('wpe-validate-required') ) {
+				if( $(this).val() == '' ) {
+					wpe_popup('Please fill the required fields.');
+					$(this).css('background', ' #ffcccc');
+					error = 1;
+					return;
+				}
+				$(this).css('background', '#F0F0F1');
+			}
+		});
+		if( error == 1 ) return;
+		if( $('#wpe_email-id').val() != '' && ! validateEmail( $('#wpe_email-id').val() ) ) {
+			wpe_popup('Please enter correct Email.' );
+			return;
+		}
+		if( $('#wpe_phone-id').val() != '' && ! validatePhone( $('#wpe_phone-id').val() ) ) {
+			wpe_popup('Please enter correct phone number.' );
+			return;
+		}
 		if ( tab === 'registrations' ) {
 			var seats  = $('#wpe_seats-id').val();
 			var guests = $('#guests-id').val();
@@ -456,6 +480,29 @@ jQuery(document).ready( function($) {
 		let searchParams 	  = new URLSearchParams( window.location.search );
 		let tab			 	  = searchParams.get('tab');
 		resendNotification( dataString, adminNotification, userNotification, tab );
+	});
+
+	// on Resend notification button click
+	$( document ).on('click', '#wpe-event-reminder', function(e) {
+		e.preventDefault();
+		var eventID = jQuery("#post_ID").val();
+		$.ajax( {
+			type: 'post',
+			url:  wpe_ajaxobject.ajaxurl,
+			data: { action: 'wpe_event_reminder',
+					postID: eventID
+				},
+			success: function( response ) {
+				if( response == 1 ) {
+					wpe_popup('Reminder sent successfully.');
+				} else if( response == 2 ) {
+					wpe_popup('No registrants found.');
+				}
+			},
+			error: function ( error ) {
+				wpe_popup('Could Not Process Request');
+			}
+	  	} );
 	});
 
 	//ajax call to update form data after entry is edited
@@ -547,7 +594,6 @@ jQuery(document).ready( function($) {
 
 	function saveEntry( textingPerm ) {
 		$( "#wpe-edit-entry-form" ).submit();
-		$('#wpe_texting-id').attr('disabled', true);
 		var form = document.getElementById( 'wpe-edit-entry-form' );
 		var dataString = $( form ).serializeJSON();
 		updateEntry( dataString, textingPerm );
@@ -606,20 +652,18 @@ jQuery(document).ready( function($) {
 		    url: wpe_ajaxobject.ajaxurl,
 		    dataType: "json", // add data type
 		    cache: false,
-		    data: { action : 'wpe_event_entries',
+		    data: { action : 'wpe_event_entries_export',
 		    Startdate: WpeStartDate,
 			Enddate: WpeEndDate,
 			wpeeventid: WpeEvent },
 		    beforeSend: function() {
-		       $( "#export-event-entries" ).attr( "disabled", true );
+		       $( "#export-event-entries" ).prop( "disabled", true );
 		    },
 		    success: function( response ) {
 				window.open( response );
 				deleteFile( response );
-		    },
-		    complete: function() {
-		      $( "#export-event-entries" ).removeAttr( "disabled" );
-		    }   
+				$( "#export-event-entries" ).prop( "disabled", false );
+		    } 
 		});
 		
 	});
@@ -669,17 +713,9 @@ jQuery(document).ready( function($) {
 	}
 
 	if( window.location.href.includes('tab=mail') ) {
-		var updateMessage = $('#wpe_update_all_seminars').prop("checked");
-		var message 	  = '';
-		$('#wpe_update_all_seminars').change( function(e) {
-			// checked will equal true if checked or false otherwise
-			const checked = $(this).is(':checked');
-			updateMessage = checked;
-		});
-		$("#mail_success_message").on('change keyup paste', function( event ) {
-			message = event.target.value;
-		});
 		$('#wpe-save-settings').click( function( e ) {
+			var updateMessage = $('#wpe_update_all_seminars').prop("checked");
+			message 		  = tinymce.get("mail_success_message").getContent();
 			if( updateMessage == true && message != '' ) {
 				e.preventDefault();
 				$.ajax( {
@@ -702,17 +738,9 @@ jQuery(document).ready( function($) {
 				});
 			}
 		});
-		var updateWebinar = $('#wpe_update_all_webinars').prop("checked");
-		var webMessage 	  = '';
-		$('#wpe_update_all_webinars').change( function(e) {
-			// checked will equal true if checked or false otherwise
-			const checkedWeb = $(this).is(':checked');
-			updateWebinar    = checkedWeb;
-		});
-		$("#webinar_success_message").on('change keyup paste', function( event ) {
-			webMessage = event.target.value;
-		});
 		$('#wpe-save-settings').click( function( e ) {
+			var updateWebinar = $('#wpe_update_all_webinars').prop("checked");
+			webMessage 		  = tinymce.get("webinar_success_message-").getContent();
 			if( updateWebinar == true && webMessage != '' ) {
 				e.preventDefault();
 				$.ajax( {

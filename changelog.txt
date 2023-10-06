@@ -1,3 +1,20 @@
+Version-1.8.0
+Update: Changed layout for the view entry page.
+Added: Checkboxes for all day event and no end time.
+Fixed: Datepicker layout issue.
+Update: Added zip code to registrants csv file.
+Update: Replaced thank you page text field with dropdown list of all pages.
+Fixed: removed empty field headings from email.
+Fixed: Export entries csv file.
+Added: Validation errors for admin side metaboxes.
+Fixed: Meta description tags for archive and single event pages.
+Added: Option to select separate thank you page for each event.
+Update: Set default value for seats dropdown to 1.
+Fixed: Validation errors for registration form.
+Added: Manual email reminders for the events.
+Added: Settings field for setting admin timezone.
+Fixed: Event times when adding events to calendars or downloading ics files.
+
 Version-1.7.2
 Fixed: Styling of dropdown fields for mozilla firefox.
 
@@ -19,7 +36,6 @@ Added: Attribute to change single-button text in shortcode widget.
 
 Version-1.6.0
 Added: Form validation errors.
-Added: Option to send the texting permission info to email.
 Added: Dark mode in display settings.
 Added: User notification checkbox for edit entry.
 Added: Filters to format date on archive page.
@@ -99,7 +115,7 @@ Fixed: Options for hear about us dropdown.
 
 Version 1.3.0
 Added:  Option to choose type of captcha (invisibe/checkbox).
-Added:  Locations post type to organize locations data.
+Added:  Locations post type to organize locations data.	
 
 Version 1.2.7
 Fixed: CSS for archive details section.
