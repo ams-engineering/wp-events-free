@@ -96,7 +96,7 @@ class Wp_Events_Db_Actions {
 		global $wpdb;
 		$table_name = $wpdb->prefix . $table;
 
-		if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE '$table_name'" ) ) != $table_name ) {
+		if ( $wpdb->get_var( $wpdb->prepare( "SHOW TABLES LIKE %s", $table_name ) ) != $table_name ) {
 			return false;
 		}
 
