@@ -98,6 +98,9 @@ class Wp_Events_Activator {
 			'req_form_phone'					 => 'l_true',
 			'req_form_email'					 => 'l_true',
 			'req_subform_email'					 => 'l_true',
+			'form_success'						 => '',
+			'form_success_webinar'				 => '',
+			'subsc_form_success'				 => '',
 		];
 
 		$this->wpe_save_default_options( $wpe_form_settings, $form_defaults, 'wpe_forms_settings' );
