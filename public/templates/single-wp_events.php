@@ -49,11 +49,12 @@ get_header();
 						$post_type       = 'wp_events';
 						$terms           = wp_get_object_terms( $post_id, 'wpevents-category' );
 						$wpe_type        = get_post_meta( $post_id, 'wpevent-type', TRUE );
+						$wpe_type 		 = str_replace( '-', ' ', $wpe_type );
 						$wpe_phone       = get_post_meta( $post_id, 'wpevent-phone', true );
-						$tzString 		 = wpe_get_admin_timezone();
+						$tzString 		 = empty( wpe_get_admin_timezone() ) ? 'America/New_York' : wpe_get_admin_timezone();
 						$tz 			 = new \DateTimeZone($tzString);
 						$admin_offset 	 = ( $tz->getOffset(new \DateTime()))/3600;
-						$tzString 		 = wpe_get_user_timezone();
+						$tzString 		 = empty( wpe_get_user_timezone() ) ? 'America/New_York' : wpe_get_user_timezone();
 						$tz 			 = new \DateTimeZone($tzString);
 						$user_offset 	 = ( $tz->getOffset(new \DateTime()))/3600;
 						$total_offset 	 = $user_offset - $admin_offset;
@@ -107,33 +108,16 @@ get_header();
 									<strong>Phone: </strong><?php
 									echo "<a href='tel:". esc_attr( $wpe_phone ) ."'>" . esc_html( $wpe_phone ) . "</a>"; ?>
 								</span>
-								<?php  } ?>
-								<span class="wpe-address">
-									<?php
-									$venue_html = '';
-									if( $wpe_type !== 'webinar' ) {
-										if ( $wpe_venue !== '' ) {
-											$venue_html .= '<span class="wpe-venue">' . $wpe_venue . '</span>';
-										}
-										if ( $wpe_addr !== '' ) {
-											$venue_html .= '<span class="wpe-addr">,&nbsp;' . $wpe_addr . '</span>';
-										}
-										if ( $wpe_city !== '' ) {
-											$venue_html .= '<span class="wpe-city">,&nbsp;' . ucwords( $wpe_city ) . '</span>';
-										}
-										if ( $wpe_state !== '' ) {
-											$venue_html .= '<span class="wpe-state">,&nbsp;' . ucfirst( $wpe_state ) . '</span>';
-										}
-										if ( $wpe_country !== '' ) {
-											$venue_html .= '<span class="wpe-state">,&nbsp;' . $wpe_country . '</span>';
-										}
-										if ( $venue_html !== '' ) {
-											echo '<strong>Venue: </strong>' . wp_kses( $venue_html, wpe_get_allowed_html() );
-										}
-									}
+								<?php  
+								} 
+								if( $wpe_type != 'webinar' ) {
 									?>
-								</span>
-								<?php echo wpe_display_external_url_to_admin( $post_id );?>
+									<span class="wpe-address">
+										<?php echo '<strong>Venue:</strong> ' . wpe_get_event_address( $post_id ); ?>
+									</span>
+									<?php 
+								}
+								echo wpe_display_external_url_to_admin( $post_id );?>
 							</div>
 						</div>
                         <div class="wpe-add-to-calendar">
@@ -180,7 +164,7 @@ get_header();
                                         	$address = 'webinar';
                                         }
                                         ?>
-                                        <div class="ics-text" id="get-ics-text">BEGIN:VCALENDAR<?php echo "\n" ?>VERSION:2.0<?php echo "\n" ?>PRODID:-//WPMINDS//NONSGML v1.0//EN<?php echo "\n" ?>CALSCALE:GREGORIAN<?php echo "\n" ?>BEGIN:VEVENT<?php echo "\n" ?>VENUE:<?php echo $wpe_venue; ?><?php echo "\n" ?>DESCRIPTION:<?php echo strip_tags( get_the_excerpt()); ?><?php echo "\n" ?>ADDRESS:<?php echo $wpe_addr; ?><?php echo "\n" ?>DTSTART:<?php echo $start_tz_date->format( 'Ymd\THis' ); ?><?php echo "\n" ?>DTEND:<?php echo $end_tz_date->format( 'Ymd\THis' ); ?><?php echo "\n" ?>URL;VALUE=URI:<?php echo get_the_permalink( $post_id ); ?><?php echo "\n" ?>SUMMARY:<?php echo strip_tags( get_the_title()); ?><?php echo "\n" ?>LOCATION:<?php echo $venue_html; ?><?php echo "\n" ?>PHONE:<?php echo get_post_meta( $post_id, 'wpevent-phone', true ); ?><?php echo "\n" ?>DTSTAMP:<?php echo date('Ymd\THis'); ?><?php echo "\n" ?>UID:<?php echo uniqid(); ?><?php echo "\n" ?>END:VEVENT<?php echo "\n" ?>END:VCALENDAR</div>
+                                        <div class="ics-text" id="get-ics-text">BEGIN:VCALENDAR<?php echo "\n" ?>VERSION:2.0<?php echo "\n" ?>PRODID:-//WPMINDS//NONSGML v1.0//EN<?php echo "\n" ?>CALSCALE:GREGORIAN<?php echo "\n" ?>BEGIN:VEVENT<?php echo "\n" ?>VENUE:<?php echo esc_html( $wpe_venue ); ?><?php echo "\n" ?>DESCRIPTION:<?php echo strip_tags( get_the_excerpt()); ?><?php echo "\n" ?>ADDRESS:<?php echo esc_html( $wpe_addr ); ?><?php echo "\n" ?>DTSTART:<?php echo $start_tz_date->format( 'Ymd\THis' ); ?><?php echo "\n" ?>DTEND:<?php echo $end_tz_date->format( 'Ymd\THis' ); ?><?php echo "\n" ?>URL;VALUE=URI:<?php echo get_the_permalink( $post_id ); ?><?php echo "\n" ?>SUMMARY:<?php echo strip_tags( get_the_title()); ?><?php echo "\n" ?>LOCATION:<?php echo wp_kses( $venue_html, wpe_get_allowed_html() ); ?><?php echo "\n" ?>PHONE:<?php echo get_post_meta( $post_id, 'wpevent-phone', true ); ?><?php echo "\n" ?>DTSTAMP:<?php echo date('Ymd\THis'); ?><?php echo "\n" ?>UID:<?php echo uniqid(); ?><?php echo "\n" ?>END:VEVENT<?php echo "\n" ?>END:VCALENDAR</div>
                                         <div class="filename"><?php echo strip_tags( get_the_title()) .'.ics' ?></div>
                                     </ul>
                                 </li>

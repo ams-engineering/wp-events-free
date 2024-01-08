@@ -29,6 +29,7 @@ class Wpe_Shortcodes {
         add_shortcode('wpe_firm_name', [ $this, 'wpe_firm_name' ] );
         add_shortcode('wpe_notification_email', [ $this, 'wpe_notification_email' ] );
         add_shortcode('wpe_firm_phone', [ $this, 'wpe_firm_phone' ] );
+        add_shortcode('wpe_firm_email', [ $this, 'wpe_firm_email' ] );
         add_shortcode('wpe_owner_name', [ $this, 'wpe_owner_name' ] );
     }
 
@@ -129,6 +130,12 @@ class Wpe_Shortcodes {
         return $phone;
     }
 
+	public function wpe_firm_email(){
+        $options = get_option( 'wpe_firm_settings' );
+		$email 	 = $options['admin_mail'];
+        return $email;
+    }
+
 	public function wpe_owner_name(){
         $options = get_option( 'wpe_firm_settings' );
 		$name 	 = $options['owner_name'];
@@ -144,18 +151,6 @@ class Wpe_Shortcodes {
 	    $start_time      = isset( $event_date_time['start_time'] ) ? strtotime( $event_date_time['start_time'] ) : 0;
 	    $end_date        = isset( $event_date_time['end_date'] ) ? strtotime( $event_date_time['end_date'] ) : 0;
 	    $end_time        = isset( $event_date_time['end_time'] ) ? strtotime( $event_date_time['end_time'] ) : 0;
-	    $wpe_location 	 = (int) get_post_meta( $post_id, 'wpevent-location', TRUE );
-		$location_id 	 = $wpe_location != 0 ? $wpe_location : $post_id;
-		$venue_meta 	 = $wpe_location != 0 ? 'wpevent-loc-venue' : 'wpevent-venue';
-		$address_meta 	 = $wpe_location != 0 ? 'wpevent-loc-address' : 'wpevent-address';
-		$city_meta  	 = $wpe_location != 0 ? 'wpevent-loc-city' : 'wpevent-city';
-		$state_meta 	 = $wpe_location != 0 ? 'wpevent-loc-state' : 'wpevent-state';
-		$country_meta 	 = $wpe_location != 0 ? 'wpevent-loc-country' : 'wpevent-country';
-		$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE ) ?? '';
-		$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE ) ?? '';
-		$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE ) ?? '';
-		$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE ) ?? '';
-		$wpe_country     = get_post_meta( $location_id, $country_meta, TRUE ) ?? '';
         ob_start();
         ?>
         <p style="color: blue; margin: 5px 0; text-transform: uppercase;">
@@ -171,25 +166,8 @@ class Wpe_Shortcodes {
                 } ?>
         </p>
 	    <?php
-	    $wpe_type = get_post_meta( $post_id, 'wpevent-type', TRUE );
-	    if( $wpe_type !== 'webinar' && $location_id !== 0 ) {
-		    $venue_html = '';
-		    if ( $wpe_venue !== '' ) {
-			    $venue_html .= '<br><span class="wpe-venue">' . $wpe_venue . '</span><br>';
-		    }
-		    if ( $wpe_addr !== '' ) {
-			    $venue_html .= '<span class="wpe-address">' . $wpe_addr . '</span><br>';
-		    }
-		    if ( $wpe_city !== '' ) {
-			    $venue_html .= '<span class="wpe-city">' . ucwords( $wpe_city ) . '</span><br><br>';
-		    }
-		    // if ( $wpe_state !== '' ) {
-			//     $venue_html .= '&nbsp;<span class="wpe-state">' . ucfirst( $wpe_state ) . '</span>';
-		    // }
-		    if ( $venue_html !== '' ) {
-			    echo '<p style="margin: 5px 0">' . wp_kses( $venue_html, wpe_get_allowed_html() ) . '</p>';
-		    }
-	    }
+		$venue = wpe_get_event_address( $post_id );
+		if ( $venue != '' ) echo '<strong>LOCATION:</strong><br> ' . $venue;
 	    return ob_get_clean();
     }
 
@@ -235,10 +213,12 @@ class Wpe_Shortcodes {
 		if( $wpe_phone != '' ):
         $registration_details .= "<p style='margin: 5px 0'><strong>Phone</strong>: $wpe_phone</p>";
 		endif;
-		if( ! $hearAbout ):
+		if( ! $hearAbout && $wpe_source != '' ):
         $registration_details .= "<p style='margin: 5px 0'><strong>How did you hear about us</strong>: $wpe_source</p>";
 		endif;
+		if( $wpe_seats != '' ):
         $registration_details .= "<p style='margin: 5px 0'><strong>Seats</strong>: $wpe_seats</p>";
+		endif;
 		$registration_details .= "<p style='margin: 5px 0'><strong>Texting Permission</strong>: $wpe_texting</p>";
 
 		if( isset( self::$form_data['wpe_guest_first_name'] ) && isset( self::$form_data['wpe_guest_last_name'] ) ) {

@@ -211,7 +211,8 @@ function wpe_event_entries_export() {
 	$wpeevent  		 = wpe_sanitize( $_POST['wpeeventid'] );
 	$path 			 = wp_upload_dir();
 	$entries 		 = array();
-	$file 			 = fopen( $path['path']."/events-entries.csv", 'w');
+	$t				 = time();
+	$file 			 = fopen( $path['path']."/events-entries-". $t .".csv", 'w');
 
 	$args = array(
 		'post_type'		 => 'wp_events',
@@ -333,11 +334,26 @@ function wpe_event_entries_export() {
 		}
 
 	} else {
-		fputcsv( $file, 'No Entries Found!' );
+		$headers = array(
+			'Id',
+			'Event ID',
+			'First Name',
+			'Last Name',
+			'Address',
+			'Email',
+			'Phone',
+			'Event Name',
+			'Event Type',
+			'Time',
+			'Texting Permission',
+			'Seats',
+			'Status',
+		);
+		fputcsv( $file, $headers );
 	} 
 
 	fclose( $file );
-	$fileUrl = $path['url'].'/events-entries.csv';
+	$fileUrl = $path['url']."/events-entries-". $t .".csv";
 	wpe_send_ajax_response( $fileUrl );
 }
 
@@ -357,7 +373,8 @@ function wpe_export_subscription() {
 
 	$subscribers   = get_wpe_subscribers();
 	$path 		   = wp_upload_dir();
-	$file 		   = fopen( $path['path']."/wpe-subscribers.csv", 'w');
+	$t			   = time();
+	$file 		   = fopen( $path['path']."/wpe-subscribers-". $t .".csv", 'w');
 
 	$keys = array_keys( $subscribers[0] );
 
@@ -366,7 +383,7 @@ function wpe_export_subscription() {
 		fputcsv( $file, $entries );
 	}
 	fclose( $file );
-	$fileUrl = $path['url'].'/wpe-subscribers.csv';		
+	$fileUrl = $path['url'].'/wpe-subscribers-'. $t .'.csv';		
 	wpe_send_ajax_response( $fileUrl );
 }
 

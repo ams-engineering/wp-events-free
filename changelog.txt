@@ -1,3 +1,33 @@
+Version-1.8.12
+Fixed: Bug in venue on single events page.
+Fixed: HTML entity decode for email subjects.
+
+Version-1.8.11
+Added: Shortcode attribute 'exc_type' to exclude event type from display.
+
+Version-1.8.10
+Added: Noindex meta tag for single pages redirecting to external URLs.
+Update: Move past events to draft option set as true by default.
+
+Version-1.8.8
+Added: Facebook and Twitter meta tags on single and archive pages.
+
+Version-1.8.7
+Added: filter for event address on archive and single event page.
+
+Version-1.8.6
+Added: Heading for guests' box in registration form.
+
+Version-1.8.4
+Fixed: Export registrations button issue.
+
+Version-1.8.3
+Added: Option to customize reminder email messages.
+Added: Option to add custom email ids to receive reminders.
+
+Version-1.8.2
+Fixed: Missing venue on archive page.
+
 Version-1.8.0
 Update: Changed layout for the view entry page.
 Added: Checkboxes for all day event and no end time.

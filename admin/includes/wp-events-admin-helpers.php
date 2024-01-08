@@ -259,7 +259,7 @@ if( ! function_exists( 'wpe_editor' ) ) {
      * @since 1.4.0
      */
     function wpe_editor( $content, $editor_id, $editor_name ) {
-        wp_editor( $content, $editor_id, array( 'textarea_name' => $editor_name ) );
+        wp_editor( $content, $editor_id, array( 'textarea_name' => $editor_name, 'editor_class' => 'wpeMceEditor' ) );
     }
 }
 
@@ -294,7 +294,7 @@ if( ! function_exists( 'wpe_event_title' ) ) {
 		return false;
 
 		// HTML for our select printing post titles as loop.
-		$output = '<select name="wpe_titles" id="wpe_titles" class="wpe-settings-field wpe-add-select2">';
+		$output = '<select name="wpe_titles" id="wpe_titles" class="wpe-add-select2">';
 
 		$output .= '<option value="" selected>Select Event</option>';
 

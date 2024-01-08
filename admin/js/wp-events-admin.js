@@ -715,7 +715,7 @@ jQuery(document).ready( function($) {
 	if( window.location.href.includes('tab=mail') ) {
 		$('#wpe-save-settings').click( function( e ) {
 			var updateMessage = $('#wpe_update_all_seminars').prop("checked");
-			message 		  = tinymce.get("mail_success_message").getContent();
+			message 		  = tinyMCE.get("mail_success_message").getContent();
 			if( updateMessage == true && message != '' ) {
 				e.preventDefault();
 				$.ajax( {
@@ -740,7 +740,7 @@ jQuery(document).ready( function($) {
 		});
 		$('#wpe-save-settings').click( function( e ) {
 			var updateWebinar = $('#wpe_update_all_webinars').prop("checked");
-			webMessage 		  = tinymce.get("webinar_success_message-").getContent();
+			webMessage 		  = tinyMCE.get("webinar_success_message-").getContent();
 			if( updateWebinar == true && webMessage != '' ) {
 				e.preventDefault();
 				$.ajax( {

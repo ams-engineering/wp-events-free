@@ -204,6 +204,7 @@ if( !function_exists( 'wpe_registration_form' ) ) {
                         <small><?php _e( 'This field is required.', 'simple-wp-events' ); ?></small>
                     </div>
                 </div>
+                <div style="display: none" class="wpe-full-width wpe-guests-heading"><?php _e( 'Name(s) of Guest(s) Other Than Yourself', 'simple-wp-events' ) ?></div>
                 <div class="guest-info wpe-form-control wpe-field-container wpe-full-width">
                     <div style="display: none" class="wpe-col-2 wpe-field guest-box">
                         <div class="wpe-form-control wpe-field-container wpe-left-half">

@@ -88,8 +88,8 @@ class Wp_Events_Admin {
         //check if current post type is wp_event then add this css file
         if( 'wp_events' == wpe_get_current_post_type() ) {
 		    wp_enqueue_style( $this->plugin_name.'-jquery-ui', plugin_dir_url( __FILE__ ) .'css/jquery-ui.min.css', array(), $this->version, 'all' );
+            wp_enqueue_style( $this->plugin_name.'-select2', plugin_dir_url( __FILE__ ) .'css/select2.min.css', array(), $this->version, 'all' );
         }
-        wp_enqueue_style( $this->plugin_name.'-select2', plugin_dir_url( __FILE__ ) .'css/select2.min.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -123,7 +123,9 @@ class Wp_Events_Admin {
 
         wp_enqueue_script( 'jquery-serialize', plugin_dir_url( __DIR__ ) . 'assets/js/jquery.serializejson.js', array( 'jquery' ), $this->version, false );
         
-        wp_enqueue_script( 'jquery-select2', plugin_dir_url( __FILE__ ) . 'js/select2.min.js', array( 'jquery' ), $this->version, false );
+        if( 'wp_events' == wpe_get_current_post_type() ) {
+            wp_enqueue_script( 'jquery-select2', plugin_dir_url( __FILE__ ) . 'js/select2.min.js', array( 'jquery' ), $this->version, false );
+        }
 
         //localizing ajax url
 		wp_localize_script(
@@ -688,6 +690,16 @@ class Wp_Events_Admin {
         update_post_meta( $post_id, "wpevent-all-day", $wpe_all_day );
         update_post_meta( $post_id, "wpevent-limit-seats", $wpe_limit_seats );
 
+        if( ! empty( $wp_event_website ) ) {
+            add_action( 'wpseo_saved_postdata', function() use ( $post_id ) { 
+                update_post_meta( $post_id, '_yoast_wpseo_meta-robots-noindex', '1' );
+            }, 999 );
+        } else {
+            add_action( 'wpseo_saved_postdata', function() use ( $post_id ) { 
+                update_post_meta( $post_id, '_yoast_wpseo_meta-robots-noindex', '2' );
+            }, 999 );
+        }
+
     }
 
     /**
@@ -736,7 +748,7 @@ class Wp_Events_Admin {
         $wpe_current_view = '';
 
         if ( ! isset( $_GET['post_status'] ) ) {
-            $wpe_current_view = isset( $_GET['event_status'] ) ? sanitize_text_field( $_GET['event_status'] ) : 'all'; 
+            $wpe_current_view = isset( $_GET['event_status'] ) ? wpe_sanitize( $_GET['event_status'] ) : 'all'; 
         }
 
 		$updated['all']     = '<a '. wpe_is_current( $wpe_current_view, 'all' ) .'href="edit.php?post_type=wp_events">All <span class="count">(' . wpe_get_posts_count() .')</span></a>';
