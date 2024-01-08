@@ -600,14 +600,12 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	 */
 	protected function extra_tablenav( $which ) {
 		if ( $which == "top" ) {
-			$post_types_list = $this->output_types_list();
 			$post_title_list = $this->output_titles_list();
 
 			$this->empty_trash_button();
 
 			if ( $post_title_list ) {
 				echo '<div class="alignleft actions bulkactions">' .
-				$post_types_list .
 				$post_title_list .
 				$this->output_categories_list() .
 				$this->output_dates_filter();
