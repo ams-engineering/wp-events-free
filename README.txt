@@ -16,7 +16,7 @@ A simple and lightweight WordPress plugin to create events and allow users to re
 
 Whether it’s an on-site or virtual event, this plugin handles all your event hurdles for you. Our team of elite and experienced engineers has ensured that it’s simple, fast, and reliable.
 
-Simple WP Events is built by the WP Minds team and packed with all the features to kick off events on your website.
+Simple WP Events is built by the WPMinds team and packed with all the features to kick off events on your website.
 
 Simple Events Plugin is lightweight, quick to set up, and easily customizable.
 
