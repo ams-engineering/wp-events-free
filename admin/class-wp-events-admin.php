@@ -1418,6 +1418,28 @@ class Wp_Events_Admin {
     }
 
     /**
+     * Displays admin success notice when post is duplicated.
+     *
+     * @since 2.1.0
+     */
+    public function wpe_premium_admin_notice() {
+        echo '<div class="wpe-premium-notice notice notice-success is-dismissible"><p><strong><i>Exciting News: Our Website is Live!</i></strong><br>Ready to elevate your website with our premium plugin? Head over to <a target="_blank" href="https://simplewpevents.com/">https://simplewpevents.com/</a> now and take the first step towards unlocking its full potential.</p></div>';
+    }
+
+    /**
+     * Adds custom links in installed plugins row
+     * 
+     * @since 2.1.0
+     */
+    public function wpe_add_settings_link( $links ) {
+        $settings_link = '<a href="edit.php?post_type=wp_events&page=wp_events_settings">' . __( 'Settings', 'simple-wp-events' ) . '</a>';
+        $premium_link  = '<a class="wpe-premium-link" target="_blank" href="https://simplewpevents.com/">' . __( 'Go Premium', 'simple-wp-events' ) . '</a>';
+        array_push( $links, $settings_link );
+        array_push( $links, $premium_link );
+        return $links;
+    }
+
+    /**
      * Admin Form Entries Page      Callback for wp_forms_entries page added in wpevents_submenu_page
      *
      * @since 1.0.0

@@ -167,6 +167,7 @@ class Wp_Events {
 	private function define_admin_hooks() {
 
 		$plugin_admin = new Wp_Events_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin 	  = WPE_PLUGIN_BASE . '/wp-events.php';
 
         $this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
 		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
@@ -194,6 +195,8 @@ class Wp_Events {
 		$this->loader->add_action( 'admin_print_footer_scripts-edit.php', $plugin_admin, 'wpe_quick_edit_js');
 		$this->loader->add_filter( 'post_row_actions', $plugin_admin, 'view_registrations_link', 10, 2 );
 		$this->loader->add_action( 'init',  $plugin_admin, 'wpe_past_events_draft' );
+		$this->loader->add_filter( 'plugin_action_links_' . $plugin, $plugin_admin, 'wpe_add_settings_link', 10, 3 );
+		$this->loader->add_action( 'admin_notices', $plugin_admin, 'wpe_premium_admin_notice' );
 
 		//Handle view/edit entry ajax request
 		$dbOPerations = new Wp_Events_Db_Actions();

@@ -98,11 +98,11 @@ class Wp_Form_Request
 	        $firm_info = get_option( 'wpe_firm_settings' );
 			// subscriber details
 	        $subscriber_subject = html_entity_decode( do_shortcode( $mail_options['subscriber_user_subject'], TRUE ) );
-	        $subscriber_message = do_shortcode( $mail_options['subscriber_user_message'], TRUE );
+	        $subscriber_message = wpautop( do_shortcode( $mail_options['subscriber_user_message'], TRUE ) );
 
 	        // admin details
 	        $admin_subject = html_entity_decode( do_shortcode( $mail_options['subscriber_admin_subject'], TRUE ) );
-	        $admin_message = do_shortcode( $mail_options['subscriber_admin_message'], TRUE );
+	        $admin_message = wpautop( do_shortcode( $mail_options['subscriber_admin_message'], TRUE ) );
 
 	        // header information
 	        $from_name  = $firm_info['mail_from_name'];
@@ -339,7 +339,7 @@ class Wp_Form_Request
 		}
 
 		$admin_subject = html_entity_decode( do_shortcode( $mail_options['registrant_admin_subject'], TRUE ) );
-		$admin_message = do_shortcode( $mail_options['registrant_admin_message'], TRUE );
+		$admin_message = wpautop( do_shortcode( $mail_options['registrant_admin_message'], TRUE ) );
 
 		//send email to user
 		switch ( $type ) {

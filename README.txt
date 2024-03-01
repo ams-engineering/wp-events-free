@@ -12,6 +12,9 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 A simple and lightweight WordPress plugin to create events and allow users to register for them.
 
 == Description ==
+= Exciting News: Our Website is Live! =
+= Ready to elevate your website with our premium plugin? Head over to https://simplewpevents.com/ now and take the first step towards unlocking its full potential. =
+
 [Simple WP Events](https://simplewpevents.com/) is a free plugin to easily create and manage events on your website.
 
 Whether it’s an on-site or virtual event, this plugin handles all your event hurdles for you. Our team of elite and experienced engineers has ensured that it’s simple, fast, and reliable.
@@ -43,8 +46,6 @@ It is packed with numerous features:
 ✔️ Select custom thank you pages for all or each event.
 
 Just getting started? Visit the [documentation site](https://simplewpevents.com/docs/) to get set up.
- 
-= Our Team is Consistently Working on Adding More Premium Features and Add-ons to This Plugin Which Will Be Made Available Very Soon. =
 
 == Installation ==
 Installing the plugin is easy. Just follow one of the following methods:
