@@ -12,7 +12,7 @@
  * Plugin Name:       Simple WP Events
  * Plugin URI:        https://simplewpevents.com/
  * Description:       The only WordPress plugin to create, manage and update hassle free events
- * Version:           1.8.12
+ * Version:           1.8.13
  * Requires at least: 5.0
  * Requires PHP:      7.0
  * Author:            WPMinds
@@ -30,7 +30,7 @@ if ( ! defined( 'WPINC' ) ) {
 /**
  * Currently plugin version.
  */
-define( 'WP_EVENTS_VERSION', '1.8.12' );
+define( 'WP_EVENTS_VERSION', '1.8.13' );
 
 /**
  * Name of plugin folder.
