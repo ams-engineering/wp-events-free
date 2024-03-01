@@ -13,7 +13,7 @@ A simple and lightweight WordPress plugin to create events and allow users to re
 
 == Description ==
 = Exciting News: Our Website is Live! =
-= Ready to elevate your website with our premium plugin? Head over to https://simplewpevents.com/ now and take the first step towards unlocking its full potential. =
+= Ready to elevate your website with our premium plugin? Head over to [https://simplewpevents.com/](https://simplewpevents.com/) now and take the first step towards unlocking its full potential. =
 
 [Simple WP Events](https://simplewpevents.com/) is a free plugin to easily create and manage events on your website.
 
