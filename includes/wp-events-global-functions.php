@@ -772,8 +772,11 @@ if( ! function_exists( 'wpe_get_user_timezone' ) ) {
 		$ipdat = @json_decode( file_get_contents( "http://ip-api.com/json/" . $ip ) );
 		if ( strpos( $_SERVER['HTTP_HOST'], "local" ) !== false || $_SERVER['HTTP_HOST'] == '127.0.0.1' ) {
 			$ipdat = @json_decode( file_get_contents( "http://ip-api.com/json/" ) );
-		}	
-		return $ipdat->timezone;
+		}
+		if( $ipdat ) {
+			return $ipdat->timezone;
+		}
+		return 'America/New_York';
 	}
 }
 
