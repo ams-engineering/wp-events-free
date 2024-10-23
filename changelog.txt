@@ -1,3 +1,6 @@
+Version-1.8.14
+Added: Feedback Review notice.
+
 Version-1.8.12
 Fixed: Bug in venue on single events page.
 Fixed: HTML entity decode for email subjects.

@@ -1494,4 +1494,15 @@ class Wp_Events_Admin {
         $this->admin_settings->wpe_admin_register_settings();
     }
 
+    function wpe_plugin_display_activation_notice() {
+        echo '<div class="wpe-notice notice-info notice is-dismissible" style="background-color:#fff; display:flex; align-items:center; gap:20px;">';
+        echo '<img width="100" src="'. plugins_url() . '/' . WPE_PLUGIN_BASE . '/assets/feedback.png' .'">';
+        echo '<div class="wpe-notice-content">';
+        echo '<p>' . esc_html__('Hello! It looks like you\'ve been using Simple WP Events Plugin on your website — thank you so much!', 'simple-wp-events') . '</p>';
+        echo '<p>' . esc_html__('If you could take a moment to leave us a 5-star rating on WordPress, we\'d greatly appreciate it. Your support not only motivates us but also helps other users make informed choices when selecting Simple WP Events Plugin. Thank you!', 'simple-wp-events') . '</p>';
+        echo '<p><a href="https://wordpress.org/plugins/simple-wp-events/#reviews" class="button button-primary" target="_blank">Review Us</a></p>';
+        echo '</div>';
+        echo '</div>';
+    }
+
 }
