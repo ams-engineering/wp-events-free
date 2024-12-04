@@ -98,6 +98,9 @@ class Wp_Events_Activator {
 			'req_form_phone'					 => 'l_true',
 			'req_form_email'					 => 'l_true',
 			'req_subform_email'					 => 'l_true',
+			'form_success'						 => '',
+			'form_success_webinar'				 => '',
+			'subsc_form_success'				 => '',
 		];
 
 		$this->wpe_save_default_options( $wpe_form_settings, $form_defaults, 'wpe_forms_settings' );
@@ -147,6 +150,8 @@ class Wp_Events_Activator {
 			'subscriber_admin_subject'    => 'New Subscription',
 			'subscriber_admin_message'    => self::$instance->admin_email_message( 'subscriber' ),
 			'enable_webinar_conformation' => 'l_true',
+			'reminder_mail_message'		  => self::$instance->reminder_email_message(),
+			'reminder_subject'			  => 'Reminder: [wpe_event_name] is happening soon!',
 		];
 
 		$this->wpe_save_default_options( $wpe_mail_settings, $email_defaults, 'wpe_mail_settings' );
@@ -209,7 +214,7 @@ class Wp_Events_Activator {
 	private function admin_email_message( $type ) {
 		$message = '';
 		if ( $type === 'registrant' ) {
-			$message = 'This is an auto-generated email confirming receipt of a event reservation made from your website. A confirmation email has also been sent to the registrant, ( [wpe_user_first_name] ) at [wpe_user_email].
+			$message = 'This is an auto-generated email confirming receipt of an event reservation made from your website. A confirmation email has also been sent to the registrant, ( [wpe_user_first_name] ) at [wpe_user_email].
 			
 			Event Details:
 			[wpe_event_details]
@@ -242,6 +247,28 @@ class Wp_Events_Activator {
 		If you have any questions, please feel free to contact us at our office number or via email.
 		We look forward to seeing you.		
 		Sincerely,";
+
+		return nl2br( preg_replace( "/\t+/", "", $message ) );    //  removing tabs from string
+	}
+
+	/**
+	 * returns reminder email message
+	 *
+	 * @access private
+	 * @since  1.8.3
+	 */
+	private function reminder_email_message() {
+		$message = "Dear [wpe_user_first_name] [wpe_user_last_name],
+		(This is an auto-generated reminder of your registration for our upcoming event.)
+		
+		<strong>The details of the event are following:</strong>
+		[wpe_event_details]
+		If you have any questions, please feel free to contact us at our office:[wpe_firm_phone] or via email at [wpe_firm_email].
+
+		We look forward to seeing you.
+
+		Sincerely,
+		[wpe_firm_name]";
 
 		return nl2br( preg_replace( "/\t+/", "", $message ) );    //  removing tabs from string
 	}

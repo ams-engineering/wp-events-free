@@ -324,6 +324,7 @@ input:checked + .slider:before {
 #wpe-filter-start-date, #wpe-filter-end-date {
     float: left;
     margin-right: 3px;
+    height: 30px;
 }
 
 .column-start_time, .column-end_time, .column-start_date, .column-end_date {
@@ -771,3 +772,17 @@ input#wpevent-limit-seats {
 .wp_events_page_wp_events_settings .select2-container--default .select2-selection--single .select2-selection__arrow {
     top: 6px;
 }
+
+a.wpe-premium-link {
+    font-weight: 700;
+    font-style: italic;
+    color: #1EB977;
+}
+
+.wpe-premium-notice {
+    border-left-color: #1EB977;
+}
+
+/* .wpe-premium-notice strong {
+    color: #1EB977;
+} */

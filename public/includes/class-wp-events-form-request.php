@@ -97,12 +97,12 @@ class Wp_Form_Request
 			//Get Firm information
 	        $firm_info = get_option( 'wpe_firm_settings' );
 			// subscriber details
-	        $subscriber_subject = do_shortcode( $mail_options['subscriber_user_subject'], TRUE );
-	        $subscriber_message = do_shortcode( $mail_options['subscriber_user_message'], TRUE );
+	        $subscriber_subject = html_entity_decode( do_shortcode( $mail_options['subscriber_user_subject'], TRUE ) );
+	        $subscriber_message = wpautop( do_shortcode( $mail_options['subscriber_user_message'], TRUE ) );
 
 	        // admin details
-	        $admin_subject = do_shortcode( $mail_options['subscriber_admin_subject'], TRUE );
-	        $admin_message = do_shortcode( $mail_options['subscriber_admin_message'], TRUE );
+	        $admin_subject = html_entity_decode( do_shortcode( $mail_options['subscriber_admin_subject'], TRUE ) );
+	        $admin_message = wpautop( do_shortcode( $mail_options['subscriber_admin_message'], TRUE ) );
 
 	        // header information
 	        $from_name  = $firm_info['mail_from_name'];
@@ -237,7 +237,6 @@ class Wp_Form_Request
 			'%d',
 		];
 
-
 		$guest_names = $this->get_guest_information( $form_data['wpe_guest_first_name'], $form_data['wpe_guest_last_name'] );
 		if ( $guest_names !== FALSE ) {
 			$data['guests'] = $guest_names;
@@ -326,9 +325,9 @@ class Wp_Form_Request
 		/**
 		 * Adding Custom message from post meta OR options
 		 */
-		$user_subject  = do_shortcode( $mail_options['mail_success_subject'], TRUE );
+		$user_subject  = html_entity_decode( do_shortcode( $mail_options['mail_success_subject'], TRUE ) );
 		$user_message  = get_confirmation_message( $data['post_id'], $mail_options, $type );
-		$user_message  = do_shortcode( $user_message, TRUE );
+		$user_message  = wpautop( do_shortcode( $user_message, TRUE ) );
 
 		if ( isset( $event_option['approve_registrations'] ) ) {
 			$user_subject = str_replace('confirmed', 
@@ -339,8 +338,8 @@ class Wp_Form_Request
 										$user_message );
 		}
 
-		$admin_subject = do_shortcode( $mail_options['registrant_admin_subject'], TRUE );
-		$admin_message = do_shortcode( $mail_options['registrant_admin_message'], TRUE );
+		$admin_subject = html_entity_decode( do_shortcode( $mail_options['registrant_admin_subject'], TRUE ) );
+		$admin_message = wpautop( do_shortcode( $mail_options['registrant_admin_message'], TRUE ) );
 
 		//send email to user
 		switch ( $type ) {

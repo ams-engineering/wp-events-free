@@ -15,7 +15,8 @@
 <div class="wpe-header">
     <div class="wpe-header-wrap">
         <img width="40" height="40" src="<?php echo plugins_url() . '/' . WPE_PLUGIN_BASE . '/assets/img/logo.png'; ?>">
-        <h1 class="wpe-header-title"><?php _e( 'Simple WP Events', 'simple-wp-events' ); ?></h1> 
+        <h1 class="wpe-header-title"><?php _e( 'Simple WP Events', 'simple-wp-events' ); ?></h1>
+        <p class="wpe-documentation">Need Help? Visit the plugin <a target="_blank" href="https://simplewpevents.com/docs/">documentation</a>.</p>
     </div>
 </div>
 <div class="wpe-view-entry-wrap">

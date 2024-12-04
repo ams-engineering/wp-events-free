@@ -98,59 +98,6 @@ if ( ! function_exists( 'wpe_get_thankyou_popup' ) ) {
 	}
 }
 
-if ( ! function_exists( 'wpe_get_event_address' ) ) {
-	/**
-	 * Returns event venue output
-	 *
-	 * returns nothing if event type is webinar
-	 *
-	 * @param $post_id
-	 *
-	 * @since 1.0.448
-	 */
-	function wpe_get_event_address( $post_id ) {
-
-		$wpe_type 		 = get_post_meta( $post_id, 'wpevent-type', TRUE );
-		$wpe_location 	 = (int) get_post_meta( $post_id, 'wpevent-location', TRUE );
-		$location_id 	 = $wpe_location != 0 ? $wpe_location : $post_id;
-
-		if ( $wpe_type !== 'webinar' && $location_id !== 0 ) {
-			$venue_meta 	 = $wpe_location != 0 ? 'wpevent-loc-venue' : 'wpevent-venue';
-			$address_meta 	 = $wpe_location != 0 ? 'wpevent-loc-address' : 'wpevent-address';
-			$city_meta  	 = $wpe_location != 0 ? 'wpevent-loc-city' : 'wpevent-city';
-			$state_meta 	 = $wpe_location != 0 ? 'wpevent-loc-state' : 'wpevent-state';
-			$country_meta 	 = $wpe_location != 0 ? 'wpevent-loc-country' : 'wpevent-country';
-			$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE ) ?? '';
-			$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE ) ?? '';
-			$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE ) ?? '';
-			$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE ) ?? '';
-			$wpe_country     = get_post_meta( $location_id, $country_meta, TRUE ) ?? '';
-			$venue_html  = '';
-			if ( $wpe_venue !== '' ) {
-				$venue_html .= '<span class="wpe-venue">' . $wpe_venue . '</span>';
-			}
-			if ( $wpe_addr !== '' ) {
-				$venue_html .= '<span class="wpe-addr">, ' . $wpe_addr . '</span>';
-			}
-			if ( $wpe_city !== '' ) {
-				$venue_html .= '<span class="wpe-city">, ' . ucwords( $wpe_city ) . '</span>';
-			}
-			if ( $wpe_state !== '' ) {
-				$venue_html .= '<span class="wpe-state">, ' . ucfirst( $wpe_state ) . '</span>';
-			}
-			if ( $wpe_country !== '' ) {
-				$venue_html .= '<span class="wpe-state">, ' . $wpe_country . '</span>';
-			}
-			if ( $venue_html !== '' ) {
-				$venue_html = '<div class="wpe-location"><strong>Venue: </strong>' . wp_kses( $venue_html, wpe_get_allowed_html() ) . '</div>';
-			}
-
-			echo $venue_html;
-		}
-	}
-}
-
-
 if ( ! function_exists( 'wpe_get_event_category_and_type' ) ) {
 	/**
 	 * Generates Event category and type output
@@ -501,7 +448,7 @@ if ( ! function_exists( 'wpe_get_seats_dropdown' ) ) {
 				break;
 			}
 			if ( $nmber <= $seats_per_entry ) {
-				echo '<option value="' . absint( $nmber ) . '">' . absint( $nmber ) . '</option>';
+				echo '<option value="' . esc_attr( $nmber ) . '">' . esc_html( $nmber ) . '</option>';
 			}
 		}
 		?>

@@ -188,6 +188,14 @@ body .fc-button-group button {
     display: block;
 }
 
+span.wpe-location {
+    display: inline;
+}
+
+/* .wpevents-shortcode-section .wpe-venue .wpe-location {
+    display: inline;
+} */
+
 .wpe-archive-buttons span {
     display: inline-block;
 }
@@ -213,7 +221,7 @@ body .wpe-event .entry-title a {
     text-transform: capitalize;
 }
 
-.wpe-location span {
+.wpe-archive-shortcode .wpe-location span {
     display: inline-block;
 }
 
@@ -847,6 +855,12 @@ body .wpe-dark-mode .wpe-subscribe-form-container input {
 .wpe-dark-mode button:not(:hover):not(:active):not(.has-text-color) {
     color: #000 !important;
 }
+
+.wpe-full-width.wpe-guests-heading {
+    text-align: center;
+    font-weight: 700;
+    font-style: italic;
+}
 /*===========================================
                 Media Queries
 ============================================*/
@@ -880,5 +894,17 @@ body .wpe-dark-mode .wpe-subscribe-form-container input {
         padding-right: 0;
     }
 	.wpe-register-form-container .wpe-col-3 div{padding-right:0px;}
+
+    body .wpe-event .fc-toolbar .fc-left,
+    body .wpe-event .fc-toolbar .fc-center,
+    body .wpe-event .fc-toolbar .fc-right {
+        float: none;
+        display: inline-block;
+        clear: both;
+    }
+
+    .fc-scroller.fc-day-grid-container {
+        height: auto !important;
+    }
 	/* updated-css-end */
 }

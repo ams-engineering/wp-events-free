@@ -902,7 +902,45 @@ class Wp_Events_Admin_Settings {
 									echo wpe_editor( $subscriber_admin_Message, 'subscriber_admin_message', 'wpe_mail_settings[subscriber_admin_message]' );
 								?>
                                 <small class="wpe-fields-description">
-									<?php _e( 'Enter admin email Message (admin will receive this message when a user submits a form)', 'simple-wp-events' ); ?>
+                                    Enter admin email Message (admin will receive this message when a user submits a form)
+					                <?php echo $this->shortcode_helper_tooltip(); ?>
+                                </small>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </li>
+			<li>
+                <div class="other-hold">Reminders</div>
+                <div class="other-post">
+					<table class="form-table wpe-settings-table" role="presentation">
+                        <tbody>
+                        <tr>
+                            <th scope="row">CC:</th>
+                            <td>
+                                <input class="wpe-settings-field wpe-sub-tab-field" name="wpe_mail_settings[reminder_cc]" id="wpe_reminder_cc" type="text"
+                                       value="<?php echo isset( $wpe_mail_settings['reminder_cc'] ) ? esc_attr( $wpe_mail_settings['reminder_cc'] ) : '';?>">
+                                <small class="wpe-fields-description">Enter comma separated email addresses to receive reminders</small>
+                            </td>
+                        </tr>
+						<tr>
+                            <th scope="row">Email Subject</th>
+                            <td>
+                                <input class="wpe-settings-field wpe-sub-tab-field" name="wpe_mail_settings[reminder_subject]" id="wpe_waitlist_reminder_subject" type="text"
+                                       value="<?php echo isset( $wpe_mail_settings['reminder_subject'] ) ? esc_attr( $wpe_mail_settings['reminder_subject'] ) : '';?>">
+                                <small class="wpe-fields-description">Enter reminder email subject</small>
+                            </td>
+                        </tr>
+                        <tr>
+                            <th scope="row">Email Message</th>
+                            <td>
+								<?php
+									$reminder_mail_message =  isset( $wpe_mail_settings['reminder_mail_message'] ) ? $wpe_mail_settings['reminder_mail_message'] : '';
+									echo wpe_editor( $reminder_mail_message, 'reminder_mail_message', 'wpe_mail_settings[reminder_mail_message]' );
+								?>
+                                <small class="wpe-fields-description">
+                                    Enter reminder email message
 					                <?php echo $this->shortcode_helper_tooltip(); ?>
                                 </small>
                             </td>
@@ -1389,7 +1427,7 @@ class Wp_Events_Admin_Settings {
 		$subscriber_description_content =  isset( $this->wpe_form_settings['subscriber_form_description'] ) ? $this->wpe_form_settings['subscriber_form_description'] : '';
 		echo wpe_editor( $subscriber_description_content, 'subscriber_form_description', 'wpe_forms_settings[subscriber_form_description]' );
 		?>
-        <small class="wpe-fields-description">vz<?php _e( 'Subscriber form description will be displayed after title', 'simple-wp-events' ); ?></small>
+        <small class="wpe-fields-description"><?php _e( 'Subscriber form description will be displayed after title', 'simple-wp-events' ); ?></small>
 		<?php
 	}
 

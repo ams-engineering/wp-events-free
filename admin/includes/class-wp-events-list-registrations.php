@@ -122,7 +122,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	public function get_bulk_actions() {
 		$bulk_actions['bulk-delete'] = __( 'Move to Trash', 'simple-wp-events' );
 
-		$display = isset( $_GET['display'] ) ? sanitize_text_field( $_GET['display'] ) : 'all';
+		$display = isset( $_GET['display'] ) ? wpe_sanitize( $_GET['display'] ) : 'all';
 
 		switch( $display ) {
 			case 'pending':
@@ -175,7 +175,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	 */
 	function column_ID( $item ) {
 		
-		$display	   = isset( $_GET["display"] ) ? sanitize_text_field( $_GET["display"] ) : 'all';
+		$display	   = isset( $_GET["display"] ) ? wpe_sanitize( $_GET["display"] ) : 'all';
 		$event_options = get_option('wpe_events_settings');
 
 		if ( isset( $event_options['approve_registrations'] ) ) { //only for pending approval entries
@@ -441,7 +441,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	public function record_count( $filter_string ) {
 		global $wpdb;
 
-		$display_tab = isset( $_GET['display'] ) ? sanitize_text_field( $_GET['display'] ) : 'all';
+		$display_tab = isset( $_GET['display'] ) ? wpe_sanitize( $_GET['display'] ) : 'all';
 
 		switch ( $display_tab ) {
 			case 'trash':
@@ -480,7 +480,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 
 		global $wpdb;
 
-		$display_tab = isset( $_GET["display"] ) ? sanitize_text_field( $_GET["display"] ) : 'all';
+		$display_tab = isset( $_GET["display"] ) ? wpe_sanitize( $_GET["display"] ) : 'all';
 
 		switch ( $display_tab ) {
 			case 'trash':
@@ -544,7 +544,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 	 */
 	public function views() {
 
-		$wpe_current_display = isset( $_GET['display'] ) ? sanitize_text_field( $_GET['display'] ) : 'all';
+		$wpe_current_display = isset( $_GET['display'] ) ? wpe_sanitize( $_GET['display'] ) : 'all';
 
 		$views = [
 			'all'	    => '<a '. wpe_is_current( $wpe_current_display, 'all' ) .'href="edit.php?post_type=wp_events&page=wp_forms_entries&display=all">' . __( 'All', 'simple-wp-events' ) . '</a>',
@@ -553,7 +553,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		$event_options = get_option('wpe_events_settings');
 		$event 		   = '';
 		if ( isset( $_GET['wpe_titles'] ) ) {
-			$number = isset( $_GET['posts_page'] ) ? sanitize_text_field( $_GET['posts_page'] ) : '1';
+			$number = isset( $_GET['posts_page'] ) ? wpe_sanitize( $_GET['posts_page'] ) : '1';
 			$event  = '&posts_page='. $number .'&wpe_titles='. wpe_sanitize( $_GET['wpe_titles'] );
 		}
 
@@ -648,7 +648,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		return false;
 
 		// HTML for our select printing post titles as loop.
-		$output = '<select name="wpe_titles" id="wpe_titles" class="mdb-select md-form" searchable="Search here..">';
+		$output = '<select name="wpe_titles" id="wpe_titles" class="wpe-add-select2" searchable="Search here..">';
 
 		$output .= '<option value="-1" selected>' . __( 'All Events', 'simple-wp-events' ) . '</option>';
 
@@ -722,7 +722,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 					array(
 						'taxonomy' => 'wpevents-category',
 						'field'    => 'slug',
-						'terms'    => sanitize_text_field( $_GET['wpe_categories'] ),
+						'terms'    => wpe_sanitize( $_GET['wpe_categories'] ),
 					),
 				),
 			);
@@ -830,7 +830,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 		}
 
 		if ( isset( $_GET['wpe_titles'] ) && $_GET['wpe_titles'] != -1 ) {
-			$title_filter 	  = sanitize_text_field( $_GET['wpe_titles'] );
+			$title_filter 	  = wpe_sanitize( $_GET['wpe_titles'] );
 			$title_filter_arr = explode( ",", $title_filter );
 			if ( isset( $filter ) ) {
 				$filter = array_intersect( $title_filter_arr, $filter );
@@ -1011,7 +1011,7 @@ class Wp_Events_Registrations_list extends WP_List_Table {
 					'. $append_message .'.<br />
 					Sincerely,';
 					$message  = do_shortcode( $message, TRUE );
-					wp_mail( $to, $subject, $message, $headers );
+					wp_mail( $to, html_entity_decode( $subject ), $message, $headers );
 				}
 			}
 		}

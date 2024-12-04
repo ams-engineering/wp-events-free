@@ -88,8 +88,8 @@ class Wp_Events_Admin {
         //check if current post type is wp_event then add this css file
         if( 'wp_events' == wpe_get_current_post_type() ) {
 		    wp_enqueue_style( $this->plugin_name.'-jquery-ui', plugin_dir_url( __FILE__ ) .'css/jquery-ui.min.css', array(), $this->version, 'all' );
+            wp_enqueue_style( $this->plugin_name.'-select2', plugin_dir_url( __FILE__ ) .'css/select2.min.css', array(), $this->version, 'all' );
         }
-        wp_enqueue_style( $this->plugin_name.'-select2', plugin_dir_url( __FILE__ ) .'css/select2.min.css', array(), $this->version, 'all' );
 	}
 
 	/**
@@ -123,7 +123,9 @@ class Wp_Events_Admin {
 
         wp_enqueue_script( 'jquery-serialize', plugin_dir_url( __DIR__ ) . 'assets/js/jquery.serializejson.js', array( 'jquery' ), $this->version, false );
         
-        wp_enqueue_script( 'jquery-select2', plugin_dir_url( __FILE__ ) . 'js/select2.min.js', array( 'jquery' ), $this->version, false );
+        if( 'wp_events' == wpe_get_current_post_type() ) {
+            wp_enqueue_script( 'jquery-select2', plugin_dir_url( __FILE__ ) . 'js/select2.min.js', array( 'jquery' ), $this->version, false );
+        }
 
         //localizing ajax url
 		wp_localize_script(
@@ -688,6 +690,16 @@ class Wp_Events_Admin {
         update_post_meta( $post_id, "wpevent-all-day", $wpe_all_day );
         update_post_meta( $post_id, "wpevent-limit-seats", $wpe_limit_seats );
 
+        if( ! empty( $wp_event_website ) ) {
+            add_action( 'wpseo_saved_postdata', function() use ( $post_id ) { 
+                update_post_meta( $post_id, '_yoast_wpseo_meta-robots-noindex', '1' );
+            }, 999 );
+        } else {
+            add_action( 'wpseo_saved_postdata', function() use ( $post_id ) { 
+                update_post_meta( $post_id, '_yoast_wpseo_meta-robots-noindex', '2' );
+            }, 999 );
+        }
+
     }
 
     /**
@@ -736,7 +748,7 @@ class Wp_Events_Admin {
         $wpe_current_view = '';
 
         if ( ! isset( $_GET['post_status'] ) ) {
-            $wpe_current_view = isset( $_GET['event_status'] ) ? sanitize_text_field( $_GET['event_status'] ) : 'all'; 
+            $wpe_current_view = isset( $_GET['event_status'] ) ? wpe_sanitize( $_GET['event_status'] ) : 'all'; 
         }
 
 		$updated['all']     = '<a '. wpe_is_current( $wpe_current_view, 'all' ) .'href="edit.php?post_type=wp_events">All <span class="count">(' . wpe_get_posts_count() .')</span></a>';
@@ -1406,6 +1418,28 @@ class Wp_Events_Admin {
     }
 
     /**
+     * Displays admin success notice when post is duplicated.
+     *
+     * @since 2.1.0
+     */
+    public function wpe_premium_admin_notice() {
+        echo '<div class="wpe-premium-notice notice notice-success is-dismissible"><p><strong><i>Exciting News: Our Website is Live!</i></strong><br>Ready to elevate your website with our premium plugin? Head over to <a target="_blank" href="https://simplewpevents.com/">https://simplewpevents.com/</a> now and take the first step towards unlocking its full potential.</p></div>';
+    }
+
+    /**
+     * Adds custom links in installed plugins row
+     * 
+     * @since 2.1.0
+     */
+    public function wpe_add_settings_link( $links ) {
+        $settings_link = '<a href="edit.php?post_type=wp_events&page=wp_events_settings">' . __( 'Settings', 'simple-wp-events' ) . '</a>';
+        $premium_link  = '<a class="wpe-premium-link" target="_blank" href="https://simplewpevents.com/">' . __( 'Go Premium', 'simple-wp-events' ) . '</a>';
+        array_push( $links, $settings_link );
+        array_push( $links, $premium_link );
+        return $links;
+    }
+
+    /**
      * Admin Form Entries Page      Callback for wp_forms_entries page added in wpevents_submenu_page
      *
      * @since 1.0.0
@@ -1458,6 +1492,17 @@ class Wp_Events_Admin {
     */
     public function wpevents_register_settings() {
         $this->admin_settings->wpe_admin_register_settings();
+    }
+
+    function wpe_plugin_display_activation_notice() {
+        echo '<div class="wpe-notice notice-info notice is-dismissible" style="background-color:#fff; display:flex; align-items:center; gap:20px;">';
+        echo '<img width="100" src="'. plugins_url() . '/' . WPE_PLUGIN_BASE . '/assets/feedback.png' .'">';
+        echo '<div class="wpe-notice-content">';
+        echo '<p>' . esc_html__('Hello! It looks like you\'ve been using Simple WP Events Plugin on your website — thank you so much!', 'simple-wp-events') . '</p>';
+        echo '<p>' . esc_html__('If you could take a moment to leave us a 5-star rating on WordPress, we\'d greatly appreciate it. Your support not only motivates us but also helps other users make informed choices when selecting Simple WP Events Plugin. Thank you!', 'simple-wp-events') . '</p>';
+        echo '<p><a href="https://wordpress.org/plugins/simple-wp-events/#reviews" class="button button-primary" target="_blank">Review Us</a></p>';
+        echo '</div>';
+        echo '</div>';
     }
 
 }

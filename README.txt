@@ -3,8 +3,8 @@ Contributors: wpminds, noorshuja
 Tags: events, seminars, webinars, calendar, registrations, reminders
 Donate link: https://wpminds.com/
 Requires at least: 5.0
-Stable tag: 1.8.0
-Tested up to: 6.2
+Stable tag: 1.8.13
+Tested up to: 6.4
 Requires PHP: 7.0
 License: GPL-2.0+
 License URI: http://www.gnu.org/licenses/gpl-2.0.txt
@@ -12,11 +12,14 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.txt
 A simple and lightweight WordPress plugin to create events and allow users to register for them.
 
 == Description ==
+= Exciting News: Our Website is Live! =
+= Ready to elevate your website with our premium plugin? Head over to https://simplewpevents.com/ now and take the first step towards unlocking its full potential. =
+
 [Simple WP Events](https://simplewpevents.com/) is a free plugin to easily create and manage events on your website.
 
 Whether it’s an on-site or virtual event, this plugin handles all your event hurdles for you. Our team of elite and experienced engineers has ensured that it’s simple, fast, and reliable.
 
-Simple WP Events is built by the WP Minds team and packed with all the features to kick off events on your website.
+Simple WP Events is built by the WPMinds team and packed with all the features to kick off events on your website.
 
 Simple Events Plugin is lightweight, quick to set up, and easily customizable.
 
@@ -43,8 +46,6 @@ It is packed with numerous features:
 ✔️ Select custom thank you pages for all or each event.
 
 Just getting started? Visit the [documentation site](https://simplewpevents.com/docs/) to get set up.
- 
-= Our Team is Consistently Working on Adding More Premium Features and Add-ons to This Plugin Which Will Be Made Available Very Soon. =
 
 == Installation ==
 Installing the plugin is easy. Just follow one of the following methods:
@@ -84,37 +85,52 @@ Coming Soon!
 12. Single Event Page in Dark Mode
 
 == Changelog ==
-Version-1.7.2
-Fixed: Styling of dropdown fields for mozilla firefox.
+Version-1.8.12
+Fixed: Bug in venue on single events page.
+Fixed: HTML entity decode for email subjects.
 
-Version-1.7.1
-Update: Added restrictions for zipcode field.
-Update: Changed layout of image and information box on single event page.
-Fixed: HTML structure for the archive page.
+Version-1.8.11
+Added: Shortcode attribute 'exc_type' to exclude event type from display.
 
-Version-1.6.3
-Added: Option to change the message that replaces registration form when event is over.
+Version-1.8.10
+Added: Noindex meta tag for single pages redirecting to external URLs.
+Update: Move past events to draft option set as true by default.
 
-Version-1.6.2
-Update: Made phone number field on add event page as optional.
-Added: Input mask for phone number field on add event page.
+Version-1.8.8
+Added: Facebook and Twitter meta tags on single and archive pages.
 
-Version-1.6.1
-Fixed: Subscribe form layout for archive shortcode.
-Added: Attribute to change single-button text in shortcode widget.
+Version-1.8.7
+Added: filter for event address on archive and single event page.
 
-Version-1.6.0
-Added: Form validation errors.
-Added: Option to send the texting permission info to email.
-Added: Dark mode in display settings.
-Added: User notification checkbox for edit entry.
-Added: Filters to format date on archive page.
-Fixed: CSS for texting permission checkbox.
-Update: enqueue select2 file locally.
-Added: Option to make the form fields required or optional.
-Added: Option to bulk update existing email confirmation.
-Update: Add registerant address to the export registrations csv.
-Added: jQuery input mask for the phone number formatting.
+Version-1.8.6
+Added: Heading for guests' box in registration form.
+
+Version-1.8.4
+Fixed: Export registrations button issue.
+
+Version-1.8.3
+Added: Option to customize reminder email messages.
+Added: Option to add custom email ids to receive reminders.
+
+Version-1.8.2
+Fixed: Missing venue on archive page.
+
+Version-1.8.0
+Update: Changed layout for the view entry page.
+Added: Checkboxes for all day event and no end time.
+Fixed: Datepicker layout issue.
+Update: Added zip code to registrants csv file.
+Update: Replaced thank you page text field with dropdown list of all pages.
+Fixed: removed empty field headings from email.
+Fixed: Export entries csv file.
+Added: Validation errors for admin side metaboxes.
+Fixed: Meta description tags for archive and single event pages.
+Added: Option to select separate thank you page for each event.
+Update: Set default value for seats dropdown to 1.
+Fixed: Validation errors for registration form.
+Added: Manual email reminders for the events.
+Added: Settings field for setting admin timezone.
+Fixed: Event times when adding events to calendars or downloading ics files.
 
 == Upgrade Notice ==
 Coming Soon!

@@ -772,8 +772,11 @@ if( ! function_exists( 'wpe_get_user_timezone' ) ) {
 		$ipdat = @json_decode( file_get_contents( "http://ip-api.com/json/" . $ip ) );
 		if ( strpos( $_SERVER['HTTP_HOST'], "local" ) !== false || $_SERVER['HTTP_HOST'] == '127.0.0.1' ) {
 			$ipdat = @json_decode( file_get_contents( "http://ip-api.com/json/" ) );
-		}	
-		return $ipdat->timezone;
+		}
+		if( $ipdat ) {
+			return $ipdat->timezone;
+		}
+		return 'America/New_York';
 	}
 }
 
@@ -834,6 +837,10 @@ if( ! function_exists( 'wpe_auto_email' ) ) {
 	 */
 	function wpe_auto_email( $post_id ) {
 		global $wpdb;
+		$form_data 		 = array(
+			'post' => $post_id,
+		);
+		Wpe_Shortcodes::set_form_data( $form_data );
 		$mail_options    = get_option( 'wpe_mail_settings' );
 		$firm_info       = get_option( 'wpe_firm_settings' );
 		$event_date_time = wpevent_date_time( $post_id );
@@ -842,29 +849,37 @@ if( ! function_exists( 'wpe_auto_email' ) ) {
 		$start           = date( 'F j', $start_date );
 		$table_name      = $wpdb->prefix . 'events_registration';
 		$results         = $wpdb->get_results( $wpdb->prepare('SELECT * FROM '. $table_name .' WHERE post_id = %d', $post_id ) );
-		$subject         = 'Reminder: '. get_the_title( $post_id ) .' is happening soon!';
+		$subject         = html_entity_decode( do_shortcode( $mail_options['reminder_subject'] ) );
 		$from_name       = $firm_info['mail_from_name'];
 		$from_email      = $mail_options['mail_from'];
 		$headers[]       = 'Content-Type: text/html;';
 		$headers[]       = "from :$from_name <$from_email>";
-		ob_start();
-		wpe_get_event_address( $post_id );
-		$venue = ob_get_clean();
+		$cc				 = $mail_options['reminder_cc'];
+		if( $cc != '' ) {
+			$cc = str_replace( " ", "", $cc );
+			$cc_array = explode( ",", $cc );
+			foreach ( $cc_array as $cc_email ) {
+				$form_data 		 = array(
+					'post' 			 => $post_id,
+					'wpe_first_name' => 'Admin',
+					'wpe_last_name'  => '',
+				);
+				Wpe_Shortcodes::set_form_data( $form_data );
+				$message = wpautop( do_shortcode( $mail_options['reminder_mail_message'] ) );
+				wp_mail( $cc_email, $subject, $message, $headers );
+			}
+		}
 		if( ! empty( $results ) ) {
 			foreach ( $results as $result ) {
 				if( $result->wpe_status == 1 || $result->wpe_status == 3 ) {
 					$email   = esc_attr( $result->email );
-					$message = 'Dear '. $result->first_name .' '. $result->last_name .',<br><br>
-					This is an auto-generated reminder of your registration for our upcoming event.<br><br>
-					
-					The details of the event are following:<br>
-					<strong>Name:</strong> '. get_the_title( $post_id ) .'<br>
-					<strong>Date:</strong> '. esc_html( $start ) .'<br>
-					<strong>Time:</strong> '. wpe_get_event_time( $post_id ) .'<br>
-					'. $venue .'<br>
-					If you have any questions, please feel free to contact us at our office number or via email.<br><br>
-					We look forward to seeing you.<br><br>
-					Sincerely,';
+					$form_data 		 = array(
+						'post' 			 => $post_id,
+						'wpe_first_name' => $result->first_name,
+						'wpe_last_name'  => $result->last_name,
+					);
+					Wpe_Shortcodes::set_form_data( $form_data );
+					$message = wpautop( do_shortcode( $mail_options['reminder_mail_message'] ) );
 					wp_mail( $email, $subject, $message, $headers );
 				}
 			}
@@ -895,4 +910,53 @@ if( ! function_exists( 'wpe_get_active_posts' ) ) {
 		}
 		return $count;
     }
+}
+
+if ( ! function_exists( 'wpe_get_event_address' ) ) {
+	/**
+	 * Returns event venue output
+	 *
+	 * returns nothing if event type is webinar
+	 *
+	 * @param $post_id
+	 *
+	 * @since 1.0.448
+	 */
+	function wpe_get_event_address( $post_id ) {
+
+		$wpe_type 		 = get_post_meta( $post_id, 'wpevent-type', TRUE );
+		$wpe_location 	 = (int) get_post_meta( $post_id, 'wpevent-location', TRUE );
+		$location_id 	 = $wpe_location != 0 ? $wpe_location : $post_id;
+		$venue_html 	 = '';
+
+		if ( $wpe_type !== 'webinar' && $location_id !== 0 ) {
+			$venue_meta 	 = $wpe_location != 0 ? 'wpevent-loc-venue' : 'wpevent-venue';
+			$address_meta 	 = $wpe_location != 0 ? 'wpevent-loc-address' : 'wpevent-address';
+			$city_meta  	 = $wpe_location != 0 ? 'wpevent-loc-city' : 'wpevent-city';
+			$state_meta 	 = $wpe_location != 0 ? 'wpevent-loc-state' : 'wpevent-state';
+			$zip_meta   	 = $wpe_location != 0 ? 'wpevent-loc-zip' : 'wpevent-zip';
+			$country_meta 	 = $wpe_location != 0 ? 'wpevent-loc-country' : 'wpevent-country';
+			$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE ) ?? '';
+			$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE ) ?? '';
+			$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE ) ?? '';
+			$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE ) ?? '';
+			$wpe_zip         = get_post_meta( $location_id, $zip_meta, TRUE ) ?? '';
+			$wpe_country     = get_post_meta( $location_id, $country_meta, TRUE ) ?? '';
+			$venue_data 	 = array(
+				'venue'   => $wpe_venue,
+				'address' => $wpe_addr,
+				'city' 	  => $wpe_city,
+				'state'	  => $wpe_state,
+				'zip'	  => $wpe_zip,
+				'country' => $wpe_country,
+			);
+			$venue_data = apply_filters( 'wpe_event_address', $venue_data );
+			$venue_data = array_filter( $venue_data );
+			$venue_html = implode( ", ", $venue_data );
+			if ( $venue_html !== '' ) {
+				$venue_html = '<span class="wpe-location">' . wp_kses( $venue_html, wpe_get_allowed_html() ) . '</span>';
+			}
+		}
+		return $venue_html;
+	}
 }

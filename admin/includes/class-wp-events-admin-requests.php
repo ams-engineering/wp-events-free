@@ -54,6 +54,7 @@ class Wp_Admin_Request {
             [wpe_registration_details]<br />
             The above visitor information has been added to the WordPress Event database. You can access this information by going to your Website WordPress Dashboard.';
             $admin_message = do_shortcode( $admin_message, TRUE );
+            $admin_subject = html_entity_decode( $admin_subject );
             wp_mail( $firm_info['admin_mail'], $admin_subject, $admin_message, $headers );
         }
 
@@ -70,6 +71,7 @@ class Wp_Admin_Request {
             We look forward to seeing you.<br />
             Sincerely,';
             $message  = do_shortcode( $message, TRUE );
+            $subject  = html_entity_decode( $subject );
             wp_mail( $to, $subject, $message, $headers );
         }
 

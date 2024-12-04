@@ -17,11 +17,12 @@
 <?php
     settings_errors();
     global $wpe_active_tab;
-    $wpe_active_tab = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : 'general'; ?>
+    $wpe_active_tab = isset( $_GET['tab'] ) ? wpe_sanitize( $_GET['tab'] ) : 'general'; ?>
     <div class="wpe-header">
         <div class="wpe-header-wrap">
             <img width="40" height="40" src="<?php echo plugins_url() . '/' . WPE_PLUGIN_BASE . '/assets/img/logo.png'; ?>">
             <h1><?php _e( 'Simple WP Events Settings', 'simple-wp-events' ); ?></h1>
+            <p class="wpe-documentation">Need Help? Visit the plugin <a target="_blank" href="https://simplewpevents.com/docs/">documentation</a>.</p>
         </div>
     </div>
     <form method="post" action="options.php" id="wpe-settings-form">

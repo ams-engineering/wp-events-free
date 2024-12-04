@@ -303,6 +303,7 @@ class Wp_Events_Public {
 	public function wpevent_shortcode( $atts = [] ) {
 
 		$wpe_settings = get_option( 'wpe_settings' );
+		$slug 		  = $wpe_settings['events_slug'];
 		if ( isset( $wpe_settings['events_post_name'] ) ) {
 			$title = $wpe_settings['events_post_name']; 
 		} else {
@@ -323,6 +324,7 @@ class Wp_Events_Public {
 				'category'	 	     => '',
 				'button_text' 	     => __( 'See all ' . $title, 'simple-wp-events' ),
 				'type' 		  	     => '',
+				'exc_type'			 => '',
 				'single-button'		 => 'false',
 				'single-button-text' => 'Register',
 			], $atts
@@ -374,6 +376,24 @@ class Wp_Events_Public {
 				'compare' 	 => 'IN',
 			];
 		}
+
+		if ( $wpevent_atts['exc_type'] !== '' ) {
+			$type_exc = explode( ',', $wpevent_atts['exc_type'] );
+			$get_posts['meta_query'] = [
+				'relation' => 'AND'
+			];
+			$get_posts['meta_query']['date_clause'] = [
+				'key'     	 => 'wpevent-end-date-time',
+				'value'   	 => strtotime( current_time( 'mysql' ) ),
+				'type'    	 => 'numeric',
+				'compare' 	 => '>',
+			];
+			$get_posts['meta_query']['type_clause'] = [
+				'key'     	 => 'wpevent-type',
+				'value'   	 => $type_exc,
+				'compare' 	 => 'NOT IN',
+			];
+		}
 		
 		$latest_events = get_posts( $get_posts );
 		$html          = '';
@@ -414,7 +434,9 @@ class Wp_Events_Public {
 			}
 		} else {
 			if ( $wpevent_atts['archive'] === 'true' ) {
-				$button_html .= '<div class="wpevent-archive-button"><a class="button" href="' . get_post_type_archive_link( 'wp_events' ) . '"> ' . apply_filters( 'wpevents_shortcode_button', $wpevent_atts['button_text'] ) . ' </a></div>';
+				$link = get_post_type_archive_link( 'wp_events' );
+				if( ! $link ) $link = get_site_url() . '/' . $slug;
+				$button_html .= '<div class="wpevent-archive-button"><a class="button" href="' . $link . '"> ' . apply_filters( 'wpevents_shortcode_button', $wpevent_atts['button_text'] ) . ' </a></div>';
 			}
 			if ( $wpevent_atts['title'] !== '' ) {
 				$html = '<strong class="wpe-main-title" >' . esc_html( $wpevent_atts['title'] ) . '</strong><div class="wpevent-main">' . $html . '</div>';
@@ -440,35 +462,8 @@ class Wp_Events_Public {
 	 * @access public
 	 */
 	public function get_event_location( int $ID ) {
-		$wpe_type 		 = get_post_meta( $ID, 'wpevent-type', TRUE );
-		$wpe_location 	 = (int) get_post_meta( $ID, 'wpevent-location', TRUE );
-		$location_id 	 = $wpe_location != 0 ? $wpe_location : $ID;
-		if ( $wpe_type === 'webinar' || $location_id === 0 ) {    //webinars are online events
-			return '';
-		}
 
-		$venue_meta 	 = $wpe_location != 0 ? 'wpevent-loc-venue' : 'wpevent-venue';
-		$address_meta 	 = $wpe_location != 0 ? 'wpevent-loc-address' : 'wpevent-address';
-		$city_meta  	 = $wpe_location != 0 ? 'wpevent-loc-city' : 'wpevent-city';
-		$state_meta 	 = $wpe_location != 0 ? 'wpevent-loc-state' : 'wpevent-state';
-		$wpe_venue       = get_post_meta( $location_id, $venue_meta, TRUE );
-		$wpe_addr        = get_post_meta( $location_id, $address_meta, TRUE );
-		$wpe_city        = get_post_meta( $location_id, $city_meta, TRUE );
-		$wpe_state       = get_post_meta( $location_id, $state_meta, TRUE );
-
-		$venue_html = '';
-		if ( $wpe_venue !== '' ) {
-			$venue_html .= '<span class="wpe-address">' . $wpe_venue . ',</span>';
-		}
-		if ( $wpe_addr !== '' ) {
-			$venue_html .= '&nbsp;<span class="wpe-address">' . $wpe_addr . ',</span>';
-		}
-		if ( $wpe_city !== '' ) {
-			$venue_html .= '&nbsp;<span class="wpe-city">' . ucwords( $wpe_city ) . ',</span>';
-		}
-		if ( $wpe_state !== '' ) {
-			$venue_html .= '&nbsp;<span class="wpe-state">' . ucfirst( $wpe_state ) . '</span>';
-		}
+		$venue_html = wpe_get_event_address( $ID );
 		if ( $venue_html !== '' ) {
 			$venue_html = '<p class="wpe-venue"><strong>Venue: </strong>' . $venue_html . '</p>';
 		}
@@ -522,13 +517,14 @@ class Wp_Events_Public {
 				'category' => '',
 				'title'	   => '',
 				'type' 	   => '',
+				'exc_type' => '',
 			], $atts
 		);
 		
 		ob_start();
 		?>
 
-        <div class="wpe-event">
+        <div class="wpe-event wpe-archive-shortcode">
             <div class="wpe-full-wrap <?php echo wpe_dark_bg(); ?> <?php echo wpe_dark_mode(); ?>">
                 <div class="wpevents-container">
 					<?php
@@ -568,6 +564,23 @@ class Wp_Events_Public {
 						];
 					}
 
+					if ( $wpevent_atts['exc_type'] !== '' ) {
+						$type_exc = explode( ',', $wpevent_atts['exc_type'] );
+						$args['meta_query'] = [
+							'relation' => 'AND'
+						];
+						$args['meta_query']['date_clause'] = [
+							'key'     	 => 'wpevent-end-date-time',
+							'value'   	 => strtotime( current_time( 'mysql' ) ),
+							'type'    	 => 'numeric',
+							'compare' 	 => '>',
+						];
+						$args['meta_query']['type_clause'] = [
+							'key'     	 => 'wpevent-type',
+							'value'   	 => $type_exc,
+							'compare' 	 => 'NOT IN',
+						];
+					}
 					$count = wpe_display_archive_posts( $args );
 					if ( $count == 0 ) {
 						/**
@@ -604,14 +617,115 @@ class Wp_Events_Public {
 		$option    = get_option( 'wpe_settings' );
 		if ( wpe_get_current_post_type() == 'wp_events' ) {
 			if ( is_singular() ) {
+				$external = get_post_meta( $post->ID, 'wpevent-external-url', TRUE );
 				$des_post = strip_tags( $post->post_content );
 				$des_post = strip_shortcodes( $post->post_content );
 				$des_post = str_replace( array("\n", "\r", "\t"), ' ', $des_post );
+				$des_post = sanitize_text_field( $des_post );
 				$des_post = mb_substr( $des_post, 0, 300, 'utf8' );
 				$des_post = ( $des_post !== '' ) ? $des_post : $option['meta_description'];
-				echo '<meta name="description" content="' . esc_html( $des_post ) . '" class="wp-events-meta-tag" />' . "\n";
+				?>
+				<meta name="description" content="<?php echo esc_html( $des_post ); ?>" class="wp-events-meta-tag">
+				<?php 
+				if ( $external ) {
+					?>
+					<meta name="robots" content="noindex" class="wp-events-meta-tag">
+					<?php
+				}
 			} else {
-				echo '<meta name="description" content="' . esc_attr( $option['meta_description'] ) . '" class="wp-events-meta-tag" />' . "\n";
+				?>
+				<meta name="description" content="<?php echo sanitize_text_field( $option['meta_description'] ); ?>" class="wp-events-meta-tag">
+				<?php
+			}
+		}
+	}
+
+	/**
+	 * Adds Facebook Meta Tags
+	 * 
+	 * 
+	 * @since  1.8.8
+	 * @access public
+	 *
+	 */
+	public function wpe_facebook_meta() {
+		global $post;
+		$post_type = get_post_type();
+		$option    = get_option( 'wpe_settings' );
+		$display   = get_option( 'wpe_display_settings' );
+		if ( wpe_get_current_post_type() == 'wp_events' ) {
+			if ( is_singular() ) {
+				$des_post = strip_tags( $post->post_content );
+				$des_post = strip_shortcodes( $post->post_content );
+				$des_post = str_replace( array("\n", "\r", "\t"), ' ', $des_post );
+				$des_post = sanitize_text_field( $des_post );
+				$des_post = mb_substr( $des_post, 0, 300, 'utf8' );
+				$des_post = ( $des_post !== '' ) ? $des_post : $option['meta_description'];
+				?>
+				<meta property="og:url" content="<?php echo get_the_permalink( $post->ID ); ?>" class="wp-events-meta-tag">
+				<meta property="og:type" content="website" class="wp-events-meta-tag">
+				<meta property="og:title" content="<?php echo $post->post_title; ?>" class="wp-events-meta-tag">
+				<meta property="og:description" content="<?php echo esc_html( $des_post ); ?>" class="wp-events-meta-tag">
+				<meta property="og:image" content="<?php echo get_the_post_thumbnail_url( $post->ID ); ?>" class="wp-events-meta-tag">
+				<?php
+			} else {
+				?>
+				<meta property="og:url" content="<?php echo get_site_url() . '/' . esc_attr( $option['events_slug'] ); ?>" class="wp-events-meta-tag">
+				<meta property="og:type" content="website" class="wp-events-meta-tag">
+				<meta property="og:title" content="<?php echo esc_attr( $option['events_post_name'] ); ?>" class="wp-events-meta-tag">
+				<meta property="og:description" content="<?php echo sanitize_text_field( $option['meta_description'] ); ?>" class="wp-events-meta-tag">
+				<?php
+				if( isset( $display['image_id'] ) ) {
+					if ( $image = wp_get_attachment_image_src( $display['image_id'], 'full' ) ) {
+						?> <meta property="og:image" content="<?php echo $image[0]; ?>" class="wp-events-meta-tag"> <?php
+					}
+				}
+			}
+		}
+	}
+
+	/**
+	 * Adds Twitter Meta Tags
+	 * 
+	 * 
+	 * @since  1.8.8
+	 * @access public
+	 *
+	 */
+	public function wpe_twitter_meta() {
+		global $post;
+		$post_type = get_post_type();
+		$option    = get_option( 'wpe_settings' );
+		$display   = get_option( 'wpe_display_settings' );
+		if ( wpe_get_current_post_type() == 'wp_events' ) {
+			?>
+			<meta property="twitter:domain" content="<?php echo get_site_url(); ?>" class="wp-events-meta-tag">
+			<meta name="twitter:card" content="summary_large_image" class="wp-events-meta-tag">
+			<?php
+			if ( is_singular() ) {
+				$des_post = strip_tags( $post->post_content );
+				$des_post = strip_shortcodes( $post->post_content );
+				$des_post = str_replace( array("\n", "\r", "\t"), ' ', $des_post );
+				$des_post = sanitize_text_field( $des_post );
+				$des_post = mb_substr( $des_post, 0, 300, 'utf8' );
+				$des_post = ( $des_post !== '' ) ? $des_post : $option['meta_description'];
+				?>
+				<meta property="twitter:url" content="<?php echo get_the_permalink( $post->ID ); ?>" class="wp-events-meta-tag">
+				<meta name="twitter:title" content="<?php echo $post->post_title; ?>" class="wp-events-meta-tag">
+				<meta name="twitter:description" content="<?php echo esc_html( $des_post ); ?>" class="wp-events-meta-tag">
+				<meta name="twitter:image" content="<?php echo get_the_post_thumbnail_url( $post->ID ); ?>" class="wp-events-meta-tag">
+				<?php
+			} else {
+				?>
+				<meta property="twitter:url" content="<?php echo get_site_url() . '/' . esc_attr( $option['events_slug'] ); ?>" class="wp-events-meta-tag">
+				<meta name="twitter:title" content="<?php echo esc_attr( $option['events_post_name'] ); ?>" class="wp-events-meta-tag">
+				<meta name="twitter:description" content="<?php echo sanitize_text_field( $option['meta_description'] ); ?>" class="wp-events-meta-tag">
+				<?php
+				if( isset( $display['image_id'] ) ) {
+					if ( $image = wp_get_attachment_image_src( $display['image_id'], 'full' ) ) {
+						?> <meta name="twitter:image" content="<?php echo $image[0]; ?>" class="wp-events-meta-tag"> <?php
+					}
+				}
 			}
 		}
 	}
@@ -634,7 +748,9 @@ class Wp_Events_Public {
 
 				wpe_get_event_category_and_type( $post_id );
 
-				wpe_get_event_address( $post_id );
+				$venue = wpe_get_event_address( $post_id );
+
+				if( $venue != '') echo '<strong>Venue:</strong> ' . $venue;
 				?>
 				<div class="wpe-archive-buttons">
 					<?php

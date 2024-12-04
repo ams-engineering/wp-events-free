@@ -20,7 +20,7 @@ if ( ! function_exists( 'wpe_add_entry_fields' ) ) {
 	 */
 	function wpe_add_entry_fields() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $entry_id    = sanitize_text_field( $_GET['entry'] );
+            $entry_id    = wpe_sanitize( $_GET['entry'] );
             $seats       = [];
             $form_fields = [];
             $guest_class = array('guest-div');
@@ -150,7 +150,7 @@ if ( ! function_exists( 'wpe_add_subscribers_fields' ) ) {
 	 */
 	function wpe_add_subscribers_fields() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $entry_id = sanitize_text_field( $_GET['entry'] );
+            $entry_id = wpe_sanitize( $_GET['entry'] );
             $results  = Wp_Events_Db_Actions::wpe_get_subscription_data( $entry_id );
 
             $form_fields = array(
@@ -242,7 +242,7 @@ if ( ! function_exists( 'wpe_get_entry_sidebar' ) ) {
 	 */
 	function wpe_get_entry_sidebar() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $tab       = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
+            $tab       = isset( $_GET['tab'] ) ? wpe_sanitize( $_GET['tab'] ) : '';
             $event_url = '';
             $info      = wpe_get_entry_info();
             $footer    = wpe_sidebar_footer( 'Move To Trash', 'Edit' );
@@ -287,9 +287,9 @@ if ( ! function_exists( 'wpe_prev_next_entry' ) ) {
 	 */
 	function wpe_prev_next_entry() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $entry_id = sanitize_text_field( $_GET['entry'] );
-            $tab      = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
-            $display  = isset( $_GET["display"] ) ? sanitize_text_field( $_GET["display"] ) : 'all';
+            $entry_id = wpe_sanitize( $_GET['entry'] );
+            $tab      = isset( $_GET['tab'] ) ? wpe_sanitize( $_GET['tab'] ) : '';
+            $display  = isset( $_GET["display"] ) ? wpe_sanitize( $_GET["display"] ) : 'all';
             if ( $tab == 'registrations' ) {
                 switch ( $display ) {
                     case 'pending':
@@ -326,7 +326,7 @@ if ( ! function_exists( 'wpe_prev_next_entry' ) ) {
                 unset( $data[ $key ] );
             }
             if( isset( $_GET['event'] ) && $_GET['event'] !== '' ) {
-                $eventID = '&event='. sanitize_text_field( $_GET['event'] );
+                $eventID = '&event=' . wpe_sanitize( $_GET['event'] );
                 if( $entry_data->post_id !== $_GET['event'] ) {
                     unset( $data[ $key ] );
                 }
@@ -380,8 +380,8 @@ if ( ! function_exists( 'wpe_get_entry_info' ) ) {
 	 */
 	function wpe_get_entry_info() {
         if ( isset( $_GET['entry'] ) && $_GET['entry'] !== '' ) {
-            $entry_id = sanitize_text_field( $_GET['entry'] );
-            $tab      = isset( $_GET['tab'] ) ? sanitize_text_field( $_GET['tab'] ) : '';
+            $entry_id = wpe_sanitize( $_GET['entry'] );
+            $tab      = isset( $_GET['tab'] ) ? wpe_sanitize( $_GET['tab'] ) : '';
             if ( $tab == 'registrations' ) {
                 $data = Wp_Events_Db_Actions::wpe_get_registration_data( $entry_id );
             } else {
@@ -410,11 +410,11 @@ if ( ! function_exists( 'wpe_go_back_link' ) ) {
 	 */
 	function wpe_go_back_link() {
         if ( isset( $_GET['posts_page'] ) && $_GET['posts_page'] > 0 ) {
-            $status = isset( $_GET['event_status'] ) ? sanitize_text_field( $_GET['event_status'] ) : '';
+            $status = isset( $_GET['event_status'] ) ? wpe_sanitize( $_GET['event_status'] ) : '';
             if ( $status !== '' ) {
                 $status = '&event_status='. $status;
             }
-            $post_status = isset( $_GET['post_status'] ) ? sanitize_text_field( $_GET['post_status'] ) : '';
+            $post_status = isset( $_GET['post_status'] ) ? wpe_sanitize( $_GET['post_status'] ) : '';
             if ( $post_status !== '' ) {
                 $post_status = '&post_status='. $post_status;
             }
